@@ -4,6 +4,12 @@ using Backend.Repositories.Jobseeker.Interfaces;
 using Backend.Services.Jobseeker.Implementations;
 using Backend.Services.Jobseeker.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Backend.Data;
+using Backend.Repositories.Company.Implementations;
+using Backend.Repositories.Company.Interfaces;
+using Backend.Services.Company.Implementations;
+using Backend.Services.Company.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend
 {
@@ -23,11 +29,21 @@ namespace Backend
 
             // JobSeeker Repository
             builder.Services.AddScoped<IJobSeekerRepository, JobSeekerRepository>();
+            builder.Services.AddDbContext<AppDbContext>(options =>
+               options.UseSqlServer(
+                 builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+
+            builder.Services.AddScoped<ICompanyService, CompanyService>();
+
 
             // JobSeeker Service
             builder.Services.AddScoped<IJobSeekerService, JobSeekerService>();
 
             // Swagger
+            builder.Services.AddControllers();
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 

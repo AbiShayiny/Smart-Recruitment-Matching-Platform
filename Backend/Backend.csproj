@@ -31,6 +31,7 @@
   <ItemGroup>
     <Folder Include="Controllers\Athuentication\" />
     <Folder Include="Controllers\Admin\" />
+    <Folder Include="Controllers\Jobseeker\" />
     <Folder Include="Controllers\Employer\" />
     <Folder Include="Controllers\Application\" />
     <Folder Include="Controllers\Matching\" />
@@ -39,12 +40,15 @@
     <Folder Include="DTOs\Authentication\" />
     <Folder Include="DTOs\Admin\" />
     <Folder Include="DTOs\Company\" />
+    <Folder Include="DTOs\Jobseeker\" />
     <Folder Include="DTOs\Application\" />
     <Folder Include="DTOs\Matching\" />
     <Folder Include="DTOs\Contact\" />
     <Folder Include="DTOs\Notification\" />
     <Folder Include="DTOs\Vacancy\" />
     <Folder Include="Models\Employer\" />
+    <Folder Include="Data\" />
+    <Folder Include="Models\JobSeeker\" />
     <Folder Include="Models\Application\" />
     <Folder Include="Models\Contact\" />
     <Folder Include="Models\Notification\" />
@@ -57,7 +61,6 @@
     <Folder Include="Repositories\ContactRequest\Implementations\" />
     <Folder Include="Repositories\ContactRequest\Interfaces\" />
     <Folder Include="Repositories\Employer\" />
-    <Folder Include="Repositories\Company\" />
     <Folder Include="Repositories\Application\" />
     <Folder Include="Repositories\ContactRequest\" />
     <Folder Include="Repositories\Employer\Implementations\" />
@@ -74,7 +77,6 @@
     <Folder Include="Services\Matching\" />
     <Folder Include="Services\Employer\" />
     <Folder Include="Services\Contact\" />
-    <Folder Include="Services\Company\" />
     <Folder Include="Services\Authentication\" />
     <Folder Include="Services\Admin\" />
     <Folder Include="Services\Application\" />
