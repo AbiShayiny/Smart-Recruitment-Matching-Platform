@@ -4,6 +4,12 @@ using Backend.Repositories.User.Implementations;
 using Backend.Repositories.User.Interfaces;
 using Backend.Services.Authentication.Implementations;
 using Backend.Services.Authentication.Interfaces;
+using Backend.Data;
+using Backend.Repositories.Company.Implementations;
+using Backend.Repositories.Company.Interfaces;
+using Backend.Services.Company.Implementations;
+using Backend.Services.Company.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend
 
@@ -14,14 +20,17 @@ namespace Backend
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddDbContext<AppDbContext>(options =>
+               options.UseSqlServer(
+                 builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            // Add services to the container.
+            builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+
+            builder.Services.AddScoped<ICompanyService, CompanyService>();
+
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
