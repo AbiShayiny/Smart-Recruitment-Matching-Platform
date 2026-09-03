@@ -10,5 +10,8 @@ namespace Backend.Services.Company.Interfaces
 
         Task<Models.Employer.Company?> GetByIdAsync(
             int companyId);
+
+        Task<bool> UpdateAsync(int companyId,
+    UpdateCompanyDto dto);
     }
 }

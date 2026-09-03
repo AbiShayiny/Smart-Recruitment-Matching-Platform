@@ -1,5 +1,6 @@
 ﻿using Backend.Models.Employer;
 using Microsoft.EntityFrameworkCore;
+using Backend.Models.Vacancy;
 
 namespace Backend.Data
 {
@@ -11,5 +12,7 @@ namespace Backend.Data
         }
 
         public DbSet<Company> Companies { get; set; }
+
+        public DbSet<Vacancy> Vacancies { get; set; }
     }
 }

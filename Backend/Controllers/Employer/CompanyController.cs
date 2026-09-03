@@ -39,5 +39,28 @@ namespace Backend.Controllers.Employer
 
             return Ok(company);
         }
+
+        [HttpPut("{companyId}")]
+        public async Task<IActionResult> UpdateCompany(
+    int companyId,
+    [FromBody] UpdateCompanyDto dto)
+        {
+            var updated = await _companyService.UpdateAsync(
+                companyId,
+                dto);
+
+            if (!updated)
+            {
+                return NotFound(new
+                {
+                    message = "Company not found"
+                });
+            }
+
+            return Ok(new
+            {
+                message = "Company updated successfully"
+            });
+        }
     }
 }
