@@ -3,21 +3,28 @@ using Backend.Models.User;
 using Backend.Repositories.User.Interfaces;
 using Backend.Services.Authentication.Interfaces;
 using BCrypt.Net;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace Backend.Services.Authentication.Implementations
 {
     public class AuthenticationService : IAuthenticationService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IConfiguration _configuration;
 
-        public AuthenticationService(IUserRepository userRepository)
+        public AuthenticationService(
+            IUserRepository userRepository,
+            IConfiguration configuration)
         {
             _userRepository = userRepository;
+            _configuration = configuration;
         }
 
         public async Task<bool> RegisterAsync(RegisterDto registerDto)
         {
-            // 1. Check whether the email already exists
             var existingUser =
                 await _userRepository.GetByEmailAsync(registerDto.Email);
 
@@ -26,11 +33,9 @@ namespace Backend.Services.Authentication.Implementations
                 return false;
             }
 
-            // 2. Hash the password
             string passwordHash =
                 BCrypt.Net.BCrypt.HashPassword(registerDto.Password);
 
-            // 3. Create a User object
             var user = new User
             {
                 FullName = registerDto.FullName,
@@ -39,36 +44,66 @@ namespace Backend.Services.Authentication.Implementations
                 Role = registerDto.Role
             };
 
-            // 4. Save the user to the database
             await _userRepository.CreateAsync(user);
 
-            // 5. Registration successful
             return true;
         }
 
-        public async Task<bool> LoginAsync(LoginDto loginDto)
+        public async Task<LoginResponseDto?> LoginAsync(LoginDto loginDto)
         {
-            // Find user by email
-            var user = await _userRepository.GetByEmailAsync(loginDto.Email);
+            var user =
+                await _userRepository.GetByEmailAsync(loginDto.Email);
 
-            // User not found
             if (user == null)
             {
-                return false;
+                return null;
             }
 
-            // Check password
-            bool passwordValid = BCrypt.Net.BCrypt.Verify(
-                loginDto.Password,
-                user.PasswordHash
-            );
+            bool passwordValid =
+                BCrypt.Net.BCrypt.Verify(
+                    loginDto.Password,
+                    user.PasswordHash);
 
             if (!passwordValid)
             {
-                return false;
+                return null;
             }
 
-            return true;
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.FullName),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Role, user.Role)
+            };
+
+            var key = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(
+                    _configuration["Jwt:Key"]!));
+
+            var credentials = new SigningCredentials(
+                key,
+                SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                issuer: _configuration["Jwt:Issuer"],
+                audience: _configuration["Jwt:Audience"],
+                claims: claims,
+                expires: DateTime.UtcNow.AddMinutes(
+                    Convert.ToDouble(
+                        _configuration["Jwt:ExpiryMinutes"])),
+                signingCredentials: credentials);
+
+            var tokenString =
+                new JwtSecurityTokenHandler().WriteToken(token);
+
+            return new LoginResponseDto
+            {
+                Token = tokenString,
+                FullName = user.FullName,
+                Email = user.Email,
+                Role = user.Role
+            };
         }
     }
 }

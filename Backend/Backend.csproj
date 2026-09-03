@@ -22,13 +22,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Admin\" />
     <Folder Include="Controllers\Jobseeker\" />
     <Folder Include="Controllers\Application\" />
     <Folder Include="Controllers\Matching\" />
     <Folder Include="Controllers\Contact\" />
     <Folder Include="Controllers\Notification\" />
-    <Folder Include="DTOs\Admin\" />
     <Folder Include="DTOs\Jobseeker\" />
     <Folder Include="DTOs\Application\" />
     <Folder Include="DTOs\Matching\" />
@@ -52,7 +50,6 @@
     <Folder Include="Services\Contact\" />
     <Folder Include="Services\Company\" />
     <Folder Include="Services\Authentication\" />
-    <Folder Include="Services\Admin\" />
     <Folder Include="Services\Application\" />
     <Folder Include="Services\Vacancy\" />
     <Folder Include="Services\Notification\" />

@@ -1,18 +1,22 @@
 using Backend.Data;
-using Microsoft.EntityFrameworkCore;
+using Backend.Repositories.Company.Implementations;
+using Backend.Repositories.Company.Interfaces;
 using Backend.Repositories.User.Implementations;
 using Backend.Repositories.User.Interfaces;
 using Backend.Services.Authentication.Implementations;
 using Backend.Services.Authentication.Interfaces;
-using Backend.Data;
-using Backend.Repositories.Company.Implementations;
-using Backend.Repositories.Company.Interfaces;
 using Backend.Services.Company.Implementations;
 using Backend.Services.Company.Interfaces;
+using Backend.Services.Admin.Implementations;
+using Backend.Services.Admin.Interfaces;
+
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+
+using System.Text;
 
 namespace Backend
-
 {
     public class Program
     {
@@ -20,27 +24,96 @@ namespace Backend
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // AppDbContext
             builder.Services.AddDbContext<AppDbContext>(options =>
-               options.UseSqlServer(
-                 builder.Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(
+                    builder.Configuration.GetConnectionString("DefaultConnection")));
 
+            // ApplicationDbContext
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(
+                    builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            // Company Repository & Service
             builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
-
             builder.Services.AddScoped<ICompanyService, CompanyService>();
 
-
-            builder.Services.AddControllers();
-
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
+            // User Repository
             builder.Services.AddScoped<IUserRepository, UserRepository>();
 
+            // Authentication Service
             builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+
+            // Admin Service
+            builder.Services.AddScoped<IAdminService, AdminService>();
+
+            // JWT Authentication
+            builder.Services.AddAuthentication(
+                JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters =
+                        new TokenValidationParameters
+                        {
+                            ValidateIssuer = true,
+                            ValidateAudience = true,
+                            ValidateLifetime = true,
+                            ValidateIssuerSigningKey = true,
+
+                            ValidIssuer =
+                                builder.Configuration["Jwt:Issuer"],
+
+                            ValidAudience =
+                                builder.Configuration["Jwt:Audience"],
+
+                            IssuerSigningKey =
+                                new SymmetricSecurityKey(
+                                    Encoding.UTF8.GetBytes(
+                                        builder.Configuration["Jwt:Key"]!))
+                        };
+                });
+
+            // Controllers
+            builder.Services.AddControllers();
+
+            // Swagger
+            builder.Services.AddEndpointsApiExplorer();
+
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityDefinition(
+                    "Bearer",
+                    new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                    {
+                        Name = "Authorization",
+                        Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+                        Scheme = "Bearer",
+                        BearerFormat = "JWT",
+                        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+                        Description = "Enter JWT token like: Bearer {your token}"
+                    });
+
+                options.AddSecurityRequirement(
+                    new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+                    {
+                        {
+                            new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                            {
+                                Reference =
+                                    new Microsoft.OpenApi.Models.OpenApiReference
+                                    {
+                                        Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                                        Id = "Bearer"
+                                    }
+                            },
+                            Array.Empty<string>()
+                        }
+                    });
+            });
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            // Configure HTTP request pipeline
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -49,8 +122,11 @@ namespace Backend
 
             app.UseHttpsRedirection();
 
+            // JWT Authentication
+            app.UseAuthentication();
+
+            // Authorization
             app.UseAuthorization();
-            
 
             app.MapControllers();
 

@@ -6,6 +6,6 @@ namespace Backend.Services.Authentication.Interfaces
     {
         Task<bool> RegisterAsync(RegisterDto registerDto);
 
-        Task<bool> LoginAsync(LoginDto loginDto);
+        Task<LoginResponseDto?> LoginAsync(LoginDto loginDto);
     }
 }
