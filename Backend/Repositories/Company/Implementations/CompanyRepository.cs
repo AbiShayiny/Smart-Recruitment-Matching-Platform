@@ -29,5 +29,15 @@ namespace Backend.Repositories.Company.Implementations
             return await _context.Companies
                 .FirstOrDefaultAsync(c => c.CompanyId == companyId);
         }
+
+        public async Task<bool> UpdateAsync(
+    Models.Employer.Company company)
+        {
+            _context.Companies.Update(company);
+
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

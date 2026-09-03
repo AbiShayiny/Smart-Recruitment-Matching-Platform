@@ -4,6 +4,10 @@ using Backend.Repositories.Company.Interfaces;
 using Backend.Services.Company.Implementations;
 using Backend.Services.Company.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Backend.Repositories.Vacancy.Implementations;
+using Backend.Repositories.Vacancy.Interfaces;
+using Backend.Services.Vacancy.Implementations;
+using Backend.Services.Vacancy.Interfaces;
 
 namespace Backend
 {
@@ -26,6 +30,9 @@ namespace Backend
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddScoped<IVacancyRepository, VacancyRepository>();
+            builder.Services.AddScoped<IVacancyService, VacancyService>();
 
             var app = builder.Build();
 

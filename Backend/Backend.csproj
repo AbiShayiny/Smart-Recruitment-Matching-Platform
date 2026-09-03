@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Repositories\Vacancy\Implementations\.gitkeep" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.30" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.30">
@@ -36,20 +40,17 @@
     <Folder Include="DTOs\Matching\" />
     <Folder Include="DTOs\Contact\" />
     <Folder Include="DTOs\Notification\" />
-    <Folder Include="DTOs\Vacancy\" />
     <Folder Include="Data\" />
     <Folder Include="Models\JobSeeker\" />
     <Folder Include="Models\Application\" />
     <Folder Include="Models\Contact\" />
     <Folder Include="Models\Notication\" />
-    <Folder Include="Models\Vacancy\" />
     <Folder Include="Models\User\" />
     <Folder Include="Repositories\Jobseeker\" />
     <Folder Include="Repositories\Employer\" />
     <Folder Include="Repositories\Application\" />
     <Folder Include="Repositories\ContactRequest\" />
     <Folder Include="Repositories\Notification\" />
-    <Folder Include="Repositories\Vacancy\" />
     <Folder Include="Repositories\User\" />
     <Folder Include="Services\Matching\" />
     <Folder Include="Services\Jobseeker\" />
@@ -58,7 +59,6 @@
     <Folder Include="Services\Authentication\" />
     <Folder Include="Services\Admin\" />
     <Folder Include="Services\Application\" />
-    <Folder Include="Services\Vacancy\" />
     <Folder Include="Services\Notification\" />
     <Folder Include="Storage\" />
   </ItemGroup>
