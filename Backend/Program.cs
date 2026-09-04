@@ -8,6 +8,10 @@ using Backend.Services.Company.Interfaces;
 using Backend.Services.Jobseeker.Implementations;
 using Backend.Services.Jobseeker.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Backend.Repositories.Vacancy.Implementations;
+using Backend.Repositories.Vacancy.Interfaces;
+using Backend.Services.Vacancy.Implementations;
+using Backend.Services.Vacancy.Interfaces;
 
 namespace Backend
 {
@@ -36,6 +40,9 @@ namespace Backend
             // Swagger
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddScoped<IVacancyRepository, VacancyRepository>();
+            builder.Services.AddScoped<IVacancyService, VacancyService>();
 
             var app = builder.Build();
 

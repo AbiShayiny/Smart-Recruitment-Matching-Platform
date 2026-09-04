@@ -36,5 +36,28 @@ namespace Backend.Services.Company.Implementations
         {
             return await _companyRepository.GetByIdAsync(companyId);
         }
+
+        public async Task<bool> UpdateAsync(
+    int companyId,
+    UpdateCompanyDto dto)
+        {
+            var company = await _companyRepository.GetByIdAsync(companyId);
+
+            if (company == null)
+            {
+                return false;
+            }
+
+            company.CompanyName = dto.CompanyName;
+            company.Description = dto.Description;
+            company.Industry = dto.Industry;
+            company.Location = dto.Location;
+            company.Website = dto.Website;
+            company.ContactEmail = dto.ContactEmail;
+            company.ContactPhone = dto.ContactPhone;
+            company.UpdatedAt = DateTime.UtcNow;
+
+            return await _companyRepository.UpdateAsync(company);
+        }
     }
 }

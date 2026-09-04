@@ -1,6 +1,7 @@
 ﻿using Backend.Models.Employer;
 using Backend.Models.JobSeeker;
 using Microsoft.EntityFrameworkCore;
+using Backend.Models.Vacancy;
 
 namespace Backend.Data
 {

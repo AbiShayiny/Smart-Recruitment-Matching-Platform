@@ -80,11 +80,6 @@
     <Folder Include="Services\Authentication\" />
     <Folder Include="Services\Admin\" />
     <Folder Include="Services\Application\" />
-    <Folder Include="Services\Matching\Implementations\" />
-    <Folder Include="Services\Matching\Interfaces\" />
-    <Folder Include="Services\Notification\Implementations\" />
-    <Folder Include="Services\Notification\Interfaces\" />
-    <Folder Include="Services\Vacancy\" />
     <Folder Include="Services\Notification\" />
     <Folder Include="Services\Vacancy\Implementations\" />
     <Folder Include="Services\Vacancy\Interfaces\" />
