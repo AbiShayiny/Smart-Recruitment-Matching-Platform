@@ -1,11 +1,13 @@
 ﻿using Backend.DTOs.Admin;
 using Backend.Services.Admin.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Backend.Controllers.Admin
 {
     [ApiController]
     [Route("api/admin")]
+    [Authorize]
     public class AdminController : ControllerBase
     {
         private readonly IAdminService _adminService;
