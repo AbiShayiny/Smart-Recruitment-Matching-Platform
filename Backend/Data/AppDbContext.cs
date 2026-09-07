@@ -1,4 +1,5 @@
 ﻿using Backend.Models.Employer;
+using Backend.Models.JobSeeker;
 using Microsoft.EntityFrameworkCore;
 using Backend.Models.Vacancy;
 
@@ -11,8 +12,16 @@ namespace Backend.Data
         {
         }
 
+        // Employer
         public DbSet<Company> Companies { get; set; }
 
-        public DbSet<Vacancy> Vacancies { get; set; }
+        // JobSeeker
+        public DbSet<JobSeekerProfile> JobSeekerProfiles { get; set; }
+
+        // JobSeeker CV
+        public DbSet<JobSeekerCv> JobSeekerCvs { get; set; }
+
+        // Vacancy
+        public DbSet<Backend.Models.Vacancy.Vacancy> Vacancies { get; set; }
     }
 }

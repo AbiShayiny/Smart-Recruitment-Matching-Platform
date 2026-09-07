@@ -1,14 +1,12 @@
 using Backend.Data;
-using Backend.Repositories.Jobseeker.Implementations;
-using Backend.Repositories.Jobseeker.Interfaces;
-using Backend.Services.Jobseeker.Implementations;
-using Backend.Services.Jobseeker.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using Backend.Data;
 using Backend.Repositories.Company.Implementations;
 using Backend.Repositories.Company.Interfaces;
+using Backend.Repositories.Jobseeker.Implementations;
+using Backend.Repositories.Jobseeker.Interfaces;
 using Backend.Services.Company.Implementations;
 using Backend.Services.Company.Interfaces;
+using Backend.Services.Jobseeker.Implementations;
+using Backend.Services.Jobseeker.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Backend.Repositories.Vacancy.Implementations;
 using Backend.Repositories.Vacancy.Interfaces;
@@ -23,31 +21,23 @@ namespace Backend
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            // Controllers
             builder.Services.AddControllers();
 
             // Database Connection
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(
                     builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            // JobSeeker Repository
-            builder.Services.AddScoped<IJobSeekerRepository, JobSeekerRepository>();
-            builder.Services.AddDbContext<AppDbContext>(options =>
-               options.UseSqlServer(
-                 builder.Configuration.GetConnectionString("DefaultConnection")));
-
+            // Company Repository and Service
             builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
-
             builder.Services.AddScoped<ICompanyService, CompanyService>();
 
-
-            // JobSeeker Service
+            // JobSeeker Repository and Service
+            builder.Services.AddScoped<IJobSeekerRepository, JobSeekerRepository>();
             builder.Services.AddScoped<IJobSeekerService, JobSeekerService>();
 
             // Swagger
-            builder.Services.AddControllers();
-
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -56,7 +46,6 @@ namespace Backend
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
