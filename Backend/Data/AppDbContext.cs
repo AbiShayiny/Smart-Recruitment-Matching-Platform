@@ -20,5 +20,8 @@ namespace Backend.Data
 
         // JobSeeker CV
         public DbSet<JobSeekerCv> JobSeekerCvs { get; set; }
+
+        // Vacancy
+        public DbSet<Backend.Models.Vacancy.Vacancy> Vacancies { get; set; }
     }
 }

@@ -74,6 +74,7 @@
     <Folder Include="Repositories\User\" />
     <Folder Include="Repositories\Vacancy\Implementations\" />
     <Folder Include="Repositories\Vacancy\Interfaces\" />
+    <Folder Include="Services\Application\Implementations\" />
     <Folder Include="Services\Matching\" />
     <Folder Include="Services\Employer\" />
     <Folder Include="Services\Contact\" />
