@@ -1,19 +1,28 @@
 using Backend.Data;
-using Backend.Repositories.Jobseeker.Implementations;
-using Backend.Repositories.Jobseeker.Interfaces;
-using Backend.Services.Jobseeker.Implementations;
-using Backend.Services.Jobseeker.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using Backend.Data;
 using Backend.Repositories.Company.Implementations;
 using Backend.Repositories.Company.Interfaces;
+using Backend.Repositories.User.Implementations;
+using Backend.Repositories.User.Interfaces;
+using Backend.Services.Authentication.Implementations;
+using Backend.Services.Authentication.Interfaces;
+using Backend.Repositories.Jobseeker.Implementations;
+using Backend.Repositories.Jobseeker.Interfaces;
 using Backend.Services.Company.Implementations;
 using Backend.Services.Company.Interfaces;
+using Backend.Services.Admin.Implementations;
+using Backend.Services.Admin.Interfaces;
+
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Backend.Services.Jobseeker.Implementations;
+using Backend.Services.Jobseeker.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Backend.Repositories.Vacancy.Implementations;
 using Backend.Repositories.Vacancy.Interfaces;
 using Backend.Services.Vacancy.Implementations;
 using Backend.Services.Vacancy.Interfaces;
+using Microsoft.IdentityModel.Tokens;
+
+using System.Text;
 
 namespace Backend
 {
@@ -23,40 +32,104 @@ namespace Backend
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            // Controllers
             builder.Services.AddControllers();
 
             // Database Connection
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(
                     builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            // JobSeeker Repository
-            builder.Services.AddScoped<IJobSeekerRepository, JobSeekerRepository>();
-            builder.Services.AddDbContext<AppDbContext>(options =>
-               options.UseSqlServer(
-                 builder.Configuration.GetConnectionString("DefaultConnection")));
-
+            // Company Repository and Service
             builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
-
             builder.Services.AddScoped<ICompanyService, CompanyService>();
 
+            // User Repository
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
 
-            // JobSeeker Service
+            // Authentication Service
+            builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+
+            // Admin Service
+            builder.Services.AddScoped<IAdminService, AdminService>();
+
+            // JWT Authentication
+            builder.Services.AddAuthentication(
+                JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters =
+                        new TokenValidationParameters
+                        {
+                            ValidateIssuer = true,
+                            ValidateAudience = true,
+                            ValidateLifetime = true,
+                            ValidateIssuerSigningKey = true,
+
+                            ValidIssuer =
+                                builder.Configuration["Jwt:Issuer"],
+
+                            ValidAudience =
+                                builder.Configuration["Jwt:Audience"],
+
+                            IssuerSigningKey =
+                                new SymmetricSecurityKey(
+                                    Encoding.UTF8.GetBytes(
+                                        builder.Configuration["Jwt:Key"]!))
+                        };
+                });
+
+            // Controllers
+            builder.Services.AddControllers();
+            // JobSeeker Repository and Service
+            builder.Services.AddScoped<IJobSeekerRepository, JobSeekerRepository>();
             builder.Services.AddScoped<IJobSeekerService, JobSeekerService>();
 
             // Swagger
-            builder.Services.AddControllers();
-
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityDefinition(
+                    "Bearer",
+                    new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                    {
+                        Name = "Authorization",
+                        Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+                        Scheme = "Bearer",
+                        BearerFormat = "JWT",
+                        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+                        Description = "Enter JWT token like: Bearer {your token}"
+                    });
+
+                options.AddSecurityRequirement(
+                    new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+                    {
+                        {
+                            new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                            {
+                                Reference =
+                                    new Microsoft.OpenApi.Models.OpenApiReference
+                                    {
+                                        Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                                        Id = "Bearer"
+                                    }
+                            },
+                            Array.Empty<string>()
+                        }
+                    });
+            });
 
             builder.Services.AddScoped<IVacancyRepository, VacancyRepository>();
             builder.Services.AddScoped<IVacancyService, VacancyService>();
 
+
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            // Configure HTTP request pipeline
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -65,6 +138,10 @@ namespace Backend
 
             app.UseHttpsRedirection();
 
+            // JWT Authentication
+            app.UseAuthentication();
+
+            // Authorization
             app.UseAuthorization();
 
             app.MapControllers();

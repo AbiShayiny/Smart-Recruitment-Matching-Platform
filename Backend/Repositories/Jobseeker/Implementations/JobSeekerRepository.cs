@@ -7,9 +7,9 @@ namespace Backend.Repositories.Jobseeker.Implementations
 {
     public class JobSeekerRepository : IJobSeekerRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly AppDbContext _context;
 
-        public JobSeekerRepository(ApplicationDbContext context)
+        public JobSeekerRepository(AppDbContext context)
         {
             _context = context;
         }
