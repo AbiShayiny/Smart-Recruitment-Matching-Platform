@@ -5,13 +5,21 @@ using Backend.Repositories.User.Implementations;
 using Backend.Repositories.User.Interfaces;
 using Backend.Services.Authentication.Implementations;
 using Backend.Services.Authentication.Interfaces;
+using Backend.Repositories.Jobseeker.Implementations;
+using Backend.Repositories.Jobseeker.Interfaces;
 using Backend.Services.Company.Implementations;
 using Backend.Services.Company.Interfaces;
 using Backend.Services.Admin.Implementations;
 using Backend.Services.Admin.Interfaces;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Backend.Services.Jobseeker.Implementations;
+using Backend.Services.Jobseeker.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Backend.Repositories.Vacancy.Implementations;
+using Backend.Repositories.Vacancy.Interfaces;
+using Backend.Services.Vacancy.Implementations;
+using Backend.Services.Vacancy.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 
 using System.Text;
@@ -24,12 +32,15 @@ namespace Backend
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // AppDbContext
+            // Controllers
+            builder.Services.AddControllers();
+
+            // Database Connection
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(
                     builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            // Company Repository & Service
+            // Company Repository and Service
             builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
             builder.Services.AddScoped<ICompanyService, CompanyService>();
 
@@ -70,6 +81,9 @@ namespace Backend
 
             // Controllers
             builder.Services.AddControllers();
+            // JobSeeker Repository and Service
+            builder.Services.AddScoped<IJobSeekerRepository, JobSeekerRepository>();
+            builder.Services.AddScoped<IJobSeekerService, JobSeekerService>();
 
             // Swagger
             builder.Services.AddEndpointsApiExplorer();
@@ -105,6 +119,9 @@ namespace Backend
                         }
                     });
             });
+
+            builder.Services.AddScoped<IVacancyRepository, VacancyRepository>();
+            builder.Services.AddScoped<IVacancyService, VacancyService>();
 
             var app = builder.Build();
 

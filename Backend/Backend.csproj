@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\Notication\**" />
+    <Content Remove="Models\Notication\**" />
+    <EmbeddedResource Remove="Models\Notication\**" />
+    <None Remove="Models\Notication\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.30" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.30">
@@ -23,36 +30,59 @@
 
   <ItemGroup>
     <Folder Include="Controllers\Jobseeker\" />
+    <Folder Include="Controllers\Employer\" />
     <Folder Include="Controllers\Application\" />
     <Folder Include="Controllers\Matching\" />
     <Folder Include="Controllers\Contact\" />
     <Folder Include="Controllers\Notification\" />
+    <Folder Include="DTOs\Authentication\" />
+    <Folder Include="DTOs\Admin\" />
+    <Folder Include="DTOs\Company\" />
     <Folder Include="DTOs\Jobseeker\" />
     <Folder Include="DTOs\Application\" />
     <Folder Include="DTOs\Matching\" />
     <Folder Include="DTOs\Contact\" />
     <Folder Include="DTOs\Notification\" />
     <Folder Include="DTOs\Vacancy\" />
+    <Folder Include="Models\Employer\" />
+    <Folder Include="Data\" />
     <Folder Include="Models\JobSeeker\" />
     <Folder Include="Models\Application\" />
     <Folder Include="Models\Contact\" />
-    <Folder Include="Models\Notication\" />
+    <Folder Include="Models\Notification\" />
     <Folder Include="Models\Vacancy\" />
+    <Folder Include="Models\User\" />
+    <Folder Include="Repositories\Application\Implementations\" />
+    <Folder Include="Repositories\Application\Interfaces\" />
+    <Folder Include="Repositories\Company\Implementations\" />
+    <Folder Include="Repositories\Company\Interfaces\" />
+    <Folder Include="Repositories\ContactRequest\Implementations\" />
+    <Folder Include="Repositories\ContactRequest\Interfaces\" />
     <Folder Include="Repositories\Jobseeker\" />
     <Folder Include="Repositories\Employer\" />
     <Folder Include="Repositories\Application\" />
     <Folder Include="Repositories\ContactRequest\" />
+    <Folder Include="Repositories\Employer\Implementations\" />
+    <Folder Include="Repositories\Employer\Interfaces\" />
     <Folder Include="Repositories\Notification\" />
+    <Folder Include="Repositories\Notification\Implementations\" />
+    <Folder Include="Repositories\Notification\Interfaces\" />
+    <Folder Include="Repositories\User\Implementations\" />
+    <Folder Include="Repositories\User\Interfaces\" />
     <Folder Include="Repositories\Vacancy\" />
+    <Folder Include="Repositories\User\" />
+    <Folder Include="Repositories\Vacancy\Implementations\" />
+    <Folder Include="Repositories\Vacancy\Interfaces\" />
+    <Folder Include="Services\Application\Implementations\" />
     <Folder Include="Services\Matching\" />
-    <Folder Include="Services\Jobseeker\" />
     <Folder Include="Services\Employer\" />
     <Folder Include="Services\Contact\" />
     <Folder Include="Services\Company\" />
     <Folder Include="Services\Authentication\" />
     <Folder Include="Services\Application\" />
-    <Folder Include="Services\Vacancy\" />
     <Folder Include="Services\Notification\" />
+    <Folder Include="Services\Vacancy\Implementations\" />
+    <Folder Include="Services\Vacancy\Interfaces\" />
     <Folder Include="Storage\" />
   </ItemGroup>
 

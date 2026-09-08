@@ -9,5 +9,8 @@ namespace Backend.Repositories.Company.Interfaces
 
         Task<Models.Employer.Company?> GetByIdAsync(
             int companyId);
+
+        Task<bool> UpdateAsync(
+            Models.Employer.Company company);
     }
 }
