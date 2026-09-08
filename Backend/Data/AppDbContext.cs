@@ -11,8 +11,7 @@ namespace Backend.Data
         {
         }
 
+        // Employer
         public DbSet<Company> Companies { get; set; }
-
-        public DbSet<Vacancy> Vacancies { get; set; }
     }
 }

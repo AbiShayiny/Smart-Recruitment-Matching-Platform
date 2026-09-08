@@ -29,8 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Athuentication\" />
-    <Folder Include="Controllers\Admin\" />
     <Folder Include="Controllers\Jobseeker\" />
     <Folder Include="Controllers\Employer\" />
     <Folder Include="Controllers\Application\" />
@@ -60,6 +58,7 @@
     <Folder Include="Repositories\Company\Interfaces\" />
     <Folder Include="Repositories\ContactRequest\Implementations\" />
     <Folder Include="Repositories\ContactRequest\Interfaces\" />
+    <Folder Include="Repositories\Jobseeker\" />
     <Folder Include="Repositories\Employer\" />
     <Folder Include="Repositories\Application\" />
     <Folder Include="Repositories\ContactRequest\" />
@@ -74,11 +73,12 @@
     <Folder Include="Repositories\User\" />
     <Folder Include="Repositories\Vacancy\Implementations\" />
     <Folder Include="Repositories\Vacancy\Interfaces\" />
+    <Folder Include="Services\Application\Implementations\" />
     <Folder Include="Services\Matching\" />
     <Folder Include="Services\Employer\" />
     <Folder Include="Services\Contact\" />
+    <Folder Include="Services\Company\" />
     <Folder Include="Services\Authentication\" />
-    <Folder Include="Services\Admin\" />
     <Folder Include="Services\Application\" />
     <Folder Include="Services\Notification\" />
     <Folder Include="Services\Vacancy\Implementations\" />
