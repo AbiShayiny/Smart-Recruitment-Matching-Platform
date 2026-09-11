@@ -1,25 +1,34 @@
 using Backend.Data;
+
 using Backend.Repositories.Company.Implementations;
 using Backend.Repositories.Company.Interfaces;
+
 using Backend.Repositories.User.Implementations;
 using Backend.Repositories.User.Interfaces;
-using Backend.Services.Authentication.Implementations;
-using Backend.Services.Authentication.Interfaces;
+
 using Backend.Repositories.Jobseeker.Implementations;
 using Backend.Repositories.Jobseeker.Interfaces;
+
+using Backend.Repositories.Vacancy.Implementations;
+using Backend.Repositories.Vacancy.Interfaces;
+
+using Backend.Services.Authentication.Implementations;
+using Backend.Services.Authentication.Interfaces;
+
 using Backend.Services.Company.Implementations;
 using Backend.Services.Company.Interfaces;
+
 using Backend.Services.Admin.Implementations;
 using Backend.Services.Admin.Interfaces;
 
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Backend.Services.Jobseeker.Implementations;
 using Backend.Services.Jobseeker.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using Backend.Repositories.Vacancy.Implementations;
-using Backend.Repositories.Vacancy.Interfaces;
+
 using Backend.Services.Vacancy.Implementations;
 using Backend.Services.Vacancy.Interfaces;
+
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 using System.Text;
@@ -53,6 +62,14 @@ namespace Backend
             // Admin Service
             builder.Services.AddScoped<IAdminService, AdminService>();
 
+            // JobSeeker Repository and Service
+            builder.Services.AddScoped<IJobSeekerRepository, JobSeekerRepository>();
+            builder.Services.AddScoped<IJobSeekerService, JobSeekerService>();
+
+            // Vacancy Repository and Service
+            builder.Services.AddScoped<IVacancyRepository, VacancyRepository>();
+            builder.Services.AddScoped<IVacancyService, VacancyService>();
+
             // JWT Authentication
             builder.Services.AddAuthentication(
                 JwtBearerDefaults.AuthenticationScheme)
@@ -78,12 +95,6 @@ namespace Backend
                                         builder.Configuration["Jwt:Key"]!))
                         };
                 });
-
-            // Controllers
-            builder.Services.AddControllers();
-            // JobSeeker Repository and Service
-            builder.Services.AddScoped<IJobSeekerRepository, JobSeekerRepository>();
-            builder.Services.AddScoped<IJobSeekerService, JobSeekerService>();
 
             // Swagger
             builder.Services.AddEndpointsApiExplorer();

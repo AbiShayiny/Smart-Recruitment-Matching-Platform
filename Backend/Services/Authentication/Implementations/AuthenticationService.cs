@@ -25,6 +25,13 @@ namespace Backend.Services.Authentication.Implementations
 
         public async Task<bool> RegisterAsync(RegisterDto registerDto)
         {
+            // Only JobSeeker and Employer are allowed
+            if (registerDto.Role != "JobSeeker" &&
+                registerDto.Role != "Employer")
+            {
+                return false;
+            }
+
             var existingUser =
                 await _userRepository.GetByEmailAsync(registerDto.Email);
 
@@ -71,10 +78,21 @@ namespace Backend.Services.Authentication.Implementations
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.FullName),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.Role)
+                new Claim(
+                    ClaimTypes.NameIdentifier,
+                    user.Id.ToString()),
+
+                new Claim(
+                    ClaimTypes.Name,
+                    user.FullName),
+
+                new Claim(
+                    ClaimTypes.Email,
+                    user.Email),
+
+                new Claim(
+                    ClaimTypes.Role,
+                    user.Role)
             };
 
             var key = new SymmetricSecurityKey(
