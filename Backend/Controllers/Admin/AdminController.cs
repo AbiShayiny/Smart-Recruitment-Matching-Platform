@@ -1,13 +1,13 @@
 ﻿using Backend.DTOs.Admin;
-using Backend.Services.Admin.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+using Backend.Services.Interfaces.Admin;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers.Admin
 {
     [ApiController]
-    [Route("api/admin")]
-    [Authorize]
+    [Route("api/[controller]")]
+    [Authorize(Roles = "Administrator")]
     public class AdminController : ControllerBase
     {
         private readonly IAdminService _adminService;
@@ -18,78 +18,45 @@ namespace Backend.Controllers.Admin
         }
 
         [HttpGet("users")]
-        public async Task<IActionResult> GetAllUsers()
+        public IActionResult GetAllUsers()
         {
-            var users = await _adminService.GetAllUsersAsync();
-
-            return Ok(users);
-        }
-
-        [HttpGet("users/{id}")]
-        public async Task<IActionResult> GetUserById(int id)
-        {
-            var user = await _adminService.GetUserByIdAsync(id);
-
-            if (user == null)
-            {
-                return NotFound(new
-                {
-                    message = "User not found."
-                });
-            }
-
-            return Ok(user);
+            return Ok(_adminService.GetAllUsers());
         }
 
         [HttpPut("users/{id}")]
-        public async Task<IActionResult> UpdateUser(
-            int id,
-            UpdateUserDto updateUserDto)
+        public IActionResult UpdateUser(int id, UpdateUserRequest request)
         {
-            var user = await _adminService.UpdateUserAsync(
-                id,
-                updateUserDto);
-
-            if (user == null)
+            if (!ModelState.IsValid)
             {
-                return NotFound(new
-                {
-                    message = "User not found."
-                });
+                return BadRequest(ModelState);
             }
 
-            return Ok(new
+            string result = _adminService.UpdateUser(id, request);
+
+            if (result == "User not found")
             {
-                message = "User updated successfully.",
-                user = user
-            });
+                return NotFound(result);
+            }
+
+            if (result == "Invalid role")
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
         }
 
         [HttpDelete("users/{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public IActionResult DeleteUser(int id)
         {
-            var result = await _adminService.DeleteUserAsync(id);
+            string result = _adminService.DeleteUser(id);
 
-            if (!result)
+            if (result == "User not found")
             {
-                return NotFound(new
-                {
-                    message = "User not found."
-                });
+                return NotFound(result);
             }
 
-            return Ok(new
-            {
-                message = "User deleted successfully."
-            });
-        }
-
-        [HttpGet("dashboard")]
-        public async Task<IActionResult> GetDashboard()
-        {
-            var dashboard = await _adminService.GetDashboardAsync();
-
-            return Ok(dashboard);
+            return Ok(result);
         }
     }
 }
