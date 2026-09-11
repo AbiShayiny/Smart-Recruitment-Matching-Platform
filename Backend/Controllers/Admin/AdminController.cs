@@ -43,12 +43,24 @@ namespace Backend.Controllers.Admin
                 return BadRequest(result);
             }
 
+            if (result == "Email already exists")
+            {
+                return Conflict(result);
+            }
+
             return Ok(result);
         }
 
         [HttpDelete("users/{id}")]
         public IActionResult DeleteUser(int id)
         {
+            string currentUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            if (currentUserId == id.ToString())
+            {
+                return BadRequest("Admin cannot delete own account");
+            }
+
             string result = _adminService.DeleteUser(id);
 
             if (result == "User not found")
