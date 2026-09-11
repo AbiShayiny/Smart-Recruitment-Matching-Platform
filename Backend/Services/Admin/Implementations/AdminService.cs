@@ -43,6 +43,13 @@ namespace Backend.Services.Implementations.Admin
                 return "Invalid role";
             }
 
+            User existingUser = _userRepository.GetUserByEmail(request.Email);
+
+            if (existingUser != null && existingUser.Id != id)
+            {
+                return "Email already exists";
+            }
+
             user.Name = request.Name;
             user.Email = request.Email;
             user.Role = request.Role;
