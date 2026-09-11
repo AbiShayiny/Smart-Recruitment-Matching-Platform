@@ -22,16 +22,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Athuentication\" />
-    <Folder Include="Controllers\Admin\" />
     <Folder Include="Controllers\Jobseeker\" />
     <Folder Include="Controllers\Employer\" />
     <Folder Include="Controllers\Application\" />
     <Folder Include="Controllers\Matching\" />
     <Folder Include="Controllers\Contact\" />
     <Folder Include="Controllers\Notification\" />
-    <Folder Include="DTOs\Authentication\" />
-    <Folder Include="DTOs\Admin\" />
     <Folder Include="DTOs\Jobseeker\" />
     <Folder Include="DTOs\Company\" />
     <Folder Include="DTOs\Application\" />
@@ -39,14 +35,12 @@
     <Folder Include="DTOs\Contact\" />
     <Folder Include="DTOs\Notification\" />
     <Folder Include="DTOs\Vacancy\" />
-    <Folder Include="Data\" />
     <Folder Include="Models\JobSeeker\" />
     <Folder Include="Models\Employer\" />
     <Folder Include="Models\Application\" />
     <Folder Include="Models\Contact\" />
     <Folder Include="Models\Notication\" />
     <Folder Include="Models\Vacancy\" />
-    <Folder Include="Models\User\" />
     <Folder Include="Repositories\Jobseeker\" />
     <Folder Include="Repositories\Employer\" />
     <Folder Include="Repositories\Company\" />
@@ -54,14 +48,11 @@
     <Folder Include="Repositories\ContactRequest\" />
     <Folder Include="Repositories\Notification\" />
     <Folder Include="Repositories\Vacancy\" />
-    <Folder Include="Repositories\User\" />
     <Folder Include="Services\Matching\" />
     <Folder Include="Services\Jobseeker\" />
     <Folder Include="Services\Employer\" />
     <Folder Include="Services\Contact\" />
     <Folder Include="Services\Company\" />
-    <Folder Include="Services\Authentication\" />
-    <Folder Include="Services\Admin\" />
     <Folder Include="Services\Application\" />
     <Folder Include="Services\Vacancy\" />
     <Folder Include="Services\Notification\" />
