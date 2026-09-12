@@ -4,6 +4,11 @@ import { Component } from '@angular/core';
   selector: 'app-dashboard',
   imports: [],
   templateUrl: './dashboard.html',
-  styleUrl: './dashboard.css',
 })
-export class Dashboard {}
+export class Dashboard {
+
+  totalUsers: number = 0;
+  totalVacancies: number = 0;
+  totalApplications: number = 0;
+
+}

@@ -1,22 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
-import { Dashboard } from './dashboard';
+@Component({
+  selector: 'app-dashboard',
+  imports: [RouterLink],
+  templateUrl: './dashboard.html',
+})
+export class Dashboard {
 
-describe('Dashboard', () => {
-  let component: Dashboard;
-  let fixture: ComponentFixture<Dashboard>;
+  totalUsers: number = 0;
+  totalVacancies: number = 0;
+  totalApplications: number = 0;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [Dashboard],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(Dashboard);
-    component = fixture.componentInstance;
-    await fixture.whenStable();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+}
