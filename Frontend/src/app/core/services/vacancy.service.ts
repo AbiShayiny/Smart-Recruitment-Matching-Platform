@@ -7,17 +7,26 @@ import { Observable } from 'rxjs';
 })
 export class VacancyService {
 
-  private apiUrl = 'https://localhost:5001/api/employer/vacancy';
+  private apiUrl =
+    'https://localhost:5001/api/employer/vacancy';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient
+  ) {}
 
-  getMyVacancies(companyId: number): Observable<any[]> {
+  getMyVacancies(
+    companyId: number
+  ): Observable<any[]> {
+
     return this.http.get<any[]>(
       `${this.apiUrl}/company/${companyId}`
     );
   }
 
-  getVacancy(vacancyId: number): Observable<any> {
+  getVacancy(
+    vacancyId: number
+  ): Observable<any> {
+
     return this.http.get<any>(
       `${this.apiUrl}/${vacancyId}`
     );
