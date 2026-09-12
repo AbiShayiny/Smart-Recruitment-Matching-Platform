@@ -1,0 +1,265 @@
+    /* =====================================================
+   PAGE
+===================================================== */
+
+.contact-page {
+  min-height: 100vh;
+  margin-left: 220px;
+  padding: 95px 34px 45px;
+  background: #f7f9fd;
+}
+
+
+/* =====================================================
+   PAGE HEADER
+===================================================== */
+
+.contact-header {
+  margin-bottom: 22px;
+}
+
+.contact-header h1 {
+  margin: 0;
+
+  color: #1f2937;
+
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.contact-header p {
+  margin: 6px 0 0;
+
+  color: #6b7280;
+
+  font-size: 12px;
+}
+
+
+/* =====================================================
+   REQUESTS CARD
+===================================================== */
+
+.requests-card {
+  background: #ffffff;
+
+  border: 1px solid #e8ebf0;
+  border-radius: 12px;
+
+  box-shadow:
+    0 2px 8px rgba(15, 23, 42, 0.04);
+
+  overflow: hidden;
+}
+
+
+/* =====================================================
+   HEADING
+===================================================== */
+
+.requests-heading {
+  padding: 20px 22px;
+
+  border-bottom: 1px solid #edf0f4;
+}
+
+.requests-heading h2 {
+  margin: 0;
+
+  color: #1f2937;
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.requests-heading p {
+  margin: 5px 0 0;
+
+  color: #8a94a4;
+
+  font-size: 10px;
+}
+
+
+/* =====================================================
+   REQUEST LIST
+===================================================== */
+
+.requests-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.request-item {
+  padding: 20px 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  border-bottom: 1px solid #edf0f4;
+}
+
+.request-item:last-child {
+  border-bottom: none;
+}
+
+.request-info {
+  min-width: 0;
+}
+
+.request-info h3 {
+  margin: 0;
+
+  color: #1f2937;
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.request-info p {
+  margin: 7px 0 0;
+
+  color: #6b7280;
+
+  font-size: 11px;
+  line-height: 18px;
+}
+
+
+/* =====================================================
+   ACTION BUTTONS
+===================================================== */
+
+.request-actions {
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+}
+
+.accept-btn,
+.decline-btn {
+  min-width: 90px;
+  height: 36px;
+
+  padding: 0 15px;
+
+  border-radius: 8px;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.accept-btn {
+  border: none;
+
+  background: #f97316;
+
+  color: #ffffff;
+}
+
+.accept-btn:hover {
+  background: #ea580c;
+}
+
+.decline-btn {
+  border: 1px solid #dfe3e8;
+
+  background: #ffffff;
+
+  color: #6b7280;
+}
+
+.decline-btn:hover {
+  background: #f9fafb;
+}
+
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.empty-requests {
+  min-height: 360px;
+
+  padding: 30px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+}
+
+.empty-icon {
+  width: 58px;
+  height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #f0fdf4;
+
+  color: #16a34a;
+
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.empty-requests h3 {
+  margin: 16px 0 0;
+
+  color: #1f2937;
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.empty-requests p {
+  max-width: 330px;
+
+  margin: 7px 0 0;
+
+  color: #8a94a4;
+
+  font-size: 10px;
+  line-height: 16px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 750px) {
+
+  .contact-page {
+    margin-left: 75px;
+    padding: 95px 20px 35px;
+  }
+
+  .request-item {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .request-actions {
+    width: 100%;
+  }
+
+  .accept-btn,
+  .decline-btn {
+    flex: 1;
+  }
+}
