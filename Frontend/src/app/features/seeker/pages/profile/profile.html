@@ -1,1 +1,531 @@
-<p>profile works!</p>
+<app-navbar></app-navbar>
+
+<main class="profile-page">
+
+  <!-- =========================
+       PAGE HEADER
+  ========================== -->
+
+  <section class="profile-header">
+
+    <div>
+      <h1>My Profile</h1>
+
+      <p>
+        Manage your personal and professional information.
+      </p>
+    </div>
+
+
+    @if (!isEditing) {
+
+      <button
+        type="button"
+        class="edit-profile-btn"
+        (click)="editProfile()"
+      >
+        Edit Profile
+      </button>
+
+    }
+
+  </section>
+
+
+  <!-- =========================
+       PROFILE CARD
+  ========================== -->
+
+  <section class="profile-card">
+
+
+    <!-- Profile Top -->
+
+    <div class="profile-top">
+
+      <div class="profile-avatar">
+
+        @if (profile.firstName) {
+          {{ profile.firstName.charAt(0) }}
+        } @else {
+          U
+        }
+
+      </div>
+
+
+      <div class="profile-title">
+
+        <h2>
+
+          @if (profile.firstName || profile.lastName) {
+
+            {{ profile.firstName }}
+            {{ profile.lastName }}
+
+          } @else {
+
+            Your Name
+
+          }
+
+        </h2>
+
+
+        <p>
+
+          @if (profile.professionalTitle) {
+
+            {{ profile.professionalTitle }}
+
+          } @else {
+
+            Professional Title
+
+          }
+
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         VIEW MODE
+    ========================== -->
+
+    @if (!isEditing) {
+
+      <div class="profile-content">
+
+
+        <!-- Personal Information -->
+
+        <section class="profile-section">
+
+          <h3>
+            Personal Information
+          </h3>
+
+
+          <div class="info-grid">
+
+
+            <div class="info-item">
+
+              <span class="info-label">
+                First Name
+              </span>
+
+              <strong>
+                {{ profile.firstName || '—' }}
+              </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+              <span class="info-label">
+                Last Name
+              </span>
+
+              <strong>
+                {{ profile.lastName || '—' }}
+              </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+              <span class="info-label">
+                Email Address
+              </span>
+
+              <strong>
+                {{ profile.email || '—' }}
+              </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+              <span class="info-label">
+                Phone Number
+              </span>
+
+              <strong>
+                {{ profile.phone || '—' }}
+              </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+              <span class="info-label">
+                Location
+              </span>
+
+              <strong>
+                {{ profile.location || '—' }}
+              </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+              <span class="info-label">
+                Professional Title
+              </span>
+
+              <strong>
+                {{ profile.professionalTitle || '—' }}
+              </strong>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- Professional Summary -->
+
+        <section class="profile-section">
+
+          <h3>
+            Professional Summary
+          </h3>
+
+
+          @if (profile.summary) {
+
+            <p class="summary-text">
+              {{ profile.summary }}
+            </p>
+
+          } @else {
+
+            <p class="empty-text">
+              No professional summary available.
+            </p>
+
+          }
+
+        </section>
+
+
+        <!-- Experience & Education -->
+
+        <section class="profile-section">
+
+          <h3>
+            Experience & Education
+          </h3>
+
+
+          <div class="info-grid">
+
+
+            <div class="info-item">
+
+              <span class="info-label">
+                Years of Experience
+              </span>
+
+              <strong>
+                {{ profile.experienceYears || '—' }}
+              </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+              <span class="info-label">
+                Education
+              </span>
+
+              <strong>
+                {{ profile.education || '—' }}
+              </strong>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- Skills -->
+
+        <section class="profile-section">
+
+          <h3>
+            Skills
+          </h3>
+
+
+          @if (profile.skills.length > 0) {
+
+            <div class="skills-list">
+
+              @for (
+                skill of profile.skills;
+                track skill
+              ) {
+
+                <span class="skill-chip">
+                  {{ skill }}
+                </span>
+
+              }
+
+            </div>
+
+          } @else {
+
+            <p class="empty-text">
+              No skills added yet.
+            </p>
+
+          }
+
+        </section>
+
+      </div>
+
+    }
+
+
+    <!-- =========================
+         EDIT MODE
+    ========================== -->
+
+    @if (isEditing) {
+
+      <form
+        class="profile-form"
+        (ngSubmit)="saveProfile()"
+      >
+
+
+        <!-- Personal Details -->
+
+        <section class="form-section">
+
+          <h3>
+            Personal Information
+          </h3>
+
+
+          <div class="form-grid">
+
+
+            <div class="form-group">
+
+              <label for="firstName">
+                First Name
+              </label>
+
+              <input
+                id="firstName"
+                name="firstName"
+                type="text"
+                [(ngModel)]="profile.firstName"
+                placeholder="Enter first name"
+              >
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="lastName">
+                Last Name
+              </label>
+
+              <input
+                id="lastName"
+                name="lastName"
+                type="text"
+                [(ngModel)]="profile.lastName"
+                placeholder="Enter last name"
+              >
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="email">
+                Email Address
+              </label>
+
+              <input
+                id="email"
+                name="email"
+                type="email"
+                [(ngModel)]="profile.email"
+                placeholder="Enter email address"
+              >
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="phone">
+                Phone Number
+              </label>
+
+              <input
+                id="phone"
+                name="phone"
+                type="text"
+                [(ngModel)]="profile.phone"
+                placeholder="Enter phone number"
+              >
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="location">
+                Location
+              </label>
+
+              <input
+                id="location"
+                name="location"
+                type="text"
+                [(ngModel)]="profile.location"
+                placeholder="Enter location"
+              >
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="professionalTitle">
+                Professional Title
+              </label>
+
+              <input
+                id="professionalTitle"
+                name="professionalTitle"
+                type="text"
+                [(ngModel)]="profile.professionalTitle"
+                placeholder="Enter professional title"
+              >
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- Professional Details -->
+
+        <section class="form-section">
+
+          <h3>
+            Professional Information
+          </h3>
+
+
+          <div class="form-group full-width">
+
+            <label for="summary">
+              Professional Summary
+            </label>
+
+            <textarea
+              id="summary"
+              name="summary"
+              rows="5"
+              [(ngModel)]="profile.summary"
+              placeholder="Enter professional summary"
+            ></textarea>
+
+          </div>
+
+
+          <div class="form-grid">
+
+
+            <div class="form-group">
+
+              <label for="experienceYears">
+                Years of Experience
+              </label>
+
+              <input
+                id="experienceYears"
+                name="experienceYears"
+                type="text"
+                [(ngModel)]="profile.experienceYears"
+                placeholder="Enter years of experience"
+              >
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="education">
+                Education
+              </label>
+
+              <input
+                id="education"
+                name="education"
+                type="text"
+                [(ngModel)]="profile.education"
+                placeholder="Enter education"
+              >
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- Buttons -->
+
+        <div class="form-actions">
+
+          <button
+            type="button"
+            class="cancel-btn"
+            (click)="cancelEdit()"
+          >
+            Cancel
+          </button>
+
+
+          <button
+            type="submit"
+            class="save-btn"
+          >
+            Save Changes
+          </button>
+
+        </div>
+
+      </form>
+
+    }
+
+  </section>
+
+</main>

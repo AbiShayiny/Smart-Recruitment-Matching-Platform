@@ -1,1 +1,180 @@
-<p>cv-upload works!</p>
+<app-navbar></app-navbar>
+
+<main class="cv-page">
+
+  <section class="cv-header">
+
+    <div>
+      <h1>My CV</h1>
+
+      <p>
+        Upload and manage your latest CV.
+      </p>
+    </div>
+
+  </section>
+
+
+  <section class="cv-card">
+
+    <!-- Upload CV -->
+    <div class="upload-section">
+
+      <div class="upload-icon">
+        ↑
+      </div>
+
+      <h2>
+        Upload Your CV
+      </h2>
+
+      <p>
+        Select your latest CV file to upload.
+      </p>
+
+
+      <label
+        for="cvFile"
+        class="choose-file-btn"
+      >
+        Choose CV File
+      </label>
+
+
+      <input
+        id="cvFile"
+        type="file"
+        accept=".pdf,.doc,.docx"
+        class="file-input"
+        (change)="onFileSelected($event)"
+      >
+
+
+      @if (selectedFile) {
+
+        <div class="selected-file">
+
+          <div class="file-icon">
+            CV
+          </div>
+
+          <div class="file-details">
+
+            <strong>
+              {{ selectedFile.name }}
+            </strong>
+
+            <span>
+              Selected and ready to upload
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="upload-btn"
+          (click)="uploadCv()"
+        >
+          Upload CV
+        </button>
+
+      }
+
+    </div>
+
+
+    <!-- Current CV -->
+    <div class="current-cv-section">
+
+      <div class="section-heading">
+
+        <div>
+
+          <h2>
+            Current CV
+          </h2>
+
+          <p>
+            Your currently uploaded CV will appear here.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      @if (cv.fileName) {
+
+        <div class="current-cv-card">
+
+          <div class="current-cv-left">
+
+            <div class="document-icon">
+              CV
+            </div>
+
+            <div class="current-cv-info">
+
+              <strong>
+                {{ cv.fileName }}
+              </strong>
+
+              <div class="cv-meta">
+
+                @if (cv.uploadedDate) {
+                  <span>
+                    Uploaded: {{ cv.uploadedDate }}
+                  </span>
+                }
+
+                @if (cv.fileSize) {
+                  <span>
+                    {{ cv.fileSize }}
+                  </span>
+                }
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          @if (cv.status) {
+
+            <span class="cv-status">
+              {{ cv.status }}
+            </span>
+
+          }
+
+        </div>
+
+      } @else {
+
+        <div class="empty-cv">
+
+          <div class="empty-icon">
+            CV
+          </div>
+
+          <h3>
+            No CV uploaded yet
+          </h3>
+
+          <p>
+            Upload your CV to make your profile ready for job matching.
+          </p>
+
+        </div>
+
+      }
+
+    </div>
+
+  </section>
+
+</main>

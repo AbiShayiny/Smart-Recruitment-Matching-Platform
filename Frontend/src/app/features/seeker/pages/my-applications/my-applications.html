@@ -1,1 +1,117 @@
-<p>my-applications works!</p>
+<app-navbar></app-navbar>
+
+<main class="applications-page">
+
+  <section class="page-header">
+    <h1>My Applications</h1>
+    <p>
+      Track the status of jobs you have applied for.
+    </p>
+  </section>
+
+
+  <section class="applications-card">
+
+    <div class="applications-header">
+
+      <div>
+        <h2>
+          Submitted Applications
+        </h2>
+
+        <p>
+          {{ applications.length }} applications found
+        </p>
+      </div>
+
+    </div>
+
+
+    <div class="applications-list">
+
+      @for (
+        application of applications;
+        track application.id
+      ) {
+
+        <article class="application-item">
+
+          <div class="application-main">
+
+            <div class="company-logo">
+              {{ application.company.charAt(0) }}
+            </div>
+
+            <div class="application-info">
+
+              <h3>
+                {{ application.title }}
+              </h3>
+
+              <p class="company-name">
+                {{ application.company }}
+              </p>
+
+              <div class="application-meta">
+
+                <span>
+                  📍 {{ application.location }}
+                </span>
+
+                <span>
+                  Applied on {{ application.appliedDate }}
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="application-right">
+
+            <div class="match-score">
+
+              <strong>
+                {{ application.matchScore }}%
+              </strong>
+
+              <span>
+                Match
+              </span>
+
+            </div>
+
+
+            <div
+              class="status-badge"
+              [class.status-review]="application.status === 'Under Review'"
+              [class.status-shortlisted]="application.status === 'Shortlisted'"
+              [class.status-submitted]="application.status === 'Submitted'"
+            >
+              {{ application.status }}
+            </div>
+
+
+            <a
+              [routerLink]="[
+                '/seeker/jobs',
+                application.jobId
+              ]"
+              class="view-details-btn"
+            >
+              View Details
+            </a>
+
+          </div>
+
+        </article>
+
+      }
+
+    </div>
+
+  </section>
+
+</main>

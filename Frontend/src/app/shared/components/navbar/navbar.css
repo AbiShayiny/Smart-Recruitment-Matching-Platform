@@ -1,0 +1,336 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+
+  width: 220px;
+
+  background: #ffffff;
+
+  border-right: 1px solid #e5e7eb;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding: 18px 14px;
+
+  z-index: 100;
+}
+
+/* Brand */
+
+.brand {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 4px 8px 28px;
+}
+
+.brand-logo {
+  width: 34px;
+  height: 34px;
+
+  border-radius: 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f97316;
+
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.brand-name {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name span {
+  font-size: 12px;
+  font-weight: 700;
+
+  color: #1f2937;
+}
+
+.brand-name small {
+  margin-top: 2px;
+
+  font-size: 7px;
+  font-weight: 600;
+
+  color: #f97316;
+}
+
+/* Navigation */
+
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.nav-item {
+  min-height: 44px;
+
+  padding: 0 12px;
+
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  color: #6b7280;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  text-decoration: none;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.nav-item:hover {
+  background: #fff7ed;
+
+  color: #ea580c;
+}
+
+.nav-item.active {
+  background: #ffedd5;
+
+  color: #ea580c;
+
+  font-weight: 600;
+}
+
+.nav-item-badge {
+  justify-content: space-between;
+}
+
+.badge {
+  min-width: 20px;
+  height: 20px;
+
+  padding: 0 6px;
+
+  border-radius: 999px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f97316;
+
+  color: #ffffff;
+
+  font-size: 10px;
+  font-weight: 600;
+}
+
+/* Logout */
+
+.logout-btn {
+  width: 100%;
+
+  border: none;
+
+  background: transparent;
+
+  padding: 11px 12px;
+
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  color: #dc2626;
+
+  font-size: 13px;
+
+  cursor: pointer;
+
+  transition: background-color 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: #fef2f2;
+}
+
+/* Topbar */
+
+.topbar {
+  position: fixed;
+
+  top: 0;
+  left: 220px;
+  right: 0;
+
+  height: 72px;
+
+  background: #ffffff;
+
+  border-bottom: 1px solid #e5e7eb;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  padding: 0 32px;
+
+  z-index: 90;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+
+  gap: 24px;
+}
+
+/* Notification */
+
+.notification {
+  position: relative;
+
+  min-height: 38px;
+
+  padding: 0 12px;
+
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #374151;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  text-decoration: none;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.notification:hover {
+  background: #fff7ed;
+
+  color: #ea580c;
+}
+
+.notification-badge {
+  position: absolute;
+
+  top: -4px;
+  right: -4px;
+
+  min-width: 18px;
+  height: 18px;
+
+  padding: 0 5px;
+
+  border-radius: 999px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f97316;
+
+  color: #ffffff;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  border: 2px solid #ffffff;
+}
+
+/* User */
+
+.user-profile {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+
+  border-radius: 50%;
+
+  background: #fed7aa;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #9a3412;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-details strong {
+  font-size: 12px;
+  font-weight: 600;
+
+  color: #1f2937;
+}
+
+.user-details small {
+  margin-top: 2px;
+
+  font-size: 10px;
+
+  color: #6b7280;
+}
+
+/* Responsive */
+
+@media (max-width: 800px) {
+  .sidebar {
+    width: 75px;
+  }
+
+  .brand-name,
+  .nav-item > span:first-child,
+  .logout-btn {
+    font-size: 0;
+  }
+
+  .brand {
+    justify-content: center;
+  }
+
+  .topbar {
+    left: 75px;
+  }
+
+  .user-details {
+    display: none;
+  }
+}
