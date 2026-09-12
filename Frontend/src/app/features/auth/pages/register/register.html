@@ -1,1 +1,556 @@
-<p>register works!</p>
+<main class="register-page">
+
+  <!-- ================= LEFT BRANDING PANEL ================= -->
+  <section class="branding-panel">
+
+    <div class="brand-top">
+
+      <div class="brand-info">
+
+        <div class="brand-logo">
+          ✦
+        </div>
+
+        <div>
+          <span class="brand-name">Smart Match</span>
+          <span class="brand-subtitle">Enterprise Talent Pipeline</span>
+        </div>
+
+      </div>
+
+      <div class="enterprise-badge">
+        ✦ ENTERPRISE AI
+      </div>
+
+    </div>
+
+
+    <!-- Main Visual -->
+    <div class="branding-content">
+
+      <div class="visual-card">
+
+        <div class="visual-background">
+
+          <div class="network-circle circle-one"></div>
+          <div class="network-circle circle-two"></div>
+          <div class="network-circle circle-three"></div>
+
+          <div class="network-line line-one"></div>
+          <div class="network-line line-two"></div>
+          <div class="network-line line-three"></div>
+
+          <div class="network-center">
+            <span>SMART</span>
+            <strong>MATCH</strong>
+          </div>
+
+          <div class="person-node node-one">👤</div>
+          <div class="person-node node-two">👤</div>
+          <div class="person-node node-three">👤</div>
+          <div class="person-node node-four">👤</div>
+
+        </div>
+
+
+        <!-- Telemetry Card -->
+        <div class="telemetry-card">
+
+          <div class="telemetry-left">
+
+            <div class="telemetry-icon">
+              ▥
+            </div>
+
+            <div>
+              <h4>Neural Skills Telemetry</h4>
+              <p>Real-time candidate alignment active</p>
+            </div>
+
+          </div>
+
+          <div class="affinity-rate">
+
+            <strong>98.4%</strong>
+            <span>AFFINITY RATE</span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- Branding Text -->
+      <div class="branding-text">
+
+        <h1>
+          Build Your Career.
+          <br />
+          Find The Right Talent.
+        </h1>
+
+        <p>
+          Intelligent candidate matching and precision role discovery
+          driven by algorithmic ontology and verified pipeline telemetry.
+        </p>
+
+
+        <!-- Proof Point Badges -->
+        <div class="proof-points">
+
+          <div class="proof-point">
+            <span class="proof-icon">✓</span>
+            <strong>98.4% Match Accuracy</strong>
+          </div>
+
+          <div class="proof-point">
+            <span class="proof-icon">♟</span>
+            <strong>12k+ Active Recruiters</strong>
+          </div>
+
+          <div class="proof-point">
+            <span class="proof-icon">⚖</span>
+            <strong>Zero Bias Sourcing</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- Platform Status -->
+    <div class="platform-status">
+
+      <span>
+        SOC-2 Type II Certified Platform
+      </span>
+
+      <div class="pipeline-status">
+
+        <span class="status-dot"></span>
+
+        <span>
+          Pipeline v4.8 Active
+        </span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= RIGHT REGISTRATION PANEL ================= -->
+  <section class="registration-panel">
+
+    <div class="registration-container">
+
+      <!-- Registration Card -->
+      <div class="registration-card">
+
+        <div class="registration-content">
+
+          <!-- Header -->
+          <div class="registration-header">
+
+            <div class="registration-icon">
+              ✦
+            </div>
+
+            <h2>
+              Create Your Account
+            </h2>
+
+            <p>
+              Join the Smart Recruitment Matching Platform
+            </p>
+
+          </div>
+
+
+          <!-- Registration Form -->
+          <form
+            [formGroup]="registerForm"
+            (ngSubmit)="register()"
+          >
+
+            <!-- Role Selector -->
+            <div class="form-section">
+
+              <label class="section-label">
+                SELECT YOUR ROLE
+              </label>
+
+
+              <div class="role-selector">
+
+                <!-- Job Seeker -->
+                <label
+                  class="role-card"
+                  [class.active]="registerForm.get('role')?.value === 'JobSeeker'"
+                >
+
+                  <input
+                    type="radio"
+                    formControlName="role"
+                    value="JobSeeker"
+                  />
+
+                  <div class="role-icon">
+                    👤
+                  </div>
+
+                  <div class="role-text">
+
+                    <span>
+                      Job Seeker
+                    </span>
+
+                    <small>
+                      Find next role
+                    </small>
+
+                  </div>
+
+                  <div
+                    class="role-check"
+                    *ngIf="registerForm.get('role')?.value === 'JobSeeker'"
+                  >
+                    ✓
+                  </div>
+
+                </label>
+
+
+                <!-- Employer -->
+                <label
+                  class="role-card"
+                  [class.active]="registerForm.get('role')?.value === 'Employer'"
+                >
+
+                  <input
+                    type="radio"
+                    formControlName="role"
+                    value="Employer"
+                  />
+
+                  <div class="role-icon">
+                    ▣
+                  </div>
+
+                  <div class="role-text">
+
+                    <span>
+                      Employer
+                    </span>
+
+                    <small>
+                      Hire talent
+                    </small>
+
+                  </div>
+
+                  <div
+                    class="role-check"
+                    *ngIf="registerForm.get('role')?.value === 'Employer'"
+                  >
+                    ✓
+                  </div>
+
+                </label>
+
+              </div>
+
+            </div>
+
+
+            <!-- Full Name -->
+            <div class="form-section">
+
+              <label
+                class="field-label"
+                for="fullname"
+              >
+                Full Name
+              </label>
+
+              <div class="input-wrapper">
+
+                <span class="input-icon">
+                  👤
+                </span>
+
+                <input
+                  type="text"
+                  id="fullname"
+                  formControlName="name"
+                  placeholder="Alex Morgan"
+                />
+
+              </div>
+
+              <small
+                class="error-message"
+                *ngIf="
+                  registerForm.get('name')?.touched &&
+                  registerForm.get('name')?.invalid
+                "
+              >
+                Full name is required.
+              </small>
+
+            </div>
+
+
+            <!-- Email -->
+            <div class="form-section">
+
+              <label
+                class="field-label"
+                for="email"
+              >
+                Work / Personal Email Address
+              </label>
+
+              <div class="input-wrapper">
+
+                <span class="input-icon">
+                  @
+                </span>
+
+                <input
+                  type="email"
+                  id="email"
+                  formControlName="email"
+                  placeholder="alex.morgan@company.io"
+                />
+
+              </div>
+
+              <small
+                class="error-message"
+                *ngIf="
+                  registerForm.get('email')?.touched &&
+                  registerForm.get('email')?.invalid
+                "
+              >
+                Please enter a valid email address.
+              </small>
+
+            </div>
+
+
+            <!-- Password -->
+            <div class="form-section">
+
+              <label
+                class="field-label"
+                for="password"
+              >
+                Password
+              </label>
+
+              <div class="input-wrapper">
+
+                <span class="input-icon">
+                  🔒
+                </span>
+
+                <input
+                  [type]="showPassword ? 'text' : 'password'"
+                  id="password"
+                  formControlName="password"
+                  placeholder="••••••••••••••••"
+                />
+
+                <button
+                  type="button"
+                  class="password-button"
+                  (click)="togglePassword()"
+                >
+                  {{ showPassword ? 'Hide' : 'Show' }}
+                </button>
+
+              </div>
+
+              <div class="password-hint">
+
+                <span>ⓘ</span>
+
+                <span>
+                  Password must be at least 6 characters
+                </span>
+
+              </div>
+
+              <small
+                class="error-message"
+                *ngIf="
+                  registerForm.get('password')?.touched &&
+                  registerForm.get('password')?.invalid
+                "
+              >
+                Password must be at least 6 characters.
+              </small>
+
+            </div>
+
+
+            <!-- Confirm Password -->
+            <div class="form-section">
+
+              <label
+                class="field-label"
+                for="confirm_password"
+              >
+                Confirm Password
+              </label>
+
+              <div class="input-wrapper">
+
+                <span class="input-icon">
+                  🔐
+                </span>
+
+                <input
+                  [type]="showConfirmPassword ? 'text' : 'password'"
+                  id="confirm_password"
+                  formControlName="confirmPassword"
+                  placeholder="••••••••••••••••"
+                />
+
+                <button
+                  type="button"
+                  class="password-button"
+                  (click)="toggleConfirmPassword()"
+                >
+                  {{ showConfirmPassword ? 'Hide' : 'Show' }}
+                </button>
+
+              </div>
+
+              <small
+                class="error-message"
+                *ngIf="
+                  registerForm.get('confirmPassword')?.touched &&
+                  registerForm.hasError('passwordMismatch')
+                "
+              >
+                Passwords do not match.
+              </small>
+
+            </div>
+
+
+            <!-- Terms -->
+            <div class="terms-section">
+
+              <input
+                type="checkbox"
+                id="terms"
+                formControlName="terms"
+              />
+
+              <label for="terms">
+
+                I agree to the
+                <a href="#">
+                  Terms of Service
+                </a>,
+                <a href="#">
+                  Privacy Policy
+                </a>,
+                and automated algorithmic matching protocols.
+
+              </label>
+
+            </div>
+
+
+            <small
+              class="error-message"
+              *ngIf="
+                registerForm.get('terms')?.touched &&
+                registerForm.get('terms')?.invalid
+              "
+            >
+              Please accept the terms before creating your account.
+            </small>
+
+
+            <!-- Create Account Button -->
+            <div class="submit-section">
+
+              <button
+                type="submit"
+                class="create-account-button"
+              >
+
+                <span>
+                  Create Account
+                </span>
+
+                <span>
+                  →
+                </span>
+
+              </button>
+
+            </div>
+
+          </form>
+
+        </div>
+
+
+        <!-- Login Link -->
+        <div class="login-callout">
+
+          <span>
+            Already have an account?
+          </span>
+
+          <a routerLink="/auth/login">
+            Log in →
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- Security Footer -->
+      <footer class="security-footer">
+
+        <a href="#">
+          Privacy Policy
+        </a>
+
+        <span class="footer-dot"></span>
+
+        <a href="#">
+          Terms of Service
+        </a>
+
+        <span class="footer-dot"></span>
+
+        <a href="#">
+          Security Center
+        </a>
+
+        <span class="footer-dot"></span>
+
+        <span class="security-text">
+          🛡 256-bit TLS Encrypted
+        </span>
+
+      </footer>
+
+    </div>
+
+  </section>
+
+</main>

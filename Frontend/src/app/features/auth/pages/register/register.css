@@ -1,0 +1,1450 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+
+/* ================= MAIN PAGE ================= */
+
+.register-page {
+  min-height: 100vh;
+
+  display: flex;
+
+  background: #f8fafc;
+
+  color: #1e293b;
+
+  font-family: 'Plus Jakarta Sans', sans-serif;
+
+  -webkit-font-smoothing: antialiased;
+}
+
+
+/* ================= LEFT BRANDING PANEL ================= */
+
+.branding-panel {
+  width: 58.333%;
+
+  min-height: 100vh;
+
+  position: relative;
+
+  box-sizing: border-box;
+
+  padding: 64px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 247, 237, 0.9),
+      #fcfbf9,
+      #f1f5f9
+    );
+
+  border-right: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+
+/* Background glow */
+
+.branding-panel::before {
+  content: '';
+
+  position: absolute;
+
+  width: 380px;
+  height: 380px;
+
+  top: -130px;
+  left: -130px;
+
+  background: rgba(249, 115, 22, 0.10);
+
+  border-radius: 50%;
+
+  filter: blur(50px);
+
+  pointer-events: none;
+}
+
+.branding-panel::after {
+  content: '';
+
+  position: absolute;
+
+  width: 320px;
+  height: 320px;
+
+  bottom: 40px;
+  left: 33%;
+
+  background: rgba(251, 191, 36, 0.10);
+
+  border-radius: 50%;
+
+  filter: blur(50px);
+
+  pointer-events: none;
+}
+
+
+/* ================= BRAND TOP ================= */
+
+.brand-top {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+
+.brand-info {
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+}
+
+
+.brand-logo {
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background: #fff1e6;
+
+  border: 1px solid #fed7aa;
+
+  color: #ea580c;
+
+  font-size: 22px;
+
+  box-shadow: 0 5px 15px rgba(249, 115, 22, 0.15);
+}
+
+
+.brand-name {
+  display: block;
+
+  color: #0f172a;
+
+  font-size: 18px;
+
+  font-weight: 800;
+
+  line-height: 1.2;
+
+  letter-spacing: -0.4px;
+}
+
+
+.brand-subtitle {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #64748b;
+
+  font-size: 12px;
+
+  font-weight: 500;
+
+  letter-spacing: 0.4px;
+}
+
+
+.enterprise-badge {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 7px 12px;
+
+  border-radius: 999px;
+
+  background: rgba(255, 237, 213, 0.75);
+
+  border: 1px solid #fed7aa;
+
+  color: #c2410c;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.7px;
+
+  white-space: nowrap;
+}
+
+
+/* ================= BRANDING CONTENT ================= */
+
+.branding-content {
+  position: relative;
+
+  z-index: 2;
+
+  width: 100%;
+
+  max-width: 760px;
+
+  margin: 40px auto;
+}
+
+
+/* ================= VISUAL CARD ================= */
+
+.visual-card {
+  position: relative;
+
+  width: 100%;
+
+  overflow: hidden;
+
+  border-radius: 18px;
+
+  background: white;
+
+  border: 1px solid rgba(255, 255, 255, 0.9);
+
+  box-shadow:
+    0 25px 50px -15px rgba(15, 23, 42, 0.18);
+
+  min-height: 350px;
+}
+
+
+/* Visual background */
+
+.visual-background {
+  position: relative;
+
+  min-height: 350px;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #fff7ed 0%,
+      #ffedd5 32%,
+      #e2e8f0 100%
+    );
+}
+
+
+/* Network circles */
+
+.network-circle {
+  position: absolute;
+
+  left: 50%;
+  top: 48%;
+
+  transform: translate(-50%, -50%);
+
+  border: 1px solid rgba(249, 115, 22, 0.25);
+
+  border-radius: 50%;
+}
+
+
+.circle-one {
+  width: 130px;
+  height: 130px;
+}
+
+
+.circle-two {
+  width: 230px;
+  height: 230px;
+}
+
+
+.circle-three {
+  width: 330px;
+  height: 330px;
+}
+
+
+/* Network lines */
+
+.network-line {
+  position: absolute;
+
+  left: 50%;
+  top: 48%;
+
+  width: 150px;
+
+  height: 1px;
+
+  transform-origin: left center;
+
+  background: rgba(249, 115, 22, 0.25);
+}
+
+
+.line-one {
+  transform: rotate(25deg);
+}
+
+.line-two {
+  transform: rotate(145deg);
+}
+
+.line-three {
+  transform: rotate(265deg);
+}
+
+
+/* Center */
+
+.network-center {
+  position: absolute;
+
+  left: 50%;
+  top: 48%;
+
+  transform: translate(-50%, -50%);
+
+  width: 95px;
+  height: 95px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: white;
+
+  border: 5px solid #fed7aa;
+
+  box-shadow:
+    0 10px 30px rgba(249, 115, 22, 0.18);
+
+  text-align: center;
+}
+
+
+.network-center span {
+  color: #94a3b8;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+
+.network-center strong {
+  color: #ea580c;
+
+  font-size: 15px;
+
+  font-weight: 800;
+}
+
+
+/* Person nodes */
+
+.person-node {
+  position: absolute;
+
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: white;
+
+  border: 2px solid #fed7aa;
+
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+
+  font-size: 18px;
+}
+
+
+.node-one {
+  top: 15%;
+
+  left: 23%;
+}
+
+
+.node-two {
+  top: 18%;
+
+  right: 22%;
+}
+
+
+.node-three {
+  bottom: 27%;
+
+  left: 17%;
+}
+
+
+.node-four {
+  bottom: 24%;
+
+  right: 18%;
+}
+
+
+/* ================= TELEMETRY CARD ================= */
+
+.telemetry-card {
+  position: absolute;
+
+  left: 24px;
+  right: 24px;
+
+  bottom: 24px;
+
+  padding: 16px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  background: rgba(255, 255, 255, 0.95);
+
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(226, 232, 240, 0.9);
+
+  border-radius: 12px;
+
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.10);
+}
+
+
+.telemetry-left {
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+}
+
+
+.telemetry-icon {
+  width: 40px;
+  height: 40px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background: #fff7ed;
+
+  border: 1px solid #ffedd5;
+
+  color: #ea580c;
+
+  font-size: 19px;
+}
+
+
+.telemetry-card h4 {
+  margin: 0;
+
+  color: #0f172a;
+
+  font-size: 14px;
+
+  font-weight: 800;
+}
+
+
+.telemetry-card p {
+  margin: 4px 0 0;
+
+  color: #64748b;
+
+  font-size: 11px;
+
+  font-weight: 500;
+}
+
+
+.affinity-rate {
+  padding-left: 16px;
+
+  border-left: 1px solid #e2e8f0;
+
+  text-align: right;
+}
+
+
+.affinity-rate strong {
+  display: block;
+
+  color: #ea580c;
+
+  font-size: 24px;
+
+  font-weight: 800;
+
+  line-height: 1;
+}
+
+
+.affinity-rate span {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #94a3b8;
+
+  font-size: 9px;
+
+  font-weight: 800;
+
+  letter-spacing: 1px;
+
+  text-transform: uppercase;
+}
+
+
+/* ================= BRANDING TEXT ================= */
+
+.branding-text {
+  margin-top: 30px;
+}
+
+
+.branding-text h1 {
+  margin: 0;
+
+  color: #0f172a;
+
+  font-size: 38px;
+
+  font-weight: 800;
+
+  line-height: 1.15;
+
+  letter-spacing: -1.2px;
+}
+
+
+.branding-text p {
+  max-width: 650px;
+
+  margin: 12px 0 0;
+
+  color: #475569;
+
+  font-size: 14px;
+
+  line-height: 1.7;
+}
+
+
+/* ================= PROOF POINTS ================= */
+
+.proof-points {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  margin-top: 22px;
+}
+
+
+.proof-point {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 9px 13px;
+
+  border-radius: 11px;
+
+  background: white;
+
+  border: 1px solid #e2e8f0;
+
+  color: #1e293b;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  box-shadow: 0 2px 5px rgba(15, 23, 42, 0.04);
+}
+
+
+.proof-icon {
+  color: #f97316;
+
+  font-size: 14px;
+}
+
+
+/* ================= PLATFORM STATUS ================= */
+
+.platform-status {
+  position: relative;
+
+  z-index: 2;
+
+  padding-top: 20px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  border-top: 1px solid rgba(226, 232, 240, 0.7);
+
+  color: #64748b;
+
+  font-size: 11px;
+}
+
+
+.pipeline-status {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  color: #475569;
+
+  font-weight: 600;
+}
+
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: #f97316;
+
+  box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.10);
+
+  animation: pulse 2s infinite;
+}
+
+
+@keyframes pulse {
+
+  0% {
+    box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.35);
+  }
+
+  70% {
+    box-shadow: 0 0 0 7px rgba(249, 115, 22, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(249, 115, 22, 0);
+  }
+
+}
+
+
+/* ================= RIGHT REGISTRATION PANEL ================= */
+
+.registration-panel {
+  width: 41.667%;
+
+  min-height: 100vh;
+
+  box-sizing: border-box;
+
+  padding: 48px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  overflow-y: auto;
+
+  background: #f8fafc;
+}
+
+
+.registration-container {
+  width: 100%;
+
+  max-width: 510px;
+
+  margin: auto;
+}
+
+
+.registration-card {
+  overflow: hidden;
+
+  background: white;
+
+  border: 1px solid rgba(226, 232, 240, 0.85);
+
+  border-radius: 17px;
+
+  box-shadow:
+    0 20px 45px -12px rgba(15, 23, 42, 0.08),
+    0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+
+.registration-content {
+  padding: 36px;
+}
+
+
+/* ================= REGISTRATION HEADER ================= */
+
+.registration-header {
+  margin-bottom: 28px;
+
+  text-align: center;
+}
+
+
+.registration-icon {
+  width: 56px;
+  height: 56px;
+
+  margin: 0 auto 15px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 15px;
+
+  background: #fff7ed;
+
+  border: 1px solid #fed7aa;
+
+  color: #f97316;
+
+  font-size: 24px;
+}
+
+
+.registration-header h2 {
+  margin: 0;
+
+  color: #0f172a;
+
+  font-size: 27px;
+
+  font-weight: 800;
+
+  letter-spacing: -0.6px;
+}
+
+
+.registration-header p {
+  margin: 8px 0 0;
+
+  color: #64748b;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
+
+
+/* ================= FORM ================= */
+
+.form-section {
+  margin-bottom: 17px;
+}
+
+
+.section-label,
+.field-label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #334155;
+
+  font-size: 11px;
+
+  font-weight: 800;
+}
+
+
+.section-label {
+  font-size: 10px;
+
+  letter-spacing: 0.8px;
+}
+
+
+/* ================= ROLE SELECTOR ================= */
+
+.role-selector {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+}
+
+
+.role-card {
+  position: relative;
+
+  min-height: 65px;
+
+  box-sizing: border-box;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 10px;
+
+  border: 2px solid #e2e8f0;
+
+  border-radius: 11px;
+
+  background: white;
+
+  cursor: pointer;
+
+  transition: 0.15s ease;
+}
+
+
+.role-card:hover {
+  border-color: #cbd5e1;
+}
+
+
+.role-card.active {
+  border-color: #f97316;
+
+  background: rgba(255, 247, 237, 0.55);
+}
+
+
+.role-card input {
+  position: absolute;
+
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+
+.role-icon {
+  width: 35px;
+  height: 35px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background: #f8fafc;
+
+  font-size: 16px;
+}
+
+
+.role-card.active .role-icon {
+  background: #ffedd5;
+}
+
+
+.role-text {
+  display: flex;
+
+  flex-direction: column;
+
+  min-width: 0;
+}
+
+
+.role-text span {
+  color: #0f172a;
+
+  font-size: 12px;
+
+  font-weight: 800;
+}
+
+
+.role-text small {
+  margin-top: 2px;
+
+  color: #94a3b8;
+
+  font-size: 9px;
+
+  font-weight: 500;
+}
+
+
+.role-check {
+  position: absolute;
+
+  top: 6px;
+  right: 7px;
+
+  color: #f97316;
+
+  font-size: 13px;
+
+  font-weight: 800;
+}
+
+
+/* ================= INPUTS ================= */
+
+.input-wrapper {
+  position: relative;
+}
+
+
+.input-icon {
+  position: absolute;
+
+  left: 13px;
+
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  color: #94a3b8;
+
+  font-size: 14px;
+
+  pointer-events: none;
+}
+
+
+.input-wrapper input {
+  width: 100%;
+
+  height: 43px;
+
+  box-sizing: border-box;
+
+  padding: 0 42px 0 42px;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 11px;
+
+  background: rgba(248, 250, 252, 0.7);
+
+  color: #1e293b;
+
+  font-family: inherit;
+
+  font-size: 12px;
+
+  font-weight: 500;
+
+  outline: none;
+
+  transition: 0.15s ease;
+}
+
+
+.input-wrapper input::placeholder {
+  color: #94a3b8;
+}
+
+
+.input-wrapper input:focus {
+  background: white;
+
+  border-color: #f97316;
+
+  box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.10);
+}
+
+
+/* ================= PASSWORD BUTTON ================= */
+
+.password-button {
+  position: absolute;
+
+  right: 10px;
+
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  border: none;
+
+  background: transparent;
+
+  color: #94a3b8;
+
+  font-family: inherit;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  padding: 5px;
+}
+
+
+.password-button:hover {
+  color: #ea580c;
+}
+
+
+/* ================= PASSWORD HINT ================= */
+
+.password-hint {
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  margin-top: 6px;
+
+  color: #64748b;
+
+  font-size: 10px;
+}
+
+
+.password-hint span:first-child {
+  color: #ea580c;
+
+  font-weight: 800;
+}
+
+
+/* ================= ERROR ================= */
+
+.error-message {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #dc2626;
+
+  font-size: 10px;
+
+  font-weight: 600;
+}
+
+
+/* ================= TERMS ================= */
+
+.terms-section {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 9px;
+
+  padding-top: 2px;
+
+  margin-bottom: 5px;
+}
+
+
+.terms-section input {
+  width: 15px;
+  height: 15px;
+
+  margin-top: 2px;
+
+  flex-shrink: 0;
+
+  accent-color: #f97316;
+
+  cursor: pointer;
+}
+
+
+.terms-section label {
+  color: #64748b;
+
+  font-size: 10px;
+
+  line-height: 1.5;
+
+  cursor: pointer;
+}
+
+
+.terms-section a {
+  color: #ea580c;
+
+  font-weight: 600;
+
+  text-decoration: none;
+}
+
+
+.terms-section a:hover {
+  text-decoration: underline;
+}
+
+
+/* ================= SUBMIT BUTTON ================= */
+
+.submit-section {
+  padding-top: 8px;
+}
+
+
+.create-account-button {
+  width: 100%;
+
+  height: 48px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 9px;
+
+  border: none;
+
+  border-radius: 11px;
+
+  background: #f97316;
+
+  color: white;
+
+  font-family: inherit;
+
+  font-size: 13px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  box-shadow: 0 10px 20px rgba(249, 115, 22, 0.25);
+
+  transition: 0.15s ease;
+}
+
+
+.create-account-button:hover {
+  background: #ea580c;
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 12px 25px rgba(249, 115, 22, 0.30);
+}
+
+
+.create-account-button:active {
+  background: #c2410c;
+
+  transform: translateY(0);
+}
+
+
+/* ================= LOGIN CALLOUT ================= */
+
+.login-callout {
+  padding: 15px 20px;
+
+  border-top: 1px solid #f1f5f9;
+
+  background: rgba(248, 250, 252, 0.8);
+
+  text-align: center;
+
+  color: #64748b;
+
+  font-size: 11px;
+}
+
+
+.login-callout a {
+  margin-left: 5px;
+
+  color: #ea580c;
+
+  font-weight: 800;
+
+  text-decoration: none;
+}
+
+
+.login-callout a:hover {
+  text-decoration: underline;
+}
+
+
+/* ================= SECURITY FOOTER ================= */
+
+.security-footer {
+  margin-top: 17px;
+
+  padding-bottom: 5px;
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 7px 18px;
+
+  color: #64748b;
+
+  font-size: 9px;
+}
+
+
+.security-footer a {
+  color: #64748b;
+
+  text-decoration: none;
+}
+
+
+.security-footer a:hover {
+  color: #0f172a;
+}
+
+
+.footer-dot {
+  width: 4px;
+  height: 4px;
+
+  border-radius: 50%;
+
+  background: #cbd5e1;
+}
+
+
+.security-text {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  color: #475569;
+
+  font-weight: 600;
+}
+
+
+/* ================= TABLET ================= */
+
+@media (max-width: 1100px) {
+
+  .branding-panel {
+    width: 52%;
+
+    padding: 40px;
+  }
+
+  .registration-panel {
+    width: 48%;
+
+    padding: 32px;
+  }
+
+  .branding-text h1 {
+    font-size: 32px;
+  }
+
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 850px) {
+
+  .register-page {
+    display: block;
+  }
+
+  .branding-panel {
+    width: 100%;
+
+    min-height: auto;
+
+    padding: 30px 22px;
+
+    border-right: none;
+
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .branding-content {
+    margin: 35px auto 25px;
+  }
+
+  .visual-card {
+    min-height: 300px;
+  }
+
+  .visual-background {
+    min-height: 300px;
+  }
+
+  .branding-text h1 {
+    font-size: 30px;
+  }
+
+  .registration-panel {
+    width: 100%;
+
+    min-height: auto;
+
+    padding: 30px 20px;
+  }
+
+  .registration-container {
+    max-width: 550px;
+  }
+
+}
+
+
+/* ================= SMALL MOBILE ================= */
+
+@media (max-width: 500px) {
+
+  .brand-top {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .enterprise-badge {
+    align-self: flex-start;
+  }
+
+  .branding-panel {
+    padding: 25px 18px;
+  }
+
+  .registration-panel {
+    padding: 20px 15px;
+  }
+
+  .registration-content {
+    padding: 25px 20px;
+  }
+
+  .registration-header h2 {
+    font-size: 24px;
+  }
+
+  .role-selector {
+    grid-template-columns: 1fr;
+  }
+
+  .telemetry-card {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+
+    padding: 12px;
+  }
+
+  .telemetry-card h4 {
+    font-size: 12px;
+  }
+
+  .telemetry-card p {
+    font-size: 9px;
+  }
+
+  .affinity-rate strong {
+    font-size: 19px;
+  }
+
+  .branding-text h1 {
+    font-size: 27px;
+  }
+
+  .proof-point {
+    width: 100%;
+
+    box-sizing: border-box;
+  }
+
+  .platform-status {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+}

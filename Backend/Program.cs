@@ -36,6 +36,17 @@ namespace Backend
             // Admin Service
             builder.Services.AddScoped<IAdminService, AdminService>();
 
+            // CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontend", policy =>
+                {
+                    policy.WithOrigins("http://localhost:4200")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
+
             // JWT Authentication
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -52,7 +63,7 @@ namespace Backend
 
                         IssuerSigningKey = new SymmetricSecurityKey(
                             Encoding.UTF8.GetBytes(
-                                builder.Configuration["Jwt:Key"]))
+                                builder.Configuration["Jwt:Key"]!))
                     };
                 });
 
@@ -98,6 +109,8 @@ namespace Backend
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors("AllowFrontend");
 
             app.UseAuthentication();
 
