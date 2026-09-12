@@ -1,1 +1,1480 @@
-<p>vacancy-create works!</p>
+<div class="employer-layout">
+
+  <!-- ================= SIDEBAR ================= -->
+
+  <aside class="sidebar">
+
+    <div class="sidebar-top">
+
+      <div class="brand">
+
+        <div class="brand-logo">
+          SR
+        </div>
+
+        <div class="brand-text">
+          <strong>SmartRecruit</strong>
+          <span>Talent Workspace</span>
+        </div>
+
+      </div>
+
+
+      <nav class="navigation">
+
+        <a
+          routerLink="/employer/dashboard"
+          class="nav-item">
+
+          <span class="material-symbols-outlined">
+            dashboard
+          </span>
+
+          <span>Dashboard</span>
+
+        </a>
+
+
+        <a
+          routerLink="/employer/company-profile"
+          class="nav-item">
+
+          <span class="material-symbols-outlined">
+            business
+          </span>
+
+          <span>Company Profile</span>
+
+        </a>
+
+
+        <a
+          routerLink="/employer/vacancy-list"
+          class="nav-item">
+
+          <span class="material-symbols-outlined">
+            work_outline
+          </span>
+
+          <span>Vacancies</span>
+
+        </a>
+
+
+        <div class="sub-navigation">
+
+          <a
+            routerLink="/employer/vacancy-create"
+            class="sub-nav-item active">
+
+            <span>
+              Create New Vacancy
+            </span>
+
+          </a>
+
+        </div>
+
+
+        <a class="nav-item">
+
+          <span class="material-symbols-outlined">
+            group
+          </span>
+
+          <span>Applicants</span>
+
+        </a>
+
+
+        <a class="nav-item">
+
+          <span class="material-symbols-outlined">
+            mail
+          </span>
+
+          <span>Contact Requests</span>
+
+        </a>
+
+
+        <a class="nav-item">
+
+          <span class="material-symbols-outlined">
+            notifications
+          </span>
+
+          <span>Notifications</span>
+
+        </a>
+
+      </nav>
+
+    </div>
+
+
+    <div class="sidebar-bottom">
+
+      <div class="prototype-box">
+
+        <span class="material-symbols-outlined">
+          science
+        </span>
+
+        <div>
+          <strong>Prototype Demo</strong>
+          <small>Talent Workspace</small>
+        </div>
+
+      </div>
+
+
+      <button class="sign-out">
+
+        <span class="material-symbols-outlined">
+          logout
+        </span>
+
+        Sign Out
+
+      </button>
+
+    </div>
+
+  </aside>
+
+
+
+  <!-- ================= MAIN ================= -->
+
+  <div class="main-content">
+
+
+    <!-- HEADER -->
+
+    <header class="top-header">
+
+      <div class="header-left">
+
+        <h2>
+          Create New Vacancy
+        </h2>
+
+
+        <div class="header-search">
+
+          <span class="material-symbols-outlined">
+            search
+          </span>
+
+          <input
+            type="text"
+            placeholder="Search candidates, vacancies, or skills... (Cmd+K)"
+          />
+
+        </div>
+
+      </div>
+
+
+      <div class="header-right">
+
+        <button class="notification-button">
+
+          <span class="material-symbols-outlined">
+            notifications
+          </span>
+
+          <span class="notification-dot"></span>
+
+        </button>
+
+
+        <div class="user-profile">
+
+          <div class="user-avatar">
+            E
+          </div>
+
+          <div class="user-info">
+
+            <strong>
+              Employer
+            </strong>
+
+            <span>
+              Talent Lead
+            </span>
+
+          </div>
+
+          <span class="material-symbols-outlined">
+            expand_more
+          </span>
+
+        </div>
+
+      </div>
+
+    </header>
+
+
+
+    <!-- ================= PAGE ================= -->
+
+    <main class="page">
+
+
+      <!-- PAGE INTRO -->
+
+      <section class="page-intro">
+
+        <div class="intro-content">
+
+          <div class="title-row">
+
+            <div>
+
+              <span class="eyebrow">
+                REQUISITION WORKSPACE
+              </span>
+
+              <h1>
+                Create New Vacancy
+              </h1>
+
+            </div>
+
+          </div>
+
+
+          <p>
+            Define the core requirements, necessary competencies,
+            and work arrangement to trigger smart candidate matching.
+          </p>
+
+        </div>
+
+
+        <div class="quick-actions">
+
+          <button
+            type="button"
+            class="secondary-button">
+
+            <span class="material-symbols-outlined">
+              file_upload
+            </span>
+
+            Import Template
+
+          </button>
+
+
+          <button
+            type="button"
+            class="secondary-button"
+            (click)="preview()">
+
+            <span class="material-symbols-outlined">
+              visibility
+            </span>
+
+            Preview Public Card
+
+          </button>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- ================= WORKFLOW ================= -->
+
+      <div class="workflow">
+
+
+        <!-- LEFT -->
+
+        <form
+          class="form-column"
+          (ngSubmit)="postVacancy()">
+
+
+          <!-- PROGRESS -->
+
+          <section class="progress-card">
+
+            <div class="progress-step">
+
+              <div class="step-header">
+
+                <span class="step-number">
+                  STEP 1
+                </span>
+
+                <span
+                  class="material-symbols-outlined step-check"
+                  *ngIf="jobTitle || jobDescription">
+
+                  check_circle
+
+                </span>
+
+              </div>
+
+              <strong>
+                Role Details
+              </strong>
+
+              <div
+                class="progress-line"
+                [class.complete]="jobTitle && jobDescription">
+              </div>
+
+            </div>
+
+
+            <div class="progress-step">
+
+              <div class="step-header">
+
+                <span class="step-number">
+                  STEP 2
+                </span>
+
+                <span
+                  class="material-symbols-outlined step-check"
+                  *ngIf="requiredSkills.length > 0">
+
+                  check_circle
+
+                </span>
+
+              </div>
+
+              <strong>
+                Core Competencies
+              </strong>
+
+              <div
+                class="progress-line"
+                [class.complete]="requiredSkills.length > 0">
+              </div>
+
+            </div>
+
+
+            <div class="progress-step">
+
+              <div class="step-header">
+
+                <span class="step-number">
+                  STEP 3
+                </span>
+
+                <span
+                  class="step-dot"
+                  [class.complete]="primaryLocation">
+                </span>
+
+              </div>
+
+              <strong>
+                Workplace &amp; Location
+              </strong>
+
+              <div
+                class="progress-line"
+                [class.complete]="primaryLocation">
+              </div>
+
+            </div>
+
+          </section>
+
+
+
+          <!-- ================= BASIC INFORMATION ================= -->
+
+          <section class="form-card">
+
+            <div class="section-heading">
+
+              <div class="section-icon">
+
+                <span class="material-symbols-outlined">
+                  work
+                </span>
+
+              </div>
+
+              <div>
+
+                <h2>
+                  Basic Information
+                </h2>
+
+                <p>
+                  Primary details visible on candidate search cards
+                </p>
+
+              </div>
+
+            </div>
+
+
+
+            <!-- JOB TITLE -->
+
+            <div class="field">
+
+              <div class="field-label-row">
+
+                <label for="jobTitle">
+                  Job Title
+                  <span>*</span>
+                </label>
+
+                <span class="required-label">
+                  REQUIRED
+                </span>
+
+              </div>
+
+
+              <div class="input-wrapper">
+
+                <input
+                  id="jobTitle"
+                  name="jobTitle"
+                  type="text"
+                  [(ngModel)]="jobTitle"
+                  placeholder="Enter job title"
+                  required
+                />
+
+
+                <span
+                  class="material-symbols-outlined valid-icon"
+                  *ngIf="jobTitle.trim()">
+
+                  check_circle
+
+                </span>
+
+              </div>
+
+            </div>
+
+
+
+            <!-- DEPARTMENT + EMPLOYMENT -->
+
+            <div class="two-column">
+
+
+              <div class="field">
+
+                <label for="department">
+                  Department / Team
+                </label>
+
+                <input
+                  id="department"
+                  name="department"
+                  type="text"
+                  [(ngModel)]="department"
+                  placeholder="Enter department or team"
+                />
+
+              </div>
+
+
+
+              <div class="field">
+
+                <label>
+                  Employment Type
+                </label>
+
+
+                <div class="employment-options">
+
+
+                  <label
+                    class="employment-option"
+                    [class.selected]="employmentType === 'Full-time'">
+
+                    <input
+                      type="radio"
+                      name="employmentType"
+                      value="Full-time"
+                      [(ngModel)]="employmentType"
+                    />
+
+                    <span
+                      class="material-symbols-outlined"
+                      *ngIf="employmentType === 'Full-time'">
+
+                      check
+
+                    </span>
+
+                    Full-time
+
+                  </label>
+
+
+                  <label
+                    class="employment-option"
+                    [class.selected]="employmentType === 'Contract'">
+
+                    <input
+                      type="radio"
+                      name="employmentType"
+                      value="Contract"
+                      [(ngModel)]="employmentType"
+                    />
+
+                    <span
+                      class="material-symbols-outlined"
+                      *ngIf="employmentType === 'Contract'">
+
+                      check
+
+                    </span>
+
+                    Contract
+
+                  </label>
+
+
+                  <label
+                    class="employment-option"
+                    [class.selected]="employmentType === 'Part-time'">
+
+                    <input
+                      type="radio"
+                      name="employmentType"
+                      value="Part-time"
+                      [(ngModel)]="employmentType"
+                    />
+
+                    <span
+                      class="material-symbols-outlined"
+                      *ngIf="employmentType === 'Part-time'">
+
+                      check
+
+                    </span>
+
+                    Part-time
+
+                  </label>
+
+
+                  <label
+                    class="employment-option"
+                    [class.selected]="employmentType === 'Internship'">
+
+                    <input
+                      type="radio"
+                      name="employmentType"
+                      value="Internship"
+                      [(ngModel)]="employmentType"
+                    />
+
+                    <span
+                      class="material-symbols-outlined"
+                      *ngIf="employmentType === 'Internship'">
+
+                      check
+
+                    </span>
+
+                    Internship
+
+                  </label>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="field">
+
+              <div class="field-label-row">
+
+                <label for="jobDescription">
+                  Job Description
+                  <span>*</span>
+                </label>
+
+                <span class="format-label">
+                  Markdown &amp; Rich Format Supported
+                </span>
+
+              </div>
+
+
+              <div class="editor">
+
+                <div class="editor-toolbar">
+
+                  <button type="button">
+                    <span class="material-symbols-outlined">
+                      format_bold
+                    </span>
+                  </button>
+
+                  <button type="button">
+                    <span class="material-symbols-outlined">
+                      format_italic
+                    </span>
+                  </button>
+
+                  <button type="button">
+                    <span class="material-symbols-outlined">
+                      strikethrough_s
+                    </span>
+                  </button>
+
+                  <span class="toolbar-divider"></span>
+
+                  <button type="button">
+                    <span class="material-symbols-outlined">
+                      format_list_bulleted
+                    </span>
+                  </button>
+
+                  <button type="button">
+                    <span class="material-symbols-outlined">
+                      format_list_numbered
+                    </span>
+                  </button>
+
+                  <span class="toolbar-divider"></span>
+
+                  <button type="button">
+                    <span class="material-symbols-outlined">
+                      link
+                    </span>
+                  </button>
+
+                  <button type="button">
+                    <span class="material-symbols-outlined">
+                      code
+                    </span>
+                  </button>
+
+                  <button type="button">
+                    <span class="material-symbols-outlined">
+                      format_quote
+                    </span>
+                  </button>
+
+                </div>
+
+
+                <textarea
+                  id="jobDescription"
+                  name="jobDescription"
+                  [(ngModel)]="jobDescription"
+                  placeholder="Describe the role, responsibilities, expectations, and other relevant information..."
+                  rows="10"
+                  required>
+                </textarea>
+
+
+                <div class="editor-footer">
+
+                  <span
+                    [class.good-length]="
+                      descriptionLength >= 300
+                    ">
+
+                    <span
+                      class="material-symbols-outlined">
+
+                      {{
+                        descriptionLength >= 300
+                          ? 'task_alt'
+                          : 'info'
+                      }}
+
+                    </span>
+
+                    {{ descriptionLength | number }}
+                    / 5,000 characters
+
+                  </span>
+
+
+                  <span>
+                    {{ descriptionLength >= 300
+                      ? 'Good length for matching'
+                      : 'Add more detail for better matching'
+                    }}
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+
+          <!-- ================= REQUIREMENTS ================= -->
+
+          <section class="form-card">
+
+            <div class="section-heading">
+
+              <div class="section-icon">
+
+                <span class="material-symbols-outlined">
+                  tune
+                </span>
+
+              </div>
+
+              <div>
+
+                <h2>
+                  Job Requirements &amp; Matching Criteria
+                </h2>
+
+                <p>
+                  Define competencies required for this vacancy
+                </p>
+
+              </div>
+
+            </div>
+
+
+
+            <!-- SKILLS -->
+
+            <div class="field">
+
+              <div class="field-label-row">
+
+                <label>
+                  Required Skills
+                  <span>*</span>
+                </label>
+
+                <span class="format-label">
+
+                  {{ requiredSkills.length }}
+                  skill{{ requiredSkills.length === 1 ? '' : 's' }}
+                  selected
+
+                </span>
+
+              </div>
+
+
+              <div class="skill-box">
+
+
+                <span
+                  class="skill-chip"
+                  *ngFor="
+                    let skill of requiredSkills;
+                    let i = index
+                  ">
+
+                  {{ skill }}
+
+                  <button
+                    type="button"
+                    (click)="removeSkill(i)">
+
+                    <span class="material-symbols-outlined">
+                      close
+                    </span>
+
+                  </button>
+
+                </span>
+
+
+                <div class="skill-input">
+
+                  <input
+                    type="text"
+                    name="skillInput"
+                    [(ngModel)]="skillInput"
+                    (keydown)="onSkillKeydown($event)"
+                    placeholder="Add skill and press Enter..."
+                  />
+
+                  <button
+                    type="button"
+                    class="add-skill-button"
+                    (click)="addSkill()">
+
+                    + Add Skill
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+
+            <!-- EXPERIENCE -->
+
+            <div class="two-column">
+
+
+              <div class="field">
+
+                <label for="experienceLevel">
+                  Required Experience
+                  <span>*</span>
+                </label>
+
+                <select
+                  id="experienceLevel"
+                  name="experienceLevel"
+                  [(ngModel)]="experienceLevel">
+
+                  <option value="">
+                    Select experience level
+                  </option>
+
+                  <option value="Entry Level">
+                    Entry Level
+                  </option>
+
+                  <option value="1-2 years">
+                    1–2 years
+                  </option>
+
+                  <option value="3-5 years">
+                    3–5 years
+                  </option>
+
+                  <option value="5-8 years">
+                    5–8 years
+                  </option>
+
+                  <option value="8+ years">
+                    8+ years
+                  </option>
+
+                </select>
+
+              </div>
+
+
+
+              <div class="field">
+
+                <label for="seniority">
+                  Seniority Tier
+                </label>
+
+                <select
+                  id="seniority"
+                  name="seniority"
+                  [(ngModel)]="seniority">
+
+                  <option value="">
+                    Select seniority
+                  </option>
+
+                  <option value="Junior">
+                    Junior
+                  </option>
+
+                  <option value="Mid-level">
+                    Mid-level
+                  </option>
+
+                  <option value="Senior">
+                    Senior
+                  </option>
+
+                  <option value="Lead">
+                    Lead
+                  </option>
+
+                  <option value="Manager">
+                    Manager
+                  </option>
+
+                </select>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+
+          <!-- ================= LOCATION ================= -->
+
+          <section class="form-card">
+
+            <div class="section-heading">
+
+              <div class="section-icon">
+
+                <span class="material-symbols-outlined">
+                  location_on
+                </span>
+
+              </div>
+
+              <div>
+
+                <h2>
+                  Location &amp; Workplace Model
+                </h2>
+
+                <p>
+                  Define where and how the selected candidate will work
+                </p>
+
+              </div>
+
+            </div>
+
+
+
+            <!-- WORKPLACE -->
+
+            <div class="field">
+
+              <label>
+                Workplace Model
+              </label>
+
+
+              <div class="workplace-grid">
+
+
+                <label
+                  class="workplace-option"
+                  [class.selected]="workplaceModel === 'Hybrid'">
+
+                  <div class="workplace-top">
+
+                    <input
+                      type="radio"
+                      name="workplaceModel"
+                      value="Hybrid"
+                      [(ngModel)]="workplaceModel"
+                    />
+
+                    <span>
+                      Flexible
+                    </span>
+
+                  </div>
+
+                  <div class="workplace-title">
+
+                    <span class="material-symbols-outlined">
+                      home_work
+                    </span>
+
+                    Hybrid
+
+                  </div>
+
+                  <p>
+                    Combine remote work with office collaboration.
+                  </p>
+
+                </label>
+
+
+
+                <label
+                  class="workplace-option"
+                  [class.selected]="workplaceModel === 'Remote'">
+
+                  <div class="workplace-top">
+
+                    <input
+                      type="radio"
+                      name="workplaceModel"
+                      value="Remote"
+                      [(ngModel)]="workplaceModel"
+                    />
+
+                    <span>
+                      Flexible
+                    </span>
+
+                  </div>
+
+                  <div class="workplace-title">
+
+                    <span class="material-symbols-outlined">
+                      public
+                    </span>
+
+                    Remote
+
+                  </div>
+
+                  <p>
+                    Work remotely based on company policy.
+                  </p>
+
+                </label>
+
+
+
+                <label
+                  class="workplace-option"
+                  [class.selected]="workplaceModel === 'On-site'">
+
+                  <div class="workplace-top">
+
+                    <input
+                      type="radio"
+                      name="workplaceModel"
+                      value="On-site"
+                      [(ngModel)]="workplaceModel"
+                    />
+
+                    <span>
+                      Physical
+                    </span>
+
+                  </div>
+
+                  <div class="workplace-title">
+
+                    <span class="material-symbols-outlined">
+                      apartment
+                    </span>
+
+                    On-site
+
+                  </div>
+
+                  <p>
+                    Full-time physical presence at the workplace.
+                  </p>
+
+                </label>
+
+              </div>
+
+            </div>
+
+
+
+            <!-- LOCATION -->
+
+            <div class="two-column">
+
+
+              <div class="field">
+
+                <label for="primaryLocation">
+                  Primary Hub / Location
+                  <span>*</span>
+                </label>
+
+
+                <div class="input-wrapper">
+
+                  <span class="material-symbols-outlined input-icon">
+                    map
+                  </span>
+
+                  <input
+                    id="primaryLocation"
+                    name="primaryLocation"
+                    type="text"
+                    [(ngModel)]="primaryLocation"
+                    placeholder="Enter primary location"
+                    required
+                  />
+
+
+                  <span
+                    class="material-symbols-outlined valid-icon"
+                    *ngIf="primaryLocation.trim()">
+
+                    check_circle
+
+                  </span>
+
+                </div>
+
+              </div>
+
+
+
+              <div class="field">
+
+                <label for="allowedJurisdictions">
+                  Allowed Jurisdictions
+                </label>
+
+                <input
+                  id="allowedJurisdictions"
+                  name="allowedJurisdictions"
+                  type="text"
+                  [(ngModel)]="allowedJurisdictions"
+                  placeholder="Enter allowed jurisdictions"
+                />
+
+              </div>
+
+            </div>
+
+          </section>
+
+        </form>
+
+
+
+        <!-- ================= RIGHT COLUMN ================= -->
+
+        <aside class="intelligence-column">
+
+
+          <!-- MATCHING -->
+
+          <section class="intelligence-card">
+
+            <div class="card-heading">
+
+              <div class="card-heading-left">
+
+                <div class="bolt-icon">
+
+                  <span class="material-symbols-outlined">
+                    bolt
+                  </span>
+
+                </div>
+
+                <strong>
+                  Smart Matching Preview
+                </strong>
+
+              </div>
+
+
+              <span class="live-badge">
+                LIVE ENGINE
+              </span>
+
+            </div>
+
+
+
+            <div class="info-box">
+
+              <span class="material-symbols-outlined">
+                info
+              </span>
+
+              <p>
+                Candidates will be matched against the skills
+                and experience specified for this vacancy.
+              </p>
+
+            </div>
+
+
+
+            <div class="matching-status">
+
+              <span>
+                Required skills selected
+              </span>
+
+              <strong>
+                {{ requiredSkills.length }}
+              </strong>
+
+            </div>
+
+
+
+            <div class="matching-status">
+
+              <span>
+                Description characters
+              </span>
+
+              <strong>
+                {{ descriptionLength }}
+              </strong>
+
+            </div>
+
+
+
+            <div class="matching-status">
+
+              <span>
+                Experience level
+              </span>
+
+              <strong>
+                {{
+                  experienceLevel
+                    ? 'Set'
+                    : 'Not set'
+                }}
+              </strong>
+
+            </div>
+
+
+            <div class="matching-message">
+
+              <span class="material-symbols-outlined">
+                auto_awesome
+              </span>
+
+              <span>
+                Matching preview will update when
+                vacancy information is entered.
+              </span>
+
+            </div>
+
+          </section>
+
+
+
+          <!-- READINESS -->
+
+          <section class="intelligence-card">
+
+            <div class="readiness-header">
+
+              <strong>
+                Requisition Readiness
+              </strong>
+
+              <span
+                class="readiness-badge"
+                [class.ready]="readinessPercentage === 100">
+
+                {{ readinessPercentage }}% Ready
+
+              </span>
+
+            </div>
+
+
+            <ul class="readiness-list">
+
+
+              <li>
+
+                <span
+                  class="material-symbols-outlined"
+                  [class.completed]="jobTitle.trim()">
+
+                  {{
+                    jobTitle.trim()
+                      ? 'check_circle'
+                      : 'radio_button_unchecked'
+                  }}
+
+                </span>
+
+                Job title specified
+
+              </li>
+
+
+              <li>
+
+                <span
+                  class="material-symbols-outlined"
+                  [class.completed]="jobDescription.trim()">
+
+                  {{
+                    jobDescription.trim()
+                      ? 'check_circle'
+                      : 'radio_button_unchecked'
+                  }}
+
+                </span>
+
+                Job description provided
+
+              </li>
+
+
+              <li>
+
+                <span
+                  class="material-symbols-outlined"
+                  [class.completed]="requiredSkills.length > 0">
+
+                  {{
+                    requiredSkills.length > 0
+                      ? 'check_circle'
+                      : 'radio_button_unchecked'
+                  }}
+
+                </span>
+
+                Required skills added
+
+              </li>
+
+
+              <li>
+
+                <span
+                  class="material-symbols-outlined"
+                  [class.completed]="experienceLevel">
+
+                  {{
+                    experienceLevel
+                      ? 'check_circle'
+                      : 'radio_button_unchecked'
+                  }}
+
+                </span>
+
+                Experience level assigned
+
+              </li>
+
+
+              <li>
+
+                <span
+                  class="material-symbols-outlined"
+                  [class.completed]="primaryLocation.trim()">
+
+                  {{
+                    primaryLocation.trim()
+                      ? 'check_circle'
+                      : 'radio_button_unchecked'
+                  }}
+
+                </span>
+
+                Workplace &amp; location defined
+
+              </li>
+
+            </ul>
+
+
+            <div class="compliance-box">
+
+              <span class="material-symbols-outlined">
+                verified_user
+              </span>
+
+              <span>
+                Vacancy information will be validated
+                before submission.
+              </span>
+
+            </div>
+
+          </section>
+
+        </aside>
+
+      </div>
+
+
+
+      <!-- ================= BOTTOM ACTION BAR ================= -->
+
+      <div class="bottom-bar">
+
+        <div class="save-status">
+
+          <span class="material-symbols-outlined">
+            cloud_done
+          </span>
+
+          <span>
+            Changes are stored locally until submitted
+          </span>
+
+        </div>
+
+
+        <div class="bottom-actions">
+
+          <button
+            type="button"
+            class="cancel-button"
+            (click)="cancel()">
+
+            Cancel
+
+          </button>
+
+
+          <button
+            type="button"
+            class="draft-button"
+            (click)="saveDraft()"
+            [disabled]="isSaving">
+
+            <span class="material-symbols-outlined">
+              bookmark
+            </span>
+
+            {{ isSaving ? 'Saving...' : 'Save Draft' }}
+
+          </button>
+
+
+          <button
+            type="button"
+            class="post-button"
+            [disabled]="!isReady || isSaving"
+            (click)="postVacancy()">
+
+            <span>
+              {{ isSaving ? 'Posting...' : 'Post Vacancy' }}
+            </span>
+
+            <span class="material-symbols-outlined">
+              arrow_forward
+            </span>
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+</div>

@@ -1,1 +1,753 @@
-<p>company-profile works!</p>
+<div class="profile-shell">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div>
+
+      <div class="brand">
+        <div class="brand-logo">SR</div>
+
+        <div>
+          <div class="brand-name">SmartRecruit</div>
+          <div class="brand-subtitle">Talent Workspace</div>
+        </div>
+      </div>
+
+      <nav class="navigation">
+
+        <a class="nav-item"
+           (click)="goToDashboard()">
+          <span class="material-symbols-outlined">dashboard</span>
+          <span>Dashboard</span>
+        </a>
+
+        <a class="nav-item active">
+          <span class="material-symbols-outlined">domain</span>
+          <span>Company Profile</span>
+        </a>
+
+        <a class="nav-item"
+           (click)="goToVacancies()">
+          <span class="material-symbols-outlined">work</span>
+          <span>Vacancies</span>
+        </a>
+
+        <a class="nav-item"
+           (click)="goToApplicants()">
+          <span class="material-symbols-outlined">group</span>
+          <span>Applicants</span>
+        </a>
+
+        <a class="nav-item"
+           (click)="goToContactRequests()">
+          <span class="material-symbols-outlined">contact_mail</span>
+          <span>Contact Requests</span>
+        </a>
+
+        <a class="nav-item">
+          <span class="material-symbols-outlined">notifications</span>
+          <span>Notifications</span>
+        </a>
+
+      </nav>
+
+    </div>
+
+    <div class="sidebar-bottom">
+
+      <div class="prototype-card">
+        <span class="material-symbols-outlined">science</span>
+
+        <div>
+          <strong>Prototype Demo</strong>
+          <small>v1.4 Internal Release</small>
+        </div>
+      </div>
+
+      <button class="sign-out">
+        <span class="material-symbols-outlined">logout</span>
+        <span>Sign Out</span>
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- Main -->
+  <div class="main-area">
+
+    <!-- Header -->
+    <header class="top-header">
+
+      <div class="header-title">
+        <h1>Company Profile</h1>
+
+        <div class="search-box">
+          <span class="material-symbols-outlined">search</span>
+
+          <input
+            type="text"
+            placeholder="Search candidates, vacancies, or skills..." />
+        </div>
+      </div>
+
+      <div class="header-actions">
+
+        <button class="icon-button">
+          <span class="material-symbols-outlined">
+            notifications
+          </span>
+        </button>
+
+        <div class="user-profile">
+
+          <div class="user-avatar">E</div>
+
+          <div class="user-details">
+            <strong>Employer</strong>
+            <span>Talent Manager</span>
+          </div>
+
+          <span class="material-symbols-outlined">
+            expand_more
+          </span>
+
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- Page Content -->
+    <main class="content">
+
+      <!-- Page Heading -->
+      <section class="page-heading">
+
+        <div>
+          <div class="eyebrow">EMPLOYER PROFILE</div>
+
+          <h2>Build your company profile</h2>
+
+          <p>
+            Complete your company information to help candidates
+            understand your organization and improve matching quality.
+          </p>
+        </div>
+
+        <div class="heading-actions">
+
+          <button
+            class="cancel-button"
+            type="button"
+            (click)="cancel()">
+            Cancel
+          </button>
+
+          <button
+            class="save-button"
+            type="button"
+            (click)="saveProfile()">
+
+            <span class="material-symbols-outlined">
+              save
+            </span>
+
+            Save Profile
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- Success Message -->
+      <div
+        *ngIf="saved"
+        class="success-message">
+
+        <span class="material-symbols-outlined">
+          check_circle
+        </span>
+
+        <span>
+          Company profile saved successfully.
+        </span>
+
+      </div>
+
+
+      <!-- Profile Strength -->
+      <section class="strength-card">
+
+        <div class="strength-top">
+
+          <div class="strength-left">
+
+            <div class="progress-ring">
+
+              <svg viewBox="0 0 52 52">
+
+                <circle
+                  class="ring-background"
+                  cx="26"
+                  cy="26"
+                  r="21">
+                </circle>
+
+                <circle
+                  class="ring-progress"
+                  cx="26"
+                  cy="26"
+                  r="21"
+                  [style.stroke-dashoffset]="132 - (132 * profileCompletion / 100)">
+                </circle>
+
+              </svg>
+
+              <div class="percentage">
+                {{ profileCompletion }}%
+              </div>
+
+            </div>
+
+            <div>
+
+              <div class="strength-title">
+                Profile Strength
+              </div>
+
+              <p>
+                Complete more sections to improve your
+                candidate matching quality.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="completion-label">
+
+            <span class="material-symbols-outlined">
+              trending_up
+            </span>
+
+            {{ profileCompletion }}% Complete
+
+          </div>
+
+        </div>
+
+
+        <div class="checklist">
+
+          <div
+            class="check-item"
+            [class.completed]="companyName.trim() !== ''">
+
+            <span class="material-symbols-outlined">
+              {{ companyName.trim() !== '' ? 'check_circle' : 'radio_button_unchecked' }}
+            </span>
+
+            <span>Basic Info</span>
+
+          </div>
+
+          <div
+            class="check-item"
+            [class.completed]="headquarters.trim() !== ''">
+
+            <span class="material-symbols-outlined">
+              {{ headquarters.trim() !== '' ? 'check_circle' : 'radio_button_unchecked' }}
+            </span>
+
+            <span>Location & HQ</span>
+
+          </div>
+
+          <div
+            class="check-item"
+            [class.completed]="contactEmail.trim() !== ''">
+
+            <span class="material-symbols-outlined">
+              {{ contactEmail.trim() !== '' ? 'check_circle' : 'radio_button_unchecked' }}
+            </span>
+
+            <span>Contact Rep</span>
+
+          </div>
+
+          <div
+            class="check-item"
+            [class.completed]="description.trim() !== ''">
+
+            <span class="material-symbols-outlined">
+              {{ description.trim() !== '' ? 'check_circle' : 'radio_button_unchecked' }}
+            </span>
+
+            <span>Company Bio</span>
+
+          </div>
+
+          <div class="check-item pending">
+
+            <span class="material-symbols-outlined">
+              radio_button_unchecked
+            </span>
+
+            <span>Culture & Perks</span>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- Company Form -->
+      <form
+        class="profile-form"
+        (ngSubmit)="saveProfile()">
+
+
+        <!-- Basic Information -->
+        <section class="form-card">
+
+          <div class="section-header">
+
+            <div class="section-icon">
+              <span class="material-symbols-outlined">
+                corporate_fare
+              </span>
+            </div>
+
+            <div>
+
+              <h3>Basic Company Information</h3>
+
+              <p>
+                Public branding details displayed across job posts
+                and candidate feeds.
+              </p>
+
+            </div>
+
+            <span class="section-number">
+              SECTION 01
+            </span>
+
+          </div>
+
+
+          <div class="form-grid">
+
+            <div class="field">
+
+              <label>
+                Company Name
+                <span>*</span>
+              </label>
+
+              <input
+                type="text"
+                name="companyName"
+                [(ngModel)]="companyName"
+                placeholder="Enter company name"
+                required />
+
+              <small>
+                Primary trading name recognized by candidates.
+              </small>
+
+            </div>
+
+
+            <div class="field">
+
+              <label>
+                Legal Entity / Registered Name
+              </label>
+
+              <input
+                type="text"
+                name="legalName"
+                [(ngModel)]="legalName"
+                placeholder="Enter registered company name" />
+
+              <small>
+                Used for offer letters and contract validation.
+              </small>
+
+            </div>
+
+
+            <div class="field">
+
+              <label>Company Website</label>
+
+              <div class="input-with-icon">
+
+                <span class="material-symbols-outlined">
+                  language
+                </span>
+
+                <input
+                  type="url"
+                  name="website"
+                  [(ngModel)]="website"
+                  placeholder="https://example.com" />
+
+              </div>
+
+            </div>
+
+
+            <div class="field">
+
+              <label>Industry</label>
+
+              <select
+                name="industry"
+                [(ngModel)]="industry">
+
+                <option value="">
+                  Select industry
+                </option>
+
+                <option value="Technology">
+                  Technology
+                </option>
+
+                <option value="Finance">
+                  Finance
+                </option>
+
+                <option value="Healthcare">
+                  Healthcare
+                </option>
+
+                <option value="Education">
+                  Education
+                </option>
+
+                <option value="Retail">
+                  Retail
+                </option>
+
+                <option value="Manufacturing">
+                  Manufacturing
+                </option>
+
+                <option value="Other">
+                  Other
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="field">
+
+              <label>Company Size</label>
+
+              <select
+                name="companySize"
+                [(ngModel)]="companySize">
+
+                <option value="">
+                  Select company size
+                </option>
+
+                <option value="1-10">
+                  1 - 10 employees
+                </option>
+
+                <option value="11-50">
+                  11 - 50 employees
+                </option>
+
+                <option value="51-200">
+                  51 - 200 employees
+                </option>
+
+                <option value="201-500">
+                  201 - 500 employees
+                </option>
+
+                <option value="501-1000">
+                  501 - 1000 employees
+                </option>
+
+                <option value="1000+">
+                  1000+ employees
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="field">
+
+              <label>Founded Year</label>
+
+              <input
+                type="number"
+                name="foundedYear"
+                [(ngModel)]="foundedYear"
+                placeholder="e.g. 2015" />
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- Location -->
+        <section class="form-card">
+
+          <div class="section-header">
+
+            <div class="section-icon">
+              <span class="material-symbols-outlined">
+                location_on
+              </span>
+            </div>
+
+            <div>
+
+              <h3>Location & Headquarters</h3>
+
+              <p>
+                Help candidates understand where your organization
+                operates.
+              </p>
+
+            </div>
+
+            <span class="section-number">
+              SECTION 02
+            </span>
+
+          </div>
+
+
+          <div class="form-grid">
+
+            <div class="field">
+
+              <label>Headquarters</label>
+
+              <input
+                type="text"
+                name="headquarters"
+                [(ngModel)]="headquarters"
+                placeholder="Headquarters location" />
+
+            </div>
+
+
+            <div class="field">
+
+              <label>City</label>
+
+              <input
+                type="text"
+                name="city"
+                [(ngModel)]="city"
+                placeholder="City" />
+
+            </div>
+
+
+            <div class="field">
+
+              <label>Country</label>
+
+              <input
+                type="text"
+                name="country"
+                [(ngModel)]="country"
+                placeholder="Country" />
+
+            </div>
+
+
+            <div class="field full-width">
+
+              <label>Office Address</label>
+
+              <textarea
+                name="address"
+                [(ngModel)]="address"
+                rows="3"
+                placeholder="Enter complete office address">
+              </textarea>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- Contact -->
+        <section class="form-card">
+
+          <div class="section-header">
+
+            <div class="section-icon">
+              <span class="material-symbols-outlined">
+                person
+              </span>
+            </div>
+
+            <div>
+
+              <h3>Recruitment Contact</h3>
+
+              <p>
+                Primary representative candidates can contact
+                regarding recruitment.
+              </p>
+
+            </div>
+
+            <span class="section-number">
+              SECTION 03
+            </span>
+
+          </div>
+
+
+          <div class="form-grid">
+
+            <div class="field">
+
+              <label>Contact Name</label>
+
+              <input
+                type="text"
+                name="contactName"
+                [(ngModel)]="contactName"
+                placeholder="Recruiter or HR representative" />
+
+            </div>
+
+
+            <div class="field">
+
+              <label>Email Address</label>
+
+              <input
+                type="email"
+                name="contactEmail"
+                [(ngModel)]="contactEmail"
+                placeholder="recruitment@example.com" />
+
+            </div>
+
+
+            <div class="field">
+
+              <label>Phone Number</label>
+
+              <input
+                type="tel"
+                name="contactPhone"
+                [(ngModel)]="contactPhone"
+                placeholder="+94 XX XXX XXXX" />
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- Company Bio -->
+        <section class="form-card">
+
+          <div class="section-header">
+
+            <div class="section-icon">
+              <span class="material-symbols-outlined">
+                description
+              </span>
+            </div>
+
+            <div>
+
+              <h3>Company Bio</h3>
+
+              <p>
+                Tell candidates what makes your organization unique.
+              </p>
+
+            </div>
+
+            <span class="section-number">
+              SECTION 04
+            </span>
+
+          </div>
+
+
+          <div class="field">
+
+            <label>Company Description</label>
+
+            <textarea
+              name="description"
+              [(ngModel)]="description"
+              rows="7"
+              maxlength="2000"
+              placeholder="Describe your company, mission, products, culture and what makes your organization a great place to work...">
+            </textarea>
+
+            <small>
+              A clear company description helps candidates understand
+              your organization before applying.
+            </small>
+
+          </div>
+
+        </section>
+
+
+        <!-- Bottom Actions -->
+        <div class="bottom-actions">
+
+          <button
+            type="button"
+            class="cancel-button"
+            (click)="cancel()">
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="save-button">
+
+            <span class="material-symbols-outlined">
+              save
+            </span>
+
+            Save Company Profile
+
+          </button>
+
+        </div>
+
+      </form>
+
+    </main>
+
+  </div>
+
+</div>

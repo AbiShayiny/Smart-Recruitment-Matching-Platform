@@ -33,7 +33,10 @@ namespace Backend.Services.Jobseeker.Implementations
             {
                 Skills = profile.Skills,
                 Experience = profile.Experience,
-                Education = profile.Education
+                Education = profile.Education,
+                Location = profile.Location,
+                CreatedAt = profile.CreatedAt,
+                UpdatedAt = profile.UpdatedAt
             };
         }
 
@@ -58,7 +61,10 @@ namespace Backend.Services.Jobseeker.Implementations
                 UserId = userId,
                 Skills = dto.Skills,
                 Experience = dto.Experience,
-                Education = dto.Education
+                Education = dto.Education,
+                Location = dto.Location,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
             };
 
             // Save profile to database
@@ -70,7 +76,10 @@ namespace Backend.Services.Jobseeker.Implementations
             {
                 Skills = createdProfile.Skills,
                 Experience = createdProfile.Experience,
-                Education = createdProfile.Education
+                Education = createdProfile.Education,
+                Location = createdProfile.Location,
+                CreatedAt = createdProfile.CreatedAt,
+                UpdatedAt = createdProfile.UpdatedAt
             };
         }
 
@@ -90,6 +99,8 @@ namespace Backend.Services.Jobseeker.Implementations
             profile.Skills = dto.Skills;
             profile.Experience = dto.Experience;
             profile.Education = dto.Education;
+            profile.Location = dto.Location;
+            profile.UpdatedAt = DateTime.UtcNow;
 
             var updatedProfile =
                 await _repository.UpdateAsync(profile);
@@ -98,7 +109,10 @@ namespace Backend.Services.Jobseeker.Implementations
             {
                 Skills = updatedProfile.Skills,
                 Experience = updatedProfile.Experience,
-                Education = updatedProfile.Education
+                Education = updatedProfile.Education,
+                Location = updatedProfile.Location,
+                CreatedAt = updatedProfile.CreatedAt,
+                UpdatedAt = updatedProfile.UpdatedAt
             };
         }
 

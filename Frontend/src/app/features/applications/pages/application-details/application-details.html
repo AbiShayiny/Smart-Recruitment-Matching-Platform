@@ -1,1 +1,1025 @@
-<p>application-details works!</p>
+<div class="application-page">
+
+  <!-- Top Header -->
+  <header class="top-header">
+
+    <div class="header-left">
+
+      <div class="brand">
+        <div class="brand-icon">
+          <span class="material-symbols-outlined">
+            hub
+          </span>
+        </div>
+
+        <div>
+          <div class="brand-name">SmartRecruit</div>
+          <div class="brand-subtitle">WORKSPACE</div>
+        </div>
+      </div>
+
+      <div class="breadcrumb">
+
+        <button type="button" (click)="goBack()">
+          Applicants
+        </button>
+
+        <span class="material-symbols-outlined">
+          chevron_right
+        </span>
+
+        <strong>Candidate Details</strong>
+
+      </div>
+
+    </div>
+
+    <div class="header-right">
+
+      <div class="search-box">
+
+        <span class="material-symbols-outlined">
+          search
+        </span>
+
+        <input
+          type="text"
+          placeholder="Search candidates, skills, criteria..."
+        />
+
+        <kbd>⌘K</kbd>
+
+      </div>
+
+      <button class="icon-button" type="button">
+
+        <span class="material-symbols-outlined">
+          notifications
+        </span>
+
+        <span class="notification-dot"></span>
+
+      </button>
+
+      <div class="profile-divider"></div>
+
+      <div class="profile">
+
+        <div class="profile-avatar">
+          <span class="material-symbols-outlined">
+            person
+          </span>
+        </div>
+
+        <div class="profile-info">
+          <strong>Employer</strong>
+          <span>Talent Workspace</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <nav>
+
+      <button type="button">
+        <span>Dashboard</span>
+      </button>
+
+      <button type="button">
+        <span>Company Profile</span>
+      </button>
+
+      <button type="button">
+        <span>Vacancies</span>
+      </button>
+
+      <button
+        type="button"
+        class="active"
+        (click)="goBack()">
+
+        <span>Applicants</span>
+
+        <span class="nav-badge">
+          Active
+        </span>
+
+      </button>
+
+      <button type="button">
+        <span>Contact Requests</span>
+      </button>
+
+      <button type="button">
+        <span>Notifications</span>
+
+        <span class="notification-badge">
+          0
+        </span>
+
+      </button>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+      <div class="environment">
+
+        <span class="environment-dot"></span>
+
+        <span>Application Environment</span>
+
+        <small>v1.0</small>
+
+      </div>
+
+      <button type="button" class="sign-out">
+
+        <span>Sign Out</span>
+
+        <span class="material-symbols-outlined">
+          logout
+        </span>
+
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- Main -->
+  <main class="main-content">
+
+    <!-- Back row -->
+    <div class="back-row">
+
+      <button
+        type="button"
+        class="back-button"
+        (click)="goBack()">
+
+        <span class="material-symbols-outlined">
+          arrow_back
+        </span>
+
+        Back to Ranked Applicants
+
+      </button>
+
+      <div class="audit-indicator">
+
+        <span></span>
+
+        Deterministic Pipeline Review · Internal Audit Enabled
+
+      </div>
+
+    </div>
+
+
+    <!-- Candidate Hero -->
+    <section class="candidate-hero">
+
+      <div class="hero-glow"></div>
+
+      <div class="candidate-identity">
+
+        <div class="candidate-avatar">
+
+          <span class="material-symbols-outlined">
+            person
+          </span>
+
+          <div class="verified-icon">
+            <span class="material-symbols-outlined">
+              verified
+            </span>
+          </div>
+
+        </div>
+
+        <div class="candidate-info">
+
+          <div class="candidate-title-row">
+
+            <h1>Candidate Details</h1>
+
+            <span class="id-pill">
+              {{ applicationId || 'Application ID unavailable' }}
+            </span>
+
+            <span class="status-pill">
+              Profile Data Pending
+            </span>
+
+          </div>
+
+          <p class="candidate-role">
+            Candidate profile information will appear here
+          </p>
+
+          <div class="candidate-meta">
+
+            <span>
+              <span class="material-symbols-outlined">
+                schedule
+              </span>
+              Application date unavailable
+            </span>
+
+            <span class="separator">•</span>
+
+            <span>
+              <span class="material-symbols-outlined">
+                location_on
+              </span>
+              Location unavailable
+            </span>
+
+            <span class="separator">•</span>
+
+            <span>
+              <span class="material-symbols-outlined">
+                work_history
+              </span>
+              Experience unavailable
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- Hero Actions -->
+      <div class="hero-actions">
+
+        <div class="match-score">
+
+          <div class="score-ring">
+
+            <svg viewBox="0 0 72 72">
+
+              <circle
+                cx="36"
+                cy="36"
+                r="30"
+                class="score-background">
+              </circle>
+
+              <circle
+                cx="36"
+                cy="36"
+                r="30"
+                class="score-progress">
+              </circle>
+
+            </svg>
+
+            <div class="score-value">
+
+              <strong>—</strong>
+
+              <span>FIT</span>
+
+            </div>
+
+          </div>
+
+          <div class="score-info">
+
+            <strong>Match score unavailable</strong>
+
+            <span>Deterministic Rule Fit</span>
+
+            <b>Ranking unavailable</b>
+
+          </div>
+
+        </div>
+
+
+        <div class="hero-buttons">
+
+          <button
+            type="button"
+            class="secondary-action"
+            (click)="openCvModal()">
+
+            <span class="material-symbols-outlined">
+              visibility
+            </span>
+
+            View CV
+
+          </button>
+
+          <button
+            type="button"
+            class="primary-action"
+            (click)="openContactModal()">
+
+            <span class="material-symbols-outlined">
+              send
+            </span>
+
+            Contact Candidate
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- Main Grid -->
+    <div class="content-grid">
+
+
+      <!-- LEFT -->
+      <div class="left-column">
+
+
+        <!-- Match Analysis -->
+        <section class="content-card">
+
+          <div class="card-header">
+
+            <div class="card-title">
+
+              <div class="card-icon">
+                <span class="material-symbols-outlined">
+                  rule
+                </span>
+              </div>
+
+              <div>
+                <h2>Algorithmic Match Analysis</h2>
+                <p>
+                  Calculated against the selected vacancy requirements
+                </p>
+              </div>
+
+            </div>
+
+            <span class="header-tag">
+              Matching data unavailable
+            </span>
+
+          </div>
+
+
+          <div class="analysis-grid">
+
+            <div class="analysis-section">
+
+              <div class="analysis-heading">
+
+                <span class="matched-title">
+                  <span class="material-symbols-outlined">
+                    check_circle
+                  </span>
+
+                  Matched Competencies
+                </span>
+
+              </div>
+
+              <div class="empty-analysis">
+
+                <span class="material-symbols-outlined">
+                  data_info_alert
+                </span>
+
+                <p>
+                  Candidate competency data is not available yet.
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div class="analysis-section">
+
+              <div class="analysis-heading">
+
+                <span class="missing-title">
+                  <span class="material-symbols-outlined">
+                    cancel
+                  </span>
+
+                  Deficit / Missing Criteria
+                </span>
+
+              </div>
+
+              <div class="empty-analysis">
+
+                <span class="material-symbols-outlined">
+                  data_info_alert
+                </span>
+
+                <p>
+                  Matching deficit information is not available yet.
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="algorithm-note">
+
+            <span class="material-symbols-outlined">
+              info
+            </span>
+
+            <p>
+              <strong>Deterministic Rule Evaluation:</strong>
+              Match evaluation will be displayed after the application
+              and vacancy data are connected to the backend.
+            </p>
+
+          </div>
+
+        </section>
+
+
+        <!-- Candidate Profile -->
+        <section class="content-card">
+
+          <div class="card-header">
+
+            <div class="card-title">
+
+              <div class="card-icon">
+                <span class="material-symbols-outlined">
+                  person
+                </span>
+              </div>
+
+              <div>
+                <h2>Candidate Profile & Bio</h2>
+                <p>
+                  Verified candidate information
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="empty-profile">
+
+            <div class="empty-icon">
+              <span class="material-symbols-outlined">
+                person_search
+              </span>
+            </div>
+
+            <h3>Candidate profile unavailable</h3>
+
+            <p>
+              Profile information will appear here when application
+              data is available.
+            </p>
+
+          </div>
+
+        </section>
+
+
+        <!-- Career History -->
+        <section class="content-card">
+
+          <div class="card-header">
+
+            <div class="card-title">
+
+              <div class="card-icon">
+                <span class="material-symbols-outlined">
+                  timeline
+                </span>
+              </div>
+
+              <div>
+                <h2>Verified Career History</h2>
+                <p>
+                  Candidate employment history
+                </p>
+              </div>
+
+            </div>
+
+            <span class="header-tag">
+              Data unavailable
+            </span>
+
+          </div>
+
+
+          <div class="empty-profile">
+
+            <div class="empty-icon">
+              <span class="material-symbols-outlined">
+                work_history
+              </span>
+            </div>
+
+            <h3>No career history available</h3>
+
+            <p>
+              Verified career information will appear after the
+              candidate profile is loaded.
+            </p>
+
+          </div>
+
+        </section>
+
+
+        <!-- Skills -->
+        <section class="content-card">
+
+          <div class="card-header">
+
+            <div class="card-title">
+
+              <div class="card-icon">
+                <span class="material-symbols-outlined">
+                  category
+                </span>
+              </div>
+
+              <div>
+                <h2>Extracted & Verified Skills</h2>
+                <p>
+                  Skills parsed from candidate documents
+                </p>
+              </div>
+
+            </div>
+
+            <span class="header-tag">
+              CV & Portfolio
+            </span>
+
+          </div>
+
+
+          <div class="skills-empty">
+
+            <span class="material-symbols-outlined">
+              psychology_alt
+            </span>
+
+            <p>
+              No verified skills are available yet.
+            </p>
+
+          </div>
+
+        </section>
+
+      </div>
+
+
+      <!-- RIGHT -->
+      <div class="right-column">
+
+
+        <!-- Application Control -->
+        <section class="side-card">
+
+          <div class="side-card-header">
+
+            <div class="card-icon">
+              <span class="material-symbols-outlined">
+                manage_accounts
+              </span>
+            </div>
+
+            <h2>Application Control</h2>
+
+          </div>
+
+
+          <div class="side-card-body">
+
+            <div class="requisition-box">
+
+              <span>ACTIVE REQUISITION</span>
+
+              <strong>
+                Vacancy information unavailable
+              </strong>
+
+              <small>
+                Requisition details will appear here
+              </small>
+
+            </div>
+
+
+            <div class="metadata">
+
+              <div>
+                <span>Applied Date</span>
+                <strong>Not available</strong>
+              </div>
+
+              <div>
+                <span>Candidate Source</span>
+                <strong>Not available</strong>
+              </div>
+
+              <div>
+                <span>Hiring Manager</span>
+                <strong>Not available</strong>
+              </div>
+
+            </div>
+
+
+            <div class="status-control">
+
+              <label for="pipeline-status">
+                Stage Pipeline Status
+              </label>
+
+              <div class="select-wrapper">
+
+                <select
+                  id="pipeline-status"
+                  [(ngModel)]="pipelineStatus">
+
+                  <option value="">
+                    Select pipeline status
+                  </option>
+
+                  <option value="applied">
+                    Applied
+                  </option>
+
+                  <option value="shortlisted">
+                    Shortlisted
+                  </option>
+
+                  <option value="interview">
+                    Interview Scheduled
+                  </option>
+
+                  <option value="offer">
+                    Offer Extended
+                  </option>
+
+                  <option value="rejected">
+                    Rejected
+                  </option>
+
+                </select>
+
+                <span class="material-symbols-outlined">
+                  expand_more
+                </span>
+
+              </div>
+
+              <p>
+                Updating status will be connected to the recruitment
+                workflow after backend integration.
+              </p>
+
+            </div>
+
+
+            <button
+              type="button"
+              class="full-primary"
+              (click)="updateStatus()">
+
+              Update Status
+
+            </button>
+
+          </div>
+
+        </section>
+
+
+        <!-- Resume -->
+        <section class="side-card">
+
+          <div class="side-card-header">
+
+            <div class="card-icon">
+              <span class="material-symbols-outlined">
+                description
+              </span>
+            </div>
+
+            <h2>Candidate Resume</h2>
+
+            <span class="lock-icon material-symbols-outlined">
+              lock
+            </span>
+
+          </div>
+
+
+          <div class="side-card-body">
+
+            <div class="resume-box">
+
+              <div class="pdf-icon">
+
+                <span class="material-symbols-outlined">
+                  picture_as_pdf
+                </span>
+
+                <small>PDF</small>
+
+              </div>
+
+              <div class="resume-info">
+
+                <strong>Resume unavailable</strong>
+
+                <span>
+                  Candidate resume has not been loaded.
+                </span>
+
+                <small>
+                  Recruiter access logging enabled
+                </small>
+
+              </div>
+
+            </div>
+
+
+            <button
+              type="button"
+              class="resume-preview"
+              (click)="openCvModal()">
+
+              <span class="material-symbols-outlined">
+                open_in_new
+              </span>
+
+              Preview in Viewer
+
+            </button>
+
+
+            <button
+              type="button"
+              class="download-button">
+
+              <span class="material-symbols-outlined">
+                download
+              </span>
+
+              Download PDF
+
+            </button>
+
+          </div>
+
+        </section>
+
+
+        <!-- Criteria -->
+        <section class="side-card">
+
+          <div class="side-card-header">
+
+            <div class="card-icon">
+              <span class="material-symbols-outlined">
+                compare_arrows
+              </span>
+            </div>
+
+            <h2>Criteria Breakdown</h2>
+
+          </div>
+
+
+          <div class="criteria-empty">
+
+            <span class="material-symbols-outlined">
+              analytics
+            </span>
+
+            <h3>Comparison unavailable</h3>
+
+            <p>
+              Candidate and vacancy criteria will be compared once
+              application data is available.
+            </p>
+
+          </div>
+
+        </section>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- Contact Modal -->
+  <div
+    class="modal-backdrop"
+    *ngIf="contactModalOpen"
+    (click)="closeContactModal()">
+
+    <div
+      class="modal"
+      (click)="$event.stopPropagation()">
+
+      <div class="modal-header">
+
+        <div class="modal-heading">
+
+          <div class="modal-icon">
+            <span class="material-symbols-outlined">
+              outgoing_mail
+            </span>
+          </div>
+
+          <div>
+            <h2>Send Contact Request</h2>
+            <p>
+              Candidate contact workflow
+            </p>
+          </div>
+
+        </div>
+
+        <button
+          type="button"
+          (click)="closeContactModal()">
+
+          <span class="material-symbols-outlined">
+            close
+          </span>
+
+        </button>
+
+      </div>
+
+
+      <div class="modal-body">
+
+        <div class="modal-candidate">
+
+          <div class="small-avatar">
+            <span class="material-symbols-outlined">
+              person
+            </span>
+          </div>
+
+          <div>
+            <strong>Candidate information unavailable</strong>
+            <span>
+              Application ID:
+              {{ applicationId || 'Not available' }}
+            </span>
+          </div>
+
+        </div>
+
+
+        <label>
+          Official Invitation Note
+        </label>
+
+        <textarea
+          [(ngModel)]="contactMessage"
+          rows="5"
+          placeholder="Enter your official invitation message...">
+        </textarea>
+
+        <p class="modal-hint">
+          The notification and email workflow will be connected to
+          the backend later.
+        </p>
+
+      </div>
+
+
+      <div class="modal-footer">
+
+        <button
+          type="button"
+          class="modal-cancel"
+          (click)="closeContactModal()">
+
+          Cancel
+
+        </button>
+
+        <button
+          type="button"
+          class="modal-send"
+          (click)="sendContactRequest()">
+
+          <span class="material-symbols-outlined">
+            send
+          </span>
+
+          Send Contact Request
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- CV Modal -->
+  <div
+    class="modal-backdrop cv-backdrop"
+    *ngIf="cvModalOpen"
+    (click)="closeCvModal()">
+
+    <div
+      class="cv-modal"
+      (click)="$event.stopPropagation()">
+
+      <div class="cv-header">
+
+        <div class="cv-title">
+
+          <span class="material-symbols-outlined">
+            picture_as_pdf
+          </span>
+
+          <div>
+            <h2>Candidate Resume</h2>
+            <span>
+              Secure recruiter viewer
+            </span>
+          </div>
+
+        </div>
+
+        <button
+          type="button"
+          (click)="closeCvModal()">
+
+          <span class="material-symbols-outlined">
+            close
+          </span>
+
+        </button>
+
+      </div>
+
+
+      <div class="cv-body">
+
+        <div class="cv-empty">
+
+          <div class="cv-empty-icon">
+            <span class="material-symbols-outlined">
+              description
+            </span>
+          </div>
+
+          <h2>Resume unavailable</h2>
+
+          <p>
+            A candidate resume will be displayed here when a resume
+            document is available.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
