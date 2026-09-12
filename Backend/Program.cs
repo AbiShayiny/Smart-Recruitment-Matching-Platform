@@ -1,10 +1,16 @@
 using Backend.Data;
 using Backend.Repositories.Implementations.User;
 using Backend.Repositories.Interfaces.User;
+using Backend.Repositories.Jobseeker.Implementations;
+using Backend.Repositories.Jobseeker.Interfaces;
+using Backend.Repositories.Vacancy.Implementations;
+using Backend.Repositories.Vacancy.Interfaces;
 using Backend.Services.Implementations.Admin;
 using Backend.Services.Implementations.Authentication;
 using Backend.Services.Interfaces.Admin;
 using Backend.Services.Interfaces.Authentication;
+using Backend.Services.Matching.Implementations;
+using Backend.Services.Matching.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -35,6 +41,35 @@ namespace Backend
 
             // Admin Service
             builder.Services.AddScoped<IAdminService, AdminService>();
+
+            // Matching Service
+            builder.Services.AddScoped<IJobSeekerRepository, JobSeekerRepository>();
+            builder.Services.AddScoped<IVacancyRepository, VacancyRepository>();
+            builder.Services.AddScoped<IMatchingService, MatchingService>();
+
+            // Application Service
+            builder.Services.AddScoped<
+                Repositories.Application.Interfaces.IApplicationRepository,
+                Repositories.Application.Implementations.ApplicationRepository>();
+            builder.Services.AddScoped<
+                Services.Application.Interfaces.IApplicationService,
+                Services.Application.Implementations.ApplicationService>();
+
+            // Notification Service
+            builder.Services.AddScoped<
+                Repositories.Notification.Interfaces.INotificationRepository,
+                Repositories.Notification.Implementations.NotificationRepository>();
+            builder.Services.AddScoped<
+                Services.Notification.Interfaces.INotificationService,
+                Services.Notification.Implementations.NotificationService>();
+
+            // Contact Request Service
+            builder.Services.AddScoped<
+                Repositories.ContactRequest.Interfaces.IContactRequestRepository,
+                Repositories.ContactRequest.Implementations.ContactRequestRepository>();
+            builder.Services.AddScoped<
+                Services.Contact.Interfaces.IContactRequestService,
+                Services.Contact.Implementations.ContactRequestService>();
 
             // JWT Authentication
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
