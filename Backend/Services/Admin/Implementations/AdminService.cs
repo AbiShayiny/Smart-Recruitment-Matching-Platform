@@ -1,8 +1,9 @@
 ﻿using Backend.DTOs.Admin;
-using Backend.Repositories.User.Interfaces;
-using Backend.Services.Admin.Interfaces;
+using Backend.Models.User;
+using Backend.Repositories.Interfaces.User;
+using Backend.Services.Interfaces.Admin;
 
-namespace Backend.Services.Admin.Implementations
+namespace Backend.Services.Implementations.Admin
 {
     public class AdminService : IAdminService
     {
@@ -13,88 +14,63 @@ namespace Backend.Services.Admin.Implementations
             _userRepository = userRepository;
         }
 
-        public async Task<List<UserResponseDto>> GetAllUsersAsync()
+        public object GetAllUsers()
         {
-            var users = await _userRepository.GetAllAsync();
+            var users = _userRepository.GetAllUsers();
 
-            return users.Select(user => new UserResponseDto
+            return users.Select(user => new
             {
-                Id = user.Id,
-                FullName = user.FullName,
-                Email = user.Email,
-                Role = user.Role,
-                CreatedAt = user.CreatedAt
+                user.Id,
+                user.Name,
+                user.Email,
+                user.Role
             }).ToList();
         }
 
-        public async Task<UserResponseDto?> GetUserByIdAsync(int id)
+        public string UpdateUser(int id, UpdateUserRequest request)
         {
-            var user = await _userRepository.GetByIdAsync(id);
+            User user = _userRepository.GetUserById(id);
 
             if (user == null)
             {
-                return null;
+                return "User not found";
             }
 
-            return new UserResponseDto
+            if (request.Role != "JobSeeker" &&
+                request.Role != "Employer" &&
+                request.Role != "Administrator")
             {
-                Id = user.Id,
-                FullName = user.FullName,
-                Email = user.Email,
-                Role = user.Role,
-                CreatedAt = user.CreatedAt
-            };
+                return "Invalid role";
+            }
+
+            User existingUser = _userRepository.GetUserByEmail(request.Email);
+
+            if (existingUser != null && existingUser.Id != id)
+            {
+                return "Email already exists";
+            }
+
+            user.Name = request.Name;
+            user.Email = request.Email;
+            user.Role = request.Role;
+
+            _userRepository.UpdateUser(user);
+
+            return "User updated successfully";
         }
 
-        public async Task<UserResponseDto?> UpdateUserAsync(
-            int id,
-            UpdateUserDto updateUserDto)
+        public string DeleteUser(int id)
         {
-            var user = await _userRepository.GetByIdAsync(id);
+            User user = _userRepository.GetUserById(id);
 
             if (user == null)
             {
-                return null;
+                return "User not found";
             }
 
-            user.FullName = updateUserDto.FullName;
-            user.Email = updateUserDto.Email;
-            user.Role = updateUserDto.Role;
+            _userRepository.DeleteUser(user);
 
-            var updatedUser =
-                await _userRepository.UpdateAsync(id, user);
-
-            if (updatedUser == null)
-            {
-                return null;
-            }
-
-            return new UserResponseDto
-            {
-                Id = updatedUser.Id,
-                FullName = updatedUser.FullName,
-                Email = updatedUser.Email,
-                Role = updatedUser.Role,
-                CreatedAt = updatedUser.CreatedAt
-            };
-        }
-
-        public async Task<bool> DeleteUserAsync(int id)
-        {
-            var result = await _userRepository.DeleteAsync(id);
-
-            return result;
-        }
-
-        public async Task<DashboardResponseDto> GetDashboardAsync()
-        {
-            var users = await _userRepository.GetAllAsync();
-
-            return new DashboardResponseDto
-            {
-                TotalUsers = users.Count
-            };
+            return "User deleted successfully";
         }
     }
-
 }

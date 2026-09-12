@@ -1,5 +1,5 @@
 ﻿using Backend.DTOs.Authentication;
-using Backend.Services.Authentication.Interfaces;
+using Backend.Services.Interfaces.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers.Athuentication
@@ -17,40 +17,44 @@ namespace Backend.Controllers.Athuentication
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterDto registerDto)
+        public IActionResult Register(RegisterRequest request)
         {
-            var result =
-                await _authenticationService.RegisterAsync(registerDto);
-
-            if (!result)
+            if (!ModelState.IsValid)
             {
-                return BadRequest(new
-                {
-                    message = "Email already exists."
-                });
+                return BadRequest(ModelState);
             }
 
-            return Ok(new
-            {
-                message = "Registration successful."
-            });
-        }
+            string result = _authenticationService.Register(request);
 
-        [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginDto loginDto)
-        {
-            var result =
-                await _authenticationService.LoginAsync(loginDto);
-
-            if (result == null)
+            if (result == "Email already exists")
             {
-                return Unauthorized(new
-                {
-                    message = "Invalid email or password."
-                });
+                return Conflict(result);
+            }
+
+            if (result == "Invalid role")
+            {
+                return BadRequest(result);
             }
 
             return Ok(result);
+        }
+
+        [HttpPost("login")]
+        public IActionResult Login(LoginRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            LoginResponse response = _authenticationService.Login(request);
+
+            if (response == null)
+            {
+                return Unauthorized("Invalid email or password");
+            }
+
+            return Ok(response);
         }
     }
 }

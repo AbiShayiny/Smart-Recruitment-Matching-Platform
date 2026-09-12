@@ -1,19 +1,19 @@
 ﻿using UserModel = Backend.Models.User.User;
 
-namespace Backend.Repositories.User.Interfaces
+namespace Backend.Repositories.Interfaces.User
 {
     public interface IUserRepository
     {
-        Task<UserModel?> GetByEmailAsync(string email);
+        UserModel? GetUserByEmail(string email);
 
-        Task<UserModel> CreateAsync(UserModel user);
+        UserModel? GetUserById(int id);
 
-        Task<List<UserModel>> GetAllAsync();
+        List<UserModel> GetAllUsers();
 
-        Task<UserModel?> GetByIdAsync(int id);
+        void AddUser(UserModel user);
 
-        Task<UserModel?> UpdateAsync(int id, UserModel user);
+        void UpdateUser(UserModel user);
 
-        Task<bool> DeleteAsync(int id);
+        void DeleteUser(UserModel user);
     }
 }

@@ -1,17 +1,13 @@
 ﻿using Backend.DTOs.Admin;
 
-namespace Backend.Services.Admin.Interfaces
+namespace Backend.Services.Interfaces.Admin
 {
     public interface IAdminService
     {
-        Task<List<UserResponseDto>> GetAllUsersAsync();
+        object GetAllUsers();
 
-        Task<UserResponseDto?> GetUserByIdAsync(int id);
+        string UpdateUser(int id, UpdateUserRequest request);
 
-        Task<UserResponseDto?> UpdateUserAsync(int id, UpdateUserDto updateUserDto);
-
-        Task<bool> DeleteUserAsync(int id);
-
-        Task<DashboardResponseDto> GetDashboardAsync();
+        string DeleteUser(int id);
     }
 }

@@ -1,9 +1,8 @@
 ﻿using Backend.Data;
-using Backend.Repositories.User.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using UserModel = Backend.Models.User.User;
+using Backend.Repositories.Interfaces.User;
 
-namespace Backend.Repositories.User.Implementations
+namespace Backend.Repositories.Implementations.User
 {
     public class UserRepository : IUserRepository
     {
@@ -14,67 +13,37 @@ namespace Backend.Repositories.User.Implementations
             _context = context;
         }
 
-        public async Task<UserModel?> GetByEmailAsync(string email)
+        public UserModel? GetUserByEmail(string email)
         {
-            return await _context.Users
-                .FirstOrDefaultAsync(u => u.Email == email);
+            return _context.Users.FirstOrDefault(x => x.Email == email);
         }
 
-        public async Task<UserModel> CreateAsync(UserModel user)
+        public UserModel? GetUserById(int id)
+        {
+            return _context.Users.FirstOrDefault(x => x.Id == id);
+        }
+
+        public List<UserModel> GetAllUsers()
+        {
+            return _context.Users.ToList();
+        }
+
+        public void AddUser(UserModel user)
         {
             _context.Users.Add(user);
-
-            await _context.SaveChangesAsync();
-
-            return user;
+            _context.SaveChanges();
         }
 
-        public async Task<List<UserModel>> GetAllAsync()
+        public void UpdateUser(UserModel user)
         {
-            return await _context.Users
-                .ToListAsync();
+            _context.Users.Update(user);
+            _context.SaveChanges();
         }
 
-        public async Task<UserModel?> GetByIdAsync(int id)
+        public void DeleteUser(UserModel user)
         {
-            return await _context.Users
-                .FirstOrDefaultAsync(u => u.Id == id);
-        }
-
-        public async Task<UserModel?> UpdateAsync(int id, UserModel user)
-        {
-            var existingUser = await _context.Users
-                .FirstOrDefaultAsync(u => u.Id == id);
-
-            if (existingUser == null)
-            {
-                return null;
-            }
-
-            existingUser.FullName = user.FullName;
-            existingUser.Email = user.Email;
-            existingUser.Role = user.Role;
-
-            await _context.SaveChangesAsync();
-
-            return existingUser;
-        }
-
-        public async Task<bool> DeleteAsync(int id)
-        {
-            var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.Id == id);
-
-            if (user == null)
-            {
-                return false;
-            }
-
             _context.Users.Remove(user);
-
-            await _context.SaveChangesAsync();
-
-            return true;
+            _context.SaveChanges();
         }
     }
 }
