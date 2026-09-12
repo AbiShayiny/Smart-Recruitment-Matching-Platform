@@ -1,1 +1,361 @@
-<p>contact-requests works!</p>
+<div class="page-shell">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="brand">
+      <div class="brand-icon">
+        <span>SN</span>
+      </div>
+
+      <div>
+        <h2>Sharp Nexus</h2>
+        <p>Employer Portal</p>
+      </div>
+    </div>
+
+    <nav class="navigation">
+
+      <a class="nav-item" routerLink="/employer/dashboard">
+        <span class="nav-icon">⌂</span>
+        <span>Dashboard</span>
+      </a>
+
+      <a class="nav-item" routerLink="/employer/company-profile">
+        <span class="nav-icon">▣</span>
+        <span>Company Profile</span>
+      </a>
+
+      <a class="nav-item" routerLink="/employer/vacancy-list">
+        <span class="nav-icon">▤</span>
+        <span>Job Vacancies</span>
+      </a>
+
+      <a class="nav-item" routerLink="/applications/applicants-list">
+        <span class="nav-icon">♙</span>
+        <span>Applicants</span>
+      </a>
+
+      <a class="nav-item active">
+        <span class="nav-icon">✉</span>
+        <span>Contact Requests</span>
+      </a>
+
+      <a class="nav-item" routerLink="/notifications/notification-list">
+        <span class="nav-icon">🔔</span>
+        <span>Notifications</span>
+      </a>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="profile-mini">
+        <div class="avatar">E</div>
+
+        <div class="profile-info">
+          <strong>Employer</strong>
+          <span>Account</span>
+        </div>
+
+        <button type="button" class="more-button">⋮</button>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+
+    <!-- Header -->
+    <header class="top-header">
+
+      <div>
+        <div class="breadcrumb">
+          Employer
+          <span>/</span>
+          Contact Requests
+        </div>
+
+        <h1>Candidate Contact Requests</h1>
+
+        <p>
+          Manage your candidate communication requests and conversations.
+        </p>
+      </div>
+
+      <div class="header-actions">
+        <button
+          type="button"
+          class="icon-button"
+          title="Notifications"
+          routerLink="/notifications/notification-list">
+          🔔
+        </button>
+
+        <button
+          type="button"
+          class="outline-button"
+          (click)="openContactModal()">
+          Contact Candidate
+        </button>
+      </div>
+
+    </header>
+
+    <!-- Stats -->
+    <section class="stats-grid">
+
+      <div class="stat-card">
+        <div class="stat-top">
+          <span>Total Requests</span>
+          <div class="stat-icon orange">✉</div>
+        </div>
+
+        <strong>0</strong>
+
+        <p>No contact requests available</p>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-top">
+          <span>Pending</span>
+          <div class="stat-icon amber">◷</div>
+        </div>
+
+        <strong>0</strong>
+
+        <p>Awaiting candidate response</p>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-top">
+          <span>Accepted</span>
+          <div class="stat-icon green">✓</div>
+        </div>
+
+        <strong>0</strong>
+
+        <p>Active conversations</p>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-top">
+          <span>Declined</span>
+          <div class="stat-icon red">×</div>
+        </div>
+
+        <strong>0</strong>
+
+        <p>Requests declined</p>
+      </div>
+
+    </section>
+
+    <!-- Content Card -->
+    <section class="content-card">
+
+      <!-- Toolbar -->
+      <div class="toolbar">
+
+        <div class="search-box">
+
+          <span class="search-icon">⌕</span>
+
+          <input
+            type="text"
+            [(ngModel)]="searchTerm"
+            (input)="onSearch()"
+            placeholder="Search candidates, email or request..." />
+
+        </div>
+
+        <div class="status-tabs">
+
+          <button
+            type="button"
+            [class.active]="activeStatus === 'all'"
+            (click)="setStatus('all')">
+            All
+          </button>
+
+          <button
+            type="button"
+            [class.active]="activeStatus === 'pending'"
+            (click)="setStatus('pending')">
+            Pending
+          </button>
+
+          <button
+            type="button"
+            [class.active]="activeStatus === 'accepted'"
+            (click)="setStatus('accepted')">
+            Accepted
+          </button>
+
+          <button
+            type="button"
+            [class.active]="activeStatus === 'declined'"
+            (click)="setStatus('declined')">
+            Declined
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-state">
+
+        <div class="empty-icon">
+          ✉
+        </div>
+
+        <h2>No contact requests yet</h2>
+
+        <p>
+          Candidate contact requests will appear here once candidates
+          respond to your communication requests.
+        </p>
+
+        <button
+          type="button"
+          class="primary-button"
+          (click)="openContactModal()">
+          Start a Conversation
+        </button>
+
+      </div>
+
+    </section>
+
+    <!-- Information Cards -->
+    <section class="info-grid">
+
+      <div class="info-card">
+
+        <div class="info-icon orange">
+          💬
+        </div>
+
+        <div>
+          <h3>Candidate communication</h3>
+
+          <p>
+            Use this area to manage communication with candidates
+            throughout the recruitment process.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="info-card">
+
+        <div class="info-icon green">
+          ✓
+        </div>
+
+        <div>
+          <h3>Respect candidate responses</h3>
+
+          <p>
+            Only continue communication after a candidate has accepted
+            your contact request.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+<!-- Contact Candidate Modal -->
+<div
+  class="modal-backdrop"
+  *ngIf="contactModalOpen"
+  (click)="closeContactModal()">
+
+  <div
+    class="modal"
+    (click)="$event.stopPropagation()">
+
+    <div class="modal-header">
+
+      <div>
+        <span class="modal-label">CONTACT</span>
+        <h2>Contact Candidate</h2>
+      </div>
+
+      <button
+        type="button"
+        class="close-button"
+        (click)="closeContactModal()">
+        ×
+      </button>
+
+    </div>
+
+    <div class="modal-body">
+
+      <p class="modal-description">
+        Select a candidate from your applications to start a contact request.
+      </p>
+
+      <div class="form-field">
+
+        <label>Candidate</label>
+
+        <input
+          type="text"
+          [(ngModel)]="selectedCandidate.name"
+          placeholder="Candidate name" />
+
+      </div>
+
+      <div class="form-field">
+
+        <label>Email</label>
+
+        <input
+          type="email"
+          [(ngModel)]="selectedCandidate.email"
+          placeholder="Candidate email" />
+
+      </div>
+
+      <div class="form-field">
+
+        <label>Message</label>
+
+        <textarea
+          [(ngModel)]="contactMessage"
+          placeholder="Write your message...">
+        </textarea>
+
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+
+      <button
+        type="button"
+        class="cancel-button"
+        (click)="closeContactModal()">
+        Cancel
+      </button>
+
+      <button
+        type="button"
+        class="primary-button"
+        [disabled]="!selectedCandidate.email">
+        Send Request
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
