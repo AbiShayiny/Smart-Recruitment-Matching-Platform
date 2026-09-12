@@ -1,1 +1,446 @@
-<p>dashboard works!</p>
+<div class="dashboard-shell">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="brand-section">
+      <div class="brand-logo">SR</div>
+
+      <div>
+        <div class="brand-name">SmartRecruit</div>
+        <div class="brand-subtitle">Talent Workspace</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+
+      <a class="nav-item active">
+        <span class="material-symbols-outlined">dashboard</span>
+        <span>Dashboard</span>
+      </a>
+
+      <a
+        class="nav-item"
+        (click)="goToCompanyProfile()">
+        <span class="material-symbols-outlined">domain</span>
+        <span>Company Profile</span>
+      </a>
+
+      <a
+        class="nav-item"
+        (click)="goToVacancies()">
+        <span class="material-symbols-outlined">work</span>
+        <span>Vacancies</span>
+      </a>
+
+      <a
+        class="nav-item"
+        (click)="goToApplicants()">
+        <span class="material-symbols-outlined">group</span>
+        <span>Applicants</span>
+      </a>
+
+      <a
+        class="nav-item"
+        (click)="goToContactRequests()">
+        <span class="material-symbols-outlined">contact_mail</span>
+        <span>Contact Requests</span>
+
+        <span
+          *ngIf="pendingContactRequests > 0"
+          class="notification-count">
+          {{ pendingContactRequests }}
+        </span>
+      </a>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+
+      <div class="prototype-card">
+        <span class="material-symbols-outlined">science</span>
+
+        <div>
+          <strong>Prototype Demo</strong>
+          <small>v1.4 Internal Release</small>
+        </div>
+      </div>
+
+      <button class="sign-out">
+        <span class="material-symbols-outlined">logout</span>
+        <span>Sign Out</span>
+      </button>
+
+    </div>
+
+  </aside>
+
+  <!-- Main Area -->
+  <div class="main-area">
+
+    <!-- Header -->
+    <header class="top-header">
+
+      <div class="header-left">
+
+        <h1>Employer Dashboard</h1>
+
+        <div class="search-box">
+          <span class="material-symbols-outlined">
+            search
+          </span>
+
+          <input
+            type="text"
+            placeholder="Search candidates, vacancies, or skills..." />
+        </div>
+
+      </div>
+
+      <div class="header-right">
+
+        <button class="notification-button">
+          <span class="material-symbols-outlined">
+            notifications
+          </span>
+
+          <span
+            *ngIf="pendingContactRequests > 0"
+            class="notification-dot">
+          </span>
+        </button>
+
+        <div class="profile-menu">
+          <div class="profile-avatar">E</div>
+
+          <div class="profile-info">
+            <strong>Employer</strong>
+            <span>Talent Manager</span>
+          </div>
+
+          <span class="material-symbols-outlined">
+            expand_more
+          </span>
+        </div>
+
+      </div>
+
+    </header>
+
+    <!-- Content -->
+    <main class="dashboard-content">
+
+      <!-- Welcome -->
+      <section class="welcome-section">
+
+        <div>
+          <p class="eyebrow">EMPLOYER WORKSPACE</p>
+
+          <h2>Welcome back!</h2>
+
+          <p class="welcome-text">
+            Manage your vacancies, review applicants and discover
+            the best talent for your organization.
+          </p>
+        </div>
+
+        <button
+          class="primary-button"
+          (click)="createVacancy()">
+
+          <span class="material-symbols-outlined">
+            add
+          </span>
+
+          Create Vacancy
+        </button>
+
+      </section>
+
+      <!-- Metrics -->
+      <section class="metrics-grid">
+
+        <article class="metric-card">
+
+          <div class="metric-top">
+            <span>Active Vacancies</span>
+
+            <div class="metric-icon orange">
+              <span class="material-symbols-outlined">
+                work
+              </span>
+            </div>
+          </div>
+
+          <div class="metric-number">
+            {{ activeVacancies }}
+          </div>
+
+          <p>
+            Currently accepting applications
+          </p>
+
+        </article>
+
+        <article class="metric-card">
+
+          <div class="metric-top">
+            <span>Total Vacancies</span>
+
+            <div class="metric-icon blue">
+              <span class="material-symbols-outlined">
+                business_center
+              </span>
+            </div>
+          </div>
+
+          <div class="metric-number">
+            {{ totalVacancies }}
+          </div>
+
+          <p>
+            All vacancy records
+          </p>
+
+        </article>
+
+        <article class="metric-card">
+
+          <div class="metric-top">
+            <span>Total Applicants</span>
+
+            <div class="metric-icon purple">
+              <span class="material-symbols-outlined">
+                groups
+              </span>
+            </div>
+          </div>
+
+          <div class="metric-number">
+            {{ totalApplicants }}
+          </div>
+
+          <p>
+            Candidates in your pipeline
+          </p>
+
+        </article>
+
+        <article class="metric-card">
+
+          <div class="metric-top">
+            <span>Pending Contact Requests</span>
+
+            <div class="metric-icon orange">
+              <span class="material-symbols-outlined">
+                contact_phone
+              </span>
+            </div>
+          </div>
+
+          <div class="metric-number">
+            {{ pendingContactRequests }}
+          </div>
+
+          <p
+            *ngIf="pendingContactRequests > 0"
+            class="attention-text">
+            Requires attention
+          </p>
+
+          <p *ngIf="pendingContactRequests === 0">
+            No pending requests
+          </p>
+
+        </article>
+
+      </section>
+
+      <!-- Recent Applications -->
+      <section class="content-section">
+
+        <div class="section-header">
+
+          <div>
+            <h3>Recent Applications</h3>
+
+            <p>
+              Candidates matched through our intelligent matching algorithm.
+            </p>
+          </div>
+
+          <button
+            class="text-button"
+            (click)="goToApplicants()">
+
+            View All Applicants
+
+            <span class="material-symbols-outlined">
+              arrow_forward
+            </span>
+
+          </button>
+
+        </div>
+
+        <div class="table-card">
+
+          <!-- Empty State -->
+          <div
+            *ngIf="!hasRecentApplications"
+            class="empty-state">
+
+            <div class="empty-icon">
+              <span class="material-symbols-outlined">
+                person_search
+              </span>
+            </div>
+
+            <h4>No recent applications</h4>
+
+            <p>
+              Applications will appear here when candidates apply
+              to your vacancies.
+            </p>
+
+            <button
+              class="secondary-button"
+              (click)="goToApplicants()">
+
+              Go to Applicants
+
+              <span class="material-symbols-outlined">
+                arrow_forward
+              </span>
+
+            </button>
+
+          </div>
+
+          <!-- Applications Table -->
+          <div
+            *ngIf="hasRecentApplications"
+            class="table-wrapper">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>Candidate</th>
+                  <th>Vacancy</th>
+                  <th>Match Score</th>
+                  <th>Status</th>
+                  <th>Applied Date</th>
+                  <th></th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                <tr *ngFor="let applicant of recentApplications">
+
+                  <td>
+                    {{ applicant.name }}
+                  </td>
+
+                  <td>
+                    {{ applicant.vacancy }}
+                  </td>
+
+                  <td>
+                    {{ applicant.matchScore }}%
+                  </td>
+
+                  <td>
+                    {{ applicant.status }}
+                  </td>
+
+                  <td>
+                    {{ applicant.appliedDate }}
+                  </td>
+
+                  <td>
+                    <button class="row-button">
+                      View
+                      <span class="material-symbols-outlined">
+                        chevron_right
+                      </span>
+                    </button>
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- Active Vacancies -->
+      <section class="content-section">
+
+        <div class="section-header">
+
+          <div>
+            <h3>Active Vacancies</h3>
+
+            <p>
+              Keep track of your currently open opportunities.
+            </p>
+          </div>
+
+          <button
+            class="text-button"
+            (click)="goToVacancies()">
+
+            View All Vacancies
+
+            <span class="material-symbols-outlined">
+              arrow_forward
+            </span>
+
+          </button>
+
+        </div>
+
+        <div class="vacancy-empty-card">
+
+          <div class="empty-icon">
+            <span class="material-symbols-outlined">
+              work_outline
+            </span>
+          </div>
+
+          <h4 *ngIf="!hasActiveVacancies">
+            No active vacancies
+          </h4>
+
+          <p *ngIf="!hasActiveVacancies">
+            Create your first vacancy to start attracting qualified candidates.
+          </p>
+
+          <button
+            class="primary-button small"
+            (click)="createVacancy()">
+
+            <span class="material-symbols-outlined">
+              add
+            </span>
+
+            Create Vacancy
+
+          </button>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+</div>

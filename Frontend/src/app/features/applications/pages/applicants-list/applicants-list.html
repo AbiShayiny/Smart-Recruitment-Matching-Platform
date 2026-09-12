@@ -1,1 +1,692 @@
-<p>applicants-list works!</p>
+<div class="page-shell">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="brand">
+      <div class="brand-logo">S</div>
+
+      <div>
+        <strong>SmartRecruit</strong>
+        <span>Employer Portal</span>
+      </div>
+    </div>
+
+    <nav class="navigation">
+
+      <button
+        class="nav-item"
+        type="button"
+        (click)="router.navigate(['/employer/dashboard'])"
+      >
+        <span>⌂</span>
+        Dashboard
+      </button>
+
+      <button
+        class="nav-item"
+        type="button"
+        (click)="router.navigate(['/employer/vacancy-list'])"
+      >
+        <span>▤</span>
+        Vacancies
+      </button>
+
+      <button
+        class="nav-item active"
+        type="button"
+      >
+        <span>♙</span>
+        Applicants
+      </button>
+
+      <button
+        class="nav-item"
+        type="button"
+        (click)="router.navigate(['/employer/company-profile'])"
+      >
+        <span>▣</span>
+        Company Profile
+      </button>
+
+      <button
+        class="nav-item"
+        type="button"
+      >
+        <span>✉</span>
+        Contact Requests
+      </button>
+
+      <button
+        class="nav-item"
+        type="button"
+      >
+        <span>♧</span>
+        Notifications
+        <small>3</small>
+      </button>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+
+      <div class="profile-box">
+
+        <div class="avatar">E</div>
+
+        <div>
+          <strong>Employer</strong>
+          <span>Employer Account</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </aside>
+
+
+  <!-- Main -->
+  <main class="main-content">
+
+    <!-- Header -->
+    <header class="top-header">
+
+      <div>
+        <span class="breadcrumb">
+          Employer / Applicants
+        </span>
+
+        <h1>Ranked Applicants</h1>
+      </div>
+
+      <div class="header-actions">
+
+        <button
+          type="button"
+          class="header-icon"
+        >
+          ?
+        </button>
+
+        <button
+          type="button"
+          class="header-icon notification"
+        >
+          ♧
+          <i></i>
+        </button>
+
+        <div class="header-avatar">
+          E
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- Content -->
+    <section class="content">
+
+      <!-- Page Intro -->
+      <div class="page-intro">
+
+        <div class="intro-left">
+
+          <button
+            type="button"
+            class="back-button"
+            (click)="goBack()"
+          >
+            ←
+          </button>
+
+          <div>
+
+            <span class="eyebrow">
+              SMART MATCHING
+            </span>
+
+            <h2>
+              Ranked Applicants
+            </h2>
+
+            <p>
+              Review candidates ranked by their match against
+              your vacancy requirements.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="intro-actions">
+
+          <button
+            type="button"
+            class="secondary-button"
+          >
+            Export Applicants
+          </button>
+
+          <button
+            type="button"
+            class="primary-button"
+          >
+            Matching Settings
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- Matching Banner -->
+      <div class="matching-banner">
+
+        <div class="matching-banner-icon">
+          ✦
+        </div>
+
+        <div class="matching-banner-content">
+
+          <strong>
+            Smart Candidate Ranking
+          </strong>
+
+          <p>
+            Candidates are evaluated against skills, experience,
+            seniority and workplace requirements.
+          </p>
+
+        </div>
+
+        <div class="matching-status">
+
+          <span></span>
+
+          Matching active
+
+        </div>
+
+      </div>
+
+
+      <!-- Metrics -->
+      <div class="metrics-grid">
+
+        <div class="metric-card">
+
+          <div class="metric-icon">
+            ♙
+          </div>
+
+          <div>
+
+            <span>Total Applicants</span>
+
+            <strong>
+              {{ totalApplicants }}
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <div class="metric-card">
+
+          <div class="metric-icon orange">
+            ★
+          </div>
+
+          <div>
+
+            <span>High Match</span>
+
+            <strong>
+              {{ highMatchApplicants }}
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <div class="metric-card">
+
+          <div class="metric-icon violet">
+            ◇
+          </div>
+
+          <div>
+
+            <span>Shortlisted</span>
+
+            <strong>
+              {{ shortlistedApplicants }}
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <div class="metric-card">
+
+          <div class="metric-icon green">
+            ✓
+          </div>
+
+          <div>
+
+            <span>Interview</span>
+
+            <strong>
+              {{ interviewApplicants }}
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- Filters -->
+      <div class="filter-card">
+
+        <div class="search-wrapper">
+
+          <span>⌕</span>
+
+          <input
+            type="text"
+            [(ngModel)]="searchText"
+            placeholder="Search applicant name, email or role..."
+          />
+
+        </div>
+
+
+        <select
+          [(ngModel)]="selectedStage"
+        >
+
+          <option value="">
+            All Stages
+          </option>
+
+          <option value="New">
+            New
+          </option>
+
+          <option value="Shortlisted">
+            Shortlisted
+          </option>
+
+          <option value="Interview">
+            Interview
+          </option>
+
+          <option value="Assessment">
+            Assessment
+          </option>
+
+          <option value="Hired">
+            Hired
+          </option>
+
+        </select>
+
+
+        <select
+          [(ngModel)]="selectedMatch"
+        >
+
+          <option value="">
+            All Match Levels
+          </option>
+
+          <option value="High Match">
+            High Match
+          </option>
+
+          <option value="Good Match">
+            Good Match
+          </option>
+
+          <option value="Potential Match">
+            Potential Match
+          </option>
+
+        </select>
+
+
+        <select
+          [(ngModel)]="selectedExperience"
+        >
+
+          <option value="">
+            All Experience
+          </option>
+
+          <option value="0-1 years">
+            0–1 years
+          </option>
+
+          <option value="1-3 years">
+            1–3 years
+          </option>
+
+          <option value="3-5 years">
+            3–5 years
+          </option>
+
+          <option value="5+ years">
+            5+ years
+          </option>
+
+        </select>
+
+
+        <button
+          type="button"
+          class="clear-button"
+          (click)="clearFilters()"
+        >
+          Clear
+        </button>
+
+      </div>
+
+
+      <!-- Applicant Table -->
+      <div class="applicant-card">
+
+        <div class="table-header">
+
+          <div>
+
+            <span class="eyebrow">
+              CANDIDATE PIPELINE
+            </span>
+
+            <h3>
+              Candidate Ranking
+            </h3>
+
+          </div>
+
+          <span class="result-count">
+            {{ filteredApplicants.length }} candidates
+          </span>
+
+        </div>
+
+
+        <div
+          class="empty-state"
+          *ngIf="filteredApplicants.length === 0"
+        >
+
+          <div class="empty-icon">
+            ♙
+          </div>
+
+          <h3>
+            No applicants available
+          </h3>
+
+          <p>
+            Applicant records will appear here once candidates
+            apply to this vacancy.
+          </p>
+
+        </div>
+
+
+        <div
+          class="table-wrapper"
+          *ngIf="filteredApplicants.length > 0"
+        >
+
+          <table>
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  RANK
+                </th>
+
+                <th>
+                  APPLICANT
+                </th>
+
+                <th>
+                  MATCH SCORE
+                </th>
+
+                <th>
+                  EXPERIENCE
+                </th>
+
+                <th>
+                  STAGE
+                </th>
+
+                <th>
+                  APPLIED
+                </th>
+
+                <th>
+                  ACTION
+                </th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+
+              <tr
+                *ngFor="
+                  let applicant of filteredApplicants;
+                  let i = index
+                "
+              >
+
+                <td>
+
+                  <span class="rank-number">
+                    #{{ i + 1 }}
+                  </span>
+
+                </td>
+
+
+                <td>
+
+                  <div class="candidate">
+
+                    <div class="candidate-avatar">
+                      {{ applicant.name?.charAt(0) || '?' }}
+                    </div>
+
+                    <div>
+
+                      <strong>
+                        {{ applicant.name }}
+                      </strong>
+
+                      <span>
+                        {{ applicant.email }}
+                      </span>
+
+                      <small>
+                        {{ applicant.role }}
+                      </small>
+
+                    </div>
+
+                  </div>
+
+                </td>
+
+
+                <td>
+
+                  <div class="score-wrapper">
+
+                    <strong>
+                      {{ applicant.matchScore }}%
+                    </strong>
+
+                    <div class="score-track">
+
+                      <div
+                        class="score-fill"
+                        [style.width.%]="applicant.matchScore"
+                      ></div>
+
+                    </div>
+
+                    <span>
+                      {{ applicant.matchLevel }}
+                    </span>
+
+                  </div>
+
+                </td>
+
+
+                <td>
+                  <span class="experience">
+                    {{ applicant.experience }}
+                  </span>
+                </td>
+
+
+                <td>
+
+                  <span
+                    class="stage-pill"
+                    [class.shortlisted]="
+                      applicant.stage === 'Shortlisted'
+                    "
+                    [class.interview]="
+                      applicant.stage === 'Interview'
+                    "
+                    [class.assessment]="
+                      applicant.stage === 'Assessment'
+                    "
+                    [class.hired]="
+                      applicant.stage === 'Hired'
+                    "
+                  >
+                    {{ applicant.stage }}
+                  </span>
+
+                </td>
+
+
+                <td>
+                  <span class="date">
+                    {{ applicant.appliedDate }}
+                  </span>
+                </td>
+
+
+                <td>
+
+                  <div class="row-actions">
+
+                    <button
+                      type="button"
+                      (click)="viewApplicant(applicant)"
+                    >
+                      View
+                    </button>
+
+                    <button
+                      type="button"
+                      (click)="contactApplicant(applicant)"
+                    >
+                      Contact
+                    </button>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+
+      <!-- Bottom Info -->
+      <div class="info-grid">
+
+        <div class="info-card">
+
+          <div class="info-icon">
+            ✦
+          </div>
+
+          <div>
+
+            <strong>
+              How ranking works
+            </strong>
+
+            <p>
+              The matching engine compares candidate profiles
+              with vacancy requirements to generate a relevance
+              score.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="info-card">
+
+          <div class="info-icon orange">
+            !
+          </div>
+
+          <div>
+
+            <strong>
+              Review recommendations
+            </strong>
+
+            <p>
+              Matching scores support your review process and
+              should be considered together with the candidate's
+              complete profile.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>

@@ -1,1 +1,552 @@
-<p>vacancy-list works!</p>
+<div class="page-shell">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="brand">
+      <div class="brand-icon">
+        S
+      </div>
+
+      <div>
+        <h2>SmartMatch</h2>
+        <span>Employer Portal</span>
+      </div>
+    </div>
+
+    <nav class="navigation">
+
+      <a routerLink="/employer/dashboard" class="nav-item">
+        <span class="nav-icon">⌂</span>
+        Dashboard
+      </a>
+
+      <a
+        routerLink="/employer/vacancy-list"
+        class="nav-item active"
+      >
+        <span class="nav-icon">▤</span>
+        Vacancies
+      </a>
+
+      <a
+        routerLink="/employer/company-profile"
+        class="nav-item"
+      >
+        <span class="nav-icon">▣</span>
+        Company Profile
+      </a>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+
+      <div class="profile-mini">
+        <div class="avatar">
+          E
+        </div>
+
+        <div class="profile-info">
+          <strong>Employer</strong>
+          <span>Employer Account</span>
+        </div>
+
+        <span class="more">•••</span>
+      </div>
+
+    </div>
+
+  </aside>
+
+
+  <!-- Main -->
+  <main class="main-content">
+
+    <!-- Header -->
+    <header class="top-header">
+
+      <div class="header-title">
+        <span class="breadcrumb">Employer /</span>
+        <h1>Job Vacancies</h1>
+      </div>
+
+      <div class="header-actions">
+
+        <button class="icon-button">
+          ?
+        </button>
+
+        <button class="notification-button">
+          <span>♧</span>
+          <span class="notification-dot"></span>
+        </button>
+
+        <div class="header-avatar">
+          E
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- Content -->
+    <section class="content">
+
+      <!-- Intro -->
+      <div class="page-intro">
+
+        <div>
+          <h2>My Vacancies</h2>
+
+          <p>
+            Manage your open positions, track candidate pipelines,
+            and find the right talent for every role.
+          </p>
+        </div>
+
+        <div class="intro-actions">
+
+          <button class="secondary-button">
+            <span>▦</span>
+            Requisition Matrix
+          </button>
+
+          <button
+            class="primary-button"
+            (click)="createVacancy()"
+          >
+            <span>+</span>
+            Post New Vacancy
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- Metrics -->
+      <div class="metrics-grid">
+
+        <div class="metric-card">
+
+          <div class="metric-icon orange">
+            ▤
+          </div>
+
+          <div class="metric-content">
+            <span class="metric-label">
+              Total Vacancies
+            </span>
+
+            <strong class="metric-value">
+              {{ totalVacancies }}
+            </strong>
+          </div>
+
+        </div>
+
+
+        <div class="metric-card">
+
+          <div class="metric-icon green">
+            ↗
+          </div>
+
+          <div class="metric-content">
+            <span class="metric-label">
+              Active Pipelines
+            </span>
+
+            <strong class="metric-value">
+              {{ activePipelines }}
+            </strong>
+          </div>
+
+        </div>
+
+
+        <div class="metric-card">
+
+          <div class="metric-icon gray">
+            ✓
+          </div>
+
+          <div class="metric-content">
+            <span class="metric-label">
+              Archived / Closed
+            </span>
+
+            <strong class="metric-value">
+              {{ archivedVacancies }}
+            </strong>
+          </div>
+
+        </div>
+
+
+        <div class="metric-card">
+
+          <div class="metric-icon purple">
+            ♙
+          </div>
+
+          <div class="metric-content">
+            <span class="metric-label">
+              Total Candidates
+            </span>
+
+            <strong class="metric-value">
+              {{ totalCandidates }}
+            </strong>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- Search & Filters -->
+      <div class="filter-card">
+
+        <div class="search-box">
+
+          <span class="search-icon">
+            ⌕
+          </span>
+
+          <input
+            type="text"
+            [(ngModel)]="searchText"
+            placeholder="Search by job title or vacancy code..."
+          />
+
+        </div>
+
+
+        <div class="filters">
+
+          <select [(ngModel)]="selectedStatus">
+
+            <option value="">
+              Status
+            </option>
+
+            <option value="Active">
+              Active
+            </option>
+
+            <option value="Draft">
+              Draft
+            </option>
+
+            <option value="Closed">
+              Closed
+            </option>
+
+            <option value="Archived">
+              Archived
+            </option>
+
+          </select>
+
+
+          <select [(ngModel)]="selectedLocation">
+
+            <option value="">
+              Location
+            </option>
+
+            <option value="Remote">
+              Remote
+            </option>
+
+            <option value="Hybrid">
+              Hybrid
+            </option>
+
+            <option value="On-site">
+              On-site
+            </option>
+
+          </select>
+
+
+          <select [(ngModel)]="selectedDepartment">
+
+            <option value="">
+              Department
+            </option>
+
+            <option value="Engineering">
+              Engineering
+            </option>
+
+            <option value="Human Resources">
+              Human Resources
+            </option>
+
+            <option value="Marketing">
+              Marketing
+            </option>
+
+            <option value="Finance">
+              Finance
+            </option>
+
+          </select>
+
+
+          <button
+            class="clear-button"
+            (click)="clearFilters()"
+          >
+            Clear filters
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- Vacancy Table -->
+      <div class="table-card">
+
+        <div class="table-header">
+
+          <div>
+            <h3>Vacancy Pipeline</h3>
+
+            <span>
+              {{ filteredVacancies.length }} vacancies
+            </span>
+          </div>
+
+        </div>
+
+
+        <div
+          class="table-wrapper"
+          *ngIf="filteredVacancies.length > 0"
+        >
+
+          <table>
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  Job Title & Code
+                </th>
+
+                <th>
+                  Location & Mode
+                </th>
+
+                <th>
+                  Experience
+                </th>
+
+                <th>
+                  Applicants
+                </th>
+
+                <th>
+                  Status
+                </th>
+
+                <th>
+                  Posted
+                </th>
+
+                <th>
+                  Actions
+                </th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+
+              <tr
+                *ngFor="let vacancy of filteredVacancies"
+              >
+
+                <td>
+
+                  <div class="job-cell">
+
+                    <strong>
+                      {{ vacancy.title }}
+                    </strong>
+
+                    <span>
+                      {{ vacancy.code }}
+                    </span>
+
+                  </div>
+
+                </td>
+
+
+                <td>
+
+                  <div class="location-cell">
+
+                    <strong>
+                      {{ vacancy.location }}
+                    </strong>
+
+                    <span>
+                      {{ vacancy.workplaceModel }}
+                    </span>
+
+                  </div>
+
+                </td>
+
+
+                <td>
+                  {{ vacancy.experience }}
+                </td>
+
+
+                <td>
+
+                  <strong class="applicant-count">
+                    {{ vacancy.applicants }}
+                  </strong>
+
+                </td>
+
+
+                <td>
+
+                  <span
+                    class="status-badge"
+                    [ngClass]="{
+                      'active': vacancy.status === 'Active',
+                      'draft': vacancy.status === 'Draft',
+                      'closed': vacancy.status === 'Closed',
+                      'archived': vacancy.status === 'Archived'
+                    }"
+                  >
+                    {{ vacancy.status }}
+                  </span>
+
+                </td>
+
+
+                <td>
+                  {{ vacancy.postedDate }}
+                </td>
+
+
+                <td>
+
+                  <div class="action-buttons">
+
+                    <button
+                      title="View"
+                      (click)="viewVacancy(vacancy)"
+                    >
+                      View
+                    </button>
+
+                    <button
+                      title="Edit"
+                      (click)="editVacancy(vacancy)"
+                    >
+                      Edit
+                    </button>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+
+        <!-- Empty State -->
+        <div
+          class="empty-state"
+          *ngIf="filteredVacancies.length === 0"
+        >
+
+          <div class="empty-icon">
+            ▤
+          </div>
+
+          <h3>No vacancies found</h3>
+
+          <p>
+            There are no vacancies to display yet.
+            Create your first vacancy to start building
+            your candidate pipeline.
+          </p>
+
+          <button
+            class="primary-button"
+            (click)="createVacancy()"
+          >
+            <span>+</span>
+            Create Vacancy
+          </button>
+
+        </div>
+
+
+        <!-- Footer -->
+        <div class="table-footer">
+
+          <span>
+            Showing {{ filteredVacancies.length }} of
+            {{ totalVacancies }} vacancies
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- Matching Info -->
+      <div class="matching-banner">
+
+        <div class="matching-icon">
+          ✦
+        </div>
+
+        <div class="matching-content">
+
+          <strong>
+            Automated Candidate Matching Active
+          </strong>
+
+          <p>
+            New candidates are automatically evaluated
+            against your vacancy requirements and ranked
+            according to their match.
+          </p>
+
+        </div>
+
+        <span class="matching-status">
+          Active
+        </span>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
