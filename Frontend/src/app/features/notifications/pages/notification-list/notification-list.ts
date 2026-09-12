@@ -1,43 +1,73 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Navbar } from '../../../../shared/components/navbar/navbar';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+
+type NotificationFilter = 'all' | 'unread' | 'read';
 
 @Component({
   selector: 'app-notification-list',
   standalone: true,
-  imports: [
-    Navbar
-  ],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './notification-list.html',
-  styleUrl: './notification-list.css'
+  styleUrl: './notification-list.css',
 })
 export class NotificationList {
 
-  // Backend connect ஆன பிறகு
-  // database/API-ல இருந்து notifications வரும்.
-  notifications: any[] = [];
+  searchTerm = '';
 
+  activeFilter: NotificationFilter = 'all';
 
-  markAsRead(notificationId: number): void {
+  unreadCount = 0;
 
-    const notification = this.notifications.find(
-      item => item.id === notificationId
-    );
+  notifications: unknown[] = [];
 
-    if (notification) {
-      notification.isRead = true;
-    }
+  constructor(private router: Router) {}
 
+  setFilter(filter: NotificationFilter): void {
+    this.activeFilter = filter;
   }
 
+  onSearch(): void {
+    // Search will be connected with backend later
+  }
+
+  markAsRead(notificationId?: string): void {
+    if (!notificationId) {
+      return;
+    }
+  }
 
   markAllAsRead(): void {
-
-    this.notifications.forEach(
-      notification => {
-        notification.isRead = true;
-      }
-    );
-
+    // Backend integration will be added later
   }
 
+  deleteNotification(notificationId?: string): void {
+    if (!notificationId) {
+      return;
+    }
+  }
+
+  openNotification(notificationId?: string): void {
+    if (!notificationId) {
+      return;
+    }
+  }
+
+  goBack(): void {
+    this.router.navigate(['/employer/dashboard']);
+  }
+
+  getFilterLabel(filter: NotificationFilter): string {
+    switch (filter) {
+      case 'unread':
+        return 'Unread';
+
+      case 'read':
+        return 'Read';
+
+      default:
+        return 'All Notifications';
+    }
+  }
 }

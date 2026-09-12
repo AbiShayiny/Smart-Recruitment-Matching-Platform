@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+﻿import { Routes } from '@angular/router';
 
 export const SEEKER_ROUTES: Routes = [
   {
@@ -52,7 +52,7 @@ export const SEEKER_ROUTES: Routes = [
   {
     path: 'notifications',
     loadComponent: () =>
-      import('../notifications/pages/notification-list/notification-list')
+      import('./pages/notifications/notification-list')
         .then(m => m.NotificationList)
   }
 ];

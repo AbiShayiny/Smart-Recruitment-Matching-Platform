@@ -1,134 +1,328 @@
-<app-navbar></app-navbar>
+<div class="page-shell">
 
-<main class="notifications-page">
+  <!-- Sidebar -->
+  <aside class="sidebar">
 
-  <!-- PAGE HEADER -->
-  <section class="notifications-header">
+    <div class="brand">
+      <div class="brand-icon">
+        <span>SN</span>
+      </div>
 
-    <div>
-      <h1>Notifications</h1>
-
-      <p>
-        View updates about your applications and account activity.
-      </p>
+      <div>
+        <h2>Sharp Nexus</h2>
+        <p>Employer Portal</p>
+      </div>
     </div>
 
+    <nav class="navigation">
 
-    @if (notifications.length > 0) {
+      <a
+        class="nav-item"
+        routerLink="/employer/dashboard">
+        <span class="nav-icon">⌂</span>
+        <span>Dashboard</span>
+      </a>
 
-      <button
-        type="button"
-        class="mark-all-btn"
-        (click)="markAllAsRead()"
-      >
-        Mark All as Read
-      </button>
+      <a
+        class="nav-item"
+        routerLink="/employer/company-profile">
+        <span class="nav-icon">▣</span>
+        <span>Company Profile</span>
+      </a>
 
-    }
+      <a
+        class="nav-item"
+        routerLink="/employer/vacancy-list">
+        <span class="nav-icon">▤</span>
+        <span>Job Vacancies</span>
+      </a>
 
-  </section>
+      <a
+        class="nav-item"
+        routerLink="/applications/applicants-list">
+        <span class="nav-icon">♙</span>
+        <span>Applicants</span>
+      </a>
 
+      <a
+        class="nav-item"
+        routerLink="/contact/contact-requests">
+        <span class="nav-icon">✉</span>
+        <span>Contact Requests</span>
+      </a>
 
-  <!-- NOTIFICATIONS CARD -->
-  <section class="notifications-card">
+      <a class="nav-item active">
+        <span class="nav-icon">🔔</span>
+        <span>Notifications</span>
+      </a>
 
-    <div class="notifications-card-header">
+    </nav>
 
-      <h2>
-        Recent Notifications
-      </h2>
+    <div class="sidebar-bottom">
 
-      <p>
-        {{ notifications.length }} notifications
-      </p>
+      <div class="profile-mini">
 
-    </div>
+        <div class="avatar">E</div>
 
+        <div class="profile-info">
+          <strong>Employer</strong>
+          <span>Account</span>
+        </div>
 
-    @if (notifications.length > 0) {
-
-      <div class="notifications-list">
-
-        @for (
-          notification of notifications;
-          track notification.id
-        ) {
-
-          <article
-            class="notification-item"
-            [class.unread]="!notification.isRead"
-          >
-
-            <div class="notification-icon">
-              !
-            </div>
-
-
-            <div class="notification-content">
-
-              <div class="notification-title-row">
-
-                <h3>
-                  {{ notification.title }}
-                </h3>
-
-                @if (!notification.isRead) {
-                  <span class="unread-dot"></span>
-                }
-
-              </div>
-
-
-              <p>
-                {{ notification.message }}
-              </p>
-
-
-              <span class="notification-time">
-                {{ notification.createdAt }}
-              </span>
-
-            </div>
-
-
-            @if (!notification.isRead) {
-
-              <button
-                type="button"
-                class="read-btn"
-                (click)="markAsRead(notification.id)"
-              >
-                Mark as Read
-              </button>
-
-            }
-
-          </article>
-
-        }
+        <button
+          type="button"
+          class="more-button">
+          ⋮
+        </button>
 
       </div>
 
-    } @else {
+    </div>
 
-      <div class="empty-notifications">
+  </aside>
 
-        <div class="empty-icon">
-          ✓
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- Header -->
+    <header class="top-header">
+
+      <div>
+
+        <div class="breadcrumb">
+          Employer
+          <span>/</span>
+          Notifications
         </div>
 
-        <h3>
-          No Notifications
-        </h3>
+        <h1>Notifications</h1>
 
         <p>
-          You currently have no notifications.
+          Stay updated with your recruitment activities and account events.
         </p>
 
       </div>
 
-    }
+      <div class="header-actions">
 
-  </section>
+        <button
+          type="button"
+          class="back-button"
+          (click)="goBack()">
+          ← Dashboard
+        </button>
 
-</main>
+      </div>
+
+    </header>
+
+
+    <!-- Summary -->
+    <section class="summary-card">
+
+      <div class="summary-icon">
+        🔔
+      </div>
+
+      <div class="summary-content">
+
+        <span class="summary-label">
+          NOTIFICATION CENTER
+        </span>
+
+        <h2>
+          Your latest updates
+        </h2>
+
+        <p>
+          Recruitment notifications, application updates and other
+          important events will appear here.
+        </p>
+
+      </div>
+
+      <div class="summary-action">
+
+        <span class="unread-badge">
+          {{ unreadCount }} unread
+        </span>
+
+        <button
+          type="button"
+          class="mark-all-button"
+          [disabled]="unreadCount === 0"
+          (click)="markAllAsRead()">
+          Mark all as read
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- Notification Content -->
+    <section class="content-card">
+
+      <!-- Toolbar -->
+      <div class="toolbar">
+
+        <div class="search-box">
+
+          <span class="search-icon">⌕</span>
+
+          <input
+            type="text"
+            [(ngModel)]="searchTerm"
+            (input)="onSearch()"
+            placeholder="Search notifications..." />
+
+        </div>
+
+
+        <div class="filter-tabs">
+
+          <button
+            type="button"
+            [class.active]="activeFilter === 'all'"
+            (click)="setFilter('all')">
+            All
+          </button>
+
+          <button
+            type="button"
+            [class.active]="activeFilter === 'unread'"
+            (click)="setFilter('unread')">
+            Unread
+          </button>
+
+          <button
+            type="button"
+            [class.active]="activeFilter === 'read'"
+            (click)="setFilter('read')">
+            Read
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- Empty State -->
+      <div
+        class="empty-state"
+        *ngIf="notifications.length === 0">
+
+        <div class="empty-icon">
+          🔔
+        </div>
+
+        <h2>
+          No notifications yet
+        </h2>
+
+        <p>
+          When there are new recruitment activities or important
+          account updates, they will appear here.
+        </p>
+
+        <button
+          type="button"
+          class="primary-button"
+          (click)="goBack()">
+          Return to Dashboard
+        </button>
+
+      </div>
+
+
+      <!-- Notifications -->
+      <div
+        class="notification-list"
+        *ngIf="notifications.length > 0">
+
+        <div
+          class="notification-item"
+          *ngFor="let notification of notifications">
+
+          <div class="notification-icon">
+            🔔
+          </div>
+
+          <div class="notification-content">
+
+            <h3>
+              Notification
+            </h3>
+
+            <p>
+              Notification details will be loaded from the backend.
+            </p>
+
+            <span class="notification-time">
+              —
+            </span>
+
+          </div>
+
+          <div class="notification-actions">
+
+            <button
+              type="button"
+              class="small-button"
+              (click)="openNotification()">
+              View
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- Information Cards -->
+    <section class="info-grid">
+
+      <div class="info-card">
+
+        <div class="info-icon orange">
+          🔔
+        </div>
+
+        <div>
+          <h3>Stay informed</h3>
+
+          <p>
+            Important recruitment events and platform updates
+            will be shown in your notification center.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="info-card">
+
+        <div class="info-icon green">
+          ✓
+        </div>
+
+        <div>
+          <h3>Unread notifications</h3>
+
+          <p>
+            Unread notifications will be highlighted so you can
+            quickly identify new activity.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>

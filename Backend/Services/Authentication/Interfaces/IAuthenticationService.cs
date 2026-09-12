@@ -1,11 +1,11 @@
 ﻿using Backend.DTOs.Authentication;
 
-namespace Backend.Services.Authentication.Interfaces
+namespace Backend.Services.Interfaces.Authentication
 {
     public interface IAuthenticationService
     {
-        Task<bool> RegisterAsync(RegisterDto registerDto);
+        string Register(RegisterRequest request);
 
-        Task<LoginResponseDto?> LoginAsync(LoginDto loginDto);
+        LoginResponse Login(LoginRequest request);
     }
 }

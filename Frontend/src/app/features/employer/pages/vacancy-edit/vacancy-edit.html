@@ -1,1 +1,988 @@
-<p>vacancy-edit works!</p>
+<div class="edit-page">
+
+  <!-- Header -->
+  <header class="page-header">
+    <div class="header-left">
+
+      <div class="header-title">
+        <div class="title-icon">
+          <span class="material-symbols-outlined">edit_document</span>
+        </div>
+
+        <div>
+          <h1>Edit Vacancy</h1>
+          <p>Update vacancy information and matching criteria</p>
+        </div>
+      </div>
+
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        Active · Receiving Matches
+      </div>
+
+    </div>
+
+    <div class="header-actions">
+
+      <button
+        type="button"
+        class="secondary-button"
+        (click)="previewVacancy()">
+
+        <span class="material-symbols-outlined">visibility</span>
+        Preview Live Post
+
+      </button>
+
+      <button
+        type="button"
+        class="primary-button"
+        (click)="saveChanges()">
+
+        <span class="material-symbols-outlined">sync</span>
+        Save Changes
+
+      </button>
+
+    </div>
+  </header>
+
+
+  <!-- Vacancy Metadata -->
+  <div class="metadata-row">
+
+    <div class="breadcrumb">
+
+      <button
+        type="button"
+        (click)="cancelChanges()">
+
+        <span class="material-symbols-outlined">business_center</span>
+        Vacancies
+
+      </button>
+
+      <span class="material-symbols-outlined arrow">
+        chevron_right
+      </span>
+
+      <span>Vacancy</span>
+
+      <span class="material-symbols-outlined arrow">
+        chevron_right
+      </span>
+
+      <strong>
+        {{ vacancyId || 'Edit' }}
+      </strong>
+
+    </div>
+
+  </div>
+
+
+  <!-- Intelligent Alert -->
+  <section class="algorithm-alert">
+
+    <div class="alert-icon">
+      <span class="material-symbols-outlined">
+        vital_signs
+      </span>
+    </div>
+
+    <div class="alert-content">
+
+      <div class="alert-heading">
+        <h3>Algorithmic Match Recalculation Guard</h3>
+
+        <span>AI Matching Engine</span>
+      </div>
+
+      <p>
+        Updating primary competencies, seniority level, or minimum
+        production experience may affect candidate matching scores.
+        Matching recalculation will occur after backend integration.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- Validation -->
+  <div
+    class="validation-message"
+    *ngIf="showValidationMessage">
+
+    <span class="material-symbols-outlined">
+      error
+    </span>
+
+    Please enter a vacancy title before saving.
+
+  </div>
+
+
+  <!-- Main Workspace -->
+  <div class="workspace">
+
+    <!-- LEFT COLUMN -->
+    <div class="form-column">
+
+
+      <!-- Basic Information -->
+      <section class="form-card">
+
+        <div class="section-heading">
+
+          <div class="section-title">
+
+            <div class="section-icon">
+              <span class="material-symbols-outlined">
+                badge
+              </span>
+            </div>
+
+            <div>
+              <h2>Basic Information</h2>
+              <p>
+                Primary details indexed by prospective candidates
+              </p>
+            </div>
+
+          </div>
+
+          <span class="section-tag">
+            Core Metadata
+          </span>
+
+        </div>
+
+
+        <div class="form-grid">
+
+          <!-- Vacancy Title -->
+          <div class="form-field full-width">
+
+            <label>
+              Vacancy Title
+              <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              [(ngModel)]="vacancy.title"
+              placeholder="Enter vacancy title"
+            />
+
+          </div>
+
+
+          <!-- Department -->
+          <div class="form-field">
+
+            <label>Department & Team</label>
+
+            <select [(ngModel)]="vacancy.department">
+
+              <option value="">
+                Select department
+              </option>
+
+              <option value="Engineering & Platform">
+                Engineering & Platform
+              </option>
+
+              <option value="Product Design & UX">
+                Product Design & UX
+              </option>
+
+              <option value="Data & AI Intelligence">
+                Data & AI Intelligence
+              </option>
+
+              <option value="Cloud Infrastructure">
+                Cloud Infrastructure
+              </option>
+
+              <option value="Human Resources">
+                Human Resources
+              </option>
+
+              <option value="Finance">
+                Finance
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- Employment Type -->
+          <div class="form-field">
+
+            <label>Employment Commitment</label>
+
+            <select [(ngModel)]="vacancy.employmentType">
+
+              <option value="">
+                Select employment type
+              </option>
+
+              <option value="Full-time">
+                Full-time
+              </option>
+
+              <option value="Contract">
+                Contract / C2C
+              </option>
+
+              <option value="Part-time">
+                Part-time
+              </option>
+
+              <option value="Internship">
+                Internship
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- Description -->
+          <div class="form-field full-width">
+
+            <div class="label-row">
+
+              <label>
+                Job Specification & Context
+              </label>
+
+              <span class="smart-format">
+                <span class="material-symbols-outlined">
+                  auto_awesome
+                </span>
+                Smart-Format Active
+              </span>
+
+            </div>
+
+
+            <div class="editor">
+
+              <div class="editor-toolbar">
+
+                <button type="button">
+                  <span class="material-symbols-outlined">
+                    format_bold
+                  </span>
+                </button>
+
+                <button type="button">
+                  <span class="material-symbols-outlined">
+                    format_italic
+                  </span>
+                </button>
+
+                <button type="button">
+                  <span class="material-symbols-outlined">
+                    format_h2
+                  </span>
+                </button>
+
+                <span class="toolbar-divider"></span>
+
+                <button type="button">
+                  <span class="material-symbols-outlined">
+                    format_list_bulleted
+                  </span>
+                </button>
+
+                <button type="button">
+                  <span class="material-symbols-outlined">
+                    format_list_numbered
+                  </span>
+                </button>
+
+                <button type="button">
+                  <span class="material-symbols-outlined">
+                    code
+                  </span>
+                </button>
+
+                <span class="toolbar-divider"></span>
+
+                <button type="button">
+                  <span class="material-symbols-outlined">
+                    link
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  class="ai-button">
+
+                  <span class="material-symbols-outlined">
+                    drive_file_rename
+                  </span>
+
+                </button>
+
+              </div>
+
+
+              <textarea
+                [(ngModel)]="vacancy.description"
+                placeholder="Enter the job specification, responsibilities, expectations and other relevant context..."
+                rows="8">
+              </textarea>
+
+
+              <div class="editor-footer">
+
+                <span>
+                  {{ vacancy.description.length }} / 5000 characters
+                </span>
+
+                <span class="fidelity">
+                  Matching fidelity will be calculated after analysis
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- Requirements -->
+      <section class="form-card">
+
+        <div class="section-heading">
+
+          <div class="section-title">
+
+            <div class="section-icon">
+              <span class="material-symbols-outlined">
+                psychology
+              </span>
+            </div>
+
+            <div>
+              <h2>Job Requirements & Competencies</h2>
+              <p>
+                Skills and experience used for candidate matching
+              </p>
+            </div>
+
+          </div>
+
+          <span class="section-tag orange">
+            Engine Weighted
+          </span>
+
+        </div>
+
+
+        <!-- Skills -->
+        <div class="form-field full-width">
+
+          <label>
+            Required & Preferred Skill Tags
+          </label>
+
+          <div class="skills-box">
+
+            <div class="skill-list">
+
+              <div
+                class="skill-chip"
+                *ngFor="let skill of skills; let i = index">
+
+                <span class="skill-dot"></span>
+
+                <strong>
+                  {{ skill }}
+                </strong>
+
+                <button
+                  type="button"
+                  (click)="removeSkill(i)">
+
+                  <span class="material-symbols-outlined">
+                    close
+                  </span>
+
+                </button>
+
+              </div>
+
+              <span
+                class="no-skills"
+                *ngIf="skills.length === 0">
+
+                No skills added yet
+
+              </span>
+
+            </div>
+
+
+            <div class="skill-input-row">
+
+              <div class="skill-input">
+
+                <span class="material-symbols-outlined">
+                  add_circle
+                </span>
+
+                <input
+                  type="text"
+                  [(ngModel)]="skillInput"
+                  (keydown)="onSkillKeydown($event)"
+                  placeholder="Type to add another skill..."
+                />
+
+              </div>
+
+              <button
+                type="button"
+                class="add-skill-button"
+                (click)="addSkill()">
+
+                <span class="material-symbols-outlined">
+                  add
+                </span>
+
+                Add Skill
+
+              </button>
+
+            </div>
+
+
+            <div class="suggestions">
+
+              <span>Recommended additions:</span>
+
+              <button
+                type="button"
+                (click)="addRecommendedSkill('Node.js')">
+
+                + Node.js
+              </button>
+
+              <button
+                type="button"
+                (click)="addRecommendedSkill('Jest')">
+
+                + Jest
+              </button>
+
+              <button
+                type="button"
+                (click)="addRecommendedSkill('Cypress')">
+
+                + Cypress
+              </button>
+
+              <button
+                type="button"
+                (click)="addRecommendedSkill('State Management')">
+
+                + State Management
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- Experience -->
+        <div class="form-grid">
+
+          <div class="form-field">
+
+            <label>
+              Minimum Production Experience
+            </label>
+
+            <select [(ngModel)]="vacancy.experience">
+
+              <option value="">
+                Select experience
+              </option>
+
+              <option value="1-3">
+                1-3 years
+              </option>
+
+              <option value="3-5">
+                3-5 years
+              </option>
+
+              <option value="5+">
+                5+ years
+              </option>
+
+              <option value="8+">
+                8+ years
+              </option>
+
+              <option value="10+">
+                10+ years
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-field">
+
+            <label>
+              Seniority Calibration Level
+            </label>
+
+            <select [(ngModel)]="vacancy.seniority">
+
+              <option value="">
+                Select seniority
+              </option>
+
+              <option value="IC4">
+                IC4 · Senior Engineer
+              </option>
+
+              <option value="IC5">
+                IC5 · Senior Staff Engineer
+              </option>
+
+              <option value="IC6">
+                Lead / Staff Engineer
+              </option>
+
+              <option value="IC7">
+                IC7 · Principal Architect
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- Workplace -->
+      <section class="form-card">
+
+        <div class="section-heading">
+
+          <div class="section-title">
+
+            <div class="section-icon">
+              <span class="material-symbols-outlined">
+                location_on
+              </span>
+            </div>
+
+            <div>
+              <h2>Location & Workplace Model</h2>
+              <p>
+                Physical and geographic presence expected from candidates
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="workplace-options">
+
+          <button
+            type="button"
+            [class.selected]="vacancy.workplace === 'remote'"
+            (click)="vacancy.workplace = 'remote'">
+
+            <span class="workplace-radio"></span>
+
+            <strong>Fully Remote</strong>
+
+            <small>
+              Anywhere within permitted operational timezones.
+            </small>
+
+          </button>
+
+
+          <button
+            type="button"
+            [class.selected]="vacancy.workplace === 'hybrid'"
+            (click)="vacancy.workplace = 'hybrid'">
+
+            <span class="workplace-radio"></span>
+
+            <strong>Hybrid Policy</strong>
+
+            <small>
+              Combination of office and remote work.
+            </small>
+
+          </button>
+
+
+          <button
+            type="button"
+            [class.selected]="vacancy.workplace === 'onsite'"
+            (click)="vacancy.workplace = 'onsite'">
+
+            <span class="workplace-radio"></span>
+
+            <strong>On-site Hub</strong>
+
+            <small>
+              Full-time in-office collaborative presence.
+            </small>
+
+          </button>
+
+        </div>
+
+
+        <div class="form-field full-width location-field">
+
+          <label>
+            Designated Office / Geographic Scope
+          </label>
+
+          <div class="input-icon">
+
+            <span class="material-symbols-outlined">
+              domain
+            </span>
+
+            <input
+              type="text"
+              [(ngModel)]="vacancy.location"
+              placeholder="Enter office location or geographic scope"
+            />
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+
+    <!-- RIGHT COLUMN -->
+    <aside class="side-column">
+
+
+      <!-- Matching Impact -->
+      <section class="side-card">
+
+        <div class="side-card-title">
+
+          <div>
+            <span class="material-symbols-outlined">
+              insights
+            </span>
+
+            <h3>Matching Impact</h3>
+          </div>
+
+          <span class="live-label">
+            LIVE RADAR
+          </span>
+
+        </div>
+
+
+        <div class="impact-box">
+
+          <span class="impact-label">
+            Candidate Pipeline Scope
+          </span>
+
+          <strong>—</strong>
+
+          <span>
+            Active Applicants
+          </span>
+
+          <div class="impact-status">
+            Waiting for live vacancy data
+          </div>
+
+        </div>
+
+
+        <p class="side-description">
+          Changes to vacancy requirements can affect candidate sorting
+          and matching scores once the matching engine is connected.
+        </p>
+
+
+        <div class="weight-section">
+
+          <div class="weight-heading">
+            Active Weight Vectors
+          </div>
+
+          <div class="empty-weight">
+            Matching weights will appear here after vacancy data
+            and matching configuration are available.
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- Audit -->
+      <section class="side-card">
+
+        <div class="side-heading">
+
+          <span class="material-symbols-outlined">
+            history
+          </span>
+
+          <h3>Requisition Audit Log</h3>
+
+        </div>
+
+
+        <div class="audit-list">
+
+          <div class="audit-item">
+
+            <span>Vacancy ID</span>
+
+            <strong>
+              {{ vacancyId || 'Not available' }}
+            </strong>
+
+          </div>
+
+
+          <div class="audit-item">
+
+            <span>Created By</span>
+
+            <strong>
+              Not available
+            </strong>
+
+          </div>
+
+
+          <div class="audit-item">
+
+            <span>Public Impressions</span>
+
+            <strong>—</strong>
+
+          </div>
+
+
+          <div class="audit-item">
+
+            <span>Total Submissions</span>
+
+            <strong>—</strong>
+
+          </div>
+
+
+          <div class="audit-item">
+
+            <span>Last Modified</span>
+
+            <strong>Not available</strong>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- Danger Zone -->
+      <section class="danger-card">
+
+        <div class="danger-title">
+
+          <span class="material-symbols-outlined">
+            warning
+          </span>
+
+          <h3>Requisition Controls</h3>
+
+        </div>
+
+        <p>
+          Temporarily pause matching or permanently close this vacancy
+          once the hiring requirement has been completed.
+        </p>
+
+        <button
+          type="button"
+          (click)="openCloseModal()">
+
+          <span class="material-symbols-outlined">
+            block
+          </span>
+
+          Close Vacancy...
+
+        </button>
+
+      </section>
+
+    </aside>
+
+  </div>
+
+
+  <!-- Sticky Footer -->
+  <div class="command-bar">
+
+    <div class="command-left">
+
+      <button
+        type="button"
+        class="cancel-button"
+        (click)="cancelChanges()">
+
+        Cancel Changes
+
+      </button>
+
+      <span class="autosave">
+
+        <span class="material-symbols-outlined">
+          cloud_done
+        </span>
+
+        Draft state is stored locally until backend integration
+
+      </span>
+
+    </div>
+
+
+    <div class="command-right">
+
+      <button
+        type="button"
+        class="close-button"
+        (click)="openCloseModal()">
+
+        <span class="material-symbols-outlined">
+          lock_clock
+        </span>
+
+        <span>Close Vacancy</span>
+
+      </button>
+
+
+      <button
+        type="button"
+        class="update-button"
+        (click)="saveChanges()">
+
+        <span class="material-symbols-outlined">
+          published_with_changes
+        </span>
+
+        Update Vacancy
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- Save Toast -->
+<div
+  class="toast"
+  [class.show]="showSaveMessage">
+
+  <span class="material-symbols-outlined">
+    check_circle
+  </span>
+
+  <span>
+    Vacancy changes saved in the current UI state.
+  </span>
+
+</div>
+
+
+<!-- Close Vacancy Modal -->
+<div
+  class="modal-backdrop"
+  *ngIf="showCloseModal"
+  (click)="closeCloseModal()">
+
+  <div
+    class="close-modal"
+    (click)="$event.stopPropagation()">
+
+    <div class="modal-icon">
+
+      <span class="material-symbols-outlined">
+        warning
+      </span>
+
+    </div>
+
+    <h2>Close Vacancy?</h2>
+
+    <p>
+      Closing a vacancy will stop the position from receiving new
+      candidates. This action will be connected to the backend later.
+    </p>
+
+    <div class="modal-actions">
+
+      <button
+        type="button"
+        class="modal-cancel"
+        (click)="closeCloseModal()">
+
+        Cancel
+
+      </button>
+
+      <button
+        type="button"
+        class="modal-confirm"
+        (click)="confirmCloseVacancy()">
+
+        Close Vacancy
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

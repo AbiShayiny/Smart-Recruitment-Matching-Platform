@@ -1,1 +1,518 @@
-<p>vacancy-details works!</p>
+<div class="page-shell">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="brand">
+      <div class="brand-icon">S</div>
+
+      <div>
+        <h2>SmartMatch</h2>
+        <span>Employer Portal</span>
+      </div>
+    </div>
+
+    <nav class="navigation">
+
+      <a
+        routerLink="/employer/dashboard"
+        class="nav-item"
+      >
+        <span class="nav-icon">⌂</span>
+        Dashboard
+      </a>
+
+      <a
+        routerLink="/employer/vacancy-list"
+        class="nav-item active"
+      >
+        <span class="nav-icon">▤</span>
+        Vacancies
+      </a>
+
+      <a
+        routerLink="/employer/company-profile"
+        class="nav-item"
+      >
+        <span class="nav-icon">▣</span>
+        Company Profile
+      </a>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+
+      <div class="profile-mini">
+
+        <div class="avatar">
+          E
+        </div>
+
+        <div class="profile-info">
+          <strong>Employer</strong>
+          <span>Employer Account</span>
+        </div>
+
+        <span class="more">•••</span>
+
+      </div>
+
+    </div>
+
+  </aside>
+
+
+  <!-- Main -->
+  <main class="main-content">
+
+    <!-- Header -->
+    <header class="top-header">
+
+      <div class="header-title">
+
+        <button
+          class="back-button"
+          (click)="goBack()"
+        >
+          ←
+        </button>
+
+        <div>
+          <span class="breadcrumb">
+            Employer / Vacancies /
+          </span>
+
+          <h1>Vacancy Details</h1>
+        </div>
+
+      </div>
+
+
+      <div class="header-actions">
+
+        <button class="icon-button">
+          ?
+        </button>
+
+        <button class="notification-button">
+          ♧
+          <span class="notification-dot"></span>
+        </button>
+
+        <div class="header-avatar">
+          E
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- Page -->
+    <section class="content">
+
+      <!-- Empty / Loading State -->
+      <div
+        class="empty-state"
+        *ngIf="!hasVacancy"
+      >
+
+        <div class="empty-icon">
+          ▤
+        </div>
+
+        <h2>Vacancy details unavailable</h2>
+
+        <p>
+          Vacancy information has not been loaded yet.
+          Connect the vacancy data source to display the
+          selected vacancy details here.
+        </p>
+
+        <button
+          class="primary-button"
+          (click)="goBack()"
+        >
+          ← Back to Vacancies
+        </button>
+
+      </div>
+
+
+      <!-- Vacancy Details -->
+      <ng-container *ngIf="hasVacancy && vacancy">
+
+        <!-- Hero -->
+        <div class="vacancy-hero">
+
+          <div class="hero-left">
+
+            <div class="job-icon">
+              ▤
+            </div>
+
+            <div>
+
+              <div class="code-row">
+
+                <span class="vacancy-code">
+                  {{ vacancy.code }}
+                </span>
+
+                <span
+                  class="status-badge"
+                  [ngClass]="{
+                    'active': vacancy.status === 'Active',
+                    'draft': vacancy.status === 'Draft',
+                    'closed': vacancy.status === 'Closed',
+                    'archived': vacancy.status === 'Archived'
+                  }"
+                >
+                  {{ vacancy.status }}
+                </span>
+
+              </div>
+
+              <h2>
+                {{ vacancy.title }}
+              </h2>
+
+              <p>
+                {{ vacancy.department }}
+                ·
+                {{ vacancy.employmentType }}
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="hero-actions">
+
+            <button
+              class="secondary-button"
+              (click)="goBack()"
+            >
+              ← Back
+            </button>
+
+            <button
+              class="secondary-button"
+              (click)="editVacancy()"
+            >
+              ✎ Edit Vacancy
+            </button>
+
+            <button
+              class="primary-button"
+              (click)="viewApplicants()"
+            >
+              View Applicants
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- Main Grid -->
+        <div class="details-grid">
+
+
+          <!-- Left Column -->
+          <div class="left-column">
+
+
+            <!-- Overview -->
+            <article class="card">
+
+              <div class="card-header">
+                <div>
+                  <h3>Vacancy Overview</h3>
+                  <p>Core information about this position.</p>
+                </div>
+              </div>
+
+
+              <div class="overview-grid">
+
+                <div class="info-item">
+
+                  <span class="info-label">
+                    Department
+                  </span>
+
+                  <strong>
+                    {{ vacancy.department }}
+                  </strong>
+
+                </div>
+
+
+                <div class="info-item">
+
+                  <span class="info-label">
+                    Employment Type
+                  </span>
+
+                  <strong>
+                    {{ vacancy.employmentType }}
+                  </strong>
+
+                </div>
+
+
+                <div class="info-item">
+
+                  <span class="info-label">
+                    Experience
+                  </span>
+
+                  <strong>
+                    {{ vacancy.experience }}
+                  </strong>
+
+                </div>
+
+
+                <div class="info-item">
+
+                  <span class="info-label">
+                    Seniority
+                  </span>
+
+                  <strong>
+                    {{ vacancy.seniority }}
+                  </strong>
+
+                </div>
+
+
+                <div class="info-item">
+
+                  <span class="info-label">
+                    Workplace Model
+                  </span>
+
+                  <strong>
+                    {{ vacancy.workplaceModel }}
+                  </strong>
+
+                </div>
+
+
+                <div class="info-item">
+
+                  <span class="info-label">
+                    Location
+                  </span>
+
+                  <strong>
+                    {{ vacancy.location }}
+                  </strong>
+
+                </div>
+
+              </div>
+
+            </article>
+
+
+            <!-- Description -->
+            <article class="card">
+
+              <div class="card-header">
+
+                <div>
+                  <h3>Job Description</h3>
+                  <p>
+                    Responsibilities and expectations
+                    for this role.
+                  </p>
+                </div>
+
+              </div>
+
+              <div class="description">
+                {{ vacancy.description }}
+              </div>
+
+            </article>
+
+
+            <!-- Skills -->
+            <article class="card">
+
+              <div class="card-header">
+
+                <div>
+                  <h3>Required Skills</h3>
+                  <p>
+                    Core competencies used for candidate matching.
+                  </p>
+                </div>
+
+              </div>
+
+
+              <div class="skills-list">
+
+                <span
+                  class="skill-chip"
+                  *ngFor="let skill of vacancy.skills"
+                >
+                  {{ skill }}
+                </span>
+
+              </div>
+
+            </article>
+
+
+          </div>
+
+
+          <!-- Right Column -->
+          <aside class="right-column">
+
+
+            <!-- Applicants -->
+            <article class="card applicants-card">
+
+              <div class="applicants-icon">
+                ♙
+              </div>
+
+              <span class="side-label">
+                Total Applicants
+              </span>
+
+              <strong class="applicant-number">
+                {{ vacancy.applicants }}
+              </strong>
+
+              <p>
+                Candidates currently associated
+                with this vacancy.
+              </p>
+
+              <button
+                class="outline-button full-width"
+                (click)="viewApplicants()"
+              >
+                View Ranked Applicants
+              </button>
+
+            </article>
+
+
+            <!-- Matching -->
+            <article class="card matching-card">
+
+              <div class="matching-top">
+
+                <div class="matching-icon">
+                  ✦
+                </div>
+
+                <span>
+                  Smart Matching
+                </span>
+
+              </div>
+
+              <h3>
+                Candidate matching is active
+              </h3>
+
+              <p>
+                Candidates are evaluated against
+                the requirements of this vacancy.
+              </p>
+
+              <div class="matching-status">
+                <span class="status-dot"></span>
+                Automated matching active
+              </div>
+
+            </article>
+
+
+            <!-- Vacancy Info -->
+            <article class="card">
+
+              <h3 class="side-heading">
+                Vacancy Information
+              </h3>
+
+
+              <div class="side-info">
+
+                <div>
+                  <span>Vacancy Code</span>
+                  <strong>{{ vacancy.code }}</strong>
+                </div>
+
+                <div>
+                  <span>Posted</span>
+                  <strong>{{ vacancy.postedDate }}</strong>
+                </div>
+
+                <div>
+                  <span>Status</span>
+                  <strong>{{ vacancy.status }}</strong>
+                </div>
+
+              </div>
+
+            </article>
+
+
+          </aside>
+
+        </div>
+
+
+        <!-- Bottom Action -->
+        <div class="bottom-action">
+
+          <div>
+
+            <strong>
+              Manage this vacancy
+            </strong>
+
+            <span>
+              Update the vacancy or review matched candidates.
+            </span>
+
+          </div>
+
+          <div class="bottom-buttons">
+
+            <button
+              class="secondary-button"
+              (click)="editVacancy()"
+            >
+              Edit Vacancy
+            </button>
+
+            <button
+              class="primary-button"
+              (click)="viewApplicants()"
+            >
+              View Applicants
+            </button>
+
+          </div>
+
+        </div>
+
+      </ng-container>
+
+    </section>
+
+  </main>
+
+</div>
