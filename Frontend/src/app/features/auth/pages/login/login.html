@@ -1,1 +1,350 @@
-<p>login works!</p>
+<div class="login-page">
+
+  <!-- LEFT SIDE -->
+  <section class="branding-section">
+
+    <div class="glow glow-one"></div>
+    <div class="glow glow-two"></div>
+
+    <!-- Brand Header -->
+    <div class="brand-header">
+
+      <div class="brand-info">
+
+        <div class="brand-logo">
+          <span>✣</span>
+        </div>
+
+        <div>
+          <div class="brand-name">Smart Match</div>
+          <div class="brand-subtitle">Enterprise Talent Pipeline</div>
+        </div>
+
+      </div>
+
+      <div class="enterprise-badge">
+        ✨ ENTERPRISE AI
+      </div>
+
+    </div>
+
+
+    <!-- Main Branding Content -->
+    <div class="branding-content">
+
+      <!-- Image -->
+      <div class="visual-card">
+
+        <img
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfveVuuzW6da6QUSx8lkG_ONPSnuo_SZCy78Ej6TuH0nC1a0skmFw5XB2B796tFyZWJDMiJ1HtmlOWJ5U4eePsS2JCsB_FPk2nn3HNCXtvhhxtMIAo1LGLGCV0hRBbjwbsUrAFQocSKbwDfBfzhYBcoobfjgF0Va1RKIWUiOKxj54gqPpnEa8fLRilOH73DKmOqWRFcFdoOE2l7QZvMj5xoX2cgGgw2ZNKbBSFyg-CDQPtMlzqq37N"
+          alt="Smart Match Talent Network"
+        />
+
+        <div class="telemetry-card">
+
+          <div class="telemetry-left">
+
+            <div class="telemetry-icon">
+              ▥
+            </div>
+
+            <div>
+              <div class="telemetry-title">
+                Neural Skills Telemetry
+              </div>
+
+              <div class="telemetry-text">
+                Real-time candidate alignment active
+              </div>
+            </div>
+
+          </div>
+
+          <div class="affinity">
+            <strong>98.4%</strong>
+            <span>Affinity Rate</span>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- Description -->
+      <div class="branding-text">
+
+        <h1>
+          Connect Talent With Opportunity.
+        </h1>
+
+        <p>
+          Intelligent candidate matching driven by algorithmic precision,
+          live skills ontology, and unbiased pipeline telemetry.
+        </p>
+
+      </div>
+
+
+      <!-- Feature Badges -->
+      <div class="feature-badges">
+
+        <div class="feature-badge">
+          <span class="feature-icon orange">✥</span>
+          <span>98.4% Match Accuracy</span>
+        </div>
+
+        <div class="feature-badge">
+          <span class="feature-icon blue">♧</span>
+          <span>12k+ Active Recruiters</span>
+        </div>
+
+        <div class="feature-badge">
+          <span class="feature-icon brown">⚖</span>
+          <span>Zero Bias Sourcing</span>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- Bottom -->
+    <div class="platform-footer">
+
+      <span>SOC-2 Type II Certified Platform</span>
+
+      <div class="pipeline-status">
+        <span class="status-dot"></span>
+        Pipeline v4.8 Active
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- RIGHT SIDE -->
+  <section class="auth-section">
+
+    <div class="auth-container">
+
+      <div class="login-card">
+
+        <!-- Login Header -->
+        <div class="login-header">
+
+          <div class="login-icon">
+            ▦
+          </div>
+
+          <h2>Welcome Back</h2>
+
+          <p>
+            Sign in to manage active talent pipelines and AI scoring models.
+          </p>
+
+        </div>
+
+
+        <!-- Error Message -->
+        @if (loginError) {
+
+          <div class="error-alert">
+
+            <div class="error-icon">
+              !
+            </div>
+
+            <div class="error-content">
+
+              <strong>Authentication Failed</strong>
+
+              <span>
+                Invalid credentials. Please verify your business email
+                address and security token.
+              </span>
+
+            </div>
+
+            <button
+              type="button"
+              class="close-button"
+              (click)="closeError()">
+              ×
+            </button>
+
+          </div>
+
+        }
+
+
+        <!-- Login Form -->
+        <form
+          class="login-form"
+          (ngSubmit)="login()"
+          #loginForm="ngForm">
+
+
+          <!-- Email -->
+          <div class="form-group">
+
+            <label for="email">
+              Work Email Address
+            </label>
+
+            <div class="input-wrapper">
+
+              <span class="input-icon">
+                @
+              </span>
+
+              <input
+                type="email"
+                id="email"
+                name="email"
+                [(ngModel)]="email"
+                placeholder="recruiter@company.com"
+                required
+              />
+
+            </div>
+
+          </div>
+
+
+          <!-- Password -->
+          <div class="form-group">
+
+            <label for="password">
+              Password
+            </label>
+
+            <div class="input-wrapper">
+
+              <span class="input-icon">
+                🔒
+              </span>
+
+              <input
+                [type]="showPassword ? 'text' : 'password'"
+                id="password"
+                name="password"
+                [(ngModel)]="password"
+                placeholder="••••••••••••"
+                required
+              />
+
+              <button
+                type="button"
+                class="password-button"
+                (click)="togglePassword()">
+
+                {{ showPassword ? '◉' : '◉' }}
+
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- Remember + Forgot -->
+          <div class="login-options">
+
+            <label class="remember-option">
+
+              <input
+                type="checkbox"
+                checked
+              />
+
+              <span>
+                Remember device
+              </span>
+
+            </label>
+
+            <a href="#">
+              Forgot password?
+            </a>
+
+          </div>
+
+
+          <!-- Submit -->
+          <button
+            type="submit"
+            class="login-button"
+            [disabled]="isLoading">
+
+            @if (!isLoading) {
+
+              <span>
+                Sign In to Dashboard
+              </span>
+
+              <span class="arrow">
+                →
+              </span>
+
+            }
+            @else {
+
+              <span class="spinner"></span>
+
+              <span>
+                Authenticating...
+              </span>
+
+            }
+
+          </button>
+
+        </form>
+
+
+        <!-- Workspace -->
+        <div class="workspace-section">
+
+          <p>
+            Need access for your recruiting team?
+          </p>
+
+          <a routerLink="/auth/register">
+            Request company workspace
+            <span>›</span>
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- Security Links -->
+      <div class="security-footer">
+
+        <div class="footer-links">
+
+          <a href="#">Privacy Policy</a>
+
+          <span>•</span>
+
+          <a href="#">Terms of Service</a>
+
+          <span>•</span>
+
+          <a href="#">Security Center</a>
+
+        </div>
+
+        <div class="encryption">
+          🔒 256-bit TLS Encrypted
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
