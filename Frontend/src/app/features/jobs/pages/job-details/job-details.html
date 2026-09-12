@@ -1,1 +1,487 @@
-<p>job-details works!</p>
+<app-navbar></app-navbar>
+
+<main class="job-details-page">
+
+  <!-- Back to Jobs -->
+  <a
+    routerLink="/seeker/find-jobs"
+    class="back-link"
+  >
+    ← Back to Jobs
+  </a>
+
+
+  <!-- Job Header -->
+  <section class="job-header-card">
+
+    <div class="job-header-left">
+
+      <div class="company-logo">
+        {{ job.company.charAt(0) }}
+      </div>
+
+      <div class="job-header-content">
+
+        <h1>
+          {{ job.title }}
+        </h1>
+
+        <p class="company-name">
+          {{ job.company }}
+        </p>
+
+        <div class="job-meta">
+
+          <span>
+            📍 {{ job.location }}
+          </span>
+
+          <span>
+            🏢 {{ job.workMode }}
+          </span>
+
+          <span>
+            💼 {{ job.jobType }}
+          </span>
+
+          <span>
+            🕒 {{ job.experience }}
+          </span>
+
+        </div>
+
+        <div class="job-meta second-meta">
+
+          <span>
+            💰 {{ job.salary }}
+          </span>
+
+          <span>
+            {{ job.posted }}
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- Match Score -->
+    <div class="header-match">
+
+      <div class="header-match-score">
+        {{ job.matchScore }}%
+      </div>
+
+      <div class="header-match-label">
+        {{ job.matchLabel }}
+      </div>
+
+      <div class="header-match-progress">
+
+        <div
+          class="header-match-progress-fill"
+          [style.width.%]="job.matchScore"
+        >
+        </div>
+
+      </div>
+
+
+      @if (job.alreadyApplied) {
+
+        <button
+          type="button"
+          class="applied-button"
+          disabled
+        >
+          ✓ Applied
+        </button>
+
+      } @else {
+
+        <button
+          type="button"
+          class="apply-button"
+        >
+          Apply Now
+        </button>
+
+      }
+
+    </div>
+
+  </section>
+
+
+  <!-- Main Layout -->
+  <div class="details-layout">
+
+
+    <!-- Left Content -->
+    <div class="details-main">
+
+
+      <!-- Role Overview -->
+      <section class="details-card">
+
+        <h2>
+          Role Overview
+        </h2>
+
+        <p class="overview-text">
+          {{ job.overview }}
+        </p>
+
+      </section>
+
+
+      <!-- Responsibilities -->
+      <section class="details-card">
+
+        <h2>
+          Key Responsibilities
+        </h2>
+
+        <ul class="responsibility-list">
+
+          @for (
+            responsibility of job.responsibilities;
+            track responsibility
+          ) {
+
+            <li>
+
+              <span class="check-icon">
+                ✓
+              </span>
+
+              <span>
+                {{ responsibility }}
+              </span>
+
+            </li>
+
+          }
+
+        </ul>
+
+      </section>
+
+
+      <!-- Required Skills -->
+      <section class="details-card">
+
+        <div class="section-heading">
+
+          <div>
+
+            <h2>
+              Required Skills
+            </h2>
+
+            <p>
+              Skills required for this position.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="required-skills-list">
+
+          @for (
+            skill of job.requiredSkills;
+            track skill.name
+          ) {
+
+            <div
+              class="required-skill-row"
+              [class.skill-matched]="skill.matched"
+              [class.skill-missing]="!skill.matched"
+            >
+
+              <div class="skill-left">
+
+                <span class="skill-status-icon">
+
+                  @if (skill.matched) {
+                    ✓
+                  } @else {
+                    !
+                  }
+
+                </span>
+
+                <span class="required-skill-name">
+                  {{ skill.name }}
+                </span>
+
+              </div>
+
+
+              <span class="skill-status-text">
+
+                @if (skill.matched) {
+                  Matched
+                } @else {
+                  Missing
+                }
+
+              </span>
+
+            </div>
+
+          }
+
+        </div>
+
+      </section>
+
+
+      <!-- Experience & Education -->
+      <section class="details-card">
+
+        <h2>
+          Experience & Education
+        </h2>
+
+        <div class="requirement-grid">
+
+
+          <!-- Experience -->
+          <div class="requirement-box">
+
+            <span class="requirement-label">
+              Minimum Experience
+            </span>
+
+            <strong>
+              {{ job.minimumExperience }}
+            </strong>
+
+            <div class="profile-comparison">
+
+              <span>
+                Your Profile
+              </span>
+
+              <span class="profile-success">
+                ✓ {{ job.profileExperience }}
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <!-- Education -->
+          <div class="requirement-box">
+
+            <span class="requirement-label">
+              Education
+            </span>
+
+            <strong>
+              {{ job.education }}
+            </strong>
+
+            <div class="profile-comparison">
+
+              <span>
+                Your Profile
+              </span>
+
+              <span class="profile-success">
+                ✓ {{ job.profileEducation }}
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- Preferred Qualifications -->
+      <section class="details-card">
+
+        <h2>
+          Preferred Qualifications
+        </h2>
+
+        <ul class="preferred-list">
+
+          @for (
+            qualification of job.preferredQualifications;
+            track qualification
+          ) {
+
+            <li>
+              {{ qualification }}
+            </li>
+
+          }
+
+        </ul>
+
+      </section>
+
+    </div>
+
+
+    <!-- Right Sidebar -->
+    <aside class="details-sidebar">
+
+
+      <!-- Match Card -->
+      <section class="side-card match-card">
+
+        <h3>
+          Your Match
+        </h3>
+
+        <div class="large-match-score">
+          {{ job.matchScore }}%
+        </div>
+
+        <div class="large-match-label">
+          {{ job.matchLabel }}
+        </div>
+
+        <div class="large-progress">
+
+          <div
+            class="large-progress-fill"
+            [style.width.%]="job.matchScore"
+          >
+          </div>
+
+        </div>
+
+        <p class="match-help-text">
+          Your profile matches most of the core requirements for this role.
+        </p>
+
+      </section>
+
+
+      <!-- Missing Skills -->
+      <section class="side-card">
+
+        <h3>
+          Missing Skills
+        </h3>
+
+        @if (job.missingSkills.length > 0) {
+
+          <p class="side-description">
+            Adding these skills to your profile may improve your match.
+          </p>
+
+          <div class="missing-skills-list">
+
+            @for (
+              skill of job.missingSkills;
+              track skill
+            ) {
+
+              <div class="missing-skill-item">
+
+                <div class="missing-skill-info">
+
+                  <span class="warning-icon">
+                    !
+                  </span>
+
+                  <span>
+                    {{ skill }}
+                  </span>
+
+                </div>
+
+
+                <a
+                  routerLink="/seeker/my-profile"
+                  [queryParams]="{
+                    skill: skill
+                  }"
+                  class="add-profile-link"
+                >
+                  + Add to Profile
+                </a>
+
+              </div>
+
+            }
+
+          </div>
+
+        } @else {
+
+          <div class="all-matched-message">
+
+            <span>
+              ✓
+            </span>
+
+            Your profile covers every required skill.
+
+          </div>
+
+        }
+
+      </section>
+
+
+      <!-- Application -->
+      <section class="side-card">
+
+        <h3>
+          Application
+        </h3>
+
+        @if (job.alreadyApplied) {
+
+          <div class="application-status">
+
+            <span class="application-check">
+              ✓
+            </span>
+
+            <div>
+
+              <strong>
+                Already Applied
+              </strong>
+
+              <p>
+                Your application has already been submitted for this vacancy.
+              </p>
+
+            </div>
+
+          </div>
+
+        } @else {
+
+          <button
+            type="button"
+            class="side-apply-button"
+          >
+            Apply for this Job
+          </button>
+
+        }
+
+      </section>
+
+    </aside>
+
+  </div>
+
+</main>

@@ -1,0 +1,470 @@
+/* =====================================================
+   PAGE
+===================================================== */
+
+.profile-page {
+  min-height: 100vh;
+  margin-left: 220px;
+  padding: 95px 34px 45px;
+  background: #f7f9fd;
+}
+
+
+/* =====================================================
+   PAGE HEADER
+===================================================== */
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 22px;
+}
+
+.profile-header h1 {
+  margin: 0;
+
+  color: #1f2937;
+
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.profile-header p {
+  margin: 6px 0 0;
+
+  color: #6b7280;
+
+  font-size: 12px;
+}
+
+.edit-profile-btn {
+  min-width: 110px;
+  height: 38px;
+
+  padding: 0 18px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #f97316;
+
+  color: #ffffff;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+}
+
+.edit-profile-btn:hover {
+  background: #ea580c;
+}
+
+
+/* =====================================================
+   PROFILE CARD
+===================================================== */
+
+.profile-card {
+  background: #ffffff;
+
+  border: 1px solid #e8ebf0;
+  border-radius: 12px;
+
+  box-shadow:
+    0 2px 8px rgba(15, 23, 42, 0.04);
+
+  overflow: hidden;
+}
+
+
+/* =====================================================
+   PROFILE TOP
+===================================================== */
+
+.profile-top {
+  display: flex;
+  align-items: center;
+
+  gap: 16px;
+
+  padding: 22px;
+
+  border-bottom: 1px solid #edf0f4;
+}
+
+.profile-avatar {
+  width: 60px;
+  height: 60px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #fff0e6;
+
+  color: #ea580c;
+
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.profile-title h2 {
+  margin: 0;
+
+  color: #1f2937;
+
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.profile-title p {
+  margin: 5px 0 0;
+
+  color: #6b7280;
+
+  font-size: 11px;
+}
+
+
+/* =====================================================
+   PROFILE CONTENT
+===================================================== */
+
+.profile-content {
+  padding: 0 22px;
+}
+
+.profile-section {
+  padding: 22px 0;
+
+  border-bottom: 1px solid #edf0f4;
+}
+
+.profile-section:last-child {
+  border-bottom: none;
+}
+
+.profile-section h3 {
+  margin: 0 0 16px;
+
+  color: #1f2937;
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+
+/* =====================================================
+   INFO GRID
+===================================================== */
+
+.info-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 16px;
+}
+
+.info-item {
+  min-height: 64px;
+
+  padding: 12px 14px;
+
+  border: 1px solid #e8ebf0;
+  border-radius: 8px;
+
+  background: #fbfcfe;
+}
+
+.info-label {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #8a94a4;
+
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.info-item strong {
+  display: block;
+
+  color: #374151;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  word-break: break-word;
+}
+
+
+/* =====================================================
+   SUMMARY
+===================================================== */
+
+.summary-text {
+  margin: 0;
+
+  color: #596273;
+
+  font-size: 11px;
+
+  line-height: 19px;
+}
+
+.empty-text {
+  margin: 0;
+
+  color: #9ca3af;
+
+  font-size: 10px;
+  font-style: italic;
+}
+
+
+/* =====================================================
+   SKILLS
+===================================================== */
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 8px;
+}
+
+.skill-chip {
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 30px;
+
+  padding: 0 12px;
+
+  border: 1px solid #fed7aa;
+  border-radius: 999px;
+
+  background: #fff7ed;
+
+  color: #ea580c;
+
+  font-size: 10px;
+  font-weight: 600;
+}
+
+
+/* =====================================================
+   EDIT FORM
+===================================================== */
+
+.profile-form {
+  padding: 0 22px 22px;
+}
+
+.form-section {
+  padding: 22px 0;
+
+  border-bottom: 1px solid #edf0f4;
+}
+
+.form-section h3 {
+  margin: 0 0 16px;
+
+  color: #1f2937;
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.form-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.form-group label {
+  color: #4b5563;
+
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  border: 1px solid #dfe3e8;
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: #1f2937;
+
+  font-family: inherit;
+  font-size: 11px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.form-group input {
+  height: 40px;
+
+  padding: 0 12px;
+}
+
+.form-group textarea {
+  padding: 12px;
+
+  resize: vertical;
+
+  line-height: 18px;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #a0a8b5;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #f97316;
+
+  box-shadow:
+    0 0 0 3px rgba(249, 115, 22, 0.09);
+}
+
+.full-width {
+  width: 100%;
+
+  margin-bottom: 16px;
+}
+
+
+/* =====================================================
+   FORM ACTIONS
+===================================================== */
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  padding-top: 20px;
+}
+
+.cancel-btn,
+.save-btn {
+  min-width: 105px;
+  height: 38px;
+
+  padding: 0 16px;
+
+  border-radius: 8px;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.cancel-btn {
+  border: 1px solid #dfe3e8;
+
+  background: #ffffff;
+
+  color: #4b5563;
+}
+
+.cancel-btn:hover {
+  background: #f9fafb;
+}
+
+.save-btn {
+  border: none;
+
+  background: #f97316;
+
+  color: #ffffff;
+}
+
+.save-btn:hover {
+  background: #ea580c;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 850px) {
+
+  .profile-page {
+    margin-left: 75px;
+
+    padding:
+      95px
+      20px
+      35px;
+  }
+
+  .profile-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+}
+
+
+@media (max-width: 650px) {
+
+  .info-grid,
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-top {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .cancel-btn,
+  .save-btn {
+    width: 100%;
+  }
+}
