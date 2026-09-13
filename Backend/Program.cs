@@ -83,6 +83,13 @@ namespace Backend
             >();
 
 
+            // Vacancy Service
+            builder.Services.AddScoped<
+                Services.Vacancy.Interfaces.IVacancyService,
+                Services.Vacancy.Implementations.VacancyService
+            >();
+
+
             // Matching Service
             builder.Services.AddScoped<
                 IMatchingService,

@@ -16,6 +16,12 @@ namespace Backend.Controllers.Employer
             _vacancyService = vacancyService;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetOpenVacancies()
+        {
+            return Ok(await _vacancyService.GetOpenAsync());
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateVacancy(
             [FromBody] CreateVacancyDto dto)

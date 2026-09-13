@@ -2,6 +2,9 @@
 
 <main class="applications-page">
 
+  @if (loading) { <p role="status">Loading...</p> }
+  @if (error) { <p role="alert">{{ error }}</p> }
+
   <section class="page-header">
     <h1>My Applications</h1>
     <p>
@@ -27,6 +30,8 @@
     </div>
 
 
+    @if (!loading && !error && applications.length === 0) { <p role="status">No applications found.</p> }
+
     <div class="applications-list">
 
       @for (
@@ -39,27 +44,25 @@
           <div class="application-main">
 
             <div class="company-logo">
-              {{ application.company.charAt(0) }}
+
             </div>
 
             <div class="application-info">
 
               <h3>
-                {{ application.title }}
+                {{ application.jobTitle }}
               </h3>
 
               <p class="company-name">
-                {{ application.company }}
+
               </p>
 
               <div class="application-meta">
 
-                <span>
-                  📍 {{ application.location }}
-                </span>
+
 
                 <span>
-                  Applied on {{ application.appliedDate }}
+                  Applied on {{ application.appliedAt }}
                 </span>
 
               </div>
@@ -71,10 +74,10 @@
 
           <div class="application-right">
 
-            <div class="match-score">
+            <div class="match-score" [hidden]="true">
 
               <strong>
-                {{ application.matchScore }}%
+
               </strong>
 
               <span>
@@ -86,9 +89,9 @@
 
             <div
               class="status-badge"
-              [class.status-review]="application.status === 'Under Review'"
+              [class.status-review]="application.status === 'Reviewed'"
               [class.status-shortlisted]="application.status === 'Shortlisted'"
-              [class.status-submitted]="application.status === 'Submitted'"
+              [class.status-submitted]="application.status === 'Pending'"
             >
               {{ application.status }}
             </div>
@@ -97,7 +100,7 @@
             <a
               [routerLink]="[
                 '/seeker/jobs',
-                application.jobId
+                application.vacancyId
               ]"
               class="view-details-btn"
             >

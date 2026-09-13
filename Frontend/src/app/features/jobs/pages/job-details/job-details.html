@@ -2,6 +2,9 @@
 
 <main class="job-details-page">
 
+  @if (loading) { <p role="status">Loading...</p> }
+  @if (error) { <p role="alert">{{ error }}</p> }
+
   <!-- Back to Jobs -->
   <a
     routerLink="/seeker/find-jobs"
@@ -10,6 +13,8 @@
     ← Back to Jobs
   </a>
 
+
+  @if (job) {
 
   <!-- Job Header -->
   <section class="job-header-card">
@@ -71,7 +76,7 @@
     <div class="header-match">
 
       <div class="header-match-score">
-        {{ job.matchScore }}%
+        {{ job.matchScore === null ? '' : job.matchScore + '%' }}
       </div>
 
       <div class="header-match-label">
@@ -104,6 +109,8 @@
         <button
           type="button"
           class="apply-button"
+          (click)="applyToJob()"
+          [disabled]="loading || applying || !applicationStateKnown || job.status !== 'Open'"
         >
           Apply Now
         </button>
@@ -199,17 +206,17 @@
 
             <div
               class="required-skill-row"
-              [class.skill-matched]="skill.matched"
-              [class.skill-missing]="!skill.matched"
+              [class.skill-matched]="match !== null && skill.matched"
+              [class.skill-missing]="match !== null && !skill.matched"
             >
 
               <div class="skill-left">
 
                 <span class="skill-status-icon">
 
-                  @if (skill.matched) {
+                  @if (match && skill.matched) {
                     ✓
-                  } @else {
+                  } @else if (match) {
                     !
                   }
 
@@ -224,9 +231,9 @@
 
               <span class="skill-status-text">
 
-                @if (skill.matched) {
+                @if (match && skill.matched) {
                   Matched
-                } @else {
+                } @else if (match) {
                   Missing
                 }
 
@@ -346,7 +353,7 @@
         </h3>
 
         <div class="large-match-score">
-          {{ job.matchScore }}%
+          {{ job.matchScore === null ? '' : job.matchScore + '%' }}
         </div>
 
         <div class="large-match-label">
@@ -364,7 +371,7 @@
         </div>
 
         <p class="match-help-text">
-          Your profile matches most of the core requirements for this role.
+          {{ match ? 'Match information for your profile and this role.' : 'Matching information is unavailable.' }}
         </p>
 
       </section>
@@ -377,7 +384,7 @@
           Missing Skills
         </h3>
 
-        @if (job.missingSkills.length > 0) {
+        @if (match && job.missingSkills.length > 0) {
 
           <p class="side-description">
             Adding these skills to your profile may improve your match.
@@ -421,7 +428,7 @@
 
           </div>
 
-        } @else {
+        } @else if (match) {
 
           <div class="all-matched-message">
 
@@ -472,6 +479,8 @@
           <button
             type="button"
             class="side-apply-button"
+          (click)="applyToJob()"
+          [disabled]="loading || applying || !applicationStateKnown || job.status !== 'Open'"
           >
             Apply for this Job
           </button>
@@ -483,5 +492,14 @@
     </aside>
 
   </div>
+
+  } @else if (!loading && !error) {
+
+    <section class="details-card">
+      <h2>No job details available</h2>
+      <p class="overview-text">Return to Find Jobs to browse available opportunities.</p>
+    </section>
+
+  }
 
 </main>
