@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { finalize, forkJoin, Subscription } from 'rxjs';
 import { UserModel } from '../../../../core/models/user.model';
 import { AdminService } from '../../../../core/services/admin.service';
@@ -9,7 +9,7 @@ import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [DecimalPipe],
+  imports: [DecimalPipe, RouterLink],
   templateUrl: './dashboard.html',
 })
 export class Dashboard implements OnInit, OnDestroy {

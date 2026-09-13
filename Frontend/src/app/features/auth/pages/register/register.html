@@ -171,6 +171,13 @@
           </div>
 
 
+          @if (registrationSuccess()) {
+            <div role="status" aria-live="polite" class="mb-[24px] flex items-center gap-[11px] rounded-[12px] border border-emerald-200 bg-emerald-50 text-emerald-800 p-[14px]">
+              <span aria-hidden="true" class="w-[20px] h-[20px] shrink-0 rounded-full bg-emerald-100 flex items-center justify-center text-[12px] font-extrabold">✓</span>
+              <span class="text-[13px] font-semibold">Registration successful</span>
+            </div>
+          }
+
           <!-- Registration Form -->
           <form
             [formGroup]="registerForm"
