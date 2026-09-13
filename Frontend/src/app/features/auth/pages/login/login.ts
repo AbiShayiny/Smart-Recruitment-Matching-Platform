@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { finalize } from 'rxjs';
@@ -19,6 +19,7 @@ export class Login {
   showPassword: boolean = false;
   isLoading: boolean = false;
   loginError: boolean = false;
+  loginSuccess = signal(false);
   loginErrorMessage = 'Invalid credentials. Please verify your business email address and security token.';
 
   constructor(
@@ -30,6 +31,7 @@ export class Login {
   login(form: NgForm): void {
 
     if (this.isLoading) return;
+    this.loginSuccess.set(false);
     this.loginError = false;
 
     if (form.invalid || this.email.trim() === '' || this.password === '') {
@@ -64,7 +66,7 @@ export class Login {
 
         this.isLoading = false;
 
-        alert('Login successful');
+        this.loginSuccess.set(true);
 
         if (response.role === 'Administrator') {
           this.router.navigate(['/admin/dashboard']);

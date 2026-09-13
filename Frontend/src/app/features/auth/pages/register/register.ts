@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, signal } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -23,13 +23,15 @@ import { finalize } from 'rxjs';
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
-export class Register {
+export class Register implements OnDestroy {
 
   registerForm: FormGroup;
 
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
   isLoading = false;
+  registrationSuccess = signal(false);
+  private successTimeout?: ReturnType<typeof setTimeout>;
 
   constructor(
     private fb: FormBuilder,
@@ -107,6 +109,8 @@ export class Register {
   register(): void {
 
     if (this.isLoading) return;
+    clearTimeout(this.successTimeout);
+    this.registrationSuccess.set(false);
     if (this.registerForm.invalid) {
 
       this.registerForm.markAllAsTouched();
@@ -134,7 +138,8 @@ export class Register {
 
       next: () => {
 
-        alert('Registration successful');
+        this.registrationSuccess.set(true);
+        this.successTimeout = setTimeout(() => this.registrationSuccess.set(false), 4000);
 
         this.registerForm.reset({
           role: 'JobSeeker',
@@ -167,5 +172,8 @@ export class Register {
       }
 
     });
+  }
+  ngOnDestroy(): void {
+    clearTimeout(this.successTimeout);
   }
 }

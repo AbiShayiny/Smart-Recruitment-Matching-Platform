@@ -17,4 +17,12 @@ export class AdminService {
   getUsers(): Observable<UserModel[]> {
     return this.http.get<UserModel[]>('https://localhost:7182/api/Admin/users');
   }
+
+  updateUser(id: number, user: Pick<UserModel, 'name' | 'email' | 'role'>): Observable<string> {
+    return this.http.put(`https://localhost:7182/api/Admin/users/${id}`, user, { responseType: 'text' });
+  }
+
+  deleteUser(id: number): Observable<string> {
+    return this.http.delete(`https://localhost:7182/api/Admin/users/${id}`, { responseType: 'text' });
+  }
 }
