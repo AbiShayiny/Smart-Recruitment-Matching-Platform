@@ -34,6 +34,12 @@ namespace Backend.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>()
+                .HasOne<Company>()
+                .WithMany()
+                .HasForeignKey(user => user.CompanyId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<Backend.Models.Application.JobApplication>()
                 .HasIndex(application => new
                 {

@@ -1,19 +1,36 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { finalize } from 'rxjs';
+import { VacancyService } from '../../../../core/services/vacancy.service';
+import { CompanyService } from '../../../../core/services/company.service';
+import { CreateVacancyDto, vacancyValidation } from '../../../../core/models/vacancy.model';
 
 @Component({
   selector: 'app-vacancy-create',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    RouterLink
   ],
   templateUrl: './vacancy-create.html',
   styleUrl: './vacancy-create.css'
 })
-export class VacancyCreate {
+export class VacancyCreate implements OnInit {
+  errorMessage = '';
+  successMessage = '';
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly cdr = inject(ChangeDetectorRef);
+
+  ngOnInit(): void {
+    if (this.companyService.getCurrentCompanyId() === null) {
+      this.errorMessage = 'Your account is not linked to a company yet. Posting is unavailable until that association is available.';
+    }
+  }
 
   jobTitle = '';
   department = '';
@@ -35,7 +52,9 @@ export class VacancyCreate {
   isSaving = false;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private vacancyService: VacancyService,
+    private companyService: CompanyService
   ) {}
 
 
@@ -133,42 +152,50 @@ export class VacancyCreate {
 
 
   saveDraft(): void {
-
-    this.isSaving = true;
-
-    /*
-     * API integration later.
-     * No mock data is used here.
-     */
-
-    setTimeout(() => {
-      this.isSaving = false;
-    }, 500);
+    if (this.isSaving) return;
+    this.successMessage = '';
+    this.errorMessage = 'Draft saving is not supported by the current API. Your changes remain in this form only.';
   }
-
 
   postVacancy(): void {
-
-    if (!this.isReady) {
+    if (this.isSaving) return;
+    this.successMessage = '';
+    const companyId = this.companyService.getCurrentCompanyId();
+    if (companyId === null) {
+      this.errorMessage = 'Your account is not linked to a company. This vacancy has not been submitted.';
       return;
     }
-
+    const dto: CreateVacancyDto = {
+      companyId,
+      jobTitle: this.jobTitle.trim(),
+      jobDescription: this.jobDescription.trim(),
+      requiredSkills: this.requiredSkills.join(', '),
+      requiredExperience: this.experienceLevel || null,
+      education: null,
+      location: this.primaryLocation.trim() || null,
+      employmentType: this.employmentType || null,
+      closingDate: null
+    };
+    this.errorMessage = vacancyValidation(dto);
+    if (this.errorMessage) return;
     this.isSaving = true;
-
-    /*
-     * Backend API integration will be added later.
-     * The form currently only handles the UI state.
-     */
-
-    setTimeout(() => {
-      this.isSaving = false;
-
-      this.router.navigate([
-        '/employer/vacancy-list'
-      ]);
-    }, 500);
+    this.vacancyService.createVacancy(dto).pipe(
+      takeUntilDestroyed(this.destroyRef),
+      finalize(() => { this.isSaving = false; this.cdr.markForCheck(); })
+    ).subscribe({
+      next: vacancy => {
+        if (!vacancy?.vacancyId) {
+          this.errorMessage = 'The server returned no vacancy. Check your vacancies before retrying.';
+          return;
+        }
+        this.successMessage = 'Vacancy created successfully.';
+        this.router.navigate(['/employer/vacancy-details', vacancy.vacancyId], {
+          state: { successMessage: this.successMessage }
+        });
+      },
+      error: () => { this.errorMessage = 'Unable to create the vacancy. Please check your entries and try again.'; }
+    });
   }
-
 
   cancel(): void {
 
