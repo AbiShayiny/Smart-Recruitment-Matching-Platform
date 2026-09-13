@@ -17,6 +17,12 @@ namespace Backend.Controllers.Admin
             _adminService = adminService;
         }
 
+        [HttpGet("dashboard")]
+        public IActionResult GetDashboard()
+        {
+            return Ok(_adminService.GetDashboard());
+        }
+
         [HttpGet("users")]
         public IActionResult GetAllUsers()
         {

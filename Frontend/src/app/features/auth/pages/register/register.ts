@@ -10,6 +10,8 @@ import {
 import { NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -27,6 +29,7 @@ export class Register {
 
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
+  isLoading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -103,6 +106,7 @@ export class Register {
 
   register(): void {
 
+    if (this.isLoading) return;
     if (this.registerForm.invalid) {
 
       this.registerForm.markAllAsTouched();
@@ -110,16 +114,25 @@ export class Register {
       return;
     }
 
+    const role = this.registerForm.value.role;
+    if (role !== 'JobSeeker' && role !== 'Employer') {
+      alert('Please select Job Seeker or Employer.');
+      return;
+    }
+
     const registerData = {
       name: this.registerForm.value.name,
       email: this.registerForm.value.email,
       password: this.registerForm.value.password,
-      role: this.registerForm.value.role
+      role
     };
 
-    this.authService.register(registerData).subscribe({
+    this.isLoading = true;
+    this.authService.register(registerData).pipe(
+      finalize(() => this.isLoading = false)
+    ).subscribe({
 
-      next: (response: any) => {
+      next: () => {
 
         alert('Registration successful');
 
@@ -130,7 +143,7 @@ export class Register {
 
       },
 
-      error: (error: any) => {
+      error: (error: HttpErrorResponse) => {
 
         if (error.status === 409) {
 
@@ -142,9 +155,12 @@ export class Register {
           alert('Please enter valid registration details');
 
         }
+        else if (error.status === 0) {
+          alert('Unable to connect. Please check your connection and try again.');
+        }
         else {
 
-          alert('Something went wrong');
+          alert('Unable to register right now. Please try again later.');
 
         }
 

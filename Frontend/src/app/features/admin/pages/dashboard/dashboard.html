@@ -157,7 +157,7 @@
           ></span>
 
           <span class="text-xs font-semibold text-emerald-700">
-            All Systems Operational
+            Not available
           </span>
 
         </div>
@@ -211,8 +211,8 @@
               Welcome back, Administrator
             </h2>
 
-            <p class="mt-2 text-sm text-slate-500">
-              Here's an overview of platform activity and enterprise user accounts.
+            <p class="mt-2 text-sm text-slate-500" role="status" aria-live="polite">
+              {{ isLoading ? 'Loading dashboard totals...' : dashboardError || "Here's an overview of platform activity and enterprise user accounts." }}
             </p>
 
           </div>
@@ -229,7 +229,7 @@
             </span>
 
             <span>
-              Last 30 days
+              —
             </span>
 
             <span class="text-slate-400">
@@ -246,6 +246,7 @@
       <!-- MAIN STAT CARDS -->
       <div
         class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-8"
+        [attr.aria-busy]="isLoading"
       >
 
 
@@ -267,7 +268,7 @@
               <p
                 class="mt-3 text-3xl font-bold text-slate-900"
               >
-                28,450
+                {{ totalUsers === null ? '—' : (totalUsers | number:'1.0-0') }}
               </p>
 
             </div>
@@ -285,11 +286,11 @@
           <div class="mt-4 flex items-center gap-2">
 
             <span class="text-xs font-bold text-emerald-600">
-              ↑ 12%
+              —
             </span>
 
             <span class="text-xs text-slate-400">
-              this month
+              Not available
             </span>
 
           </div>
@@ -297,7 +298,7 @@
         </div>
 
 
-        <!-- JOB SEEKERS -->
+        <!-- APPLICATIONS -->
         <div
           class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm"
         >
@@ -309,13 +310,13 @@
               <p
                 class="text-xs font-bold text-slate-500 uppercase tracking-wide"
               >
-                Job Seekers
+                Applications
               </p>
 
               <p
                 class="mt-3 text-3xl font-bold text-slate-900"
               >
-                21,830
+                {{ totalApplications === null ? '—' : (totalApplications | number:'1.0-0') }}
               </p>
 
             </div>
@@ -332,9 +333,9 @@
 
           <p class="mt-4 text-xs text-slate-400">
             <span class="font-bold text-slate-700">
-              76.7%
+              All
             </span>
-            of total user base
+            submitted applications
           </p>
 
         </div>
@@ -352,13 +353,13 @@
               <p
                 class="text-xs font-bold text-slate-500 uppercase tracking-wide"
               >
-                Employers
+                Companies
               </p>
 
               <p
                 class="mt-3 text-3xl font-bold text-slate-900"
               >
-                6,620
+                {{ totalCompanies === null ? '—' : (totalCompanies | number:'1.0-0') }}
               </p>
 
             </div>
@@ -375,9 +376,9 @@
 
           <p class="mt-4 text-xs text-slate-400">
             <span class="font-bold text-slate-700">
-              2,410
+              —
             </span>
-            verified organizations
+            Verification not available
           </p>
 
         </div>
@@ -401,7 +402,7 @@
               <p
                 class="mt-3 text-3xl font-bold text-slate-900"
               >
-                14,290
+                {{ totalVacancies === null ? '—' : (totalVacancies | number:'1.0-0') }}
               </p>
 
             </div>
@@ -417,7 +418,7 @@
 
 
           <p class="mt-4 text-xs text-slate-400">
-            Active across all sectors
+            All recorded vacancies
           </p>
 
         </div>
@@ -448,7 +449,7 @@
               </h3>
 
               <p class="mt-1 text-xs text-slate-500">
-                Recently registered platform accounts and credentials.
+                User accounts; registration dates are not available.
               </p>
 
             </div>
@@ -520,7 +521,7 @@
               <tbody class="divide-y divide-slate-100">
 
 
-                <!-- USER 1 -->
+                @for (user of displayedUsers; track $index) {
                 <tr class="hover:bg-slate-50 transition">
 
                   <td class="px-5 py-4">
@@ -530,11 +531,11 @@
                       <div
                         class="w-8 h-8 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center text-xs font-bold"
                       >
-                        JS
+                        {{ userInitials(user) }}
                       </div>
 
                       <span class="text-sm font-semibold text-slate-900">
-                        John Smith
+                        {{ user?.name || '—' }}
                       </span>
 
                     </div>
@@ -542,11 +543,11 @@
                   </td>
 
                   <td class="px-5 py-4 text-sm text-slate-500">
-                    john@example.com
+                    {{ user?.email || '—' }}
                   </td>
 
                   <td class="px-5 py-4 text-sm text-slate-600">
-                    Job Seeker
+                    {{ user?.role || '—' }}
                   </td>
 
                   <td class="px-5 py-4">
@@ -554,13 +555,13 @@
                     <span
                       class="inline-flex px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold"
                     >
-                      Active
+                      —
                     </span>
 
                   </td>
 
                   <td class="px-5 py-4 text-sm text-slate-500">
-                    Sep 08, 2026
+                    —
                   </td>
 
                   <td class="px-5 py-4 text-right">
@@ -575,291 +576,7 @@
                   </td>
 
                 </tr>
-
-
-                <!-- USER 2 -->
-                <tr class="hover:bg-slate-50 transition">
-
-                  <td class="px-5 py-4">
-
-                    <div class="flex items-center gap-3">
-
-                      <div
-                        class="w-8 h-8 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center text-xs font-bold"
-                      >
-                        TS
-                      </div>
-
-                      <span class="text-sm font-semibold text-slate-900">
-                        Tech Solutions
-                      </span>
-
-                    </div>
-
-                  </td>
-
-                  <td class="px-5 py-4 text-sm text-slate-500">
-                    hr@techsolutions.com
-                  </td>
-
-                  <td class="px-5 py-4 text-sm text-slate-600">
-                    Employer
-                  </td>
-
-                  <td class="px-5 py-4">
-
-                    <span
-                      class="inline-flex px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold"
-                    >
-                      Active
-                    </span>
-
-                  </td>
-
-                  <td class="px-5 py-4 text-sm text-slate-500">
-                    Sep 07, 2026
-                  </td>
-
-                  <td class="px-5 py-4 text-right">
-
-                    <button
-                      type="button"
-                      class="text-slate-400 hover:text-orange-600 text-lg"
-                    >
-                      ◉
-                    </button>
-
-                  </td>
-
-                </tr>
-
-
-                <!-- USER 3 -->
-                <tr class="hover:bg-slate-50 transition">
-
-                  <td class="px-5 py-4">
-
-                    <div class="flex items-center gap-3">
-
-                      <div
-                        class="w-8 h-8 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center text-xs font-bold"
-                      >
-                        ER
-                      </div>
-
-                      <span class="text-sm font-semibold text-slate-900">
-                        Elena Rostova
-                      </span>
-
-                    </div>
-
-                  </td>
-
-                  <td class="px-5 py-4 text-sm text-slate-500">
-                    elena.r@innovate.co
-                  </td>
-
-                  <td class="px-5 py-4 text-sm text-slate-600">
-                    Job Seeker
-                  </td>
-
-                  <td class="px-5 py-4">
-
-                    <span
-                      class="inline-flex px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold"
-                    >
-                      Active
-                    </span>
-
-                  </td>
-
-                  <td class="px-5 py-4 text-sm text-slate-500">
-                    Sep 07, 2026
-                  </td>
-
-                  <td class="px-5 py-4 text-right">
-
-                    <button
-                      type="button"
-                      class="text-slate-400 hover:text-orange-600 text-lg"
-                    >
-                      ◉
-                    </button>
-
-                  </td>
-
-                </tr>
-
-
-                <!-- USER 4 -->
-                <tr class="hover:bg-slate-50 transition">
-
-                  <td class="px-5 py-4">
-
-                    <div class="flex items-center gap-3">
-
-                      <div
-                        class="w-8 h-8 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center text-xs font-bold"
-                      >
-                        AS
-                      </div>
-
-                      <span class="text-sm font-semibold text-slate-900">
-                        Apex Systems Ltd
-                      </span>
-
-                    </div>
-
-                  </td>
-
-                  <td class="px-5 py-4 text-sm text-slate-500">
-                    talent@apexsystems.com
-                  </td>
-
-                  <td class="px-5 py-4 text-sm text-slate-600">
-                    Employer
-                  </td>
-
-                  <td class="px-5 py-4">
-
-                    <span
-                      class="inline-flex px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 text-[10px] font-bold"
-                    >
-                      Pending Verification
-                    </span>
-
-                  </td>
-
-                  <td class="px-5 py-4 text-sm text-slate-500">
-                    Sep 06, 2026
-                  </td>
-
-                  <td class="px-5 py-4 text-right">
-
-                    <button
-                      type="button"
-                      class="text-slate-400 hover:text-orange-600 text-lg"
-                    >
-                      ◉
-                    </button>
-
-                  </td>
-
-                </tr>
-
-
-                <!-- USER 5 -->
-                <tr class="hover:bg-slate-50 transition">
-
-                  <td class="px-5 py-4">
-
-                    <div class="flex items-center gap-3">
-
-                      <div
-                        class="w-8 h-8 rounded-full bg-red-100 text-red-700 flex items-center justify-center text-xs font-bold"
-                      >
-                        MV
-                      </div>
-
-                      <span class="text-sm font-semibold text-slate-900">
-                        Marcus Vance
-                      </span>
-
-                    </div>
-
-                  </td>
-
-                  <td class="px-5 py-4 text-sm text-slate-500">
-                    marcus.v@devnetwork.org
-                  </td>
-
-                  <td class="px-5 py-4 text-sm text-slate-600">
-                    Job Seeker
-                  </td>
-
-                  <td class="px-5 py-4">
-
-                    <span
-                      class="inline-flex px-2.5 py-1 rounded-full bg-red-50 text-red-700 text-[10px] font-bold"
-                    >
-                      Suspended
-                    </span>
-
-                  </td>
-
-                  <td class="px-5 py-4 text-sm text-slate-500">
-                    Sep 05, 2026
-                  </td>
-
-                  <td class="px-5 py-4 text-right">
-
-                    <button
-                      type="button"
-                      class="text-slate-400 hover:text-orange-600 text-lg"
-                    >
-                      ◉
-                    </button>
-
-                  </td>
-
-                </tr>
-
-
-                <!-- USER 6 -->
-                <tr class="hover:bg-slate-50 transition">
-
-                  <td class="px-5 py-4">
-
-                    <div class="flex items-center gap-3">
-
-                      <div
-                        class="w-8 h-8 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center text-xs font-bold"
-                      >
-                        GL
-                      </div>
-
-                      <span class="text-sm font-semibold text-slate-900">
-                        Global Logistics HR
-                      </span>
-
-                    </div>
-
-                  </td>
-
-                  <td class="px-5 py-4 text-sm text-slate-500">
-                    recruiting@globallogistics.io
-                  </td>
-
-                  <td class="px-5 py-4 text-sm text-slate-600">
-                    Employer
-                  </td>
-
-                  <td class="px-5 py-4">
-
-                    <span
-                      class="inline-flex px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold"
-                    >
-                      Active
-                    </span>
-
-                  </td>
-
-                  <td class="px-5 py-4 text-sm text-slate-500">
-                    Sep 04, 2026
-                  </td>
-
-                  <td class="px-5 py-4 text-right">
-
-                    <button
-                      type="button"
-                      class="text-slate-400 hover:text-orange-600 text-lg"
-                    >
-                      ◉
-                    </button>
-
-                  </td>
-
-                </tr>
+                }
 
               </tbody>
 
@@ -875,9 +592,9 @@
 
             <p class="text-xs text-slate-500">
               Showing
-              <span class="font-bold text-slate-700">6</span>
+              <span class="font-bold text-slate-700">{{ displayedUserCount === null ? '—' : displayedUserCount }}</span>
               of
-              <span class="font-bold text-slate-700">28,450</span>
+              <span class="font-bold text-slate-700">{{ totalUsers === null ? '—' : (totalUsers | number:'1.0-0') }}</span>
               users
             </p>
 
@@ -886,6 +603,7 @@
 
               <button
                 type="button"
+                disabled
                 class="w-8 h-8 rounded-lg border border-slate-200 text-slate-400 hover:bg-slate-50"
               >
                 ‹
@@ -893,38 +611,43 @@
 
               <button
                 type="button"
+                disabled
                 class="w-8 h-8 rounded-lg bg-orange-500 text-white text-xs font-bold"
               >
-                1
+                —
               </button>
 
               <button
                 type="button"
+                disabled
                 class="w-8 h-8 rounded-lg border border-slate-200 text-slate-600 text-xs hover:bg-slate-50"
               >
-                2
+                —
               </button>
 
               <button
                 type="button"
+                disabled
                 class="w-8 h-8 rounded-lg border border-slate-200 text-slate-600 text-xs hover:bg-slate-50"
               >
-                3
+                —
               </button>
 
               <span class="px-1 text-slate-400">
-                ...
+                —
               </span>
 
               <button
                 type="button"
+                disabled
                 class="w-10 h-8 rounded-lg border border-slate-200 text-slate-600 text-xs hover:bg-slate-50"
               >
-                4,742
+                —
               </button>
 
               <button
                 type="button"
+                disabled
                 class="w-8 h-8 rounded-lg border border-slate-200 text-slate-400 hover:bg-slate-50"
               >
                 ›
@@ -957,7 +680,7 @@
               </h3>
 
               <p class="text-xs text-slate-500 mt-1">
-                Current platform health
+                Health metrics are not available.
               </p>
 
             </div>
@@ -975,7 +698,7 @@
               </span>
 
               <span class="text-xs text-slate-400">
-                28,450 Total
+                {{ totalUsers === null ? '—' : (totalUsers | number:'1.0-0') }} Total
               </span>
 
             </div>
@@ -987,12 +710,12 @@
 
               <div
                 class="h-full bg-orange-500"
-                style="width: 76.7%"
+                [style.width.%]="jobSeekerPercentage ?? 0"
               ></div>
 
               <div
                 class="h-full bg-slate-500"
-                style="width: 23.3%"
+                [style.width.%]="employerPercentage ?? 0"
               ></div>
 
             </div>
@@ -1015,7 +738,7 @@
                 </div>
 
                 <span class="text-xs font-bold text-slate-700">
-                  76.7%
+                  {{ jobSeekerPercentage === null ? '—' : (jobSeekerPercentage | number:'1.0-1') + '%' }}
                 </span>
 
               </div>
@@ -1036,7 +759,7 @@
                 </div>
 
                 <span class="text-xs font-bold text-slate-700">
-                  23.3%
+                  {{ employerPercentage === null ? '—' : (employerPercentage | number:'1.0-1') + '%' }}
                 </span>
 
               </div>
@@ -1072,7 +795,7 @@
               </div>
 
               <span class="text-[10px] font-bold text-emerald-600">
-                Normal
+                —
               </span>
 
             </div>
@@ -1096,7 +819,7 @@
               </div>
 
               <span class="text-[10px] font-bold text-emerald-600">
-                24ms
+                —
               </span>
 
             </div>
@@ -1120,7 +843,7 @@
               </div>
 
               <span class="text-[10px] font-bold text-emerald-600">
-                Operational
+                —
               </span>
 
             </div>
@@ -1149,10 +872,10 @@
             <p class="mt-2 text-xs leading-relaxed text-amber-800">
 
               <span class="font-bold text-amber-950">
-                14 employer accounts
+                —
               </span>
 
-              awaiting business tax ID & entity verification.
+              Verification information not available.
 
             </p>
 
@@ -1183,7 +906,7 @@
               </h4>
 
               <span class="text-[10px] text-slate-400">
-                Latest 3 actions
+                Not available
               </span>
 
             </div>
@@ -1201,17 +924,17 @@
                   <span
                     class="text-xs font-semibold text-slate-700 truncate"
                   >
-                    Password reset requested
+                    Not available
                   </span>
 
                   <span class="text-[10px] text-slate-400">
-                    10m ago
+                    —
                   </span>
 
                 </div>
 
                 <p class="mt-1 text-[10px] text-slate-400">
-                  User #8912 (Candidate)
+                  —
                 </p>
 
               </div>
@@ -1226,17 +949,17 @@
                   <span
                     class="text-xs font-semibold text-slate-700 truncate"
                   >
-                    Employer profile submitted
+                    Not available
                   </span>
 
                   <span class="text-[10px] text-slate-400">
-                    28m ago
+                    —
                   </span>
 
                 </div>
 
                 <p class="mt-1 text-[10px] text-slate-400">
-                  Apex Systems Ltd
+                  —
                 </p>
 
               </div>
@@ -1251,17 +974,17 @@
                   <span
                     class="text-xs font-semibold text-slate-700 truncate"
                   >
-                    Account status updated
+                    Not available
                   </span>
 
                   <span class="text-[10px] text-slate-400">
-                    1h ago
+                    —
                   </span>
 
                 </div>
 
                 <p class="mt-1 text-[10px] text-slate-400">
-                  Marcus Vance marked Suspended
+                  —
                 </p>
 
               </div>

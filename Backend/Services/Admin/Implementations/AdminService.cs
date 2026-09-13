@@ -1,4 +1,5 @@
 ﻿using Backend.DTOs.Admin;
+using Backend.Data;
 using Backend.Models.User;
 using Backend.Repositories.Interfaces.User;
 using Backend.Services.Interfaces.Admin;
@@ -8,10 +9,23 @@ namespace Backend.Services.Implementations.Admin
     public class AdminService : IAdminService
     {
         private readonly IUserRepository _userRepository;
+        private readonly AppDbContext _context;
 
-        public AdminService(IUserRepository userRepository)
+        public AdminService(IUserRepository userRepository, AppDbContext context)
         {
             _userRepository = userRepository;
+            _context = context;
+        }
+
+        public DashboardResponseDto GetDashboard()
+        {
+            return new DashboardResponseDto
+            {
+                TotalUsers = _context.Users.Count(),
+                TotalCompanies = _context.Companies.Count(),
+                TotalVacancies = _context.Vacancies.Count(),
+                TotalApplications = _context.JobApplications.Count()
+            };
         }
 
         public object GetAllUsers()
