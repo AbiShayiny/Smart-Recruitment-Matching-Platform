@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-applicants-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [RouterLink, CommonModule, FormsModule],
   templateUrl: './applicants-list.html',
   styleUrl: './applicants-list.css',
 })
@@ -25,7 +25,7 @@ export class ApplicantsList {
     private route: ActivatedRoute,
     public router: Router
   ) {
-    this.vacancyId = this.route.snapshot.paramMap.get('id');
+    this.vacancyId = this.route.snapshot.queryParamMap.get('vacancyId');
   }
 
   get filteredApplicants(): any[] {
@@ -99,7 +99,7 @@ export class ApplicantsList {
     }
 
     this.router.navigate([
-      '/applications/applicant-details',
+      '/applications/application-details',
       applicant.id
     ]);
   }
@@ -109,9 +109,6 @@ export class ApplicantsList {
       return;
     }
 
-    this.router.navigate([
-      '/applications/contact',
-      applicant.id
-    ]);
+    this.router.navigate(['/contact/contact-requests'], { queryParams: { applicationId: applicant.id } });
   }
 }

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, input, output } from '@angular/core';
+import { UserModel } from '../../../../core/models/user.model';
 
 @Component({
   selector: 'app-user-table',
@@ -6,4 +7,11 @@ import { Component } from '@angular/core';
   templateUrl: './user-table.html',
   styleUrl: './user-table.css',
 })
-export class UserTable {}
+export class UserTable {
+  users = input<UserModel[]>([]);
+  loading = input(false);
+  disabled = input(false);
+  error = input('');
+  edit = output<UserModel>();
+  delete = output<UserModel>();
+}

@@ -1,4 +1,4 @@
-using Backend.Data;
+﻿using Backend.Data;
 using Backend.Models.User;
 
 using Backend.Repositories.Implementations.User;
@@ -83,12 +83,19 @@ namespace Backend
             >();
 
 
-            // Vacancy Service
+            // Employer company and vacancy services
+            builder.Services.AddScoped<
+                Repositories.Company.Interfaces.ICompanyRepository,
+                Repositories.Company.Implementations.CompanyRepository>();
+
+            builder.Services.AddScoped<
+                Services.Company.Interfaces.ICompanyService,
+                Services.Company.Implementations.CompanyService>();
+
             builder.Services.AddScoped<
                 Services.Vacancy.Interfaces.IVacancyService,
                 Services.Vacancy.Implementations.VacancyService
             >();
-
 
             // Matching Service
             builder.Services.AddScoped<

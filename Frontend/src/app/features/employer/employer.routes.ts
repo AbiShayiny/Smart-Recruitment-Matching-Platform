@@ -30,14 +30,14 @@ export const EMPLOYER_ROUTES: Routes = [
       )
   },
   {
-    path: 'vacancy-details',
+    path: 'vacancy-details/:id',
     loadComponent: () =>
       import('./pages/vacancy-details/vacancy-details').then(
         m => m.VacancyDetails
       )
   },
   {
-    path: 'vacancy-edit',
+    path: 'vacancy-edit/:id',
     loadComponent: () =>
       import('./pages/vacancy-edit/vacancy-edit').then(
         m => m.VacancyEdit
