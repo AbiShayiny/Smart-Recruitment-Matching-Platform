@@ -20,14 +20,15 @@ export class AuthService {
     );
   }
 
-  login(user: { email: string; password: string }): Observable<{ token: string; name: string; email: string; role: string }> {
-    return this.http.post<{ token: string; name: string; email: string; role: string }>(
+  login(user: { email: string; password: string }): Observable<{ token: string; name: string; email: string; role: string; companyId: number | null }> {
+    return this.http.post<{ token: string; name: string; email: string; role: string; companyId: number | null }>(
       `${this.apiUrl}/login`,
       user
     );
   }
 
   saveToken(token: string): void {
+    localStorage.removeItem('employerCompanyContext');
     localStorage.setItem('token', token);
   }
 
@@ -37,6 +38,26 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('employerCompanyContext');
+  }
+
+  // Cached API response metadata for routing only; the backend checks ownership on every request.
+  setCompanyId(companyId: number | null, requestToken: string | null = this.getToken()): void {
+    if (!requestToken || requestToken !== this.getToken() || this.getRole(requestToken) !== 'Employer') return;
+    const validId = Number.isInteger(companyId) && companyId! > 0 && companyId! <= 2147483647 ? companyId : null;
+    localStorage.setItem('employerCompanyContext', JSON.stringify({ token: requestToken, companyId: validId }));
+  }
+
+  getCurrentCompanyId(): number | null {
+    const token = this.getToken();
+    if (this.getRole(token) !== 'Employer') return null;
+    try {
+      const context = JSON.parse(localStorage.getItem('employerCompanyContext') ?? 'null');
+      const id = context?.companyId;
+      return context?.token === token && Number.isInteger(id) && id > 0 && id <= 2147483647 ? id : null;
+    } catch {
+      return null;
+    }
   }
 
   isLoggedIn(): boolean {

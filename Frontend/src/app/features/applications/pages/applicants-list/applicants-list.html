@@ -1,82 +1,79 @@
-<div class="page-shell">
+<div class="page-shell min-h-[100vh] [background:#f7f9fd]">
 
   <!-- Sidebar -->
-  <aside class="sidebar">
+  <aside class="sidebar fixed left-[0] top-[0] bottom-[0] w-[280px] [background:#ffffff] [border-right:1px_solid_#e2e8f0] flex flex-col z-[20]">
 
-    <div class="brand">
-      <div class="brand-logo">S</div>
+    <div class="brand h-[82px] [padding:0_24px] flex items-center gap-[11px] [border-bottom:1px_solid_#f1f5f9]">
+      <div class="brand-logo w-[36px] h-[36px] flex items-center justify-center rounded-[9px] [background:#f97316] text-[#ffffff]">S</div>
 
       <div>
-        <strong>SmartRecruit</strong>
-        <span>Employer Portal</span>
+        <strong class="block">SmartRecruit</strong>
+        <span class="block mt-[2px] text-[#94a3b8] text-[8px] uppercase tracking-[0.8px]">Employer Portal</span>
       </div>
     </div>
 
-    <nav class="navigation">
+    <nav class="navigation [padding:18px_14px]">
 
       <button
-        class="nav-item"
+        class="nav-item w-[100%] h-[43px] flex items-center gap-[11px] mb-[5px] [padding:0_12px] text-left cursor-pointer"
         type="button"
-        (click)="router.navigate(['/employer/dashboard'])"
-      >
-        <span>⌂</span>
+       routerLink="/employer/dashboard">
+        <span class="w-[20px] text-center text-[15px]">⌂</span>
         Dashboard
       </button>
 
       <button
-        class="nav-item"
+        class="nav-item w-[100%] h-[43px] flex items-center gap-[11px] mb-[5px] [padding:0_12px] text-left cursor-pointer"
         type="button"
-        (click)="router.navigate(['/employer/vacancy-list'])"
-      >
-        <span>▤</span>
+       routerLink="/employer/vacancy-list">
+        <span class="w-[20px] text-center text-[15px]">▤</span>
         Vacancies
       </button>
 
       <button
-        class="nav-item active"
+        class="nav-item active w-[100%] h-[43px] flex items-center gap-[11px] mb-[5px] [padding:0_12px] text-left cursor-pointer"
         type="button"
-      >
-        <span>♙</span>
+       routerLink="/applications/applicants-list">
+        <span class="w-[20px] text-center text-[15px]">♙</span>
         Applicants
       </button>
 
       <button
-        class="nav-item"
+        class="nav-item w-[100%] h-[43px] flex items-center gap-[11px] mb-[5px] [padding:0_12px] text-left cursor-pointer"
         type="button"
-        (click)="router.navigate(['/employer/company-profile'])"
-      >
-        <span>▣</span>
+       routerLink="/employer/company-profile">
+        <span class="w-[20px] text-center text-[15px]">▣</span>
         Company Profile
       </button>
 
       <button
-        class="nav-item"
+        class="nav-item w-[100%] h-[43px] flex items-center gap-[11px] mb-[5px] [padding:0_12px] text-left cursor-pointer"
         type="button"
-      >
-        <span>✉</span>
+       routerLink="/contact/contact-requests">
+        <span class="w-[20px] text-center text-[15px]">✉</span>
         Contact Requests
       </button>
 
       <button
-        class="nav-item"
+        class="nav-item w-[100%] h-[43px] flex items-center gap-[11px] mb-[5px] [padding:0_12px] text-left cursor-pointer"
         type="button"
-      >
-        <span>♧</span>
+       routerLink="/notifications/notification-list">
+        <span class="w-[20px] text-center text-[15px]">♧</span>
         Notifications
-        <small>3</small>
+        <small class="ml-[auto] w-[20px] h-[20px] flex items-center justify-center rounded-[50%] [background:#f97316] text-[#ffffff] text-[8px]">0</small>
       </button>
 
     </nav>
 
-    <div class="sidebar-bottom">
+    <div class="sidebar-bottom mt-[auto] [padding:15px] [border-top:1px_solid_#f1f5f9]">
 
-      <div class="profile-box">
+      <div class="profile-box flex items-center gap-[9px] [padding:8px]">
 
-        <div class="avatar">E</div>
+        <div class="avatar w-[35px] h-[35px] flex items-center justify-center rounded-[50%] [background:#ffedd5] text-[#ea580c]">E</div>
 
         <div>
-          <strong>Employer</strong>
-          <span>Employer Account</span>
+          <strong class="block text-[10px]">Employer</strong>
+          <span class="block mt-[2px] text-[#94a3b8] text-[8px]">Employer Account</span>
         </div>
 
       </div>
@@ -87,37 +84,37 @@
 
 
   <!-- Main -->
-  <main class="main-content">
+  <main class="main-content ml-[280px] min-h-[100vh]">
 
     <!-- Header -->
-    <header class="top-header">
+    <header class="top-header fixed top-[0] left-[280px] right-[0] h-[76px] [padding:0_36px] flex items-center justify-between [background:rgba(255,_255,_255,_0.96)] [border-bottom:1px_solid_#e2e8f0] z-[15]">
 
       <div>
-        <span class="breadcrumb">
+        <span class="breadcrumb block mb-[3px] text-[#94a3b8] text-[8px]">
           Employer / Applicants
         </span>
 
-        <h1>Ranked Applicants</h1>
+        <h1 class="[margin:0]">Ranked Applicants</h1>
       </div>
 
-      <div class="header-actions">
+      <div class="header-actions flex items-center gap-[10px]">
 
         <button
           type="button"
-          class="header-icon"
+          class="header-icon relative w-[34px] h-[34px] [background:#ffffff] text-[#64748b] cursor-pointer"
         >
           ?
         </button>
 
         <button
           type="button"
-          class="header-icon notification"
-        >
+          class="header-icon notification relative w-[34px] h-[34px] [background:#ffffff] text-[#64748b] cursor-pointer"
+         routerLink="/notifications/notification-list">
           ♧
           <i></i>
         </button>
 
-        <div class="header-avatar">
+        <div class="header-avatar w-[35px] h-[35px] flex items-center justify-center rounded-[50%] [background:#ffedd5] text-[#ea580c]">
           E
         </div>
 
@@ -127,16 +124,16 @@
 
 
     <!-- Content -->
-    <section class="content">
+    <section class="content max-w-[1550px] [margin:0_auto] [padding:108px_36px_60px]">
 
       <!-- Page Intro -->
-      <div class="page-intro">
+      <div class="page-intro flex items-end justify-between mb-[22px]">
 
-        <div class="intro-left">
+        <div class="intro-left flex items-start gap-[12px]">
 
           <button
             type="button"
-            class="back-button"
+            class="back-button w-[37px] h-[37px] mt-[2px] [background:#ffffff] text-[#475569] cursor-pointer text-[16px]"
             (click)="goBack()"
           >
             ←
@@ -144,15 +141,15 @@
 
           <div>
 
-            <span class="eyebrow">
+            <span class="eyebrow text-[#f97316] tracking-[1px]">
               SMART MATCHING
             </span>
 
-            <h2>
+            <h2 class="[margin:4px_0_5px] tracking-[-0.6px]">
               Ranked Applicants
             </h2>
 
-            <p>
+            <p class="[margin:0] text-[#64748b] text-[10px]">
               Review candidates ranked by their match against
               your vacancy requirements.
             </p>
@@ -162,18 +159,18 @@
         </div>
 
 
-        <div class="intro-actions">
+        <div class="intro-actions flex gap-[8px]">
 
           <button
             type="button"
-            class="secondary-button"
+            class="secondary-button h-[38px] [padding:0_13px] cursor-pointer [background:#ffffff] text-[#475569]"
           >
             Export Applicants
           </button>
 
           <button
             type="button"
-            class="primary-button"
+            class="primary-button h-[38px] [padding:0_13px] cursor-pointer [background:#f97316] text-[#ffffff]"
           >
             Matching Settings
           </button>
@@ -184,28 +181,28 @@
 
 
       <!-- Matching Banner -->
-      <div class="matching-banner">
+      <div class="matching-banner min-h-[74px] flex items-center gap-[12px] [padding:14px_17px] mb-[18px] [background:#fff7ed]">
 
-        <div class="matching-banner-icon">
+        <div class="matching-banner-icon w-[38px] h-[38px] shrink-0 flex items-center justify-center rounded-[9px] [background:#ffffff] text-[#f97316] text-[16px]">
           ✦
         </div>
 
-        <div class="matching-banner-content">
+        <div class="matching-banner-content [flex:1]">
 
-          <strong>
+          <strong class="block text-[11px]">
             Smart Candidate Ranking
           </strong>
 
-          <p>
+          <p class="[margin:4px_0_0] text-[#64748b] text-[8px]">
             Candidates are evaluated against skills, experience,
             seniority and workplace requirements.
           </p>
 
         </div>
 
-        <div class="matching-status">
+        <div class="matching-status flex items-center gap-[6px] [padding:7px_9px] rounded-[6px] [background:#ffffff] text-[#047857]">
 
-          <span></span>
+          <span class="w-[6px] h-[6px] rounded-[50%] [background:#10b981]"></span>
 
           Matching active
 
@@ -215,19 +212,19 @@
 
 
       <!-- Metrics -->
-      <div class="metrics-grid">
+      <div class="metrics-grid grid grid-cols-[repeat(4,_1fr)] gap-[13px] mb-[18px]">
 
-        <div class="metric-card">
+        <div class="metric-card min-h-[91px] flex items-center gap-[12px] [padding:16px] [background:#ffffff]">
 
-          <div class="metric-icon">
+          <div class="metric-icon w-[35px] h-[35px] flex items-center justify-center rounded-[8px] text-[14px]">
             ♙
           </div>
 
           <div>
 
-            <span>Total Applicants</span>
+            <span class="block text-[#94a3b8] text-[8px]">Total Applicants</span>
 
-            <strong>
+            <strong class="block mt-[4px]">
               {{ totalApplicants }}
             </strong>
 
@@ -236,17 +233,17 @@
         </div>
 
 
-        <div class="metric-card">
+        <div class="metric-card min-h-[91px] flex items-center gap-[12px] [padding:16px] [background:#ffffff]">
 
-          <div class="metric-icon orange">
+          <div class="metric-icon orange w-[35px] h-[35px] flex items-center justify-center rounded-[8px] text-[14px]">
             ★
           </div>
 
           <div>
 
-            <span>High Match</span>
+            <span class="block text-[#94a3b8] text-[8px]">High Match</span>
 
-            <strong>
+            <strong class="block mt-[4px]">
               {{ highMatchApplicants }}
             </strong>
 
@@ -255,17 +252,17 @@
         </div>
 
 
-        <div class="metric-card">
+        <div class="metric-card min-h-[91px] flex items-center gap-[12px] [padding:16px] [background:#ffffff]">
 
-          <div class="metric-icon violet">
+          <div class="metric-icon violet w-[35px] h-[35px] flex items-center justify-center rounded-[8px] text-[14px]">
             ◇
           </div>
 
           <div>
 
-            <span>Shortlisted</span>
+            <span class="block text-[#94a3b8] text-[8px]">Shortlisted</span>
 
-            <strong>
+            <strong class="block mt-[4px]">
               {{ shortlistedApplicants }}
             </strong>
 
@@ -274,17 +271,17 @@
         </div>
 
 
-        <div class="metric-card">
+        <div class="metric-card min-h-[91px] flex items-center gap-[12px] [padding:16px] [background:#ffffff]">
 
-          <div class="metric-icon green">
+          <div class="metric-icon green w-[35px] h-[35px] flex items-center justify-center rounded-[8px] text-[14px]">
             ✓
           </div>
 
           <div>
 
-            <span>Interview</span>
+            <span class="block text-[#94a3b8] text-[8px]">Interview</span>
 
-            <strong>
+            <strong class="block mt-[4px]">
               {{ interviewApplicants }}
             </strong>
 
@@ -296,24 +293,24 @@
 
 
       <!-- Filters -->
-      <div class="filter-card">
+      <div class="filter-card grid grid-cols-[minmax(250px,_1fr)_160px_170px_160px_auto] gap-[8px] [padding:13px] mb-[18px] [background:#ffffff]">
 
-        <div class="search-wrapper">
+        <div class="search-wrapper h-[38px] flex items-center gap-[7px] [padding:0_10px] [background:#f8fafc]">
 
-          <span>⌕</span>
+          <span class="text-[#94a3b8] text-[16px]">⌕</span>
 
           <input
             type="text"
             [(ngModel)]="searchText"
             placeholder="Search applicant name, email or role..."
-          />
+           class="[flex:1] [border:none] [outline:none] [background:transparent] text-[#334155]"/>
 
         </div>
 
 
         <select
           [(ngModel)]="selectedStage"
-        >
+         class="h-[38px] [padding:0_9px] [background:#ffffff] text-[#475569] [outline:none]">
 
           <option value="">
             All Stages
@@ -344,7 +341,7 @@
 
         <select
           [(ngModel)]="selectedMatch"
-        >
+         class="h-[38px] [padding:0_9px] [background:#ffffff] text-[#475569] [outline:none]">
 
           <option value="">
             All Match Levels
@@ -367,7 +364,7 @@
 
         <select
           [(ngModel)]="selectedExperience"
-        >
+         class="h-[38px] [padding:0_9px] [background:#ffffff] text-[#475569] [outline:none]">
 
           <option value="">
             All Experience
@@ -394,7 +391,7 @@
 
         <button
           type="button"
-          class="clear-button"
+          class="clear-button h-[38px] [padding:0_12px] [background:#f8fafc] text-[#64748b] cursor-pointer"
           (click)="clearFilters()"
         >
           Clear
@@ -404,23 +401,23 @@
 
 
       <!-- Applicant Table -->
-      <div class="applicant-card">
+      <div class="applicant-card overflow-hidden [background:#ffffff] [box-shadow:0_3px_15px_rgba(15,_23,_42,_0.025)]">
 
-        <div class="table-header">
+        <div class="table-header min-h-[67px] [padding:15px_19px] flex items-center justify-between [border-bottom:1px_solid_#f1f5f9]">
 
           <div>
 
-            <span class="eyebrow">
+            <span class="eyebrow text-[#f97316] tracking-[1px]">
               CANDIDATE PIPELINE
             </span>
 
-            <h3>
+            <h3 class="[margin:4px_0_0] text-[13px]">
               Candidate Ranking
             </h3>
 
           </div>
 
-          <span class="result-count">
+          <span class="result-count [padding:6px_9px] rounded-[6px] [background:#f8fafc] text-[#64748b]">
             {{ filteredApplicants.length }} candidates
           </span>
 
@@ -428,19 +425,19 @@
 
 
         <div
-          class="empty-state"
+          class="empty-state min-h-[320px] [padding:45px_20px] flex items-center justify-center flex-col text-center"
           *ngIf="filteredApplicants.length === 0"
         >
 
-          <div class="empty-icon">
+          <div class="empty-icon w-[55px] h-[55px] flex items-center justify-center mb-[12px] rounded-[14px] [background:#eff4ff] text-[#94a3b8] text-[23px]">
             ♙
           </div>
 
-          <h3>
+          <h3 class="[margin:0] text-[13px]">
             No applicants available
           </h3>
 
-          <p>
+          <p class="max-w-[390px] [margin:7px_0_0] text-[#94a3b8] text-[9px] leading-[1.7]">
             Applicant records will appear here once candidates
             apply to this vacancy.
           </p>
@@ -449,41 +446,41 @@
 
 
         <div
-          class="table-wrapper"
+          class="table-wrapper overflow-x-auto"
           *ngIf="filteredApplicants.length > 0"
         >
 
-          <table>
+          <table class="w-[100%] border-collapse min-w-[950px]">
 
-            <thead>
+            <thead class="[background:#f8fafc]">
 
               <tr>
 
-                <th>
+                <th class="h-[40px] [padding:0_14px] text-[#94a3b8] tracking-[0.6px] text-left">
                   RANK
                 </th>
 
-                <th>
+                <th class="h-[40px] [padding:0_14px] text-[#94a3b8] tracking-[0.6px] text-left">
                   APPLICANT
                 </th>
 
-                <th>
+                <th class="h-[40px] [padding:0_14px] text-[#94a3b8] tracking-[0.6px] text-left">
                   MATCH SCORE
                 </th>
 
-                <th>
+                <th class="h-[40px] [padding:0_14px] text-[#94a3b8] tracking-[0.6px] text-left">
                   EXPERIENCE
                 </th>
 
-                <th>
+                <th class="h-[40px] [padding:0_14px] text-[#94a3b8] tracking-[0.6px] text-left">
                   STAGE
                 </th>
 
-                <th>
+                <th class="h-[40px] [padding:0_14px] text-[#94a3b8] tracking-[0.6px] text-left">
                   APPLIED
                 </th>
 
-                <th>
+                <th class="h-[40px] [padding:0_14px] text-[#94a3b8] tracking-[0.6px] text-left">
                   ACTION
                 </th>
 
@@ -501,34 +498,34 @@
                 "
               >
 
-                <td>
+                <td class="[padding:14px] [border-top:1px_solid_#f1f5f9] [vertical-align:middle]">
 
-                  <span class="rank-number">
+                  <span class="rank-number text-[#94a3b8]">
                     #{{ i + 1 }}
                   </span>
 
                 </td>
 
 
-                <td>
+                <td class="[padding:14px] [border-top:1px_solid_#f1f5f9] [vertical-align:middle]">
 
-                  <div class="candidate">
+                  <div class="candidate flex items-center gap-[9px]">
 
-                    <div class="candidate-avatar">
+                    <div class="candidate-avatar w-[34px] h-[34px] flex items-center justify-center shrink-0 rounded-[9px] [background:#fff1e8] text-[#ea580c]">
                       {{ applicant.name?.charAt(0) || '?' }}
                     </div>
 
                     <div>
 
-                      <strong>
+                      <strong class="block text-[#334155] text-[9px]">
                         {{ applicant.name }}
                       </strong>
 
-                      <span>
+                      <span class="block mt-[3px] text-[#64748b] text-[7px]">
                         {{ applicant.email }}
                       </span>
 
-                      <small>
+                      <small class="block mt-[3px] text-[#94a3b8] text-[7px]">
                         {{ applicant.role }}
                       </small>
 
@@ -539,24 +536,24 @@
                 </td>
 
 
-                <td>
+                <td class="[padding:14px] [border-top:1px_solid_#f1f5f9] [vertical-align:middle]">
 
-                  <div class="score-wrapper">
+                  <div class="score-wrapper min-w-[105px]">
 
-                    <strong>
+                    <strong class="text-[#0f172a] text-[10px]">
                       {{ applicant.matchScore }}%
                     </strong>
 
-                    <div class="score-track">
+                    <div class="score-track w-[90px] h-[5px] mt-[5px] rounded-[99px] [background:#e2e8f0] overflow-hidden">
 
                       <div
-                        class="score-fill"
+                        class="score-fill h-[100%] [background:#f97316] rounded-[inherit]"
                         [style.width.%]="applicant.matchScore"
                       ></div>
 
                     </div>
 
-                    <span>
+                    <span class="block mt-[4px] text-[#94a3b8] text-[7px]">
                       {{ applicant.matchLevel }}
                     </span>
 
@@ -565,17 +562,17 @@
                 </td>
 
 
-                <td>
-                  <span class="experience">
+                <td class="[padding:14px] [border-top:1px_solid_#f1f5f9] [vertical-align:middle]">
+                  <span class="experience text-[#64748b] text-[8px]">
                     {{ applicant.experience }}
                   </span>
                 </td>
 
 
-                <td>
+                <td class="[padding:14px] [border-top:1px_solid_#f1f5f9] [vertical-align:middle]">
 
                   <span
-                    class="stage-pill"
+                    class="stage-pill inline-flex [padding:5px_8px] rounded-[5px] [background:#f1f5f9] text-[#64748b]"
                     [class.shortlisted]="
                       applicant.stage === 'Shortlisted'
                     "
@@ -595,28 +592,28 @@
                 </td>
 
 
-                <td>
-                  <span class="date">
+                <td class="[padding:14px] [border-top:1px_solid_#f1f5f9] [vertical-align:middle]">
+                  <span class="date text-[#64748b] text-[8px]">
                     {{ applicant.appliedDate }}
                   </span>
                 </td>
 
 
-                <td>
+                <td class="[padding:14px] [border-top:1px_solid_#f1f5f9] [vertical-align:middle]">
 
-                  <div class="row-actions">
+                  <div class="row-actions flex gap-[5px]">
 
                     <button
                       type="button"
                       (click)="viewApplicant(applicant)"
-                    >
+                     class="h-[28px] [padding:0_8px] [background:#ffffff] text-[#475569] cursor-pointer">
                       View
                     </button>
 
                     <button
                       type="button"
                       (click)="contactApplicant(applicant)"
-                    >
+                     class="h-[28px] [padding:0_8px] [background:#ffffff] text-[#475569] cursor-pointer">
                       Contact
                     </button>
 
@@ -636,21 +633,21 @@
 
 
       <!-- Bottom Info -->
-      <div class="info-grid">
+      <div class="info-grid grid grid-cols-[repeat(2,_1fr)] gap-[13px] mt-[17px]">
 
-        <div class="info-card">
+        <div class="info-card flex gap-[10px] [padding:15px] [background:#ffffff]">
 
-          <div class="info-icon">
+          <div class="info-icon w-[31px] h-[31px] shrink-0 flex items-center justify-center rounded-[7px] text-[12px]">
             ✦
           </div>
 
           <div>
 
-            <strong>
+            <strong class="block text-[9px]">
               How ranking works
             </strong>
 
-            <p>
+            <p class="[margin:5px_0_0] text-[#94a3b8] text-[8px] leading-[1.6]">
               The matching engine compares candidate profiles
               with vacancy requirements to generate a relevance
               score.
@@ -661,19 +658,19 @@
         </div>
 
 
-        <div class="info-card">
+        <div class="info-card flex gap-[10px] [padding:15px] [background:#ffffff]">
 
-          <div class="info-icon orange">
+          <div class="info-icon orange w-[31px] h-[31px] shrink-0 flex items-center justify-center rounded-[7px] text-[12px]">
             !
           </div>
 
           <div>
 
-            <strong>
+            <strong class="block text-[9px]">
               Review recommendations
             </strong>
 
-            <p>
+            <p class="[margin:5px_0_0] text-[#94a3b8] text-[8px] leading-[1.6]">
               Matching scores support your review process and
               should be considered together with the candidate's
               complete profile.

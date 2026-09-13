@@ -14,8 +14,8 @@ namespace Backend.Services.Company.Implementations
             _companyRepository = companyRepository;
         }
 
-        public async Task<Models.Employer.Company> CreateAsync(
-            CreateCompanyDto dto)
+        public async Task<Models.Employer.Company?> CreateAsync(
+            CreateCompanyDto dto, int employerUserId)
         {
             var company = new Models.Employer.Company
             {
@@ -28,7 +28,7 @@ namespace Backend.Services.Company.Implementations
                 ContactPhone = dto.ContactPhone
             };
 
-            return await _companyRepository.CreateAsync(company);
+            return await _companyRepository.CreateAsync(company, employerUserId);
         }
 
         public async Task<Models.Employer.Company?> GetByIdAsync(
