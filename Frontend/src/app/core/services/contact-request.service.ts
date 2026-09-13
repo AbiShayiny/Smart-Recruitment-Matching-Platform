@@ -22,15 +22,15 @@ export class ContactRequestService {
   constructor(private http: HttpClient) {}
 
   getReceived(): Observable<SeekerContactRequest[]> {
-    return this.http.get<SeekerContactRequest[]>(${this.apiUrl}/received);
+    return this.http.get<SeekerContactRequest[]>(`${this.apiUrl}/received`);
   }
 
   accept(id: number): Observable<SeekerContactRequest> {
-    return this.http.put<SeekerContactRequest>(${this.apiUrl}//accept, {});
+    return this.http.put<SeekerContactRequest>(`${this.apiUrl}/${id}/accept`, {});
   }
 
   decline(id: number): Observable<SeekerContactRequest> {
-    return this.http.put<SeekerContactRequest>(${this.apiUrl}//decline, {});
+    return this.http.put<SeekerContactRequest>(`${this.apiUrl}/${id}/decline`, {});
   }
 
   sendContactRequest(dto: CreateContactRequestDto): Observable<ContactRequestModel | null> {

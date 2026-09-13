@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Backend.Controllers.Employer
 {
     [ApiController]
-    [Authorize(Roles = "Employer")]
+    [Authorize]
     [Route("api/employer/vacancy")]
     public class VacancyController : ControllerBase
     {
@@ -21,12 +21,14 @@ namespace Backend.Controllers.Employer
             _userRepository = userRepository;
         }
 
+        [Authorize(Roles = "Employer,JobSeeker")]
         [HttpGet]
         public async Task<IActionResult> GetOpenVacancies()
         {
             return Ok(await _vacancyService.GetOpenAsync());
         }
 
+        [Authorize(Roles = "Employer")]
         [HttpPost]
         public async Task<IActionResult> CreateVacancy([FromBody] CreateVacancyDto dto)
         {
@@ -39,6 +41,7 @@ namespace Backend.Controllers.Employer
             return Ok(vacancy);
         }
 
+        [Authorize(Roles = "Employer")]
         [HttpGet("company/{companyId}")]
         public async Task<IActionResult> GetMyVacancies(int companyId)
         {
@@ -47,9 +50,19 @@ namespace Backend.Controllers.Employer
             return Ok(vacancies);
         }
 
+        [Authorize(Roles = "Employer,JobSeeker")]
         [HttpGet("{vacancyId}")]
         public async Task<IActionResult> GetVacancy(int vacancyId)
         {
+            if (User.IsInRole("JobSeeker"))
+            {
+                var jobSeekerVacancy = await _vacancyService.GetByIdAsync(vacancyId);
+                if (jobSeekerVacancy == null ||
+                    !string.Equals(jobSeekerVacancy.Status, "Open", StringComparison.OrdinalIgnoreCase))
+                    return NotFound(new { message = "Vacancy not found" });
+                return Ok(jobSeekerVacancy);
+            }
+
             var companyId = GetCurrentCompanyId();
             if (companyId == null) return Forbid();
             var vacancy = await _vacancyService.GetByIdAsync(vacancyId);
@@ -58,6 +71,7 @@ namespace Backend.Controllers.Employer
             return Ok(vacancy);
         }
 
+        [Authorize(Roles = "Employer")]
         [HttpPut("{vacancyId}")]
         public async Task<IActionResult> UpdateVacancy(int vacancyId, [FromBody] UpdateVacancyDto dto)
         {
@@ -72,6 +86,7 @@ namespace Backend.Controllers.Employer
             return Ok(new { message = "Vacancy updated successfully" });
         }
 
+        [Authorize(Roles = "Employer")]
         [HttpPut("{vacancyId}/close")]
         public async Task<IActionResult> CloseVacancy(int vacancyId)
         {

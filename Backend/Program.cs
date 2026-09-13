@@ -7,6 +7,9 @@ using Backend.Repositories.Interfaces.User;
 using Backend.Repositories.Jobseeker.Implementations;
 using Backend.Repositories.Jobseeker.Interfaces;
 
+using Backend.Services.Jobseeker.Implementations;
+using Backend.Services.Jobseeker.Interfaces;
+
 using Backend.Repositories.Vacancy.Implementations;
 using Backend.Repositories.Vacancy.Interfaces;
 
@@ -73,6 +76,11 @@ namespace Backend
             builder.Services.AddScoped<
                 IJobSeekerRepository,
                 JobSeekerRepository
+            >();
+
+            builder.Services.AddScoped<
+                IJobSeekerService,
+                JobSeekerService
             >();
 
 

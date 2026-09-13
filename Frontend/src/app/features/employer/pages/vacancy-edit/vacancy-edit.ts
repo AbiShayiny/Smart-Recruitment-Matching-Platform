@@ -80,7 +80,7 @@ export class VacancyEdit implements OnInit {
         this.vacancy.employmentType = vacancy.employmentType ?? '';
         this.vacancy.experience = vacancy.requiredExperience ?? '';
         this.vacancy.location = vacancy.location ?? '';
-        this.skills = (vacancy.requiredSkills ?? '').split(',').map(skill => skill.trim()).filter(Boolean);
+        this.skills = (vacancy.requiredSkills ?? '').split(',').map((skill: string) => skill.trim()).filter(Boolean);
       } else if (!this.errorMessage) {
         this.errorMessage = 'No vacancy information was returned.';
       }

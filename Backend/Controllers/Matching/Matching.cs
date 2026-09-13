@@ -3,6 +3,7 @@
     [Microsoft.AspNetCore.Mvc.ApiController]
     [Microsoft.AspNetCore.Mvc.Controller]
     [Microsoft.AspNetCore.Mvc.Route("api/matching")]
+    [Microsoft.AspNetCore.Authorization.Authorize(Roles = "JobSeeker")]
     public class Matching : Microsoft.AspNetCore.Mvc.ControllerBase
     {
         private readonly Backend.Services.Matching.Interfaces.IMatchingService
@@ -19,6 +20,19 @@
             int userId,
             int vacancyId)
         {
+            var userIdClaim =
+                User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            if (!int.TryParse(userIdClaim, out var authenticatedUserId))
+            {
+                return Unauthorized();
+            }
+
+            if (authenticatedUserId != userId)
+            {
+                return Forbid();
+            }
+
             var result = await _matchingService
                 .CalculateMatchAsync(userId, vacancyId);
 

@@ -62,6 +62,15 @@ namespace Backend.Services.Application.Implementations
                 throw new KeyNotFoundException("Vacancy not found.");
             }
 
+            if (!string.Equals(
+                vacancy.Status,
+                "Open",
+                StringComparison.OrdinalIgnoreCase))
+            {
+                throw new InvalidOperationException(
+                    "This vacancy is closed and no longer accepts applications.");
+            }
+
             if (await _applicationRepository.ExistsAsync(
                 profile.Id,
                 vacancyId))

@@ -239,23 +239,7 @@ namespace Backend.Services.Matching.Implementations
         private static decimal CalculateMaintenanceScore(
             JobSeekerProfile profile)
         {
-            var mostRecentDate = profile.UpdatedAt != default
-                ? profile.UpdatedAt
-                : profile.CreatedAt;
-
-            if (mostRecentDate == default)
-            {
-                return 0m;
-            }
-
-            var ageInDays = (DateTime.UtcNow - mostRecentDate).TotalDays;
-
-            if (ageInDays <= 90)
-            {
-                return 2m;
-            }
-
-            return ageInDays <= 365 ? 1m : 0m;
+            return 0m;
         }
 
         private static string Normalize(string value)

@@ -672,23 +672,23 @@
                     Select pipeline status
                   </option>
 
-                  <option value="applied">
-                    Applied
+                  <option value="Pending">
+                    Pending
                   </option>
 
-                  <option value="shortlisted">
+                  <option value="Reviewed">
+                    Reviewed
+                  </option>
+
+                  <option value="Shortlisted">
                     Shortlisted
                   </option>
 
-                  <option value="interview">
-                    Interview Scheduled
+                  <option value="Accepted">
+                    Accepted
                   </option>
 
-                  <option value="offer">
-                    Offer Extended
-                  </option>
-
-                  <option value="rejected">
+                  <option value="Rejected">
                     Rejected
                   </option>
 
@@ -701,8 +701,7 @@
               </div>
 
               <p class="[margin:6px_0_0] text-[#64748b] text-[9px] leading-[15px]">
-                Updating status will be connected to the recruitment
-                workflow after backend integration.
+                Select the new application status.
               </p>
 
             </div>
@@ -711,7 +710,7 @@
             <button
               type="button"
               class="full-primary w-[100%] h-[40px] mt-[13px] [background:#f97316] text-[white] cursor-pointer"
-              (click)="updateStatus()" [disabled]="true" title="Status updates are not connected to an API">
+              (click)="updateStatus()" [disabled]="!pipelineStatus || statusUpdating">
 
               Update Status
 
@@ -918,8 +917,7 @@
         </textarea>
 
         <p class="modal-hint [margin:6px_0_0] text-[#64748b] text-[8px] leading-[14px]">
-          The notification and email workflow will be connected to
-          the backend later.
+          The candidate can accept or decline this contact request.
         </p>
 
       </div>
@@ -939,7 +937,7 @@
         <button
           type="button"
           class="modal-send h-[38px] [padding:0_14px] cursor-pointer [background:#f97316] text-[white] inline-flex items-center gap-[5px]"
-          (click)="sendContactRequest()" [disabled]="true" title="Contact requests are not connected to an API">
+          (click)="sendContactRequest()" [disabled]="!contactMessage.trim() || contactSending">
 
           <span class="material-symbols-outlined">
             send
