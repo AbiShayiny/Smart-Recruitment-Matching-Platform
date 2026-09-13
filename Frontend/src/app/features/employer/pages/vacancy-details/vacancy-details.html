@@ -1,59 +1,59 @@
-<div class="page-shell">
+<div class="page-shell min-h-[100vh] [background:#f8fafc]">
 
   <!-- Sidebar -->
-  <aside class="sidebar">
+  <aside class="sidebar fixed left-[0] top-[0] bottom-[0] w-[280px] [background:#ffffff] [border-right:1px_solid_#e2e8f0] flex flex-col z-[20]">
 
-    <div class="brand">
-      <div class="brand-icon">S</div>
+    <div class="brand h-[88px] flex items-center [padding:0_28px] gap-[12px] [border-bottom:1px_solid_#f1f5f9]">
+      <div class="brand-icon w-[38px] h-[38px] flex items-center justify-center rounded-[10px] [background:#f97316] text-[#ffffff]">S</div>
 
       <div>
-        <h2>SmartMatch</h2>
-        <span>Employer Portal</span>
+        <h2 class="[margin:0]">SmartMatch</h2>
+        <span class="block mt-[2px] text-[11px] text-[#94a3b8]">Employer Portal</span>
       </div>
     </div>
 
-    <nav class="navigation">
+    <nav class="navigation [padding:24px_16px]">
 
       <a
         routerLink="/employer/dashboard"
-        class="nav-item"
+        class="nav-item flex items-center h-[46px] [padding:0_14px] mb-[6px] rounded-[9px] no-underline"
       >
-        <span class="nav-icon">⌂</span>
+        <span class="nav-icon w-[28px] text-[17px]">⌂</span>
         Dashboard
       </a>
 
       <a
         routerLink="/employer/vacancy-list"
-        class="nav-item active"
+        class="nav-item active flex items-center h-[46px] [padding:0_14px] mb-[6px] rounded-[9px] no-underline"
       >
-        <span class="nav-icon">▤</span>
+        <span class="nav-icon w-[28px] text-[17px]">▤</span>
         Vacancies
       </a>
 
       <a
         routerLink="/employer/company-profile"
-        class="nav-item"
+        class="nav-item flex items-center h-[46px] [padding:0_14px] mb-[6px] rounded-[9px] no-underline"
       >
-        <span class="nav-icon">▣</span>
+        <span class="nav-icon w-[28px] text-[17px]">▣</span>
         Company Profile
       </a>
 
     </nav>
 
-    <div class="sidebar-bottom">
+    <div class="sidebar-bottom mt-[auto] [padding:18px] [border-top:1px_solid_#f1f5f9]">
 
-      <div class="profile-mini">
+      <div class="profile-mini flex items-center gap-[10px]">
 
-        <div class="avatar">
+        <div class="avatar flex items-center justify-center rounded-[50%] [background:#ffedd5] text-[#ea580c] w-[36px] h-[36px]">
           E
         </div>
 
-        <div class="profile-info">
-          <strong>Employer</strong>
-          <span>Employer Account</span>
+        <div class="profile-info flex flex-col">
+          <strong class="text-[12px]">Employer</strong>
+          <span class="mt-[2px] text-[#94a3b8] text-[10px]">Employer Account</span>
         </div>
 
-        <span class="more">•••</span>
+        <span class="more ml-[auto] text-[#94a3b8]">•••</span>
 
       </div>
 
@@ -63,43 +63,43 @@
 
 
   <!-- Main -->
-  <main class="main-content">
+  <main class="main-content ml-[280px] min-h-[100vh]">
 
     <!-- Header -->
-    <header class="top-header">
+    <header class="top-header h-[88px] [background:#ffffff] [border-bottom:1px_solid_#e2e8f0] [padding:0_42px] flex items-center justify-between">
 
-      <div class="header-title">
+      <div class="header-title flex items-center gap-[14px]">
 
         <button
-          class="back-button"
+          class="back-button w-[36px] h-[36px] [background:#ffffff] text-[#475569] text-[17px] cursor-pointer"
           (click)="goBack()"
         >
           ←
         </button>
 
         <div>
-          <span class="breadcrumb">
+          <span class="breadcrumb text-[#94a3b8] text-[10px]">
             Employer / Vacancies /
           </span>
 
-          <h1>Vacancy Details</h1>
+          <h1 class="[margin:4px_0_0]">Vacancy Details</h1>
         </div>
 
       </div>
 
 
-      <div class="header-actions">
+      <div class="header-actions flex items-center gap-[15px]">
 
-        <button class="icon-button">
+        <button class="icon-button w-[36px] h-[36px] [background:#ffffff] text-[#64748b] cursor-pointer">
           ?
         </button>
 
-        <button class="notification-button">
+        <button class="notification-button w-[36px] h-[36px] [background:#ffffff] text-[#64748b] cursor-pointer relative" routerLink="/notifications/notification-list">
           ♧
-          <span class="notification-dot"></span>
+          <span class="notification-dot absolute top-[7px] right-[7px] w-[6px] h-[6px] rounded-[50%] [background:#f97316]"></span>
         </button>
 
-        <div class="header-avatar">
+        <div class="header-avatar flex items-center justify-center rounded-[50%] [background:#ffedd5] text-[#ea580c] w-[38px] h-[38px]">
           E
         </div>
 
@@ -109,28 +109,27 @@
 
 
     <!-- Page -->
-    <section class="content">
+    <p role="status" *ngIf="successMessage">{{ successMessage }}</p>
+    <section class="content max-w-[1600px] [margin:0_auto] [padding:38px_42px_70px]">
 
       <!-- Empty / Loading State -->
       <div
-        class="empty-state"
+        class="empty-state min-h-[500px] [background:#ffffff] flex flex-col items-center justify-center text-center [padding:40px]"
         *ngIf="!hasVacancy"
       >
 
-        <div class="empty-icon">
+        <div class="empty-icon w-[62px] h-[62px] rounded-[14px] [background:#fff7ed] text-[#f97316] flex items-center justify-center text-[25px] mb-[18px]">
           ▤
         </div>
 
-        <h2>Vacancy details unavailable</h2>
+        <h2 class="[margin:0]">{{ isLoading ? 'Loading vacancy...' : 'Vacancy details unavailable' }}</h2>
 
-        <p>
-          Vacancy information has not been loaded yet.
-          Connect the vacancy data source to display the
-          selected vacancy details here.
+        <p class="max-w-[480px] [margin:9px_0_20px] text-[#94a3b8] text-[11px] leading-[1.7]">
+          {{ errorMessage }}
         </p>
 
         <button
-          class="primary-button"
+          class="primary-button h-[40px] [padding:0_15px] cursor-pointer [background:#f97316] text-[#ffffff]"
           (click)="goBack()"
         >
           ← Back to Vacancies
@@ -143,26 +142,26 @@
       <ng-container *ngIf="hasVacancy && vacancy">
 
         <!-- Hero -->
-        <div class="vacancy-hero">
+        <div class="vacancy-hero [padding:25px] [background:#ffffff] flex items-center justify-between gap-[25px] mb-[20px]">
 
-          <div class="hero-left">
+          <div class="hero-left flex items-center gap-[16px]">
 
-            <div class="job-icon">
+            <div class="job-icon w-[56px] h-[56px] rounded-[13px] [background:#fff1e8] text-[#f97316] flex items-center justify-center">
               ▤
             </div>
 
             <div>
 
-              <div class="code-row">
+              <div class="code-row flex items-center gap-[8px]">
 
-                <span class="vacancy-code">
-                  {{ vacancy.code }}
+                <span class="vacancy-code text-[#94a3b8]">
+                  {{ vacancy.vacancyId }}
                 </span>
 
                 <span
-                  class="status-badge"
+                  class="status-badge inline-flex items-center min-h-[23px] [padding:0_9px] rounded-[999px]"
                   [ngClass]="{
-                    'active': vacancy.status === 'Active',
+                    'active': vacancy.status === 'Open',
                     'draft': vacancy.status === 'Draft',
                     'closed': vacancy.status === 'Closed',
                     'archived': vacancy.status === 'Archived'
@@ -173,14 +172,14 @@
 
               </div>
 
-              <h2>
-                {{ vacancy.title }}
+              <h2 class="[margin:6px_0_3px]">
+                {{ vacancy.jobTitle }}
               </h2>
 
-              <p>
-                {{ vacancy.department }}
+              <p class="[margin:0] text-[#64748b] text-[11px]">
+                Not available
                 ·
-                {{ vacancy.employmentType }}
+                {{ vacancy.employmentType || 'Not provided' }}
               </p>
 
             </div>
@@ -188,24 +187,24 @@
           </div>
 
 
-          <div class="hero-actions">
+          <div class="hero-actions flex gap-[8px]">
 
             <button
-              class="secondary-button"
+              class="secondary-button h-[40px] [padding:0_15px] cursor-pointer [background:#ffffff] text-[#475569]"
               (click)="goBack()"
             >
               ← Back
             </button>
 
             <button
-              class="secondary-button"
+              class="secondary-button h-[40px] [padding:0_15px] cursor-pointer [background:#ffffff] text-[#475569]"
               (click)="editVacancy()"
             >
               ✎ Edit Vacancy
             </button>
 
             <button
-              class="primary-button"
+              class="primary-button h-[40px] [padding:0_15px] cursor-pointer [background:#f97316] text-[#ffffff]"
               (click)="viewApplicants()"
             >
               View Applicants
@@ -217,99 +216,99 @@
 
 
         <!-- Main Grid -->
-        <div class="details-grid">
+        <div class="details-grid grid grid-cols-[minmax(0,_1fr)_330px] gap-[20px] [align-items:start]">
 
 
           <!-- Left Column -->
-          <div class="left-column">
+          <div class="left-column flex flex-col gap-[18px]">
 
 
             <!-- Overview -->
-            <article class="card">
+            <article class="card [padding:22px]">
 
-              <div class="card-header">
+              <div class="card-header pb-[17px] mb-[17px] [border-bottom:1px_solid_#f1f5f9]">
                 <div>
                   <h3>Vacancy Overview</h3>
-                  <p>Core information about this position.</p>
+                  <p class="[margin:5px_0_0] text-[#94a3b8] text-[10px]">Core information about this position.</p>
                 </div>
               </div>
 
 
-              <div class="overview-grid">
+              <div class="overview-grid grid grid-cols-[repeat(3,_1fr)] gap-[20px]">
 
-                <div class="info-item">
+                <div class="info-item flex flex-col gap-[6px]">
 
-                  <span class="info-label">
+                  <span class="info-label text-[#94a3b8] uppercase tracking-[0.3px]">
                     Department
                   </span>
 
-                  <strong>
-                    {{ vacancy.department }}
+                  <strong class="text-[#334155] text-[11px]">
+                    Not available
                   </strong>
 
                 </div>
 
 
-                <div class="info-item">
+                <div class="info-item flex flex-col gap-[6px]">
 
-                  <span class="info-label">
+                  <span class="info-label text-[#94a3b8] uppercase tracking-[0.3px]">
                     Employment Type
                   </span>
 
-                  <strong>
+                  <strong class="text-[#334155] text-[11px]">
                     {{ vacancy.employmentType }}
                   </strong>
 
                 </div>
 
 
-                <div class="info-item">
+                <div class="info-item flex flex-col gap-[6px]">
 
-                  <span class="info-label">
+                  <span class="info-label text-[#94a3b8] uppercase tracking-[0.3px]">
                     Experience
                   </span>
 
-                  <strong>
-                    {{ vacancy.experience }}
+                  <strong class="text-[#334155] text-[11px]">
+                    {{ vacancy.requiredExperience || 'Not provided' }}
                   </strong>
 
                 </div>
 
 
-                <div class="info-item">
+                <div class="info-item flex flex-col gap-[6px]">
 
-                  <span class="info-label">
+                  <span class="info-label text-[#94a3b8] uppercase tracking-[0.3px]">
                     Seniority
                   </span>
 
-                  <strong>
-                    {{ vacancy.seniority }}
+                  <strong class="text-[#334155] text-[11px]">
+                    Not available
                   </strong>
 
                 </div>
 
 
-                <div class="info-item">
+                <div class="info-item flex flex-col gap-[6px]">
 
-                  <span class="info-label">
+                  <span class="info-label text-[#94a3b8] uppercase tracking-[0.3px]">
                     Workplace Model
                   </span>
 
-                  <strong>
-                    {{ vacancy.workplaceModel }}
+                  <strong class="text-[#334155] text-[11px]">
+                    Not available
                   </strong>
 
                 </div>
 
 
-                <div class="info-item">
+                <div class="info-item flex flex-col gap-[6px]">
 
-                  <span class="info-label">
+                  <span class="info-label text-[#94a3b8] uppercase tracking-[0.3px]">
                     Location
                   </span>
 
-                  <strong>
-                    {{ vacancy.location }}
+                  <strong class="text-[#334155] text-[11px]">
+                    {{ vacancy.location || 'Not provided' }}
                   </strong>
 
                 </div>
@@ -320,13 +319,13 @@
 
 
             <!-- Description -->
-            <article class="card">
+            <article class="card [padding:22px]">
 
-              <div class="card-header">
+              <div class="card-header pb-[17px] mb-[17px] [border-bottom:1px_solid_#f1f5f9]">
 
                 <div>
                   <h3>Job Description</h3>
-                  <p>
+                  <p class="[margin:5px_0_0] text-[#94a3b8] text-[10px]">
                     Responsibilities and expectations
                     for this role.
                   </p>
@@ -334,21 +333,21 @@
 
               </div>
 
-              <div class="description">
-                {{ vacancy.description }}
+              <div class="description text-[#475569] text-[11px] leading-[1.9] whitespace-pre-line">
+                {{ vacancy.jobDescription }}
               </div>
 
             </article>
 
 
             <!-- Skills -->
-            <article class="card">
+            <article class="card [padding:22px]">
 
-              <div class="card-header">
+              <div class="card-header pb-[17px] mb-[17px] [border-bottom:1px_solid_#f1f5f9]">
 
                 <div>
                   <h3>Required Skills</h3>
-                  <p>
+                  <p class="[margin:5px_0_0] text-[#94a3b8] text-[10px]">
                     Core competencies used for candidate matching.
                   </p>
                 </div>
@@ -356,11 +355,11 @@
               </div>
 
 
-              <div class="skills-list">
+              <div class="skills-list flex flex-wrap gap-[8px]">
 
                 <span
-                  class="skill-chip"
-                  *ngFor="let skill of vacancy.skills"
+                  class="skill-chip [padding:7px_11px] [background:#fff7ed] text-[#c2410c]"
+                  *ngFor="let skill of skills"
                 >
                   {{ skill }}
                 </span>
@@ -374,31 +373,31 @@
 
 
           <!-- Right Column -->
-          <aside class="right-column">
+          <aside class="right-column flex flex-col gap-[18px]">
 
 
             <!-- Applicants -->
-            <article class="card applicants-card">
+            <article class="card applicants-card [padding:22px] text-left">
 
-              <div class="applicants-icon">
+              <div class="applicants-icon w-[42px] h-[42px] rounded-[10px] [background:#f5f3ff] text-[#7c3aed] flex items-center justify-center text-[18px] mb-[13px]">
                 ♙
               </div>
 
-              <span class="side-label">
+              <span class="side-label block text-[#64748b]">
                 Total Applicants
               </span>
 
-              <strong class="applicant-number">
-                {{ vacancy.applicants }}
+              <strong class="applicant-number block mt-[5px] text-[28px]">
+                Not available
               </strong>
 
-              <p>
+              <p class="[margin:7px_0_17px] text-[#94a3b8] text-[10px] leading-[1.6]">
                 Candidates currently associated
                 with this vacancy.
               </p>
 
               <button
-                class="outline-button full-width"
+                class="outline-button full-width h-[40px] [padding:0_15px] cursor-pointer [background:#ffffff] text-[#ea580c] w-[100%]"
                 (click)="viewApplicants()"
               >
                 View Ranked Applicants
@@ -408,11 +407,11 @@
 
 
             <!-- Matching -->
-            <article class="card matching-card">
+            <article class="card matching-card [padding:22px]">
 
-              <div class="matching-top">
+              <div class="matching-top flex items-center gap-[8px] text-[#c2410c]">
 
-                <div class="matching-icon">
+                <div class="matching-icon w-[30px] h-[30px] rounded-[8px] [background:#ffffff] flex items-center justify-center text-[#f97316]">
                   ✦
                 </div>
 
@@ -426,13 +425,13 @@
                 Candidate matching is active
               </h3>
 
-              <p>
+              <p class="[margin:7px_0_15px] text-[#9a3412] text-[10px] leading-[1.6]">
                 Candidates are evaluated against
                 the requirements of this vacancy.
               </p>
 
-              <div class="matching-status">
-                <span class="status-dot"></span>
+              <div class="matching-status flex items-center gap-[7px] text-[#047857]">
+                <span class="status-dot w-[7px] h-[7px] rounded-[50%] [background:#10b981]"></span>
                 Automated matching active
               </div>
 
@@ -440,28 +439,28 @@
 
 
             <!-- Vacancy Info -->
-            <article class="card">
+            <article class="card [padding:22px]">
 
               <h3 class="side-heading">
                 Vacancy Information
               </h3>
 
 
-              <div class="side-info">
+              <div class="side-info flex flex-col gap-[15px]">
 
-                <div>
-                  <span>Vacancy Code</span>
-                  <strong>{{ vacancy.code }}</strong>
+                <div class="flex items-center justify-between gap-[15px]">
+                  <span class="text-[#94a3b8] text-[10px]">Vacancy Code</span>
+                  <strong class="text-[#334155] text-[10px] text-right">{{ vacancy.vacancyId }}</strong>
                 </div>
 
-                <div>
-                  <span>Posted</span>
-                  <strong>{{ vacancy.postedDate }}</strong>
+                <div class="flex items-center justify-between gap-[15px]">
+                  <span class="text-[#94a3b8] text-[10px]">Posted</span>
+                  <strong class="text-[#334155] text-[10px] text-right">{{ vacancy.createdAt | date:'mediumDate' }}</strong>
                 </div>
 
-                <div>
-                  <span>Status</span>
-                  <strong>{{ vacancy.status }}</strong>
+                <div class="flex items-center justify-between gap-[15px]">
+                  <span class="text-[#94a3b8] text-[10px]">Status</span>
+                  <strong class="text-[#334155] text-[10px] text-right">{{ vacancy.status }}</strong>
                 </div>
 
               </div>
@@ -475,31 +474,31 @@
 
 
         <!-- Bottom Action -->
-        <div class="bottom-action">
+        <div class="bottom-action mt-[20px] [padding:18px_22px] [background:#ffffff] flex items-center justify-between gap-[20px]">
 
           <div>
 
-            <strong>
+            <strong class="block text-[12px]">
               Manage this vacancy
             </strong>
 
-            <span>
+            <span class="block mt-[4px] text-[#94a3b8] text-[10px]">
               Update the vacancy or review matched candidates.
             </span>
 
           </div>
 
-          <div class="bottom-buttons">
+          <div class="bottom-buttons flex gap-[8px]">
 
             <button
-              class="secondary-button"
+              class="secondary-button h-[40px] [padding:0_15px] cursor-pointer [background:#ffffff] text-[#475569]"
               (click)="editVacancy()"
             >
               Edit Vacancy
             </button>
 
             <button
-              class="primary-button"
+              class="primary-button h-[40px] [padding:0_15px] cursor-pointer [background:#f97316] text-[#ffffff]"
               (click)="viewApplicants()"
             >
               View Applicants

@@ -1,71 +1,73 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
-interface VacancyDetailsModel {
-  id: string | number;
-  title: string;
-  code: string;
-  department: string;
-  employmentType: string;
-  workplaceModel: string;
-  location: string;
-  experience: string;
-  seniority: string;
-  description: string;
-  skills: string[];
-  applicants: number;
-  status: string;
-  postedDate: string;
-}
+import { ChangeDetectorRef, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { catchError, finalize, of, switchMap } from 'rxjs';
+import { VacancyService } from '../../../../core/services/vacancy.service';
+import { parseVacancyId, VacancyModel } from '../../../../core/models/vacancy.model';
 
 @Component({
   selector: 'app-vacancy-details',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './vacancy-details.html',
   styleUrl: './vacancy-details.css'
 })
-export class VacancyDetails {
+export class VacancyDetails implements OnInit {
+  vacancyId: number | null = null;
+  vacancy: VacancyModel | null = null;
+  isLoading = false;
+  errorMessage = '';
+  successMessage = '';
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly cdr = inject(ChangeDetectorRef);
 
-  vacancyId: string | null = null;
-
-  vacancy: VacancyDetailsModel | null = null;
-
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router
-  ) {
-    this.vacancyId = this.route.snapshot.paramMap.get('id');
+  constructor(private route: ActivatedRoute, private router: Router, private vacancyService: VacancyService) {
+    this.successMessage = this.router.getCurrentNavigation()?.extras.state?.['successMessage'] ?? '';
   }
 
-  goBack(): void {
-    this.router.navigate(['/employer/vacancy-list']);
+  ngOnInit(): void {
+    this.route.paramMap.pipe(
+      switchMap(params => {
+        this.vacancyId = parseVacancyId(params.get('id'));
+        this.vacancy = null;
+        this.errorMessage = '';
+        if (this.vacancyId === null) {
+          this.errorMessage = 'The vacancy ID is missing or invalid.';
+          return of(null);
+        }
+        this.isLoading = true;
+        return this.vacancyService.getVacancy(this.vacancyId).pipe(
+          catchError(() => {
+            this.errorMessage = 'Unable to load this vacancy. It may no longer exist. Please try again later.';
+            return of(null);
+          }),
+          finalize(() => { this.isLoading = false; this.cdr.markForCheck(); })
+        );
+      }),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(vacancy => {
+      this.vacancy = vacancy;
+      if (!vacancy && !this.errorMessage) this.errorMessage = 'No vacancy information was returned.';
+      this.cdr.markForCheck();
+    });
   }
+
+  get skills(): string[] {
+    return (this.vacancy?.requiredSkills ?? '').split(',').map(skill => skill.trim()).filter(Boolean);
+  }
+
+  goBack(): void { this.router.navigate(['/employer/vacancy-list']); }
 
   editVacancy(): void {
-    if (!this.vacancyId) {
-      return;
-    }
-
-    this.router.navigate([
-      '/employer/vacancy-edit',
-      this.vacancyId
-    ]);
+    if (this.vacancyId !== null && this.vacancy) this.router.navigate(['/employer/vacancy-edit', this.vacancyId]);
   }
 
   viewApplicants(): void {
-    if (!this.vacancyId) {
-      return;
+    if (this.vacancyId !== null && this.vacancy) {
+      this.router.navigate(['/applications/applicants-list'], { queryParams: { vacancyId: this.vacancyId } });
     }
-
-    this.router.navigate([
-      '/employer/ranked-applicants',
-      this.vacancyId
-    ]);
   }
 
-  get hasVacancy(): boolean {
-    return this.vacancy !== null;
-  }
+  get hasVacancy(): boolean { return this.vacancy !== null; }
 }

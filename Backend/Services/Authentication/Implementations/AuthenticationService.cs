@@ -72,6 +72,7 @@ namespace Backend.Services.Implementations.Authentication
             return new LoginResponse
             {
                 Token = token,
+                CompanyId = user.Role == "Employer" ? user.CompanyId : null,
                 Name = user.Name,
                 Email = user.Email,
                 Role = user.Role

@@ -1,92 +1,92 @@
-<div class="page-shell">
+<div class="page-shell min-h-[100vh] [background:#f6f8fc]">
 
   <!-- Sidebar -->
-  <aside class="sidebar">
+  <aside class="sidebar fixed top-[0] left-[0] w-[280px] h-[100vh] [background:#ffffff] [border-right:1px_solid_#e8edf4] flex flex-col z-[20]">
 
-    <div class="brand">
-      <div class="brand-icon">
+    <div class="brand h-[88px] [padding:0_28px] flex items-center gap-[13px] [border-bottom:1px_solid_#edf1f6]">
+      <div class="brand-icon w-[42px] h-[42px] rounded-[12px] [background:#f97316] text-[#ffffff] flex items-center justify-center [box-shadow:0_8px_18px_rgba(249,_115,_22,_0.2)]">
         <span>SN</span>
       </div>
 
       <div>
-        <h2>Sharp Nexus</h2>
-        <p>Employer Portal</p>
+        <h2 class="[margin:0] text-[#111827]">Sharp Nexus</h2>
+        <p class="[margin:3px_0_0] text-[11px] text-[#94a3b8]">Employer Portal</p>
       </div>
     </div>
 
-    <nav class="navigation">
+    <nav class="navigation [padding:24px_16px] flex flex-col gap-[6px]">
 
-      <a class="nav-item" routerLink="/employer/dashboard">
-        <span class="nav-icon">⌂</span>
+      <a class="nav-item min-h-[46px] [padding:0_14px] rounded-[10px] flex items-center gap-[13px] no-underline" routerLink="/employer/dashboard">
+        <span class="nav-icon w-[20px] text-center text-[17px]">⌂</span>
         <span>Dashboard</span>
       </a>
 
-      <a class="nav-item" routerLink="/employer/company-profile">
-        <span class="nav-icon">▣</span>
+      <a class="nav-item min-h-[46px] [padding:0_14px] rounded-[10px] flex items-center gap-[13px] no-underline" routerLink="/employer/company-profile">
+        <span class="nav-icon w-[20px] text-center text-[17px]">▣</span>
         <span>Company Profile</span>
       </a>
 
-      <a class="nav-item" routerLink="/employer/vacancy-list">
-        <span class="nav-icon">▤</span>
+      <a class="nav-item min-h-[46px] [padding:0_14px] rounded-[10px] flex items-center gap-[13px] no-underline" routerLink="/employer/vacancy-list">
+        <span class="nav-icon w-[20px] text-center text-[17px]">▤</span>
         <span>Job Vacancies</span>
       </a>
 
-      <a class="nav-item" routerLink="/applications/applicants-list">
-        <span class="nav-icon">♙</span>
+      <a class="nav-item min-h-[46px] [padding:0_14px] rounded-[10px] flex items-center gap-[13px] no-underline" routerLink="/applications/applicants-list">
+        <span class="nav-icon w-[20px] text-center text-[17px]">♙</span>
         <span>Applicants</span>
       </a>
 
-      <a class="nav-item active">
-        <span class="nav-icon">✉</span>
+      <a class="nav-item active min-h-[46px] [padding:0_14px] rounded-[10px] flex items-center gap-[13px] no-underline" routerLink="/contact/contact-requests">
+        <span class="nav-icon w-[20px] text-center text-[17px]">✉</span>
         <span>Contact Requests</span>
       </a>
 
-      <a class="nav-item" routerLink="/notifications/notification-list">
-        <span class="nav-icon">🔔</span>
+      <a class="nav-item min-h-[46px] [padding:0_14px] rounded-[10px] flex items-center gap-[13px] no-underline" routerLink="/notifications/notification-list">
+        <span class="nav-icon w-[20px] text-center text-[17px]">🔔</span>
         <span>Notifications</span>
       </a>
 
     </nav>
 
-    <div class="sidebar-bottom">
-      <div class="profile-mini">
-        <div class="avatar">E</div>
+    <div class="sidebar-bottom mt-[auto] [padding:18px_16px] [border-top:1px_solid_#edf1f6]">
+      <div class="profile-mini min-h-[58px] [padding:8px_9px] rounded-[12px] [background:#f8fafc] flex items-center gap-[10px]">
+        <div class="avatar w-[36px] h-[36px] shrink-0 rounded-[50%] [background:#fed7aa] text-[#c2410c] flex items-center justify-center">E</div>
 
-        <div class="profile-info">
-          <strong>Employer</strong>
-          <span>Account</span>
+        <div class="profile-info min-w-[0] flex">
+          <strong class="text-[12px] text-[#334155]">Employer</strong>
+          <span class="mt-[2px] text-[10px] text-[#94a3b8]">Account</span>
         </div>
 
-        <button type="button" class="more-button">⋮</button>
+        <button type="button" class="more-button [border:0] [background:transparent] text-[#94a3b8] cursor-pointer text-[18px]">⋮</button>
       </div>
     </div>
 
   </aside>
 
   <!-- Main -->
-  <main class="main-content">
+  <main class="main-content min-h-[100vh] ml-[280px] [padding:0_42px_50px]">
 
     <!-- Header -->
-    <header class="top-header">
+    <header class="top-header min-h-[120px] [padding:28px_0] flex items-center justify-between gap-[24px]">
 
       <div>
-        <div class="breadcrumb">
+        <div class="breadcrumb flex items-center gap-[8px] mb-[9px] text-[#94a3b8]">
           Employer
-          <span>/</span>
+          <span class="text-[#cbd5e1]">/</span>
           Contact Requests
         </div>
 
-        <h1>Candidate Contact Requests</h1>
+        <h1 class="[margin:0] text-[#111827] leading-[1.2] tracking-[-0.7px]">Candidate Contact Requests</h1>
 
-        <p>
+        <p class="[margin:8px_0_0] text-[#64748b] text-[13px]">
           Manage your candidate communication requests and conversations.
         </p>
       </div>
 
-      <div class="header-actions">
+      <div class="header-actions flex items-center gap-[10px]">
         <button
           type="button"
-          class="icon-button"
+          class="icon-button w-[42px] h-[42px] [background:#ffffff] text-[#64748b] cursor-pointer"
           title="Notifications"
           routerLink="/notifications/notification-list">
           🔔
@@ -94,7 +94,7 @@
 
         <button
           type="button"
-          class="outline-button"
+          class="outline-button h-[42px] [padding:0_17px] [background:#ffffff] text-[#ea580c] cursor-pointer"
           (click)="openContactModal()">
           Contact Candidate
         </button>
@@ -103,99 +103,99 @@
     </header>
 
     <!-- Stats -->
-    <section class="stats-grid">
+    <section class="stats-grid grid grid-cols-[repeat(4,_1fr)] gap-[16px] mb-[24px]">
 
-      <div class="stat-card">
-        <div class="stat-top">
-          <span>Total Requests</span>
-          <div class="stat-icon orange">✉</div>
+      <div class="stat-card min-h-[145px] [padding:19px_20px] [background:#ffffff] [box-shadow:0_3px_12px_rgba(15,_23,_42,_0.025)]">
+        <div class="stat-top flex items-center justify-between gap-[10px]">
+          <span class="text-[#64748b]">Total Requests</span>
+          <div class="stat-icon orange w-[32px] h-[32px] rounded-[9px] flex items-center justify-center">✉</div>
         </div>
 
-        <strong>0</strong>
+        <strong class="block mt-[14px] text-[#111827] leading-[1]">0</strong>
 
-        <p>No contact requests available</p>
+        <p class="[margin:9px_0_0] text-[#94a3b8] text-[10px]">No contact requests available</p>
       </div>
 
-      <div class="stat-card">
-        <div class="stat-top">
-          <span>Pending</span>
-          <div class="stat-icon amber">◷</div>
+      <div class="stat-card min-h-[145px] [padding:19px_20px] [background:#ffffff] [box-shadow:0_3px_12px_rgba(15,_23,_42,_0.025)]">
+        <div class="stat-top flex items-center justify-between gap-[10px]">
+          <span class="text-[#64748b]">Pending</span>
+          <div class="stat-icon amber w-[32px] h-[32px] rounded-[9px] flex items-center justify-center">◷</div>
         </div>
 
-        <strong>0</strong>
+        <strong class="block mt-[14px] text-[#111827] leading-[1]">0</strong>
 
-        <p>Awaiting candidate response</p>
+        <p class="[margin:9px_0_0] text-[#94a3b8] text-[10px]">Awaiting candidate response</p>
       </div>
 
-      <div class="stat-card">
-        <div class="stat-top">
-          <span>Accepted</span>
-          <div class="stat-icon green">✓</div>
+      <div class="stat-card min-h-[145px] [padding:19px_20px] [background:#ffffff] [box-shadow:0_3px_12px_rgba(15,_23,_42,_0.025)]">
+        <div class="stat-top flex items-center justify-between gap-[10px]">
+          <span class="text-[#64748b]">Accepted</span>
+          <div class="stat-icon green w-[32px] h-[32px] rounded-[9px] flex items-center justify-center">✓</div>
         </div>
 
-        <strong>0</strong>
+        <strong class="block mt-[14px] text-[#111827] leading-[1]">0</strong>
 
-        <p>Active conversations</p>
+        <p class="[margin:9px_0_0] text-[#94a3b8] text-[10px]">Active conversations</p>
       </div>
 
-      <div class="stat-card">
-        <div class="stat-top">
-          <span>Declined</span>
-          <div class="stat-icon red">×</div>
+      <div class="stat-card min-h-[145px] [padding:19px_20px] [background:#ffffff] [box-shadow:0_3px_12px_rgba(15,_23,_42,_0.025)]">
+        <div class="stat-top flex items-center justify-between gap-[10px]">
+          <span class="text-[#64748b]">Declined</span>
+          <div class="stat-icon red w-[32px] h-[32px] rounded-[9px] flex items-center justify-center">×</div>
         </div>
 
-        <strong>0</strong>
+        <strong class="block mt-[14px] text-[#111827] leading-[1]">0</strong>
 
-        <p>Requests declined</p>
+        <p class="[margin:9px_0_0] text-[#94a3b8] text-[10px]">Requests declined</p>
       </div>
 
     </section>
 
     <!-- Content Card -->
-    <section class="content-card">
+    <section class="content-card [background:#ffffff] overflow-hidden [box-shadow:0_4px_15px_rgba(15,_23,_42,_0.025)]">
 
       <!-- Toolbar -->
-      <div class="toolbar">
+      <div class="toolbar min-h-[76px] [padding:16px_20px] [border-bottom:1px_solid_#edf1f6] flex items-center justify-between gap-[20px]">
 
-        <div class="search-box">
+        <div class="search-box w-[360px] h-[42px] [padding:0_13px] [background:#ffffff] flex items-center gap-[9px]">
 
-          <span class="search-icon">⌕</span>
+          <span class="search-icon text-[#94a3b8] text-[20px] leading-[1]">⌕</span>
 
           <input
             type="text"
             [(ngModel)]="searchTerm"
             (input)="onSearch()"
-            placeholder="Search candidates, email or request..." />
+            placeholder="Search candidates, email or request..."  class="w-[100%] [border:0] [outline:none] [background:transparent] text-[#334155]"/>
 
         </div>
 
-        <div class="status-tabs">
+        <div class="status-tabs flex items-center gap-[4px] [padding:4px] rounded-[9px] [background:#f8fafc]">
 
           <button
             type="button"
             [class.active]="activeStatus === 'all'"
-            (click)="setStatus('all')">
+            (click)="setStatus('all')" class="min-h-[32px] [padding:0_12px] [background:transparent] text-[#64748b] cursor-pointer">
             All
           </button>
 
           <button
             type="button"
             [class.active]="activeStatus === 'pending'"
-            (click)="setStatus('pending')">
+            (click)="setStatus('pending')" class="min-h-[32px] [padding:0_12px] [background:transparent] text-[#64748b] cursor-pointer">
             Pending
           </button>
 
           <button
             type="button"
             [class.active]="activeStatus === 'accepted'"
-            (click)="setStatus('accepted')">
+            (click)="setStatus('accepted')" class="min-h-[32px] [padding:0_12px] [background:transparent] text-[#64748b] cursor-pointer">
             Accepted
           </button>
 
           <button
             type="button"
             [class.active]="activeStatus === 'declined'"
-            (click)="setStatus('declined')">
+            (click)="setStatus('declined')" class="min-h-[32px] [padding:0_12px] [background:transparent] text-[#64748b] cursor-pointer">
             Declined
           </button>
 
@@ -204,22 +204,22 @@
       </div>
 
       <!-- Empty State -->
-      <div class="empty-state">
+      <div class="empty-state min-h-[360px] [padding:65px_30px] flex flex-col items-center justify-center text-center">
 
-        <div class="empty-icon">
+        <div class="empty-icon w-[68px] h-[68px] mb-[18px] rounded-[18px] [background:#fff7ed] text-[#f97316] flex items-center justify-center text-[27px]">
           ✉
         </div>
 
-        <h2>No contact requests yet</h2>
+        <h2 class="[margin:0] text-[#1e293b]">No contact requests yet</h2>
 
-        <p>
+        <p class="max-w-[470px] [margin:9px_auto_22px] text-[#94a3b8] text-[12px] leading-[1.7]">
           Candidate contact requests will appear here once candidates
           respond to your communication requests.
         </p>
 
         <button
           type="button"
-          class="primary-button"
+          class="primary-button min-h-[40px] [padding:0_17px] [background:#f97316] text-[#ffffff] cursor-pointer"
           (click)="openContactModal()">
           Start a Conversation
         </button>
@@ -229,18 +229,18 @@
     </section>
 
     <!-- Information Cards -->
-    <section class="info-grid">
+    <section class="info-grid mt-[20px] grid grid-cols-[repeat(2,_1fr)] gap-[16px]">
 
-      <div class="info-card">
+      <div class="info-card min-h-[112px] [padding:20px] [background:#ffffff] flex items-start gap-[14px]">
 
-        <div class="info-icon orange">
+        <div class="info-icon orange w-[38px] h-[38px] shrink-0 rounded-[10px] flex items-center justify-center">
           💬
         </div>
 
         <div>
-          <h3>Candidate communication</h3>
+          <h3 class="[margin:1px_0_6px] text-[#334155]">Candidate communication</h3>
 
-          <p>
+          <p class="[margin:0] text-[#94a3b8] text-[11px] leading-[1.65]">
             Use this area to manage communication with candidates
             throughout the recruitment process.
           </p>
@@ -248,16 +248,16 @@
 
       </div>
 
-      <div class="info-card">
+      <div class="info-card min-h-[112px] [padding:20px] [background:#ffffff] flex items-start gap-[14px]">
 
-        <div class="info-icon green">
+        <div class="info-icon green w-[38px] h-[38px] shrink-0 rounded-[10px] flex items-center justify-center">
           ✓
         </div>
 
         <div>
-          <h3>Respect candidate responses</h3>
+          <h3 class="[margin:1px_0_6px] text-[#334155]">Respect candidate responses</h3>
 
-          <p>
+          <p class="[margin:0] text-[#94a3b8] text-[11px] leading-[1.65]">
             Only continue communication after a candidate has accepted
             your contact request.
           </p>
@@ -267,91 +267,100 @@
 
     </section>
 
+    <p role="status" *ngIf="successMessage">{{ successMessage }}</p>
+
   </main>
 
 </div>
 
 <!-- Contact Candidate Modal -->
 <div
-  class="modal-backdrop"
+  class="modal-backdrop fixed [inset:0] z-[100] [padding:25px] [background:rgba(15,_23,_42,_0.45)] flex items-center justify-center"
   *ngIf="contactModalOpen"
   (click)="closeContactModal()">
 
   <div
-    class="modal"
+    class="modal w-[min(520px,_100%)] max-h-[90vh] overflow-auto rounded-[16px] [background:#ffffff] [box-shadow:0_25px_70px_rgba(15,_23,_42,_0.22)]"
     (click)="$event.stopPropagation()">
 
-    <div class="modal-header">
+    <div class="modal-header [padding:22px_24px] [border-bottom:1px_solid_#edf1f6] flex items-start justify-between gap-[20px]">
 
       <div>
-        <span class="modal-label">CONTACT</span>
-        <h2>Contact Candidate</h2>
+        <span class="modal-label text-[#f97316] tracking-[1px]">CONTACT</span>
+        <h2 class="[margin:5px_0_0] text-[#1e293b]">Contact Candidate</h2>
       </div>
 
       <button
         type="button"
-        class="close-button"
+        class="close-button w-[32px] h-[32px] [background:#f8fafc] text-[#64748b] text-[20px] cursor-pointer"
         (click)="closeContactModal()">
         ×
       </button>
 
     </div>
 
-    <div class="modal-body">
+    <div class="modal-body [padding:24px]">
 
-      <p class="modal-description">
-        Select a candidate from your applications to start a contact request.
+      <p class="modal-description [margin:0_0_20px] text-[#64748b] text-[12px] leading-[1.6]">
+        {{ contactValidationMessage || 'Ready to send a contact request to the selected candidate.' }}
       </p>
 
-      <div class="form-field">
+      <div class="form-field mb-[16px]">
 
-        <label>Candidate</label>
+        <label class="block mb-[7px] text-[#475569]">Candidate</label>
 
         <input
           type="text"
           [(ngModel)]="selectedCandidate.name"
-          placeholder="Candidate name" />
+          (ngModelChange)="candidateDetailsChanged()" [disabled]="isSubmitting"
+          placeholder="Candidate name"  class="w-[100%] [outline:none] [background:#ffffff] text-[#334155] h-[40px] [padding:0_12px]"/>
 
       </div>
 
-      <div class="form-field">
+      <div class="form-field mb-[16px]">
 
-        <label>Email</label>
+        <label class="block mb-[7px] text-[#475569]">Email</label>
 
         <input
           type="email"
           [(ngModel)]="selectedCandidate.email"
-          placeholder="Candidate email" />
+          (ngModelChange)="candidateDetailsChanged()" [disabled]="isSubmitting"
+          placeholder="Candidate email"  class="w-[100%] [outline:none] [background:#ffffff] text-[#334155] h-[40px] [padding:0_12px]"/>
 
       </div>
 
-      <div class="form-field">
+      <div class="form-field mb-[16px]">
 
-        <label>Message</label>
+        <label class="block mb-[7px] text-[#475569]">Message</label>
 
         <textarea
-          [(ngModel)]="contactMessage"
-          placeholder="Write your message...">
+          [(ngModel)]="contactMessage" [disabled]="isSubmitting" maxlength="500"
+          placeholder="Write your message..." class="w-[100%] [outline:none] [background:#ffffff] text-[#334155] min-h-[105px] [padding:11px_12px] resize-y">
         </textarea>
 
       </div>
 
     </div>
 
-    <div class="modal-footer">
+    <p role="alert" *ngIf="submitError">{{ submitError }}</p>
+
+    <div class="modal-footer [padding:16px_24px] [border-top:1px_solid_#edf1f6] flex justify-end gap-[9px]">
 
       <button
         type="button"
-        class="cancel-button"
+        class="cancel-button min-h-[40px] [padding:0_16px] [background:#ffffff] text-[#64748b] cursor-pointer"
         (click)="closeContactModal()">
         Cancel
       </button>
 
       <button
         type="button"
-        class="primary-button"
-        [disabled]="!selectedCandidate.email">
-        Send Request
+        class="primary-button min-h-[40px] [padding:0_17px] [background:#f97316] text-[#ffffff] cursor-pointer"
+        [disabled]="!canSendContactRequest"
+        (click)="sendContactRequest()"
+        [attr.aria-busy]="isSubmitting"
+        [title]="contactValidationMessage">
+        {{ isSubmitting ? 'Sending...' : 'Send Request' }}
       </button>
 
     </div>

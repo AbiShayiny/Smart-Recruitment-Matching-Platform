@@ -9,7 +9,7 @@ export const APPLICATIONS_ROUTES: Routes = [
       )
   },
   {
-    path: 'application-details',
+    path: 'application-details/:id',
     loadComponent: () =>
       import('./pages/application-details/application-details').then(
         m => m.ApplicationDetails

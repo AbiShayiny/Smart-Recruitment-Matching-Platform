@@ -60,6 +60,7 @@ export class Login {
         }
 
         this.authService.saveToken(response.token);
+        this.authService.setCompanyId(response.companyId ?? null, response.token);
 
         this.isLoading = false;
 
