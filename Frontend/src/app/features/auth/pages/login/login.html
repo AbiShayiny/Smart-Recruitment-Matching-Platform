@@ -1,28 +1,28 @@
-<div class="login-page">
+<div class="login-page min-h-screen flex [font-family:'Plus_Jakarta_Sans',_Arial,_sans-serif] bg-[#f7f9fb] text-[#191c1e] [@media(width<=1000px)_and_(width>600px)]:block [@media(width<=600px)]:block">
 
   <!-- LEFT SIDE -->
-  <section class="branding-section">
+  <section class="branding-section w-1/2 min-h-screen relative overflow-hidden flex flex-col justify-between [border-right:1px_solid_#e2e8f0] px-[5%] py-[48px] [@media(width<=1000px)_and_(width>600px)]:w-full [@media(width<=1000px)_and_(width>600px)]:min-h-auto [@media(width<=1000px)_and_(width>600px)]:px-[6%] [@media(width<=1000px)_and_(width>600px)]:py-[35px] [@media(width<=600px)]:w-full [@media(width<=600px)]:min-h-auto [@media(width<=600px)]:px-[18px] [@media(width<=600px)]:py-[25px]">
 
-    <div class="glow glow-one"></div>
-    <div class="glow glow-two"></div>
+    <div class="glow glow-one absolute rounded-[50%] [filter:blur(70px)] pointer-events-none w-[250px] h-[250px] top-[-100px] left-[-100px] bg-[rgba(249,_115,_22,_0.12)]"></div>
+    <div class="glow glow-two absolute rounded-[50%] [filter:blur(70px)] pointer-events-none w-[280px] h-[280px] bottom-[50px] left-[30%] bg-[rgba(14,_165,_233,_0.10)]"></div>
 
     <!-- Brand Header -->
-    <div class="brand-header">
+    <div class="brand-header relative z-[2] flex justify-between items-center gap-[20px] [@media(width<=600px)]:items-start">
 
-      <div class="brand-info">
+      <div class="brand-info flex items-center gap-[14px]">
 
-        <div class="brand-logo">
+        <div class="brand-logo w-[44px] h-[44px] rounded-[12px] bg-[#f97316] text-white flex items-center justify-center text-[25px] shadow-[0_5px_15px_rgba(249,_115,_22,_0.25)]">
           <span>✣</span>
         </div>
 
         <div>
-          <div class="brand-name">Smart Match</div>
-          <div class="brand-subtitle">Enterprise Talent Pipeline</div>
+          <div class="brand-name text-[18px] font-bold text-[#0f172a]">Smart Match</div>
+          <div class="brand-subtitle mt-[2px] text-[12px] text-[#64748b] tracking-[0.3px]">Enterprise Talent Pipeline</div>
         </div>
 
       </div>
 
-      <div class="enterprise-badge">
+      <div class="enterprise-badge rounded-[999px] bg-[#fff0e7] [border:1px_solid_#fed7aa] text-[#9d4300] text-[12px] font-bold px-[14px] py-[8px] [@media(width<=600px)]:hidden">
         ✨ ENTERPRISE AI
       </div>
 
@@ -30,39 +30,39 @@
 
 
     <!-- Main Branding Content -->
-    <div class="branding-content">
+    <div class="branding-content relative z-[2] w-full max-w-[650px] mx-[auto] my-[35px] [@media(width<=1000px)_and_(width>600px)]:max-w-[700px] [@media(width<=600px)]:max-w-[700px]">
 
       <!-- Image -->
-      <div class="visual-card">
+      <div class="visual-card relative overflow-hidden rounded-[18px] bg-white [border:1px_solid_white] shadow-[0_20px_30px_rgba(15,_23,_42,_0.14)]">
 
-        <img
+        <img class="block w-full h-[380px] [object-fit:cover] [@media(width<=600px)]:h-[260px]"
           src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfveVuuzW6da6QUSx8lkG_ONPSnuo_SZCy78Ej6TuH0nC1a0skmFw5XB2B796tFyZWJDMiJ1HtmlOWJ5U4eePsS2JCsB_FPk2nn3HNCXtvhhxtMIAo1LGLGCV0hRBbjwbsUrAFQocSKbwDfBfzhYBcoobfjgF0Va1RKIWUiOKxj54gqPpnEa8fLRilOH73DKmOqWRFcFdoOE2l7QZvMj5xoX2cgGgw2ZNKbBSFyg-CDQPtMlzqq37N"
           alt="Smart Match Talent Network"
         />
 
-        <div class="telemetry-card">
+        <div class="telemetry-card absolute left-[18px] right-[18px] bottom-[18px] rounded-[14px] bg-[rgba(255,_255,_255,_0.94)] [backdrop-filter:blur(12px)] flex items-center justify-between shadow-[0_8px_20px_rgba(15,_23,_42,_0.10)] p-[16px] [@media(width<=600px)]:left-[10px] [@media(width<=600px)]:right-[10px] [@media(width<=600px)]:bottom-[10px] [@media(width<=600px)]:p-[11px]">
 
-          <div class="telemetry-left">
+          <div class="telemetry-left flex items-center gap-[12px]">
 
-            <div class="telemetry-icon">
+            <div class="telemetry-icon w-[38px] h-[38px] rounded-[9px] bg-[#fff0e7] text-[#f97316] flex items-center justify-center text-[20px]">
               ▥
             </div>
 
             <div>
-              <div class="telemetry-title">
+              <div class="telemetry-title text-[13px] font-bold text-[#0f172a]">
                 Neural Skills Telemetry
               </div>
 
-              <div class="telemetry-text">
+              <div class="telemetry-text mt-[3px] text-[11px] text-[#64748b]">
                 Real-time candidate alignment active
               </div>
             </div>
 
           </div>
 
-          <div class="affinity">
-            <strong>98.4%</strong>
-            <span>Affinity Rate</span>
+          <div class="affinity text-right pl-[18px]">
+            <strong class="block text-[#f97316] text-[24px] font-extrabold [@media(width<=600px)]:text-[19px]">98.4%</strong>
+            <span class="block mt-[2px] text-[10px] text-[#64748b] font-bold uppercase">Affinity Rate</span>
           </div>
 
         </div>
@@ -71,13 +71,13 @@
 
 
       <!-- Description -->
-      <div class="branding-text">
+      <div class="branding-text mt-[35px]">
 
-        <h1>
+        <h1 class="text-[36px] leading-[1.2] font-extrabold tracking-[-1px] text-[#191c1e] m-[0] [@media(width<=600px)]:text-[28px]">
           Connect Talent With Opportunity.
         </h1>
 
-        <p>
+        <p class="max-w-[620px] mt-[14px] mb-[0] text-[16px] leading-[1.6] text-[#64748b] mx-[0] [@media(width<=600px)]:text-[14px]">
           Intelligent candidate matching driven by algorithmic precision,
           live skills ontology, and unbiased pipeline telemetry.
         </p>
@@ -86,20 +86,20 @@
 
 
       <!-- Feature Badges -->
-      <div class="feature-badges">
+      <div class="feature-badges flex flex-wrap gap-[10px] mt-[22px]">
 
-        <div class="feature-badge">
-          <span class="feature-icon orange">✥</span>
+        <div class="feature-badge flex items-center gap-[9px] rounded-[12px] bg-white [border:1px_solid_#e2e8f0] shadow-[0_2px_5px_rgba(15,_23,_42,_0.04)] text-[12px] font-semibold px-[15px] py-[11px]">
+          <span class="feature-icon orange text-[17px] text-[#f97316]">✥</span>
           <span>98.4% Match Accuracy</span>
         </div>
 
-        <div class="feature-badge">
-          <span class="feature-icon blue">♧</span>
+        <div class="feature-badge flex items-center gap-[9px] rounded-[12px] bg-white [border:1px_solid_#e2e8f0] shadow-[0_2px_5px_rgba(15,_23,_42,_0.04)] text-[12px] font-semibold px-[15px] py-[11px]">
+          <span class="feature-icon blue text-[17px] text-[#0ea5e9]">♧</span>
           <span>12k+ Active Recruiters</span>
         </div>
 
-        <div class="feature-badge">
-          <span class="feature-icon brown">⚖</span>
+        <div class="feature-badge flex items-center gap-[9px] rounded-[12px] bg-white [border:1px_solid_#e2e8f0] shadow-[0_2px_5px_rgba(15,_23,_42,_0.04)] text-[12px] font-semibold px-[15px] py-[11px]">
+          <span class="feature-icon brown text-[17px] text-[#795548]">⚖</span>
           <span>Zero Bias Sourcing</span>
         </div>
 
@@ -109,12 +109,12 @@
 
 
     <!-- Bottom -->
-    <div class="platform-footer">
+    <div class="platform-footer relative z-[2] pt-[20px] flex justify-between text-[#64748b] text-[12px] [@media(width<=1000px)_and_(width>600px)]:mt-[40px] [@media(width<=600px)]:mt-[40px] [@media(width<=600px)]:flex-col [@media(width<=600px)]:gap-[10px]">
 
       <span>SOC-2 Type II Certified Platform</span>
 
-      <div class="pipeline-status">
-        <span class="status-dot"></span>
+      <div class="pipeline-status flex items-center gap-[8px] font-semibold">
+        <span class="status-dot w-[8px] h-[8px] rounded-[50%] bg-[#f97316]"></span>
         Pipeline v4.8 Active
       </div>
 
@@ -124,22 +124,22 @@
 
 
   <!-- RIGHT SIDE -->
-  <section class="auth-section">
+  <section class="auth-section w-1/2 min-h-screen bg-[#f7f9fb] flex items-center justify-center px-[7%] py-[45px] [@media(width<=1000px)_and_(width>600px)]:w-full [@media(width<=1000px)_and_(width>600px)]:min-h-auto [@media(width<=1000px)_and_(width>600px)]:px-[6%] [@media(width<=1000px)_and_(width>600px)]:py-[40px] [@media(width<=600px)]:w-full [@media(width<=600px)]:min-h-auto [@media(width<=600px)]:px-[18px] [@media(width<=600px)]:py-[25px]">
 
-    <div class="auth-container">
+    <div class="auth-container w-full max-w-[500px]">
 
-      <div class="login-card">
+      <div class="login-card overflow-hidden bg-white rounded-[18px] shadow-[0_20px_30px_rgba(15,_23,_42,_0.10),_0_4px_8px_rgba(15,_23,_42,_0.04)] [border:1px_solid_#e2e8f0]">
 
         <!-- Login Header -->
-        <div class="login-header">
+        <div class="login-header pt-[38px] pb-[25px] text-center px-[40px] [@media(width<=600px)]:pt-[30px] [@media(width<=600px)]:pb-[20px] [@media(width<=600px)]:px-[22px]">
 
-          <div class="login-icon">
+          <div class="login-icon w-[58px] h-[58px] mt-[0] mb-[18px] rounded-[17px] bg-[#fff0e7] text-[#f97316] flex items-center justify-center text-[30px] shadow-[0_3px_8px_rgba(249,_115,_22,_0.10)] mx-[auto]">
             ▦
           </div>
 
-          <h2>Welcome Back</h2>
+          <h2 class="text-[26px] font-extrabold tracking-[-0.5px] m-[0]">Welcome Back</h2>
 
-          <p>
+          <p class="mt-[7px] mb-[0] max-w-[370px] text-[14px] leading-[1.5] text-[#64748b] mx-[auto]">
             Sign in to manage active talent pipelines and AI scoring models.
           </p>
 
@@ -149,26 +149,25 @@
         <!-- Error Message -->
         @if (loginError) {
 
-          <div class="error-alert">
+          <div class="error-alert mt-[0] mb-[24px] flex items-start gap-[11px] rounded-[12px] bg-[#fff0f0] text-[#ba1a1a] mx-[40px] p-[14px] [@media(width<=600px)]:mx-[22px]">
 
-            <div class="error-icon">
+            <div class="error-icon w-[20px] h-[20px] shrink-0 [border:2px_solid_#ef4444] rounded-[50%] flex items-center justify-center text-[12px] font-extrabold">
               !
             </div>
 
-            <div class="error-content">
+            <div class="error-content [flex:1]">
 
-              <strong>Authentication Failed</strong>
+              <strong class="block text-[13px]">Authentication Failed</strong>
 
-              <span>
-                Invalid credentials. Please verify your business email
-                address and security token.
+              <span class="block mt-[3px] text-[12px] leading-[1.4]">
+                {{ loginErrorMessage }}
               </span>
 
             </div>
 
             <button
               type="button"
-              class="close-button"
+              class="close-button border-none bg-transparent text-[#991b1b] text-[22px] cursor-pointer"
               (click)="closeError()">
               ×
             </button>
@@ -180,26 +179,27 @@
 
         <!-- Login Form -->
         <form
-          class="login-form"
-          (ngSubmit)="login()"
+          class="login-form px-[40px] py-[0] [@media(width<=600px)]:px-[22px] [@media(width<=600px)]:py-[0]"
+          (ngSubmit)="login(loginForm)"
           #loginForm="ngForm">
 
 
           <!-- Email -->
-          <div class="form-group">
+          <div class="form-group mb-[22px]">
 
-            <label for="email">
+            <label class="block mb-[8px] text-[14px] font-bold text-[#191c1e]" for="email">
               Work Email Address
             </label>
 
-            <div class="input-wrapper">
+            <div class="input-wrapper relative">
 
-              <span class="input-icon">
+              <span class="input-icon absolute left-[15px] top-[50%] [transform:translateY(-50%)] text-[#64748b] text-[19px] z-[1]">
                 @
               </span>
 
-              <input
+              <input class="w-full h-[48px] [border:1px_solid_#e2e8f0] rounded-[12px] bg-[#f8fafc] text-[#0f172a] text-[14px] [outline:none] px-[45px] py-[0] placeholder:text-[#94a3b8] [&:focus]:bg-white [&:focus]:border-[#f97316] [&:focus]:shadow-[0_0_0_3px_rgba(249,_115,_22,_0.15)]"
                 type="email"
+                email
                 id="email"
                 name="email"
                 [(ngModel)]="email"
@@ -213,19 +213,19 @@
 
 
           <!-- Password -->
-          <div class="form-group">
+          <div class="form-group mb-[22px]">
 
-            <label for="password">
+            <label class="block mb-[8px] text-[14px] font-bold text-[#191c1e]" for="password">
               Password
             </label>
 
-            <div class="input-wrapper">
+            <div class="input-wrapper relative">
 
-              <span class="input-icon">
+              <span class="input-icon absolute left-[15px] top-[50%] [transform:translateY(-50%)] text-[#64748b] text-[19px] z-[1]">
                 🔒
               </span>
 
-              <input
+              <input class="w-full h-[48px] [border:1px_solid_#e2e8f0] rounded-[12px] bg-[#f8fafc] text-[#0f172a] text-[14px] [outline:none] px-[45px] py-[0] placeholder:text-[#94a3b8] [&:focus]:bg-white [&:focus]:border-[#f97316] [&:focus]:shadow-[0_0_0_3px_rgba(249,_115,_22,_0.15)]"
                 [type]="showPassword ? 'text' : 'password'"
                 id="password"
                 name="password"
@@ -236,7 +236,7 @@
 
               <button
                 type="button"
-                class="password-button"
+                class="password-button absolute right-[13px] top-[50%] [transform:translateY(-50%)] border-none bg-transparent text-[#64748b] cursor-pointer text-[17px]"
                 (click)="togglePassword()">
 
                 {{ showPassword ? '◉' : '◉' }}
@@ -249,11 +249,11 @@
 
 
           <!-- Remember + Forgot -->
-          <div class="login-options">
+          <div class="login-options flex justify-between items-center mt-[3px] mb-[25px]">
 
-            <label class="remember-option">
+            <label class="remember-option flex items-center gap-[9px] text-[#64748b] text-[14px] cursor-pointer">
 
-              <input
+              <input class="w-[17px] h-[17px] accent-[#f97316]"
                 type="checkbox"
                 checked
               />
@@ -264,7 +264,7 @@
 
             </label>
 
-            <a href="#">
+            <a class="text-[#9d4300] no-underline text-[14px] font-bold" href="#">
               Forgot password?
             </a>
 
@@ -274,7 +274,7 @@
           <!-- Submit -->
           <button
             type="submit"
-            class="login-button"
+            class="login-button w-full min-h-[52px] border-none rounded-[12px] bg-[#f97316] text-white text-[15px] font-bold cursor-pointer shadow-[0_5px_10px_rgba(249,_115,_22,_0.22)] flex justify-center items-center gap-[10px] [&:hover:not(:disabled)]:bg-[#ea580c] [&:disabled]:opacity-75 [&:disabled]:cursor-not-allowed"
             [disabled]="isLoading">
 
             @if (!isLoading) {
@@ -283,14 +283,14 @@
                 Sign In to Dashboard
               </span>
 
-              <span class="arrow">
+              <span class="arrow text-[22px]">
                 →
               </span>
 
             }
             @else {
 
-              <span class="spinner"></span>
+              <span class="spinner w-[19px] h-[19px] border-[3px] border-solid border-[rgba(255,_255,_255,_0.4)] border-t-white rounded-[50%]"></span>
 
               <span>
                 Authenticating...
@@ -304,15 +304,15 @@
 
 
         <!-- Workspace -->
-        <div class="workspace-section">
+        <div class="workspace-section mt-[34px] bg-[#f2f4f6] text-center px-[30px] py-[27px] [@media(width<=600px)]:px-[20px]">
 
-          <p>
+          <p class="text-[#64748b] text-[14px] m-[0]">
             Need access for your recruiting team?
           </p>
 
-          <a routerLink="/auth/register">
+          <a class="inline-block mt-[5px] text-[#9d4300] no-underline text-[14px] font-bold" routerLink="/auth/register">
             Request company workspace
-            <span>›</span>
+            <span class="text-[18px]">›</span>
           </a>
 
         </div>
@@ -321,23 +321,23 @@
 
 
       <!-- Security Links -->
-      <div class="security-footer">
+      <div class="security-footer mt-[30px] flex justify-between items-center gap-[15px] text-[#64748b] text-[11px] px-[8px] py-[0] [@media(width<=600px)]:flex-col [@media(width<=600px)]:text-center">
 
-        <div class="footer-links">
+        <div class="footer-links flex items-center gap-[10px] [@media(width<=600px)]:flex-wrap [@media(width<=600px)]:justify-center">
 
-          <a href="#">Privacy Policy</a>
-
-          <span>•</span>
-
-          <a href="#">Terms of Service</a>
+          <a class="text-[#64748b] no-underline" href="#">Privacy Policy</a>
 
           <span>•</span>
 
-          <a href="#">Security Center</a>
+          <a class="text-[#64748b] no-underline" href="#">Terms of Service</a>
+
+          <span>•</span>
+
+          <a class="text-[#64748b] no-underline" href="#">Security Center</a>
 
         </div>
 
-        <div class="encryption">
+        <div class="encryption font-bold">
           🔒 256-bit TLS Encrypted
         </div>
 

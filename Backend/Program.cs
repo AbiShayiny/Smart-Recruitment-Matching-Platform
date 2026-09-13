@@ -1,4 +1,5 @@
 using Backend.Data;
+using Backend.Models.User;
 
 using Backend.Repositories.Implementations.User;
 using Backend.Repositories.Interfaces.User;
@@ -232,6 +233,31 @@ namespace Backend
 
             // Build Application
             var app = builder.Build();
+
+
+            // Seed the default Administrator after the database migrations are applied.
+            using (var scope = app.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+                // Check the role so an existing Administrator prevents another account.
+                bool administratorExists = context.Users.Any(user => user.Role == "Administrator");
+
+                if (!administratorExists)
+                {
+                    User administrator = new User
+                    {
+                        Name = "Admin",
+                        Email = "admin@gmail.com",
+                        // Use the same password hashing as AuthenticationService.
+                        PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin@123"),
+                        Role = "Administrator"
+                    };
+
+                    context.Users.Add(administrator);
+                    context.SaveChanges();
+                }
+            }
 
 
             // Swagger
