@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { VacancyService } from '../../../../core/services/vacancy.service';
+import { ApplicationService } from '../../../../core/services/application.service';
+import { firstValueFrom } from 'rxjs';
+import { Component, ChangeDetectorRef, inject, OnInit, isDevMode } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { Navbar } from '../../../../shared/components/navbar/navbar';
@@ -14,7 +17,15 @@ import { Navbar } from '../../../../shared/components/navbar/navbar';
   templateUrl: './job-search.html',
   styleUrl: './job-search.css'
 })
-export class JobSearch {
+export class JobSearch implements OnInit {
+  private vacancies = inject(VacancyService);
+  private applications = inject(ApplicationService);
+  private cdr = inject(ChangeDetectorRef);
+  applying = new Set<number>();
+  error = '';
+  availabilityMessage = '';
+  loading = false;
+
 
   searchKeyword = '';
 
@@ -26,139 +37,65 @@ export class JobSearch {
   itemsPerPage = 4;
 
 
-  jobs = [
-    {
-      id: 1,
+  jobs: {
+    id: number;
+    title: string;
+    company: string;
+    location: string;
+    jobType: string;
+    experience: string;
+    posted: string;
+    description: string;
+    skills: string[];
+    missingSkills: string[] | null;
+    matchScore: number | null;
+    matchLabel: string;
+    alreadyApplied: boolean | null;
+  }[] = [];
 
-      title: 'Lead Cloud Application Engineer',
-      company: 'CloudScale Systems',
 
-      location: 'Colombo',
-      jobType: 'Full Time',
-      experience: '3 - 5 Years',
-
-      posted: 'Posted 2 days ago',
-
-      description:
-        'Build and maintain scalable enterprise applications using Angular and .NET technologies.',
-
-      skills: [
-        'Angular',
-        'C#',
-        '.NET Core',
-        'SQL Server',
-        'AWS'
-      ],
-
-      missingSkills: [] as string[],
-
-      matchScore: 94,
-      matchLabel: 'Exceptional Match',
-
-      // My Applications-ல் இருப்பதால் true
-      alreadyApplied: true
-    },
-
-    {
-      id: 2,
-
-      title: 'Senior Full Stack .NET & Angular Developer',
-      company: 'FinStream Global',
-
-      location: 'Colombo',
-      jobType: 'Full Time',
-      experience: '3 - 5 Years',
-
-      posted: 'Posted 3 days ago',
-
-      description:
-        'Develop secure and high-performance web applications using Angular, C# and SQL Server.',
-
-      skills: [
-        'Angular',
-        'C#',
-        'SQL Server',
-        'REST API',
-        'Docker'
-      ],
-
-      missingSkills: [
-        'Docker'
-      ],
-
-      matchScore: 85,
-      matchLabel: 'Strong Match',
-
-      alreadyApplied: true
-    },
-
-    {
-      id: 3,
-
-      title: 'Frontend Engineer - Angular',
-      company: 'Apex Data Works',
-
-      location: 'Jaffna',
-      jobType: 'Full Time',
-      experience: '1 - 3 Years',
-
-      posted: 'Posted 1 day ago',
-
-      description:
-        'Create modern responsive web applications and reusable Angular components.',
-
-      skills: [
-        'Angular',
-        'TypeScript',
-        'HTML',
-        'CSS'
-      ],
-
-      missingSkills: [
-        'TypeScript'
-      ],
-
-      matchScore: 88,
-      matchLabel: 'Strong Match',
-
-      // My Applications-ல் இருப்பதால் true
-      alreadyApplied: true
-    },
-
-    {
-      id: 4,
-
-      title: 'Software Engineer - Web Applications',
-      company: 'HealthPulse Technologies',
-
-      location: 'Kandy',
-      jobType: 'Contract',
-      experience: '1 - 3 Years',
-
-      posted: 'Posted 5 days ago',
-
-      description:
-        'Work with a software engineering team to build reliable web-based business applications.',
-
-      skills: [
-        'Angular',
-        'C#',
-        'SQL Server',
-        'Azure'
-      ],
-
-      missingSkills: [
-        'Azure'
-      ],
-
-      matchScore: 78,
-      matchLabel: 'Good Match',
-
-      // இன்னும் apply பண்ணவில்லை
-      alreadyApplied: false
+  async ngOnInit(): Promise<void> {
+    this.loading = true;
+    this.availabilityMessage = 'Loading jobs...';
+    this.error = '';
+    this.jobs = [];
+    try {
+      const vacancies = await firstValueFrom(this.vacancies.getOpenVacancies());
+      this.jobs = (vacancies ?? []).map(vacancy => ({
+        id: vacancy.vacancyId,
+        title: vacancy.jobTitle ?? '',
+        company: '', // The vacancy response does not include a company name.
+        location: vacancy.location ?? '',
+        jobType: vacancy.employmentType ?? '',
+        experience: vacancy.requiredExperience ?? '',
+        posted: vacancy.createdAt ?? '',
+        description: vacancy.jobDescription ?? '',
+        skills: [...new Set((vacancy.requiredSkills ?? '').split(/[,;]/).map(skill => skill.trim()).filter(Boolean))],
+        missingSkills: null,
+        matchScore: null,
+        matchLabel: '',
+        alreadyApplied: null
+      }));
+      this.currentPage = 1;
+      this.availabilityMessage = '';
+    } catch (error) {
+      this.jobs = [];
+      this.availabilityMessage = 'Job listings are currently unavailable.';
+      if (isDevMode()) console.error('GET open vacancies failed', error);
+    } finally {
+      this.loading = false;
+      this.cdr.markForCheck();
     }
-  ];
-
+    if (!this.jobs.length) return;
+    try {
+      const applications = await firstValueFrom(this.applications.getMyApplications());
+      const appliedIds = new Set((applications ?? []).map(application => application.vacancyId));
+      this.jobs = this.jobs.map(job => ({ ...job, alreadyApplied: appliedIds.has(job.id) }));
+    } catch (error) {
+      this.error = 'Jobs loaded, but application status could not be verified. Please check your session and profile.';
+      if (isDevMode()) console.error('GET my applications failed', error);
+    } finally { this.cdr.markForCheck(); }
+  }
 
   get filteredJobs() {
 
@@ -249,23 +186,14 @@ export class JobSearch {
   }
 
 
-  applyToJob(jobId: number): void {
-
-    const job =
-      this.jobs.find(
-        item => item.id === jobId
-      );
-
-    if (
-      !job ||
-      job.alreadyApplied
-    ) {
-      return;
-    }
-
-    job.alreadyApplied = true;
+  async applyToJob(jobId: number) {
+    const job = this.jobs.find(item => item.id === jobId);
+    if (!job || job.alreadyApplied !== false || this.applying.has(jobId)) return;
+    this.applying.add(jobId); this.error = '';
+    try { await firstValueFrom(this.applications.apply(jobId)); job.alreadyApplied = true; }
+    catch { this.error = 'Application failed. Please check your profile and try again.'; }
+    finally { this.applying.delete(jobId); this.cdr.markForCheck(); }
   }
-
 
   goToPage(page: number): void {
 

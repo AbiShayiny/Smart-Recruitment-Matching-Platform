@@ -75,6 +75,11 @@ namespace Backend.Services.Vacancy.Implementations
             return await _vacancyRepository.UpdateAsync(vacancy);
         }
 
+        public Task<List<Backend.Models.Vacancy.Vacancy>> GetOpenAsync()
+        {
+            return _vacancyRepository.GetOpenAsync();
+        }
+
         public async Task<bool> CloseAsync(int vacancyId)
         {
             var vacancy = await _vacancyRepository

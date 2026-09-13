@@ -2,6 +2,9 @@
 
 <main class="notifications-page">
 
+  @if (loading) { <p role="status">Loading...</p> }
+  @if (error) { <p role="alert">{{ error }}</p> }
+
   <!-- PAGE HEADER -->
   <section class="notifications-header">
 
@@ -20,6 +23,7 @@
         type="button"
         class="mark-all-btn"
         (click)="markAllAsRead()"
+        [disabled]="markingAll || pending.size > 0"
       >
         Mark All as Read
       </button>
@@ -69,7 +73,7 @@
               <div class="notification-title-row">
 
                 <h3>
-                  {{ notification.title }}
+
                 </h3>
 
                 @if (!notification.isRead) {
@@ -97,6 +101,7 @@
                 type="button"
                 class="read-btn"
                 (click)="markAsRead(notification.id)"
+                [disabled]="pending.has(notification.id) || markingAll"
               >
                 Mark as Read
               </button>
@@ -109,7 +114,7 @@
 
       </div>
 
-    } @else {
+    } @else if (!loading && !error) {
 
       <div class="empty-notifications">
 

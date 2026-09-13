@@ -2,6 +2,9 @@
 
 <main class="contact-page">
 
+  @if (loading) { <p role="status">Loading...</p> }
+  @if (error) { <p role="alert">{{ error }}</p> }
+
   <section class="contact-header">
     <div>
       <h1>Contact Requests</h1>
@@ -37,7 +40,7 @@
             <div class="request-info">
 
               <h3>
-                {{ request.company }}
+                {{ request.jobTitle }}
               </h3>
 
               <p>
@@ -53,6 +56,7 @@
                 type="button"
                 class="decline-btn"
                 (click)="declineRequest(request.id)"
+                [disabled]="pending.has(request.id)"
               >
                 Decline
               </button>
@@ -61,6 +65,7 @@
                 type="button"
                 class="accept-btn"
                 (click)="acceptRequest(request.id)"
+                [disabled]="pending.has(request.id)"
               >
                 Accept
               </button>
@@ -73,7 +78,7 @@
 
       </div>
 
-    } @else {
+    } @else if (!loading && !error) {
 
       <div class="empty-requests">
 

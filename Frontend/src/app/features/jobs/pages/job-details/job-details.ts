@@ -1,4 +1,10 @@
-import { Component } from '@angular/core';
+import { VacancyService } from '../../../../core/services/vacancy.service';
+import { MatchingService, SeekerMatch } from '../../../../core/services/matching.service';
+import { ApplicationService } from '../../../../core/services/application.service';
+import { SeekerProfileService } from '../../../../core/services/seeker-profile.service';
+import { firstValueFrom } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, ChangeDetectorRef, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Navbar } from '../../../../shared/components/navbar/navbar';
 
@@ -13,321 +19,81 @@ import { Navbar } from '../../../../shared/components/navbar/navbar';
   styleUrl: './job-details.css'
 })
 export class JobDetails {
-
+  private vacancies = inject(VacancyService);
+  private matching = inject(MatchingService);
+  private applications = inject(ApplicationService);
+  private profiles = inject(SeekerProfileService);
+  private cdr = inject(ChangeDetectorRef);
   jobId = 0;
-
-  jobs = [
-    {
-      id: 1,
-
-      title: 'Lead Cloud Application Engineer',
-      company: 'CloudScale Systems',
-
-      location: 'Colombo',
-      workMode: 'On-site',
-      jobType: 'Full-Time Permanent',
-      experience: '3 - 5 Years',
-
-      salary: 'Competitive Salary',
-      posted: 'Posted 2 days ago',
-
-      matchScore: 94,
-      matchLabel: 'Exceptional Match',
-
-      overview:
-        'Build and maintain scalable enterprise applications using Angular and .NET technologies.',
-
-      responsibilities: [
-        'Develop scalable enterprise web applications.',
-        'Build Angular frontend applications.',
-        'Develop secure .NET Core APIs.',
-        'Work with SQL Server databases.',
-        'Collaborate with cloud engineering teams.'
-      ],
-
-      requiredSkills: [
-        {
-          name: 'Angular',
-          matched: true
-        },
-        {
-          name: 'C#',
-          matched: true
-        },
-        {
-          name: '.NET Core',
-          matched: true
-        },
-        {
-          name: 'SQL Server',
-          matched: true
-        },
-        {
-          name: 'AWS',
-          matched: true
-        }
-      ],
-
-      missingSkills: [] as string[],
-
-      minimumExperience: '3 - 5 Years',
-
-      education:
-        'B.S. in Computer Science or Equivalent',
-
-      profileExperience: '5.8 Years',
-
-      profileEducation:
-        'B.S. in Computer Science',
-
-      preferredQualifications: [
-        'Experience developing enterprise applications.',
-        'Knowledge of cloud platforms.',
-        'Experience working with Agile development teams.'
-      ],
-
-      // My Applications-ல் இந்த job இருக்கு
-      alreadyApplied: true
-    },
-
-    {
-      id: 2,
-
-      title: 'Senior Full Stack .NET & Angular Developer',
-      company: 'FinStream Global',
-
-      location: 'Colombo',
-      workMode: 'Hybrid',
-      jobType: 'Full-Time Permanent',
-      experience: '3 - 5 Years',
-
-      salary: 'Competitive Salary',
-      posted: 'Posted 3 days ago',
-
-      matchScore: 85,
-      matchLabel: 'Strong Match',
-
-      overview:
-        'Develop secure and high-performance web applications using Angular, C# and SQL Server.',
-
-      responsibilities: [
-        'Design and develop ASP.NET Core Web APIs.',
-        'Build responsive Angular frontend applications.',
-        'Optimize SQL Server queries and procedures.',
-        'Implement automated testing and quality standards.',
-        'Collaborate with the team on deployment workflows.'
-      ],
-
-      requiredSkills: [
-        {
-          name: 'Angular',
-          matched: true
-        },
-        {
-          name: 'C#',
-          matched: true
-        },
-        {
-          name: 'SQL Server',
-          matched: true
-        },
-        {
-          name: 'REST API',
-          matched: true
-        },
-        {
-          name: 'Docker',
-          matched: false
-        }
-      ],
-
-      missingSkills: [
-        'Docker'
-      ],
-
-      minimumExperience: '3 - 5 Years',
-
-      education:
-        'B.S. in Computer Science or Equivalent',
-
-      profileExperience: '5.8 Years',
-
-      profileEducation:
-        'B.S. in Computer Science',
-
-      preferredQualifications: [
-        'Experience in fintech applications.',
-        'Knowledge of containerized deployment.',
-        'Experience mentoring junior developers.'
-      ],
-
-      // My Applications-ல் இந்த job இருக்கு
-      alreadyApplied: true
-    },
-
-    {
-      id: 3,
-
-      title: 'Frontend Engineer - Angular',
-      company: 'Apex Data Works',
-
-      location: 'Jaffna',
-      workMode: 'On-site',
-      jobType: 'Full-Time Permanent',
-      experience: '1 - 3 Years',
-
-      salary: 'Competitive Salary',
-      posted: 'Posted 1 day ago',
-
-      matchScore: 88,
-      matchLabel: 'Strong Match',
-
-      overview:
-        'Create modern responsive web applications and reusable Angular components.',
-
-      responsibilities: [
-        'Develop responsive Angular applications.',
-        'Create reusable frontend components.',
-        'Work with TypeScript and modern Angular.',
-        'Implement responsive HTML and CSS.',
-        'Collaborate with backend developers.'
-      ],
-
-      requiredSkills: [
-        {
-          name: 'Angular',
-          matched: true
-        },
-        {
-          name: 'TypeScript',
-          matched: false
-        },
-        {
-          name: 'HTML',
-          matched: true
-        },
-        {
-          name: 'CSS',
-          matched: true
-        }
-      ],
-
-      missingSkills: [
-        'TypeScript'
-      ],
-
-      minimumExperience: '1 - 3 Years',
-
-      education:
-        'B.S. in Computer Science or Equivalent',
-
-      profileExperience: '5.8 Years',
-
-      profileEducation:
-        'B.S. in Computer Science',
-
-      preferredQualifications: [
-        'Strong Angular knowledge.',
-        'Experience building responsive interfaces.',
-        'Understanding of reusable component design.'
-      ],
-
-      // My Applications-ல் இந்த job இருக்கு
-      alreadyApplied: true
-    },
-
-    {
-      id: 4,
-
-      title: 'Software Engineer - Web Applications',
-      company: 'HealthPulse Technologies',
-
-      location: 'Kandy',
-      workMode: 'Hybrid',
-      jobType: 'Contract',
-      experience: '1 - 3 Years',
-
-      salary: 'Competitive Salary',
-      posted: 'Posted 5 days ago',
-
-      matchScore: 78,
-      matchLabel: 'Good Match',
-
-      overview:
-        'Work with a software engineering team to build reliable web-based business applications.',
-
-      responsibilities: [
-        'Develop reliable web applications.',
-        'Build Angular frontend features.',
-        'Develop C# backend services.',
-        'Work with SQL Server databases.',
-        'Support cloud deployment activities.'
-      ],
-
-      requiredSkills: [
-        {
-          name: 'Angular',
-          matched: true
-        },
-        {
-          name: 'C#',
-          matched: true
-        },
-        {
-          name: 'SQL Server',
-          matched: true
-        },
-        {
-          name: 'Azure',
-          matched: false
-        }
-      ],
-
-      missingSkills: [
-        'Azure'
-      ],
-
-      minimumExperience: '1 - 3 Years',
-
-      education:
-        'B.S. in Computer Science or Equivalent',
-
-      profileExperience: '5.8 Years',
-
-      profileEducation:
-        'B.S. in Computer Science',
-
-      preferredQualifications: [
-        'Experience developing web applications.',
-        'Knowledge of Microsoft Azure.',
-        'Ability to work in collaborative software teams.'
-      ],
-
-      // இந்த job இன்னும் apply பண்ணல
-      alreadyApplied: false
-    }
-  ];
-
-
-  job = this.jobs[0];
-
-
-  constructor(
-    private route: ActivatedRoute
-  ) {
-
-    this.jobId = Number(
-      this.route.snapshot.paramMap.get('id')
-    );
-
-    const selectedJob = this.jobs.find(
-      job => job.id === this.jobId
-    );
-
-    if (selectedJob) {
-      this.job = selectedJob;
-    }
-
+  loading = false;
+  applying = false;
+  applicationStateKnown = false;
+  error = '';
+  match: SeekerMatch | null = null;
+  job: {
+    id: number; title: string; company: string; location: string; workMode: string;
+    jobType: string; experience: string; salary: string; posted: string;
+    matchScore: number | null; matchLabel: string; overview: string;
+    responsibilities: string[]; requiredSkills: { name: string; matched: boolean }[];
+    missingSkills: string[]; minimumExperience: string; education: string;
+    profileExperience: string; profileEducation: string; preferredQualifications: string[];
+    alreadyApplied: boolean; status: string;
+  } | null = null;
+  private loadVersion = 0;
+  constructor(private route: ActivatedRoute) {
+    this.route.paramMap.pipe(takeUntilDestroyed()).subscribe(params => {
+      this.jobId = Number(params.get('id'));
+      void this.load();
+    });
   }
-
+  private async load() {
+    const version = ++this.loadVersion;
+    const id = this.jobId;
+    this.job = null; this.match = null; this.error = ''; this.applicationStateKnown = false;
+    if (!Number.isSafeInteger(id) || id <= 0) {
+      this.loading = false; this.error = 'Invalid job ID.'; this.cdr.markForCheck(); return;
+    }
+    this.loading = true;
+    try {
+      const vacancy = await firstValueFrom(this.vacancies.getSeekerVacancy(id));
+      if (version !== this.loadVersion) return;
+      if (!vacancy) return;
+      this.job = { id: vacancy.vacancyId, title: vacancy.jobTitle, company: '',
+        location: vacancy.location ?? '', workMode: '', jobType: vacancy.employmentType ?? '',
+        experience: vacancy.requiredExperience ?? '', salary: '', posted: vacancy.createdAt,
+        matchScore: null, matchLabel: '', overview: vacancy.jobDescription,
+        responsibilities: [], requiredSkills: (vacancy.requiredSkills ?? '').split(/[,;]/).map(s => s.trim()).filter(Boolean).map(name => ({ name, matched: false })),
+        missingSkills: [], minimumExperience: vacancy.requiredExperience ?? '', education: vacancy.education ?? '',
+        profileExperience: '', profileEducation: '', preferredQualifications: [], alreadyApplied: false, status: vacancy.status };
+      const [applications, match, profile] = await Promise.allSettled([
+        firstValueFrom(this.applications.getMyApplications()),
+        firstValueFrom(this.matching.getMatch(id)),
+        firstValueFrom(this.profiles.getProfile())
+      ]);
+      if (version !== this.loadVersion || !this.job) return;
+      if (applications.status === 'fulfilled') {
+        this.job.alreadyApplied = (applications.value ?? []).some(item => item.vacancyId === id);
+        this.applicationStateKnown = true;
+      } else this.error = 'Unable to verify application status. Reload before applying.';
+      if (match.status === 'fulfilled' && match.value) {
+        this.match = match.value; this.job.matchScore = match.value.matchScore;
+        this.job.missingSkills = match.value.missingSkills ?? [];
+        this.job.requiredSkills = this.job.requiredSkills.map(skill => ({ ...skill,
+          matched: (match.value.matchedSkills ?? []).some(name => name.toLowerCase() === skill.name.toLowerCase()) }));
+      } else this.error += ' Matching information is unavailable.';
+      if (profile.status === 'fulfilled' && profile.value) {
+        this.job.profileExperience = profile.value.experience ?? '';
+        this.job.profileEducation = profile.value.education ?? '';
+      }
+    } catch { if (version === this.loadVersion) this.error = 'Unable to load this vacancy. It may no longer be available.'; }
+    finally { if (version === this.loadVersion) { this.loading = false; this.cdr.markForCheck(); } }
+  }
+  async applyToJob() {
+    if (!this.job || this.job.alreadyApplied || this.applying || !this.applicationStateKnown || this.job.status !== 'Open') return;
+    const job = this.job;
+    this.applying = true; this.error = '';
+    try { await firstValueFrom(this.applications.apply(job.id)); job.alreadyApplied = true; }
+    catch { this.error = 'Application failed. Please check your profile and try again.'; }
+    finally { this.applying = false; this.cdr.markForCheck(); }
+  }
 }

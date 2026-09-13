@@ -17,6 +17,8 @@ namespace Backend.Services.Vacancy.Interfaces
     int vacancyId,
     UpdateVacancyDto dto);
 
+        Task<List<Backend.Models.Vacancy.Vacancy>> GetOpenAsync();
+
         Task<bool> CloseAsync(int vacancyId);
     }
 }

@@ -39,6 +39,19 @@ namespace Backend.Repositories.Vacancy.Implementations
                 .FirstOrDefaultAsync(v => v.VacancyId == vacancyId);
         }
 
+        public async Task<List<Backend.Models.Vacancy.Vacancy>> GetOpenAsync()
+        {
+            // A closing date remains available through that calendar day (UTC).
+            var today = DateTime.UtcNow.Date;
+            return await _context.Vacancies
+                .AsNoTracking()
+                .Where(v => v.Status == "Open" &&
+                    (v.ClosingDate == null || v.ClosingDate >= today))
+                .OrderByDescending(v => v.CreatedAt)
+                .ThenByDescending(v => v.VacancyId)
+                .ToListAsync();
+        }
+
         public async Task<bool> UpdateAsync(
     Backend.Models.Vacancy.Vacancy vacancy)
         {

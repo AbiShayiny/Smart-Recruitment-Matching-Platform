@@ -2,6 +2,10 @@
 
 <main class="profile-page">
 
+  @if (loading) { <p role="status">Loading...</p> }
+  @if (error) { <p role="alert">{{ error }}</p> }
+  @if (message) { <p role="status">{{ message }}</p> }
+
   <!-- =========================
        PAGE HEADER
   ========================== -->
@@ -23,6 +27,7 @@
         type="button"
         class="edit-profile-btn"
         (click)="editProfile()"
+        [disabled]="loading || !ready"
       >
         Edit Profile
       </button>
@@ -309,6 +314,8 @@
 
     @if (isEditing) {
 
+      <p role="status">Name, email, phone, professional title and summary cannot be saved through the current profile API.</p>
+
       <form
         class="profile-form"
         (ngSubmit)="saveProfile()"
@@ -338,6 +345,7 @@
                 name="firstName"
                 type="text"
                 [(ngModel)]="profile.firstName"
+                readonly
                 placeholder="Enter first name"
               >
 
@@ -355,6 +363,7 @@
                 name="lastName"
                 type="text"
                 [(ngModel)]="profile.lastName"
+                readonly
                 placeholder="Enter last name"
               >
 
@@ -372,6 +381,7 @@
                 name="email"
                 type="email"
                 [(ngModel)]="profile.email"
+                readonly
                 placeholder="Enter email address"
               >
 
@@ -389,6 +399,7 @@
                 name="phone"
                 type="text"
                 [(ngModel)]="profile.phone"
+                readonly
                 placeholder="Enter phone number"
               >
 
@@ -406,6 +417,7 @@
                 name="location"
                 type="text"
                 [(ngModel)]="profile.location"
+                [readonly]="loading"
                 placeholder="Enter location"
               >
 
@@ -423,6 +435,7 @@
                 name="professionalTitle"
                 type="text"
                 [(ngModel)]="profile.professionalTitle"
+                readonly
                 placeholder="Enter professional title"
               >
 
@@ -453,6 +466,7 @@
               name="summary"
               rows="5"
               [(ngModel)]="profile.summary"
+                readonly
               placeholder="Enter professional summary"
             ></textarea>
 
@@ -473,6 +487,7 @@
                 name="experienceYears"
                 type="text"
                 [(ngModel)]="profile.experienceYears"
+                [readonly]="loading"
                 placeholder="Enter years of experience"
               >
 
@@ -490,6 +505,7 @@
                 name="education"
                 type="text"
                 [(ngModel)]="profile.education"
+                [readonly]="loading"
                 placeholder="Enter education"
               >
 
@@ -508,6 +524,7 @@
             type="button"
             class="cancel-btn"
             (click)="cancelEdit()"
+            [disabled]="loading"
           >
             Cancel
           </button>
@@ -515,6 +532,7 @@
 
           <button
             type="submit"
+            [disabled]="loading"
             class="save-btn"
           >
             Save Changes

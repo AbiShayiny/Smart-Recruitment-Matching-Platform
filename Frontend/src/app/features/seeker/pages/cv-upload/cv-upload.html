@@ -2,6 +2,10 @@
 
 <main class="cv-page">
 
+  @if (loading) { <p role="status">Loading...</p> }
+  @if (error) { <p role="alert">{{ error }}</p> }
+  @if (message) { <p role="status">{{ message }}</p> }
+
   <section class="cv-header">
 
     <div>
@@ -47,6 +51,7 @@
         accept=".pdf,.doc,.docx"
         class="file-input"
         (change)="onFileSelected($event)"
+        [disabled]="loading"
       >
 
 
@@ -77,6 +82,7 @@
           type="button"
           class="upload-btn"
           (click)="uploadCv()"
+          [disabled]="loading"
         >
           Upload CV
         </button>
@@ -162,11 +168,11 @@
           </div>
 
           <h3>
-            No CV uploaded yet
+            Current CV unavailable
           </h3>
 
           <p>
-            Upload your CV to make your profile ready for job matching.
+            Previously uploaded CV details cannot be retrieved yet. You can upload a CV above.
           </p>
 
         </div>
