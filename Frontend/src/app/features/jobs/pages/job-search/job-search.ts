@@ -1,5 +1,6 @@
 import { VacancyService } from '../../../../core/services/vacancy.service';
 import { ApplicationService } from '../../../../core/services/application.service';
+import { MatchingService } from '../../../../core/services/matching.service';
 import { firstValueFrom } from 'rxjs';
 import { Component, ChangeDetectorRef, inject, OnInit, isDevMode } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -20,6 +21,7 @@ import { Navbar } from '../../../../shared/components/navbar/navbar';
 export class JobSearch implements OnInit {
   private vacancies = inject(VacancyService);
   private applications = inject(ApplicationService);
+  private matching = inject(MatchingService);
   private cdr = inject(ChangeDetectorRef);
   applying = new Set<number>();
   error = '';
@@ -76,6 +78,15 @@ export class JobSearch implements OnInit {
         matchLabel: '',
         alreadyApplied: null
       }));
+      const matchResults = await Promise.allSettled(
+        this.jobs.map(job => firstValueFrom(this.matching.getMatch(job.id)))
+      );
+      matchResults.forEach((matchResult, index) => {
+        if (matchResult.status === 'fulfilled') {
+          this.jobs[index].matchScore = matchResult.value.matchScore;
+          this.jobs[index].missingSkills = matchResult.value.missingSkills ?? [];
+        }
+      });
       this.currentPage = 1;
       this.availabilityMessage = '';
     } catch (error) {

@@ -3,6 +3,9 @@
 import { AUTH_ROUTES } from './features/auth/auth.routes';
 import { ADMIN_ROUTES } from './features/admin/admin.routes';
 import { adminGuard } from './core/guards/admin.guard';
+import { seekerGuard } from './core/guards/seeker.guard';
+import { employerGuard } from './core/guards/employer.guard';
+import { authGuard } from './core/guards/auth.guard';
 
 import { EMPLOYER_ROUTES } from './features/employer/employer.routes';
 import { APPLICATIONS_ROUTES } from './features/applications/applications.routes';
@@ -27,6 +30,7 @@ export const routes: Routes = [
   // Job Seeker
   {
     path: 'seeker',
+    canActivate: [seekerGuard],
     loadChildren: () =>
       import('./features/seeker/seeker.routes')
         .then(m => m.SEEKER_ROUTES)
@@ -35,24 +39,28 @@ export const routes: Routes = [
   // Employer
   {
     path: 'employer',
+    canActivate: [employerGuard],
     children: EMPLOYER_ROUTES
   },
 
   // Applications
   {
     path: 'applications',
+    canActivate: [employerGuard],
     children: APPLICATIONS_ROUTES
   },
 
   // Contact
   {
     path: 'contact',
+    canActivate: [employerGuard],
     children: CONTACT_ROUTES
   },
 
   // Notifications
   {
     path: 'notifications',
+    canActivate: [authGuard],
     children: NOTIFICATIONS_ROUTES
   },
 

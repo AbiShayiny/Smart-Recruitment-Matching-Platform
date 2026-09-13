@@ -9,7 +9,7 @@ import { CreateVacancyDto, UpdateVacancyDto, VacancyModel } from '../models/vaca
 export class VacancyService {
 
   private apiUrl =
-    'https://localhost:5001/api/employer/vacancy';
+    'https://localhost:7182/api/employer/vacancy';
 
   private readonly seekerApiUrl = 'https://localhost:7182/api/employer/vacancy';
 
@@ -51,8 +51,6 @@ export class VacancyService {
       status: string; createdAt: string;
     }[]>(this.seekerApiUrl);
   }
-}
-
   createVacancy(dto: CreateVacancyDto): Observable<VacancyModel | null> {
     return this.http.post<VacancyModel | null>(this.apiUrl, dto);
   }

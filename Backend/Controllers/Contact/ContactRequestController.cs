@@ -1,5 +1,7 @@
 using System.Security.Claims;
 using Backend.DTOs.Contact;
+using Backend.Repositories.Application.Interfaces;
+using Backend.Repositories.Interfaces.User;
 using Backend.Services.Contact.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +14,17 @@ namespace Backend.Controllers.Contact
     public class ContactRequestController : ControllerBase
     {
         private readonly IContactRequestService _contactRequestService;
+        private readonly IUserRepository _userRepository;
+        private readonly IApplicationRepository _applicationRepository;
 
         public ContactRequestController(
-            IContactRequestService contactRequestService)
+            IContactRequestService contactRequestService,
+            IUserRepository userRepository,
+            IApplicationRepository applicationRepository)
         {
             _contactRequestService = contactRequestService;
+            _userRepository = userRepository;
+            _applicationRepository = applicationRepository;
         }
 
         [HttpPost]
@@ -29,6 +37,22 @@ namespace Backend.Controllers.Contact
             if (userId == null)
             {
                 return Unauthorized();
+            }
+
+            var user = _userRepository.GetUserById(userId.Value);
+
+            if (user?.Role != "Employer" || user.CompanyId == null)
+            {
+                return Forbid();
+            }
+
+            var application = await _applicationRepository
+                .GetByIdAsync(dto.ApplicationId);
+
+            if (application == null ||
+                application.Vacancy.CompanyId != user.CompanyId.Value)
+            {
+                return NotFound("Application not found.");
             }
 
             try

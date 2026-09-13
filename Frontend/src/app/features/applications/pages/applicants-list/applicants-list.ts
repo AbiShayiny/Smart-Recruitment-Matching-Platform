@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ApplicationService, EmployerApplicant } from '../../../../core/services/application.service';
 
 @Component({
   selector: 'app-applicants-list',
@@ -10,7 +11,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
   templateUrl: './applicants-list.html',
   styleUrl: './applicants-list.css',
 })
-export class ApplicantsList {
+export class ApplicantsList implements OnInit {
 
   vacancyId: string | null = null;
 
@@ -23,9 +24,43 @@ export class ApplicantsList {
 
   constructor(
     private route: ActivatedRoute,
-    public router: Router
+    public router: Router,
+    private applicationService: ApplicationService
   ) {
     this.vacancyId = this.route.snapshot.queryParamMap.get('vacancyId');
+  }
+
+  ngOnInit(): void {
+    const vacancyId = Number(this.vacancyId);
+
+    if (!Number.isInteger(vacancyId) || vacancyId <= 0) {
+      this.applicants = [];
+      return;
+    }
+
+    this.applicationService.getApplicants(vacancyId).subscribe({
+      next: applicants => {
+        this.applicants = applicants.map((applicant: EmployerApplicant) => ({
+          id: applicant.applicationId,
+          name: '',
+          email: '',
+          role: '',
+          matchScore: applicant.matchScore,
+          matchLevel: '',
+          experience: applicant.experience,
+          stage: applicant.status,
+          appliedDate: applicant.appliedAt,
+          jobSeekerProfileId: applicant.jobSeekerProfileId,
+          skills: applicant.skills,
+          education: applicant.education,
+          location: applicant.location,
+          updatedAt: applicant.updatedAt
+        }));
+      },
+      error: () => {
+        this.applicants = [];
+      }
+    });
   }
 
   get filteredApplicants(): any[] {

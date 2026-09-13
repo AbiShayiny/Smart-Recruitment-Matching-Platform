@@ -1,11 +1,14 @@
 ﻿using Backend.DTOs.Jobseeker;
 using Backend.Services.Jobseeker.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Backend.Controllers.Jobseeker
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "JobSeeker")]
     public class JobSeekerController : ControllerBase
     {
         private readonly IJobSeekerService _service;
@@ -19,6 +22,19 @@ namespace Backend.Controllers.Jobseeker
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetProfile(int userId)
         {
+            var userIdClaim =
+                User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (!int.TryParse(userIdClaim, out var authenticatedUserId))
+            {
+                return Unauthorized();
+            }
+
+            if (authenticatedUserId != userId)
+            {
+                return Forbid();
+            }
+
             var profile = await _service.GetProfileAsync(userId);
 
             if (profile == null)
@@ -35,6 +51,19 @@ namespace Backend.Controllers.Jobseeker
             int userId,
             JobSeekerProfileDto dto)
         {
+            var userIdClaim =
+                User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (!int.TryParse(userIdClaim, out var authenticatedUserId))
+            {
+                return Unauthorized();
+            }
+
+            if (authenticatedUserId != userId)
+            {
+                return Forbid();
+            }
+
             try
             {
                 var profile =
@@ -54,6 +83,19 @@ namespace Backend.Controllers.Jobseeker
             int userId,
             JobSeekerProfileDto dto)
         {
+            var userIdClaim =
+                User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (!int.TryParse(userIdClaim, out var authenticatedUserId))
+            {
+                return Unauthorized();
+            }
+
+            if (authenticatedUserId != userId)
+            {
+                return Forbid();
+            }
+
             var profile =
                 await _service.UpdateProfileAsync(userId, dto);
 
@@ -71,6 +113,19 @@ namespace Backend.Controllers.Jobseeker
             int userId,
             [FromForm] UploadCvDto dto)
         {
+            var userIdClaim =
+                User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (!int.TryParse(userIdClaim, out var authenticatedUserId))
+            {
+                return Unauthorized();
+            }
+
+            if (authenticatedUserId != userId)
+            {
+                return Forbid();
+            }
+
             try
             {
                 var result =

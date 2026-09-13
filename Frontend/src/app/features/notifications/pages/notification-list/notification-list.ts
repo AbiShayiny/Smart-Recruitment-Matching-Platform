@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { NotificationService } from '../../../../core/services/notification.service';
 
 type NotificationFilter = 'all' | 'unread' | 'read';
 
@@ -12,7 +13,7 @@ type NotificationFilter = 'all' | 'unread' | 'read';
   templateUrl: './notification-list.html',
   styleUrl: './notification-list.css',
 })
-export class NotificationList {
+export class NotificationList implements OnInit {
 
   searchTerm = '';
 
@@ -22,7 +23,24 @@ export class NotificationList {
 
   notifications: unknown[] = [];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private notificationService: NotificationService
+  ) {}
+
+  ngOnInit(): void {
+    this.notificationService.getMyNotifications().subscribe({
+      next: notifications => {
+        this.notifications = notifications;
+        this.unreadCount =
+          notifications.filter(notification => !notification.isRead).length;
+      },
+      error: () => {
+        this.notifications = [];
+        this.unreadCount = 0;
+      }
+    });
+  }
 
   setFilter(filter: NotificationFilter): void {
     this.activeFilter = filter;
