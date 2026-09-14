@@ -3,11 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ApplicationService, EmployerApplicant } from '../../../../core/services/application.service';
+import { EmployerSidebar } from '../../../../shared/components/employer-sidebar/employer-sidebar';
 
 @Component({
   selector: 'app-applicants-list',
   standalone: true,
-  imports: [RouterLink, CommonModule, FormsModule],
+  imports: [RouterLink, CommonModule, FormsModule, EmployerSidebar],
   templateUrl: './applicants-list.html',
   styleUrl: './applicants-list.css',
 })
@@ -33,20 +34,19 @@ export class ApplicantsList implements OnInit {
   ngOnInit(): void {
     const vacancyId = Number(this.vacancyId);
 
-    if (!Number.isInteger(vacancyId) || vacancyId <= 0) {
-      this.applicants = [];
-      return;
-    }
+    const request = Number.isInteger(vacancyId) && vacancyId > 0
+      ? this.applicationService.getApplicants(vacancyId)
+      : this.applicationService.getEmployerApplicants();
 
-    this.applicationService.getApplicants(vacancyId).subscribe({
+    request.subscribe({
       next: applicants => {
         this.applicants = applicants.map((applicant: EmployerApplicant) => ({
           id: applicant.applicationId,
-          name: '',
-          email: '',
-          role: '',
+          name: `${applicant.firstName} ${applicant.lastName}`.trim(),
+          email: applicant.email,
+          role: applicant.professionalTitle,
           matchScore: applicant.matchScore,
-          matchLevel: '',
+          matchLevel: this.getMatchLevel(applicant.matchScore),
           experience: applicant.experience,
           stage: applicant.status,
           appliedDate: applicant.appliedAt,
@@ -61,6 +61,13 @@ export class ApplicantsList implements OnInit {
         this.applicants = [];
       }
     });
+  }
+
+  private getMatchLevel(score: number | null): string {
+    if (score === null) return '';
+    if (score >= 80) return 'High Match';
+    if (score >= 60) return 'Good Match';
+    return 'Potential Match';
   }
 
   get filteredApplicants(): any[] {

@@ -9,6 +9,14 @@ export type SeekerApplication = {
 export type EmployerApplicant = {
   applicationId: number;
   jobSeekerProfileId: number;
+  vacancyId: number;
+  jobTitle: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  professionalTitle: string;
+  professionalSummary: string;
   skills: string;
   experience: string;
   education: string;
@@ -17,6 +25,8 @@ export type EmployerApplicant = {
   appliedAt: string;
   updatedAt: string;
   matchScore: number | null;
+  matchedSkills: string[];
+  missingSkills: string[];
 };
 @Injectable({ providedIn: 'root' })
 export class ApplicationService {
@@ -25,6 +35,15 @@ export class ApplicationService {
   getMyApplications() { return this.http.get<SeekerApplication[]>(`${this.apiUrl}/my`); }
   getApplicants(vacancyId: number) {
     return this.http.get<EmployerApplicant[]>(`${this.apiUrl}/vacancy/${vacancyId}/applicants`);
+  }
+  getEmployerApplicants() {
+    return this.http.get<EmployerApplicant[]>(`${this.apiUrl}/employer/applicants`);
+  }
+  getApplicationById(applicationId: number) {
+    return this.http.get<EmployerApplicant>(`${this.apiUrl}/${applicationId}`);
+  }
+  getApplicantCv(applicationId: number) {
+    return this.http.get(`${this.apiUrl}/${applicationId}/cv`, { responseType: 'blob' });
   }
   updateStatus(applicationId: number, status: string) {
     return this.http.put<SeekerApplication>(

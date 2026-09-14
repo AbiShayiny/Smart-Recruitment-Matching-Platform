@@ -37,7 +37,9 @@ export class UserManagement implements OnInit {
       takeUntilDestroyed(this.destroyRef),
       finalize(() => this.loading.set(false))
     ).subscribe({
-      next: users => this.users.set(users),
+      next: users => this.users.set(
+        users.filter(user => user.role !== 'Administrator')
+      ),
       error: error => this.loadError.set(this.errorMessage(error, 'load'))
     });
   }

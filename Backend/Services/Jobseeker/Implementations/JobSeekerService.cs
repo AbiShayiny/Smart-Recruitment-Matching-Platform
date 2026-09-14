@@ -3,6 +3,7 @@ using Backend.Models.JobSeeker;
 using Backend.Repositories.Jobseeker.Interfaces;
 using Backend.Services.Jobseeker.Interfaces;
 using Microsoft.AspNetCore.Hosting;
+using Backend.Repositories.Interfaces.User;
 
 namespace Backend.Services.Jobseeker.Implementations
 {
@@ -10,34 +11,30 @@ namespace Backend.Services.Jobseeker.Implementations
     {
         private readonly IJobSeekerRepository _repository;
         private readonly IWebHostEnvironment _environment;
+        private readonly IUserRepository _userRepository;
 
         public JobSeekerService(
             IJobSeekerRepository repository,
-            IWebHostEnvironment environment)
+            IWebHostEnvironment environment,
+            IUserRepository userRepository)
         {
             _repository = repository;
             _environment = environment;
+            _userRepository = userRepository;
         }
 
         // Get Job Seeker Profile
         public async Task<JobSeekerProfileDto?> GetProfileAsync(int userId)
         {
             var profile = await _repository.GetByUserIdAsync(userId);
+            var user = _userRepository.GetUserById(userId);
 
-            if (profile == null)
+            if (profile == null || user == null)
             {
                 return null;
             }
 
-            return new JobSeekerProfileDto
-            {
-                Skills = profile.Skills,
-                Experience = profile.Experience,
-                Education = profile.Education,
-                Location = profile.Location,
-                CreatedAt = profile.CreatedAt,
-                UpdatedAt = profile.UpdatedAt
-            };
+            return MapProfile(profile, user.Name, user.Email);
         }
 
         // Create Job Seeker Profile
@@ -63,6 +60,9 @@ namespace Backend.Services.Jobseeker.Implementations
                 Experience = dto.Experience,
                 Education = dto.Education,
                 Location = dto.Location,
+                PhoneNumber = dto.PhoneNumber,
+                ProfessionalTitle = dto.ProfessionalTitle,
+                ProfessionalSummary = dto.ProfessionalSummary,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow
             };
@@ -71,16 +71,12 @@ namespace Backend.Services.Jobseeker.Implementations
             var createdProfile =
                 await _repository.CreateAsync(profile);
 
+            var user = _userRepository.GetUserById(userId)!;
+            user.Name = ComposeName(dto.FirstName, dto.LastName);
+            _userRepository.UpdateUser(user);
+
             // Return response
-            return new JobSeekerProfileDto
-            {
-                Skills = createdProfile.Skills,
-                Experience = createdProfile.Experience,
-                Education = createdProfile.Education,
-                Location = createdProfile.Location,
-                CreatedAt = createdProfile.CreatedAt,
-                UpdatedAt = createdProfile.UpdatedAt
-            };
+            return MapProfile(createdProfile, user.Name, user.Email);
         }
 
         // Update Job Seeker Profile
@@ -100,20 +96,20 @@ namespace Backend.Services.Jobseeker.Implementations
             profile.Experience = dto.Experience;
             profile.Education = dto.Education;
             profile.Location = dto.Location;
+            profile.PhoneNumber = dto.PhoneNumber;
+            profile.ProfessionalTitle = dto.ProfessionalTitle;
+            profile.ProfessionalSummary = dto.ProfessionalSummary;
             profile.UpdatedAt = DateTime.UtcNow;
 
             var updatedProfile =
                 await _repository.UpdateAsync(profile);
 
-            return new JobSeekerProfileDto
-            {
-                Skills = updatedProfile.Skills,
-                Experience = updatedProfile.Experience,
-                Education = updatedProfile.Education,
-                Location = updatedProfile.Location,
-                CreatedAt = updatedProfile.CreatedAt,
-                UpdatedAt = updatedProfile.UpdatedAt
-            };
+            var user = _userRepository.GetUserById(userId);
+            if (user == null) return null;
+            user.Name = ComposeName(dto.FirstName, dto.LastName);
+            _userRepository.UpdateUser(user);
+
+            return MapProfile(updatedProfile, user.Name, user.Email);
         }
 
         // Upload Job Seeker CV
@@ -205,6 +201,76 @@ namespace Backend.Services.Jobseeker.Implementations
 
                 UploadedAt =
                     savedCv.UploadedAt
+            };
+        }
+
+        public async Task<(byte[] Content, string ContentType, string FileName)?>
+            GetCvAsync(int userId)
+        {
+            var cv = await _repository.GetCvByUserIdAsync(userId);
+
+            if (cv == null)
+            {
+                return null;
+            }
+
+            var storageFolder = Path.GetFullPath(Path.Combine(
+                _environment.ContentRootPath,
+                "Storage",
+                "CVs"));
+            var storedFileName = Path.GetFileName(cv.StoredFileName);
+            var filePath = Path.GetFullPath(Path.Combine(
+                storageFolder,
+                storedFileName));
+
+            if (storedFileName != cv.StoredFileName ||
+                !filePath.StartsWith(
+                    storageFolder + Path.DirectorySeparatorChar,
+                    StringComparison.OrdinalIgnoreCase) ||
+                !File.Exists(filePath))
+            {
+                return null;
+            }
+
+            var contentType = Path.GetExtension(storedFileName).ToLowerInvariant() switch
+            {
+                ".pdf" => "application/pdf",
+                ".doc" => "application/msword",
+                ".docx" => "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                _ => "application/octet-stream"
+            };
+
+            return (
+                await File.ReadAllBytesAsync(filePath),
+                contentType,
+                cv.OriginalFileName);
+        }
+
+        private static string ComposeName(string firstName, string lastName) =>
+            string.Join(" ", new[] { firstName, lastName }
+                .Where(value => !string.IsNullOrWhiteSpace(value))
+                .Select(value => value.Trim()));
+
+        private static JobSeekerProfileDto MapProfile(
+            JobSeekerProfile profile,
+            string name,
+            string email)
+        {
+            var nameParts = name.Trim().Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
+            return new JobSeekerProfileDto
+            {
+                FirstName = nameParts.ElementAtOrDefault(0) ?? string.Empty,
+                LastName = nameParts.ElementAtOrDefault(1) ?? string.Empty,
+                Email = email,
+                PhoneNumber = profile.PhoneNumber,
+                ProfessionalTitle = profile.ProfessionalTitle,
+                ProfessionalSummary = profile.ProfessionalSummary,
+                Skills = profile.Skills,
+                Experience = profile.Experience,
+                Education = profile.Education,
+                Location = profile.Location,
+                CreatedAt = profile.CreatedAt,
+                UpdatedAt = profile.UpdatedAt
             };
         }
     }

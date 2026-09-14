@@ -7,11 +7,12 @@ import { finalize } from 'rxjs';
 import { VacancyModel } from '../../../../core/models/vacancy.model';
 import { VacancyService } from '../../../../core/services/vacancy.service';
 import { CompanyService } from '../../../../core/services/company.service';
+import { EmployerSidebar } from '../../../../shared/components/employer-sidebar/employer-sidebar';
 
 @Component({
   selector: 'app-vacancy-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, EmployerSidebar],
   templateUrl: './vacancy-list.html',
   styleUrl: './vacancy-list.css'
 })
@@ -22,6 +23,7 @@ export class VacancyList implements OnInit {
   selectedDepartment = '';
   vacancies: VacancyModel[] = [];
   isLoading = false;
+  closingVacancyId: number | null = null;
   errorMessage = '';
   private readonly destroyRef = inject(DestroyRef);
   private readonly cdr = inject(ChangeDetectorRef);
@@ -29,6 +31,10 @@ export class VacancyList implements OnInit {
   constructor(private router: Router, private vacancyService: VacancyService, private companyService: CompanyService) {}
 
   ngOnInit(): void {
+    this.loadVacancies();
+  }
+
+  private loadVacancies(): void {
     const companyId = this.companyService.getCurrentCompanyId();
     if (companyId === null) {
       this.errorMessage = 'Your account is not linked to a company yet. Vacancies cannot be loaded until that association is available.';
@@ -79,5 +85,38 @@ export class VacancyList implements OnInit {
   }
   editVacancy(vacancy: VacancyModel): void {
     this.router.navigate(['/employer/vacancy-edit', vacancy.vacancyId]);
+  }
+
+  closeVacancy(vacancy: VacancyModel): void {
+    const vacancyId = Number(vacancy.vacancyId);
+    if (
+      !Number.isInteger(vacancyId) ||
+      vacancyId <= 0 ||
+      (vacancy.status ?? '').toLowerCase() !== 'open' ||
+      this.closingVacancyId !== null
+    ) return;
+
+    if (!window.confirm('Are you sure you want to close this vacancy?')) return;
+
+    this.closingVacancyId = vacancyId;
+    this.errorMessage = '';
+    this.vacancyService.closeVacancy(vacancyId).pipe(
+      takeUntilDestroyed(this.destroyRef),
+      finalize(() => {
+        this.closingVacancyId = null;
+        this.cdr.markForCheck();
+      })
+    ).subscribe({
+      next: response => {
+        if (!response) {
+          this.errorMessage = 'No close confirmation was returned. Reload the vacancies before retrying.';
+          return;
+        }
+        this.loadVacancies();
+      },
+      error: () => {
+        this.errorMessage = 'Unable to close the vacancy. Please try again.';
+      }
+    });
   }
 }

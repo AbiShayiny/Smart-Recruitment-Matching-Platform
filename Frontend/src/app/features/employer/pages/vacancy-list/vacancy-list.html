@@ -1,7 +1,8 @@
 <div class="page-shell min-h-[100vh] [background:#f8fafc]">
+  <app-employer-sidebar />
 
   <!-- Sidebar -->
-  <aside class="sidebar fixed left-[0] top-[0] bottom-[0] w-[280px] [background:#ffffff] [border-right:1px_solid_#e2e8f0] flex flex-col z-[20]">
+  <aside hidden class="sidebar fixed left-[0] top-[0] bottom-[0] w-[280px] [background:#ffffff] [border-right:1px_solid_#e2e8f0] flex flex-col z-[20]">
 
     <div class="brand h-[88px] flex items-center [padding:0_28px] gap-[12px] [border-bottom:1px_solid_#f1f5f9]">
       <div class="brand-icon w-[38px] h-[38px] flex items-center justify-center rounded-[10px] [background:#f97316] text-[white]">
@@ -421,7 +422,8 @@
                       'active': vacancy.status === 'Open',
                       'draft': vacancy.status === 'Draft',
                       'closed': vacancy.status === 'Closed',
-                      'archived': vacancy.status === 'Archived'
+                      'archived': vacancy.status === 'Archived',
+                      '!bg-red-50 !text-red-700 border border-red-200': (vacancy.status || '').toLowerCase() === 'closed'
                     }"
                   >
                     {{ vacancy.status }}
@@ -451,6 +453,16 @@
                       (click)="editVacancy(vacancy)"
                      class="[background:#ffffff] [padding:6px_9px] text-[#475569] cursor-pointer">
                       Edit
+                    </button>
+
+                    <button
+                      *ngIf="(vacancy.status || '').toLowerCase() === 'open'"
+                      type="button"
+                      title="Close"
+                      (click)="closeVacancy(vacancy)"
+                      [disabled]="closingVacancyId !== null"
+                      class="[background:#ffffff] [padding:6px_9px] text-red-600 cursor-pointer disabled:opacity-50">
+                      Close
                     </button>
 
                   </div>

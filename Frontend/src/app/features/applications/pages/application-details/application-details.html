@@ -185,6 +185,16 @@
     </div>
 
 
+    @if (loading) {
+      <section class="content-card [background:white] [padding:24px]">Loading application details...</section>
+    } @else if (loadError) {
+      <section class="content-card [background:white] [padding:24px] text-red-700">{{ loadError }}</section>
+    } @else if (applicant) {
+
+    @if (actionMessage) {
+      <p class="[padding:10px_14px] [background:#ecfdf5] text-green-700">{{ actionMessage }}</p>
+    }
+
     <!-- Candidate Hero -->
     <section class="candidate-hero relative overflow-hidden min-h-[190px] [padding:25px] mb-[20px] [background:white] flex items-center justify-between gap-[25px] [box-shadow:0_3px_12px_rgba(15,_23,_42,_0.035)]">
 
@@ -210,20 +220,20 @@
 
           <div class="candidate-title-row flex items-center flex-wrap gap-[7px] mb-[5px]">
 
-            <h1 class="[margin:0] text-[26px] leading-[34px] tracking-[-0.02em]">Candidate Details</h1>
+            <h1 class="[margin:0] text-[26px] leading-[34px] tracking-[-0.02em]">{{ candidateName || 'Candidate' }}</h1>
 
             <span class="id-pill [padding:4px_8px] rounded-[6px] [background:#eff4ff] text-[#64748b]">
-              {{ applicationId || 'Application ID unavailable' }}
+              Application #{{ applicant.applicationId }}
             </span>
 
             <span class="status-pill [padding:4px_8px] rounded-[6px] [background:#dae2fd] text-[#475569]">
-              Profile Data Pending
+              {{ applicant.status }}
             </span>
 
           </div>
 
           <p class="candidate-role [margin:0_0_9px] text-[#565e74]">
-            Candidate profile information will appear here
+            {{ applicant.professionalTitle || applicant.jobTitle }}
           </p>
 
           <div class="candidate-meta flex items-center flex-wrap gap-[9px] text-[#64748b] text-[10px]">
@@ -232,7 +242,7 @@
               <span class="material-symbols-outlined items-center gap-[4px] text-[#9d4300]">
                 schedule
               </span>
-              Application date unavailable
+              Applied {{ applicant.appliedAt | date:'mediumDate' }}
             </span>
 
             <span class="separator items-center gap-[4px] text-[#cbd5e1]">•</span>
@@ -241,7 +251,7 @@
               <span class="material-symbols-outlined items-center gap-[4px] text-[#9d4300]">
                 location_on
               </span>
-              Location unavailable
+              {{ applicant.location || 'Location not provided' }}
             </span>
 
             <span class="separator items-center gap-[4px] text-[#cbd5e1]">•</span>
@@ -250,7 +260,7 @@
               <span class="material-symbols-outlined items-center gap-[4px] text-[#9d4300]">
                 work_history
               </span>
-              Experience unavailable
+              {{ applicant.experience || 'Experience not provided' }}
             </span>
 
           </div>
@@ -287,7 +297,7 @@
 
             <div class="score-value absolute [inset:0] flex flex-col items-center justify-center">
 
-              <strong class="text-[21px] leading-[23px]">—</strong>
+              <strong class="text-[21px] leading-[23px]">{{ applicant.matchScore ?? '—' }}{{ applicant.matchScore !== null ? '%' : '' }}</strong>
 
               <span class="text-[#64748b]">FIT</span>
 
@@ -297,11 +307,11 @@
 
           <div class="score-info flex flex-col gap-[2px]">
 
-            <strong class="text-[12px]">Match score unavailable</strong>
+            <strong class="text-[12px]">{{ applicant.matchScore !== null ? 'Candidate match score' : 'Match score unavailable' }}</strong>
 
             <span class="text-[#64748b] text-[9px]">Deterministic Rule Fit</span>
 
-            <b class="text-[#f97316] text-[9px]">Ranking unavailable</b>
+            <b class="text-[#f97316] text-[9px]">Based on saved profile data</b>
 
           </div>
 
@@ -313,13 +323,13 @@
           <button
             type="button"
             class="secondary-action min-h-[39px] [padding:0_13px] inline-flex items-center justify-center gap-[6px] cursor-pointer [background:#e5eeff] text-[#0b1c30]"
-            (click)="openCvModal()">
+            (click)="openCvModal()" [disabled]="cvLoading">
 
             <span class="material-symbols-outlined">
               visibility
             </span>
 
-            View CV
+            {{ cvLoading ? 'Loading CV...' : 'View CV' }}
 
           </button>
 
@@ -374,7 +384,7 @@
             </div>
 
             <span class="header-tag [padding:5px_8px] rounded-[6px] [background:#e5eeff] text-[#475569]">
-              Matching data unavailable
+              {{ applicant.matchScore !== null ? 'Profile Match' : 'No match score' }}
             </span>
 
           </div>
@@ -396,16 +406,9 @@
 
               </div>
 
-              <div class="empty-analysis min-h-[125px] [padding:20px] rounded-[12px] [background:#eff4ff] flex flex-col items-center justify-center text-center">
-
-                <span class="material-symbols-outlined text-[#94a3b8]">
-                  data_info_alert
-                </span>
-
-                <p class="max-w-[230px] [margin:8px_0_0] text-[#64748b] text-[10px] leading-[16px]">
-                  Candidate competency data is not available yet.
-                </p>
-
+              <div class="skills-list min-h-[125px] [padding:20px] rounded-[12px] [background:#eff4ff]">
+                @for (skill of applicant.matchedSkills; track skill) { <span class="header-tag">{{ skill }}</span> }
+                @if (applicant.matchedSkills.length === 0) { <p>No matched skills.</p> }
               </div>
 
             </div>
@@ -425,16 +428,9 @@
 
               </div>
 
-              <div class="empty-analysis min-h-[125px] [padding:20px] rounded-[12px] [background:#eff4ff] flex flex-col items-center justify-center text-center">
-
-                <span class="material-symbols-outlined text-[#94a3b8]">
-                  data_info_alert
-                </span>
-
-                <p class="max-w-[230px] [margin:8px_0_0] text-[#64748b] text-[10px] leading-[16px]">
-                  Matching deficit information is not available yet.
-                </p>
-
+              <div class="skills-list min-h-[125px] [padding:20px] rounded-[12px] [background:#eff4ff]">
+                @for (skill of applicant.missingSkills; track skill) { <span class="header-tag">{{ skill }}</span> }
+                @if (applicant.missingSkills.length === 0) { <p>No missing skills.</p> }
               </div>
 
             </div>
@@ -450,8 +446,7 @@
 
             <p class="[margin:0] text-[#64748b] text-[10px] leading-[17px]">
               <strong class="text-[#0b1c30]">Deterministic Rule Evaluation:</strong>
-              Match evaluation will be displayed after the application
-              and vacancy data are connected to the backend.
+              This result uses the candidate's saved profile and the vacancy requirements.
             </p>
 
           </div>
@@ -484,21 +479,12 @@
           </div>
 
 
-          <div class="empty-profile min-h-[175px] [padding:24px] flex flex-col items-center justify-center text-center">
-
-            <div class="empty-icon w-[46px] h-[46px] mb-[10px] rounded-[13px] [background:#eff4ff] text-[#94a3b8] flex items-center justify-center">
-              <span class="material-symbols-outlined">
-                person_search
-              </span>
-            </div>
-
-            <h3 class="[margin:0] text-[13px]">Candidate profile unavailable</h3>
-
-            <p class="max-w-[390px] [margin:6px_0_0] text-[#64748b] text-[10px] leading-[17px]">
-              Profile information will appear here when application
-              data is available.
-            </p>
-
+          <div class="min-h-[175px] [padding:24px]">
+            <h3>{{ applicant.professionalTitle || 'Professional profile' }}</h3>
+            <p>{{ applicant.professionalSummary || 'No professional summary provided.' }}</p>
+            <p><strong>Email:</strong> {{ applicant.email || 'Not provided' }}</p>
+            <p><strong>Phone:</strong> {{ applicant.phoneNumber || 'Not provided' }}</p>
+            <p><strong>Location:</strong> {{ applicant.location || 'Not provided' }}</p>
           </div>
 
         </section>
@@ -527,7 +513,7 @@
             </div>
 
             <span class="header-tag [padding:5px_8px] rounded-[6px] [background:#e5eeff] text-[#475569]">
-              Data unavailable
+              Candidate profile
             </span>
 
           </div>
@@ -541,11 +527,11 @@
               </span>
             </div>
 
-            <h3 class="[margin:0] text-[13px]">No career history available</h3>
+            <h3 class="[margin:0] text-[13px]">Experience</h3>
 
             <p class="max-w-[390px] [margin:6px_0_0] text-[#64748b] text-[10px] leading-[17px]">
-              Verified career information will appear after the
-              candidate profile is loaded.
+              {{ applicant.experience || 'No experience information provided.' }}
+              <br><strong>Education:</strong> {{ applicant.education || 'Not provided' }}
             </p>
 
           </div>
@@ -582,16 +568,9 @@
           </div>
 
 
-          <div class="skills-empty min-h-[115px] flex items-center justify-center gap-[8px] text-[#94a3b8] text-[10px]">
-
-            <span class="material-symbols-outlined">
-              psychology_alt
-            </span>
-
-            <p class="[margin:0]">
-              No verified skills are available yet.
-            </p>
-
+          <div class="skills-list min-h-[115px] [padding:20px]">
+            @for (skill of skills; track skill) { <span class="header-tag">{{ skill }}</span> }
+            @if (skills.length === 0) { <p>No skills provided.</p> }
           </div>
 
         </section>
@@ -626,11 +605,11 @@
               <span class="text-[#64748b] tracking-[0.08em]">ACTIVE REQUISITION</span>
 
               <strong class="text-[12px] leading-[17px]">
-                Vacancy information unavailable
+                {{ applicant.jobTitle }}
               </strong>
 
               <small class="text-[#64748b] text-[9px]">
-                Requisition details will appear here
+                Vacancy #{{ applicant.vacancyId }}
               </small>
 
             </div>
@@ -640,7 +619,7 @@
 
               <div class="flex items-center justify-between gap-[10px] [padding:8px_0] [border-bottom:1px_solid_#eff4ff]">
                 <span class="text-[#64748b] text-[9px]">Applied Date</span>
-                <strong class="text-[#0b1c30] text-[9px] text-right">Not available</strong>
+                <strong class="text-[#0b1c30] text-[9px] text-right">{{ applicant.appliedAt | date:'medium' }}</strong>
               </div>
 
               <div class="flex items-center justify-between gap-[10px] [padding:8px_0] [border-bottom:1px_solid_#eff4ff]">
@@ -757,10 +736,10 @@
 
               <div class="resume-info min-w-[0] flex flex-col gap-[4px]">
 
-                <strong class="text-[11px]">Resume unavailable</strong>
+                <strong class="text-[11px]">Secure candidate CV</strong>
 
                 <span class="text-[#64748b] text-[9px] leading-[14px]">
-                  Candidate resume has not been loaded.
+                  Access is verified against this application and your company.
                 </span>
 
                 <small class="text-[#f97316]">
@@ -775,28 +754,18 @@
             <button
               type="button"
               class="resume-preview w-[100%] h-[40px] mt-[11px] [background:#e5eeff] text-[#0b1c30] flex items-center justify-center gap-[6px] cursor-pointer"
-              (click)="openCvModal()">
+              (click)="openCvModal()" [disabled]="cvLoading">
 
               <span class="material-symbols-outlined">
                 open_in_new
               </span>
 
-              Preview in Viewer
+              {{ cvLoading ? 'Loading CV...' : 'View CV' }}
 
             </button>
 
 
-            <button
-              type="button"
-              class="download-button w-[100%] mt-[6px] [padding:6px] [border:0] [background:transparent] text-[#64748b] flex items-center justify-center gap-[5px] cursor-pointer">
-
-              <span class="material-symbols-outlined">
-                download
-              </span>
-
-              Download PDF
-
-            </button>
+            @if (cvError) { <p class="text-red-700">{{ cvError }}</p> }
 
           </div>
 
@@ -825,11 +794,12 @@
               analytics
             </span>
 
-            <h3 class="[margin:8px_0_4px] text-[12px]">Comparison unavailable</h3>
+            <h3 class="[margin:8px_0_4px] text-[12px]">Candidate criteria</h3>
 
             <p class="max-w-[230px] [margin:0] text-[#64748b] text-[9px] leading-[15px]">
-              Candidate and vacancy criteria will be compared once
-              application data is available.
+              Experience: {{ applicant.experience || 'Not provided' }}<br>
+              Education: {{ applicant.education || 'Not provided' }}<br>
+              Location: {{ applicant.location || 'Not provided' }}
             </p>
 
           </div>
@@ -840,6 +810,7 @@
 
     </div>
 
+    }
   </main>
 
 
@@ -896,10 +867,10 @@
           </div>
 
           <div>
-            <strong class="text-[11px]">Candidate information unavailable</strong>
+            <strong class="text-[11px]">{{ candidateName || 'Candidate' }}</strong>
             <span class="text-[#64748b]">
               Application ID:
-              {{ applicationId || 'Not available' }}
+              {{ applicant?.applicationId }}
             </span>
           </div>
 
@@ -1004,11 +975,10 @@
             </span>
           </div>
 
-          <h2 class="[margin:0] text-[17px]">Resume unavailable</h2>
+          <h2 class="[margin:0] text-[17px]">{{ cvLoading ? 'Loading secure CV...' : 'CV could not be opened' }}</h2>
 
           <p class="[margin:7px_0_0] text-[#64748b] text-[10px] leading-[17px]">
-            A candidate resume will be displayed here when a resume
-            document is available.
+            {{ cvError || 'Verifying Employer access and retrieving the candidate document.' }}
           </p>
 
         </div>

@@ -6,6 +6,8 @@ using Backend.Repositories.Vacancy.Interfaces;
 using Backend.Services.Application.Interfaces;
 using Backend.Services.Matching.Interfaces;
 using Backend.Services.Notification.Interfaces;
+using Backend.Services.Jobseeker.Interfaces;
+using Backend.Repositories.Interfaces.User;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services.Application.Implementations
@@ -27,19 +29,25 @@ namespace Backend.Services.Application.Implementations
         private readonly IVacancyRepository _vacancyRepository;
         private readonly IMatchingService _matchingService;
         private readonly INotificationService _notificationService;
+        private readonly IJobSeekerService _jobSeekerService;
+        private readonly IUserRepository _userRepository;
 
         public ApplicationService(
             IApplicationRepository applicationRepository,
             IJobSeekerRepository jobSeekerRepository,
             IVacancyRepository vacancyRepository,
             IMatchingService matchingService,
-            INotificationService notificationService)
+            INotificationService notificationService,
+            IJobSeekerService jobSeekerService,
+            IUserRepository userRepository)
         {
             _applicationRepository = applicationRepository;
             _jobSeekerRepository = jobSeekerRepository;
             _vacancyRepository = vacancyRepository;
             _matchingService = matchingService;
             _notificationService = notificationService;
+            _jobSeekerService = jobSeekerService;
+            _userRepository = userRepository;
         }
 
         public async Task<ApplicationDto> ApplyAsync(
@@ -150,25 +158,51 @@ namespace Backend.Services.Application.Implementations
                 var match = await _matchingService.CalculateMatchAsync(
                     application.JobSeekerProfile.UserId,
                     vacancyId);
-
-                applicants.Add(new ApplicantDto
-                {
-                    ApplicationId = application.Id,
-                    JobSeekerProfileId = application.JobSeekerProfileId,
-                    Skills = application.JobSeekerProfile.Skills,
-                    Experience = application.JobSeekerProfile.Experience,
-                    Education = application.JobSeekerProfile.Education,
-                    Location = application.JobSeekerProfile.Location,
-                    Status = application.Status,
-                    AppliedAt = application.AppliedAt,
-                    UpdatedAt = application.UpdatedAt,
-                    MatchScore = match?.MatchScore
-                });
+                applicants.Add(MapApplicant(application, match));
             }
 
             return applicants
                 .OrderByDescending(applicant => applicant.MatchScore)
                 .ToList();
+        }
+
+        public async Task<List<ApplicantDto>> GetEmployerApplicantsAsync(int companyId)
+        {
+            var applications = await _applicationRepository.GetByCompanyAsync(companyId);
+            var applicants = new List<ApplicantDto>();
+
+            foreach (var application in applications)
+            {
+                var match = await _matchingService.CalculateMatchAsync(
+                    application.JobSeekerProfile.UserId,
+                    application.VacancyId);
+                applicants.Add(MapApplicant(application, match));
+            }
+
+            return applicants
+                .OrderByDescending(applicant => applicant.MatchScore)
+                .ToList();
+        }
+
+        public async Task<ApplicantDto?> GetApplicantAsync(int applicationId)
+        {
+            var application = await _applicationRepository.GetByIdAsync(applicationId);
+            if (application == null) return null;
+
+            var match = await _matchingService.CalculateMatchAsync(
+                application.JobSeekerProfile.UserId,
+                application.VacancyId);
+
+            return MapApplicant(application, match);
+        }
+
+        public async Task<(byte[] Content, string ContentType, string FileName)?>
+            GetApplicantCvAsync(int applicationId)
+        {
+            var application = await _applicationRepository.GetByIdAsync(applicationId);
+            return application == null
+                ? null
+                : await _jobSeekerService.GetCvAsync(application.JobSeekerProfile.UserId);
         }
 
         public async Task<ApplicationDto?> UpdateStatusAsync(
@@ -219,6 +253,39 @@ namespace Backend.Services.Application.Implementations
                 Status = application.Status,
                 AppliedAt = application.AppliedAt,
                 UpdatedAt = application.UpdatedAt
+            };
+        }
+
+        private ApplicantDto MapApplicant(
+            JobApplication application,
+            Backend.DTOs.Matching.MatchingResultDto? match)
+        {
+            var user = _userRepository.GetUserById(application.JobSeekerProfile.UserId);
+            var nameParts = (user?.Name ?? string.Empty)
+                .Trim().Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
+
+            return new ApplicantDto
+            {
+                ApplicationId = application.Id,
+                JobSeekerProfileId = application.JobSeekerProfileId,
+                VacancyId = application.VacancyId,
+                JobTitle = application.Vacancy.JobTitle,
+                FirstName = nameParts.ElementAtOrDefault(0) ?? string.Empty,
+                LastName = nameParts.ElementAtOrDefault(1) ?? string.Empty,
+                Email = user?.Email ?? string.Empty,
+                PhoneNumber = application.JobSeekerProfile.PhoneNumber,
+                ProfessionalTitle = application.JobSeekerProfile.ProfessionalTitle,
+                ProfessionalSummary = application.JobSeekerProfile.ProfessionalSummary,
+                Skills = application.JobSeekerProfile.Skills,
+                Experience = application.JobSeekerProfile.Experience,
+                Education = application.JobSeekerProfile.Education,
+                Location = application.JobSeekerProfile.Location,
+                Status = application.Status,
+                AppliedAt = application.AppliedAt,
+                UpdatedAt = application.UpdatedAt,
+                MatchScore = match?.MatchScore,
+                MatchedSkills = match?.MatchedSkills ?? new List<string>(),
+                MissingSkills = match?.MissingSkills ?? new List<string>()
             };
         }
     }

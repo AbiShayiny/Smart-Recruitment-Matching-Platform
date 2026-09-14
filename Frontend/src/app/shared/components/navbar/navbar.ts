@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,6 +13,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './navbar.css'
 })
 export class Navbar {
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
   unreadNotifications = 0;
   contactRequestCount = 0;
@@ -20,6 +23,7 @@ export class Navbar {
   userRole = 'Job Seeker';
 
   logout(): void {
-    console.log('Logout clicked');
+    this.authService.logout();
+    this.router.navigate(['/auth/login']);
   }
 }

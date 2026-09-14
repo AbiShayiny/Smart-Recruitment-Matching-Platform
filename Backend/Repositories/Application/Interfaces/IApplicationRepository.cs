@@ -15,6 +15,8 @@ namespace Backend.Repositories.Application.Interfaces
 
         Task<List<JobApplication>> GetByVacancyAsync(int vacancyId);
 
+        Task<List<JobApplication>> GetByCompanyAsync(int companyId);
+
         Task<JobApplication> UpdateAsync(JobApplication application);
     }
 }

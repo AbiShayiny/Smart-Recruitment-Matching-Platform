@@ -13,4 +13,11 @@ export class CvService {
         `https://localhost:7182/api/JobSeeker/${this.profile.getUserId()}/cv`, data);
     });
   }
+
+  view() {
+    return this.http.get(
+      `https://localhost:7182/api/JobSeeker/${this.profile.getUserId()}/cv`,
+      { responseType: 'blob' }
+    );
+  }
 }

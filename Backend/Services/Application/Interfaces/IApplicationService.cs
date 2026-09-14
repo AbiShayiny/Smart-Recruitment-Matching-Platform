@@ -10,6 +10,13 @@ namespace Backend.Services.Application.Interfaces
 
         Task<List<ApplicantDto>?> GetApplicantsAsync(int vacancyId);
 
+        Task<List<ApplicantDto>> GetEmployerApplicantsAsync(int companyId);
+
+        Task<ApplicantDto?> GetApplicantAsync(int applicationId);
+
+        Task<(byte[] Content, string ContentType, string FileName)?>
+            GetApplicantCvAsync(int applicationId);
+
         Task<ApplicationDto?> UpdateStatusAsync(
             int applicationId,
             string status);

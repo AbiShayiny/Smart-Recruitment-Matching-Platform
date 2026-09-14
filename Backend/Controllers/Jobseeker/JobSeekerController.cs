@@ -107,6 +107,33 @@ namespace Backend.Controllers.Jobseeker
             return Ok(profile);
         }
 
+        // View Job Seeker CV
+        [HttpGet("{userId}/cv")]
+        public async Task<IActionResult> GetCv(int userId)
+        {
+            var userIdClaim =
+                User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (!int.TryParse(userIdClaim, out var authenticatedUserId))
+            {
+                return Unauthorized();
+            }
+
+            if (authenticatedUserId != userId)
+            {
+                return Forbid();
+            }
+
+            var cv = await _service.GetCvAsync(userId);
+
+            if (cv == null)
+            {
+                return NotFound("CV not found.");
+            }
+
+            return File(cv.Value.Content, cv.Value.ContentType, cv.Value.FileName);
+        }
+
         // Upload Job Seeker CV
         [HttpPost("{userId}/cv")]
         public async Task<IActionResult> UploadCv(

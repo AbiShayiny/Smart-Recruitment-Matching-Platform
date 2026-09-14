@@ -110,6 +110,17 @@ namespace Backend.Controllers.Application
             return Ok(applicants);
         }
 
+        [HttpGet("employer/applicants")]
+        [Authorize(Roles = "Employer")]
+        public async Task<IActionResult> GetEmployerApplicants()
+        {
+            var companyId = GetCurrentCompanyId();
+            if (companyId == null) return Forbid();
+
+            return Ok(await _applicationService
+                .GetEmployerApplicantsAsync(companyId.Value));
+        }
+
         [HttpPut("{applicationId}/status")]
         [Authorize(Roles = "Employer")]
         public async Task<IActionResult> UpdateStatus(
@@ -157,6 +168,40 @@ namespace Backend.Controllers.Application
             return int.TryParse(value, out var userId)
                 ? userId
                 : null;
+        }
+
+        [HttpGet("{applicationId}")]
+        [Authorize(Roles = "Employer")]
+        public async Task<IActionResult> GetApplication(int applicationId)
+        {
+            var companyId = GetCurrentCompanyId();
+            if (companyId == null) return Forbid();
+
+            var application = await _applicationRepository.GetByIdAsync(applicationId);
+            if (application == null || application.Vacancy.CompanyId != companyId.Value)
+                return NotFound("Application not found.");
+
+            var applicant = await _applicationService.GetApplicantAsync(applicationId);
+            return applicant == null
+                ? NotFound("Application not found.")
+                : Ok(applicant);
+        }
+
+        [HttpGet("{applicationId}/cv")]
+        [Authorize(Roles = "Employer")]
+        public async Task<IActionResult> GetApplicantCv(int applicationId)
+        {
+            var companyId = GetCurrentCompanyId();
+            if (companyId == null) return Forbid();
+
+            var application = await _applicationRepository.GetByIdAsync(applicationId);
+            if (application == null || application.Vacancy.CompanyId != companyId.Value)
+                return NotFound("Application not found.");
+
+            var cv = await _applicationService.GetApplicantCvAsync(applicationId);
+            return cv == null
+                ? NotFound("CV not found.")
+                : File(cv.Value.Content, cv.Value.ContentType, cv.Value.FileName);
         }
 
         private int? GetCurrentCompanyId()

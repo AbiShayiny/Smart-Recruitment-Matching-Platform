@@ -4,6 +4,8 @@ import { AuthService } from './auth.service';
 import { defer } from 'rxjs';
 
 export type SeekerProfileResponse = {
+  firstName: string; lastName: string; email: string; phoneNumber: string;
+  professionalTitle: string; professionalSummary: string;
   skills: string; experience: string; education: string; location: string;
   createdAt?: string; updatedAt?: string;
 };

@@ -41,4 +41,20 @@ export class CvUpload {
     } catch { this.error = 'CV upload failed. Check your session and try again.'; }
     finally { this.loading = false; this.cdr.markForCheck(); }
   }
+
+  async viewCv(): Promise<void> {
+    if (!this.cv.fileName || this.loading) return;
+    this.loading = true; this.error = '';
+    try {
+      const blob = await firstValueFrom(this.api.view());
+      const url = URL.createObjectURL(blob);
+      window.open(url, '_blank');
+      window.setTimeout(() => URL.revokeObjectURL(url), 60000);
+    } catch {
+      this.error = 'CV could not be opened. Check your session and try again.';
+    } finally {
+      this.loading = false;
+      this.cdr.markForCheck();
+    }
+  }
 }

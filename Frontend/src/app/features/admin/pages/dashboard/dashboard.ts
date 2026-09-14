@@ -23,14 +23,39 @@ export class Dashboard implements OnInit, OnDestroy {
   users: UserModel[] | null = null;
   jobSeekerPercentage: number | null = null;
   employerPercentage: number | null = null;
+  readonly pageSize = 6;
+  currentPage = 1;
 
-  get displayedUsers(): (UserModel | null)[] {
-    return this.users?.length ? this.users.slice(0, 6) : [null];
+  get visibleUserCount(): number | null {
+    return this.users === null ? null : this.users.length;
+  }
+
+  get totalPages(): number {
+    return Math.ceil((this.visibleUserCount ?? 0) / this.pageSize);
+  }
+
+  get displayedUsers(): UserModel[] {
+    if (!this.users) return [];
+    const start = (this.currentPage - 1) * this.pageSize;
+    return this.users.slice(start, start + this.pageSize);
   }
 
   get displayedUserCount(): number | null {
-    return this.users === null ? null : Math.min(this.users.length, 6);
+    return this.users === null ? null : this.displayedUsers.length;
   }
+
+  get pageNumbers(): number[] {
+    return Array.from({ length: this.totalPages }, (_, index) => index + 1);
+  }
+
+  goToPage(page: number): void {
+    if (page < 1 || page > this.totalPages) return;
+    this.currentPage = page;
+  }
+
+  previousPage(): void { this.goToPage(this.currentPage - 1); }
+
+  nextPage(): void { this.goToPage(this.currentPage + 1); }
 
   userInitials(user: UserModel | null): string {
     return user?.name?.trim().split(/\s+/).slice(0, 2).map(part => part[0]).join('') || '—';
@@ -66,10 +91,14 @@ export class Dashboard implements OnInit, OnDestroy {
         this.totalCompanies = response.totalCompanies;
         this.totalVacancies = response.totalVacancies;
         this.totalApplications = response.totalApplications;
-        this.users = users;
-        if (users.length > 0) {
-          this.jobSeekerPercentage = users.filter(user => user.role === 'JobSeeker').length / users.length * 100;
-          this.employerPercentage = users.filter(user => user.role === 'Employer').length / users.length * 100;
+        this.users = users.filter(user => user.role !== 'Administrator');
+        this.currentPage = 1;
+        if (this.users.length > 0) {
+          this.jobSeekerPercentage = this.users.filter(user => user.role === 'JobSeeker').length / this.users.length * 100;
+          this.employerPercentage = this.users.filter(user => user.role === 'Employer').length / this.users.length * 100;
+        } else {
+          this.jobSeekerPercentage = 0;
+          this.employerPercentage = 0;
         }
       },
       error: (error: HttpErrorResponse) => {

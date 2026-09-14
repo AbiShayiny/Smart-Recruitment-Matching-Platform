@@ -5,11 +5,12 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { catchError, finalize, of, switchMap } from 'rxjs';
 import { VacancyService } from '../../../../core/services/vacancy.service';
 import { parseVacancyId, VacancyModel } from '../../../../core/models/vacancy.model';
+import { EmployerSidebar } from '../../../../shared/components/employer-sidebar/employer-sidebar';
 
 @Component({
   selector: 'app-vacancy-details',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, EmployerSidebar],
   templateUrl: './vacancy-details.html',
   styleUrl: './vacancy-details.css'
 })

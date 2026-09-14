@@ -179,24 +179,29 @@ export class VacancyEdit implements OnInit {
   }
 
   confirmCloseVacancy(): void {
-    if (this.vacancyId === null || !this.loadedVacancy || this.isLoading || this.isClosing || this.isSaving) return;
+    const vacancyId = Number(this.vacancyId);
+    if (
+      !Number.isInteger(vacancyId) ||
+      vacancyId <= 0 ||
+      !this.loadedVacancy ||
+      this.isLoading ||
+      this.isClosing ||
+      this.isSaving
+    ) return;
     this.isClosing = true;
     this.errorMessage = '';
     this.showSaveMessage = false;
-    const id = this.vacancyId;
-    this.vacancyService.closeVacancy(id).pipe(
+    this.vacancyService.closeVacancy(vacancyId).pipe(
       takeUntilDestroyed(this.destroyRef),
       finalize(() => { this.isClosing = false; this.cdr.markForCheck(); })
     ).subscribe({
       next: response => {
-        if (this.vacancyId !== id) return;
+        if (this.vacancyId !== vacancyId) return;
         if (!response) { this.errorMessage = 'No close confirmation was returned. Reload the vacancy before retrying.'; return; }
-        this.loadedVacancy = { ...this.loadedVacancy!, status: 'Closed' };
-        this.successMessage = 'Vacancy closed successfully.';
-        this.showSaveMessage = true;
         this.showCloseModal = false;
+        this.router.navigate(['/employer/vacancy-list']);
       },
-      error: () => { if (this.vacancyId === id) this.errorMessage = 'Unable to close the vacancy. Please try again.'; }
+      error: () => { if (this.vacancyId === vacancyId) this.errorMessage = 'Unable to close the vacancy. Please try again.'; }
     });
   }
 

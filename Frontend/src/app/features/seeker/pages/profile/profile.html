@@ -314,8 +314,6 @@
 
     @if (isEditing) {
 
-      <p role="status">Name, email, phone, professional title and summary cannot be saved through the current profile API.</p>
-
       <form
         class="profile-form"
         (ngSubmit)="saveProfile()"
@@ -345,7 +343,6 @@
                 name="firstName"
                 type="text"
                 [(ngModel)]="profile.firstName"
-                readonly
                 placeholder="Enter first name"
               >
 
@@ -363,7 +360,6 @@
                 name="lastName"
                 type="text"
                 [(ngModel)]="profile.lastName"
-                readonly
                 placeholder="Enter last name"
               >
 
@@ -399,7 +395,6 @@
                 name="phone"
                 type="text"
                 [(ngModel)]="profile.phone"
-                readonly
                 placeholder="Enter phone number"
               >
 
@@ -435,7 +430,6 @@
                 name="professionalTitle"
                 type="text"
                 [(ngModel)]="profile.professionalTitle"
-                readonly
                 placeholder="Enter professional title"
               >
 
@@ -466,7 +460,6 @@
               name="summary"
               rows="5"
               [(ngModel)]="profile.summary"
-                readonly
               placeholder="Enter professional summary"
             ></textarea>
 
@@ -516,6 +509,49 @@
         </section>
 
 
+        <!-- Skills -->
+        <section class="form-section">
+          <h3>Skills</h3>
+
+          <div class="form-group full-width">
+            <label for="skillInput">Add a skill</label>
+            <div class="skills-list">
+              <input
+                id="skillInput"
+                name="skillInput"
+                type="text"
+                [(ngModel)]="skillInput"
+                (keydown)="addSkillOnEnter($event)"
+                [readonly]="loading"
+                placeholder="Add a skill..."
+              >
+              <button type="button" class="save-btn" (click)="addSkill()" [disabled]="loading">
+                Add Skill
+              </button>
+            </div>
+          </div>
+
+          @if (profile.skills.length > 0) {
+            <div class="skills-list">
+              @for (skill of profile.skills; track skill; let index = $index) {
+                <span class="skill-chip">
+                  {{ skill }}
+                  <button
+                    type="button"
+                    (click)="removeSkill(index)"
+                    [disabled]="loading"
+                    [attr.aria-label]="'Remove ' + skill"
+                  >
+                    ×
+                  </button>
+                </span>
+              }
+            </div>
+          } @else {
+            <p class="empty-text">No skills added yet.</p>
+          }
+        </section>
+
         <!-- Buttons -->
 
         <div class="form-actions">
@@ -535,7 +571,7 @@
             [disabled]="loading"
             class="save-btn"
           >
-            Save Changes
+            {{ exists ? 'Save Changes' : 'Save Profile' }}
           </button>
 
         </div>

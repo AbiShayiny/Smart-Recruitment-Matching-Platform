@@ -73,7 +73,7 @@
 
         <!-- SETTINGS -->
         <a
-          href="#"
+          routerLink="/admin/settings"
           class="flex items-center gap-3 px-3 py-3 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition text-sm"
         >
           <span class="text-lg">
@@ -594,7 +594,7 @@
               Showing
               <span class="font-bold text-slate-700">{{ displayedUserCount === null ? '—' : displayedUserCount }}</span>
               of
-              <span class="font-bold text-slate-700">{{ totalUsers === null ? '—' : (totalUsers | number:'1.0-0') }}</span>
+              <span class="font-bold text-slate-700">{{ visibleUserCount === null ? '—' : visibleUserCount }}</span>
               users
             </p>
 
@@ -603,51 +603,29 @@
 
               <button
                 type="button"
-                disabled
+                [disabled]="currentPage <= 1"
+                (click)="previousPage()"
                 class="w-8 h-8 rounded-lg border border-slate-200 text-slate-400 hover:bg-slate-50"
               >
                 ‹
               </button>
 
+              @for (page of pageNumbers; track page) {
               <button
                 type="button"
-                disabled
-                class="w-8 h-8 rounded-lg bg-orange-500 text-white text-xs font-bold"
+                (click)="goToPage(page)"
+                [class]="page === currentPage
+                  ? 'w-8 h-8 rounded-lg bg-orange-500 text-white text-xs font-bold'
+                  : 'w-8 h-8 rounded-lg border border-slate-200 text-slate-600 text-xs hover:bg-slate-50'"
               >
-                —
+                {{ page }}
               </button>
+              }
 
               <button
                 type="button"
-                disabled
-                class="w-8 h-8 rounded-lg border border-slate-200 text-slate-600 text-xs hover:bg-slate-50"
-              >
-                —
-              </button>
-
-              <button
-                type="button"
-                disabled
-                class="w-8 h-8 rounded-lg border border-slate-200 text-slate-600 text-xs hover:bg-slate-50"
-              >
-                —
-              </button>
-
-              <span class="px-1 text-slate-400">
-                —
-              </span>
-
-              <button
-                type="button"
-                disabled
-                class="w-10 h-8 rounded-lg border border-slate-200 text-slate-600 text-xs hover:bg-slate-50"
-              >
-                —
-              </button>
-
-              <button
-                type="button"
-                disabled
+                [disabled]="currentPage >= totalPages"
+                (click)="nextPage()"
                 class="w-8 h-8 rounded-lg border border-slate-200 text-slate-400 hover:bg-slate-50"
               >
                 ›
@@ -698,7 +676,7 @@
               </span>
 
               <span class="text-xs text-slate-400">
-                {{ totalUsers === null ? '—' : (totalUsers | number:'1.0-0') }} Total
+                {{ visibleUserCount === null ? '—' : visibleUserCount }} Total
               </span>
 
             </div>

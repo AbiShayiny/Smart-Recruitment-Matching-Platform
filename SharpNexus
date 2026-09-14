@@ -3,3 +3,6 @@ S.Abishayiny
 S.Dishanthy
 S.Dakshana
 S.Anojan
+
+
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned

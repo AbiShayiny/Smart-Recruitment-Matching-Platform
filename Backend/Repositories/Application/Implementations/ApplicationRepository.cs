@@ -61,6 +61,15 @@ namespace Backend.Repositories.Application.Implementations
                 .ToListAsync();
         }
 
+        public async Task<List<JobApplication>> GetByCompanyAsync(int companyId)
+        {
+            return await _context.JobApplications
+                .Include(application => application.JobSeekerProfile)
+                .Include(application => application.Vacancy)
+                .Where(application => application.Vacancy.CompanyId == companyId)
+                .ToListAsync();
+        }
+
         public async Task<JobApplication> UpdateAsync(
             JobApplication application)
         {

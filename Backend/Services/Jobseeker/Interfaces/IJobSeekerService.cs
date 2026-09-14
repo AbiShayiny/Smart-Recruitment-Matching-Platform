@@ -17,5 +17,8 @@ namespace Backend.Services.Jobseeker.Interfaces
         Task<CvResponseDto> UploadCvAsync(
             int userId,
             UploadCvDto dto);
+
+        Task<(byte[] Content, string ContentType, string FileName)?>
+            GetCvAsync(int userId);
     }
 }

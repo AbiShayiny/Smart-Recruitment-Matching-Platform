@@ -8,11 +8,13 @@ import { finalize } from 'rxjs';
 import { VacancyService } from '../../../../core/services/vacancy.service';
 import { CompanyService } from '../../../../core/services/company.service';
 import { CreateVacancyDto, vacancyValidation } from '../../../../core/models/vacancy.model';
+import { EmployerSidebar } from '../../../../shared/components/employer-sidebar/employer-sidebar';
 
 @Component({
   selector: 'app-vacancy-create',
   standalone: true,
   imports: [
+    EmployerSidebar,
     CommonModule,
     FormsModule,
     RouterLink

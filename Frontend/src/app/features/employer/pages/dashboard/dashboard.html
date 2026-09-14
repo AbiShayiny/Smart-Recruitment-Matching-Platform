@@ -1,7 +1,8 @@
 <div class="dashboard-shell min-h-[100vh] [background:#f8f9ff] text-[#0b1c30]">
+  <app-employer-sidebar />
 
   <!-- Sidebar -->
-  <aside class="sidebar fixed left-[0] top-[0] w-[280px] h-[100vh] [background:#ffffff] [border-right:1px_solid_#edf0f6] flex flex-col justify-between [padding:24px_14px] z-[20]">
+  <aside hidden class="sidebar fixed left-[0] top-[0] w-[280px] h-[100vh] [background:#ffffff] [border-right:1px_solid_#edf0f6] flex flex-col justify-between [padding:24px_14px] z-[20]">
 
     <div class="brand-section flex items-center gap-[12px] [padding:0_10px_28px]">
       <div class="brand-logo w-[38px] h-[38px] rounded-[11px] [background:#f97316] text-[#ffffff] flex items-center justify-center">SR</div>
@@ -15,31 +16,31 @@
     <nav class="sidebar-nav flex flex-col gap-[5px]">
 
       <a class="nav-item active min-h-[44px] [padding:0_13px] rounded-[9px] flex items-center gap-[11px] no-underline cursor-pointer" routerLink="/employer/dashboard">
-        <span class="material-symbols-outlined">dashboard</span>
+        <span class="w-5 text-center" aria-hidden="true">●</span>
         <span>Dashboard</span>
       </a>
 
       <a
         class="nav-item min-h-[44px] [padding:0_13px] rounded-[9px] flex items-center gap-[11px] no-underline cursor-pointer" routerLink="/employer/company-profile">
-        <span class="material-symbols-outlined">domain</span>
+        <span class="w-5 text-center" aria-hidden="true">●</span>
         <span>Company Profile</span>
       </a>
 
       <a
         class="nav-item min-h-[44px] [padding:0_13px] rounded-[9px] flex items-center gap-[11px] no-underline cursor-pointer" routerLink="/employer/vacancy-list">
-        <span class="material-symbols-outlined">work</span>
+        <span class="w-5 text-center" aria-hidden="true">●</span>
         <span>Vacancies</span>
       </a>
 
       <a
         class="nav-item min-h-[44px] [padding:0_13px] rounded-[9px] flex items-center gap-[11px] no-underline cursor-pointer" routerLink="/applications/applicants-list">
-        <span class="material-symbols-outlined">group</span>
+        <span class="w-5 text-center" aria-hidden="true">●</span>
         <span>Applicants</span>
       </a>
 
       <a
         class="nav-item min-h-[44px] [padding:0_13px] rounded-[9px] flex items-center gap-[11px] no-underline cursor-pointer" routerLink="/contact/contact-requests">
-        <span class="material-symbols-outlined">contact_mail</span>
+        <span class="w-5 text-center" aria-hidden="true">●</span>
         <span>Contact Requests</span>
 
         <span
@@ -53,17 +54,8 @@
 
     <div class="sidebar-bottom flex flex-col gap-[12px]">
 
-      <div class="prototype-card flex items-center gap-[10px] [padding:12px] rounded-[10px] [background:#eff4ff]">
-        <span class="material-symbols-outlined text-[#f97316]">science</span>
-
-        <div>
-          <strong class="block text-[12px]">Prototype Demo</strong>
-          <small class="block mt-[3px] text-[#6b7280] text-[10px]">v1.4 Internal Release</small>
-        </div>
-      </div>
-
-      <button class="sign-out [background:transparent] text-[#58677a] flex items-center gap-[11px] [padding:10px_13px] cursor-pointer text-left">
-        <span class="material-symbols-outlined">logout</span>
+        <button type="button" (click)="logout()" class="sign-out [background:transparent] text-[#58677a] flex items-center gap-[11px] [padding:10px_13px] cursor-pointer text-left">
+        <span class="w-5 text-center" aria-hidden="true">↪</span>
         <span>Sign Out</span>
       </button>
 
@@ -140,21 +132,10 @@
           </p>
         </div>
 
-        <button
-          class="primary-button cursor-pointer [background:#f97316] text-[#ffffff] [padding:0_17px] inline-flex items-center justify-center gap-[8px] whitespace-nowrap [box-shadow:0_4px_12px_rgba(249,_115,_22,_0.18)]"
-          (click)="createVacancy()">
-
-          <span class="material-symbols-outlined">
-            add
-          </span>
-
-          Create Vacancy
-        </button>
-
       </section>
 
       <!-- Metrics -->
-      <section class="metrics-grid grid grid-cols-[repeat(4,_minmax(0,_1fr))] gap-[16px] mb-[38px]">
+      <section class="metrics-grid grid grid-cols-[repeat(3,_minmax(0,_1fr))] gap-[16px] mb-[38px]">
 
         <article class="metric-card [background:#ffffff] [padding:20px] min-h-[158px] [box-shadow:0_2px_8px_rgba(17,_24,_39,_0.025)]">
 
@@ -218,34 +199,6 @@
 
           <p class="[margin:8px_0_0]">
             Candidates in your pipeline
-          </p>
-
-        </article>
-
-        <article class="metric-card [background:#ffffff] [padding:20px] min-h-[158px] [box-shadow:0_2px_8px_rgba(17,_24,_39,_0.025)]">
-
-          <div class="metric-top flex items-center justify-between gap-[10px]">
-            <span class="text-[#718096] uppercase tracking-[0.08em]">Pending Contact Requests</span>
-
-            <div class="metric-icon orange w-[39px] h-[39px] rounded-[11px] flex items-center justify-center">
-              <span class="material-symbols-outlined">
-                contact_phone
-              </span>
-            </div>
-          </div>
-
-          <div class="metric-number mt-[19px] leading-[1] tracking-[-0.02em]">
-            {{ pendingContactRequests }}
-          </div>
-
-          <p
-            *ngIf="pendingContactRequests > 0"
-            class="attention-text [margin:8px_0_0]">
-            Requires attention
-          </p>
-
-          <p *ngIf="pendingContactRequests === 0" class="[margin:8px_0_0]">
-            No pending requests
           </p>
 
         </article>

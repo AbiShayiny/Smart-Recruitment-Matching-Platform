@@ -4,14 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { finalize, Observable } from 'rxjs';
+import { finalize, Observable, switchMap } from 'rxjs';
 import { AuthService } from '../../../../core/services/auth.service';
 import { CompanyDto, CompanyModel, CompanyService } from '../../../../core/services/company.service';
+import { EmployerSidebar } from '../../../../shared/components/employer-sidebar/employer-sidebar';
 
 @Component({
   selector: 'app-company-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, EmployerSidebar],
   templateUrl: './company-profile.html',
   styleUrl: './company-profile.css'
 })
@@ -22,6 +23,7 @@ export class CompanyProfile implements OnInit {
   companyId: number | null = null;
   loadedCompany: CompanyModel | null = null;
   canCreateCompany = false;
+  isEditing = false;
   private readonly authService = inject(AuthService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly cdr = inject(ChangeDetectorRef);
@@ -46,9 +48,11 @@ export class CompanyProfile implements OnInit {
         this.companyName = company.companyName;
         this.description = company.description ?? '';
         this.industry = company.industry ?? '';
+        this.location = company.location ?? '';
         this.website = company.website ?? '';
         this.contactEmail = company.contactEmail ?? '';
         this.contactPhone = company.contactPhone ?? '';
+        this.isEditing = false;
       },
       error: () => { this.errorMessage = 'Unable to load your company profile. Please try again later.'; }
     });
@@ -58,6 +62,7 @@ export class CompanyProfile implements OnInit {
   legalName = '';
   website = '';
   industry = '';
+  location = '';
   companySize = '';
   foundedYear = '';
   headquarters = '';
@@ -76,15 +81,9 @@ export class CompanyProfile implements OnInit {
   get profileCompletion(): number {
     const fields = [
       this.companyName,
-      this.legalName,
       this.website,
       this.industry,
-      this.companySize,
-      this.headquarters,
-      this.address,
-      this.city,
-      this.country,
-      this.contactName,
+      this.location,
       this.contactEmail,
       this.contactPhone,
       this.description
@@ -106,7 +105,7 @@ export class CompanyProfile implements OnInit {
       companyName: this.companyName.trim(),
       description: this.description.trim() || null,
       industry: this.industry || null,
-      location: this.loadedCompany?.location ?? null,
+      location: this.location.trim() || null,
       website: this.website.trim() || null,
       contactEmail: this.contactEmail.trim() || null,
       contactPhone: this.contactPhone.trim() || null
@@ -114,7 +113,7 @@ export class CompanyProfile implements OnInit {
     if (!dto.companyName) { this.errorMessage = 'Enter your company name.'; return; }
     const limits: [string | null, number][] = [
       [dto.companyName, 150], [dto.description, 1000], [dto.industry, 100],
-      [dto.website, 250], [dto.contactEmail, 150], [dto.contactPhone, 30]
+      [dto.location, 200], [dto.website, 250], [dto.contactEmail, 150], [dto.contactPhone, 30]
     ];
     if (limits.some(([value, limit]) => (value?.length ?? 0) > limit)) {
       this.errorMessage = 'One or more fields exceeds the supported length. Check the company name (150), description (1000), industry (100), website (250), email (150) and phone (30).';
@@ -127,27 +126,29 @@ export class CompanyProfile implements OnInit {
     this.errorMessage = '';
     this.isSaving = true;
     const creating = this.companyId === null;
-    const request: Observable<CompanyModel | { message: string } | null> = this.companyId === null
+    const request: Observable<CompanyModel | null> = this.companyId === null
       ? this.companyService.createCompany(dto)
-      : this.companyService.updateCompany(this.companyId, dto);
+      : this.companyService.updateCompany(this.companyId, dto).pipe(
+          switchMap(() => this.companyService.getCompany(this.companyId!))
+        );
     request.pipe(
       takeUntilDestroyed(this.destroyRef),
       finalize(() => { this.isSaving = false; this.cdr.markForCheck(); })
     ).subscribe({
       next: response => {
         if (!response) { this.errorMessage = 'No save confirmation was returned. Reload the profile before retrying.'; return; }
-        if (creating) {
-          const company = response as CompanyModel;
-          if (!Number.isInteger(company.companyId) || company.companyId <= 0) {
+        const company = response;
+        if (!Number.isInteger(company.companyId) || company.companyId <= 0) {
+          if (creating) {
             this.errorMessage = 'No valid company confirmation was returned. Sign in again before retrying.';
-            return;
           }
-          this.companyId = company.companyId;
-          this.loadedCompany = company;
-          this.canCreateCompany = false;
-        } else {
-          this.loadedCompany = { ...this.loadedCompany!, ...dto };
+          return;
         }
+        this.companyId = company.companyId;
+        this.loadedCompany = company;
+        this.applyCompany(company);
+        this.canCreateCompany = false;
+        this.isEditing = false;
         this.saved = true;
       },
       error: error => {
@@ -158,8 +159,28 @@ export class CompanyProfile implements OnInit {
     });
   }
 
+  editProfile(): void {
+    if (this.loadedCompany) this.isEditing = true;
+  }
+
   cancel(): void {
-    this.router.navigate(['/employer/dashboard']);
+    if (this.loadedCompany) this.applyCompany(this.loadedCompany);
+    this.isEditing = false;
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/auth/login']);
+  }
+
+  private applyCompany(company: CompanyModel): void {
+    this.companyName = company.companyName;
+    this.description = company.description ?? '';
+    this.industry = company.industry ?? '';
+    this.location = company.location ?? '';
+    this.website = company.website ?? '';
+    this.contactEmail = company.contactEmail ?? '';
+    this.contactPhone = company.contactPhone ?? '';
   }
 
   goToDashboard(): void {

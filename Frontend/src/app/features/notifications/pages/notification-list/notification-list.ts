@@ -3,13 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { NotificationService } from '../../../../core/services/notification.service';
+import { EmployerSidebar } from '../../../../shared/components/employer-sidebar/employer-sidebar';
 
 type NotificationFilter = 'all' | 'unread' | 'read';
 
 @Component({
   selector: 'app-notification-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, EmployerSidebar],
   templateUrl: './notification-list.html',
   styleUrl: './notification-list.css',
 })

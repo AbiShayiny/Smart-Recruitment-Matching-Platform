@@ -6,6 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ContactRequestService } from '../../../../core/services/contact-request.service';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { EmployerSidebar } from '../../../../shared/components/employer-sidebar/employer-sidebar';
 
 type RequestStatus = 'all' | 'pending' | 'accepted' | 'declined';
 
@@ -15,7 +16,8 @@ type RequestStatus = 'all' | 'pending' | 'accepted' | 'declined';
   imports: [
     CommonModule,
     FormsModule,
-    RouterLink
+    RouterLink,
+    EmployerSidebar
   ],
   templateUrl: './contact-requests.html',
   styleUrl: './contact-requests.css',
