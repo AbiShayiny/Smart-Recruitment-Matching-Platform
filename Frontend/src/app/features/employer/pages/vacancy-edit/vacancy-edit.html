@@ -1,0 +1,993 @@
+<div class="edit-page min-h-[100vh] [padding:32px] [background:#f8f9ff] text-[#0b1c30]">
+
+  <!-- Header -->
+  <header class="page-header flex items-center justify-between gap-[24px] mb-[22px]">
+    <div class="header-left flex items-center flex-wrap gap-[18px]">
+
+      <div class="header-title flex items-center gap-[12px]">
+        <div class="title-icon w-[44px] h-[44px] rounded-[12px] flex items-center justify-center [background:rgba(249,_115,_22,_0.1)] text-[#f97316]">
+          <span class="material-symbols-outlined">edit_document</span>
+        </div>
+
+        <div>
+          <h1 class="[margin:0] leading-[38px] tracking-[-0.02em]">Edit Vacancy</h1>
+          <p class="[margin:2px_0_0] text-[#6b7280] text-[13px]">Update vacancy information and matching criteria</p>
+        </div>
+      </div>
+
+      <div class="status-pill inline-flex items-center gap-[8px] [padding:7px_12px] rounded-[999px] [background:#eef2f7] text-[#334155]">
+        <span class="status-dot w-[8px] h-[8px] rounded-[50%] [background:#22c55e]"></span>
+        {{ loadedVacancy?.status || 'Status unavailable' }}
+      </div>
+
+    </div>
+
+    <div class="header-actions flex items-center gap-[10px]">
+
+      <button
+        type="button"
+        class="secondary-button h-[42px] [padding:0_17px] inline-flex items-center justify-center gap-[8px] cursor-pointer [background:white] text-[#334155]"
+        (click)="previewVacancy()" [disabled]="isLoading || !loadedVacancy">
+
+        <span class="material-symbols-outlined">visibility</span>
+        Preview Live Post
+
+      </button>
+
+      <button
+        type="button"
+        class="primary-button h-[42px] [padding:0_17px] inline-flex items-center justify-center gap-[8px] cursor-pointer text-[white] [background:#f97316] [box-shadow:0_8px_18px_rgba(249,_115,_22,_0.18)]"
+        (click)="saveChanges()" [disabled]="isLoading || isSaving || isClosing || !loadedVacancy">
+
+        <span class="material-symbols-outlined">sync</span>
+        Save Changes
+
+      </button>
+
+    </div>
+  </header>
+
+
+  <!-- Vacancy Metadata -->
+  <div class="metadata-row mb-[20px]">
+
+    <div class="breadcrumb flex items-center flex-wrap gap-[7px] text-[#64748b]">
+
+      <button
+        type="button"
+        (click)="cancelChanges()" [disabled]="isSaving || isClosing" class="[border:0] [background:transparent] text-[#64748b] inline-flex items-center gap-[5px] [padding:0] cursor-pointer">
+
+        <span class="material-symbols-outlined">business_center</span>
+        Vacancies
+
+      </button>
+
+      <span class="material-symbols-outlined arrow text-[#94a3b8]">
+        chevron_right
+      </span>
+
+      <span>Vacancy</span>
+
+      <span class="material-symbols-outlined arrow text-[#94a3b8]">
+        chevron_right
+      </span>
+
+      <strong class="text-[#f97316]">
+        {{ vacancyId || 'Edit' }}
+      </strong>
+
+    </div>
+
+  </div>
+
+
+  <!-- Intelligent Alert -->
+  <section class="algorithm-alert flex items-start gap-[14px] [padding:16px] mb-[22px] [background:#eff4ff]">
+
+    <div class="alert-icon w-[38px] h-[38px] shrink-0 flex items-center justify-center rounded-[11px] text-[#f97316] [background:rgba(249,_115,_22,_0.1)]">
+      <span class="material-symbols-outlined">
+        vital_signs
+      </span>
+    </div>
+
+    <div class="alert-content">
+
+      <div class="alert-heading flex items-center justify-between gap-[15px]">
+        <h3 class="[margin:0]">Algorithmic Match Recalculation Guard</h3>
+
+        <span class="[padding:5px_9px] rounded-[999px] [background:white] text-[#64748b]">AI Matching Engine</span>
+      </div>
+
+      <p class="[margin:5px_0_0] text-[#64748b] text-[13px] leading-[21px]">
+        Updating primary competencies, seniority level, or minimum
+        production experience may affect candidate matching scores.
+        Matching recalculation will occur after backend integration.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <p role="status" *ngIf="isLoading">Loading vacancy...</p>
+  <p>Department, seniority and workplace settings are not saved by the current API.</p>
+
+  <!-- Validation -->
+  <div
+    class="validation-message flex items-center gap-[8px] mb-[18px] [padding:12px_15px] rounded-[12px] [background:#fee2e2] text-[#b91c1c]"
+    *ngIf="errorMessage" role="alert">
+
+    <span class="material-symbols-outlined">
+      error
+    </span>
+
+    {{ errorMessage }}
+
+  </div>
+
+
+  <!-- Main Workspace -->
+  <div class="workspace grid grid-cols-[minmax(0,_2fr)_minmax(300px,_1fr)] gap-[24px] [align-items:start]">
+
+    <!-- LEFT COLUMN -->
+    <div class="form-column flex flex-col gap-[24px]">
+
+
+      <!-- Basic Information -->
+      <section class="form-card [background:white] [box-shadow:0_4px_16px_rgba(15,_23,_42,_0.035)]">
+
+        <div class="section-heading flex items-center justify-between gap-[20px] mb-[24px]">
+
+          <div class="section-title flex items-center gap-[12px]">
+
+            <div class="section-icon w-[34px] h-[34px] rounded-[10px] flex items-center justify-center text-[#64748b] [background:#eef2f7]">
+              <span class="material-symbols-outlined">
+                badge
+              </span>
+            </div>
+
+            <div>
+              <h2 class="[margin:0]">Basic Information</h2>
+              <p class="[margin:3px_0_0] text-[#64748b] text-[12px]">
+                Primary details indexed by prospective candidates
+              </p>
+            </div>
+
+          </div>
+
+          <span class="section-tag [padding:6px_10px] rounded-[999px] whitespace-nowrap">
+            Core Metadata
+          </span>
+
+        </div>
+
+
+        <div class="form-grid grid grid-cols-[repeat(2,_minmax(0,_1fr))] gap-[18px]">
+
+          <!-- Vacancy Title -->
+          <div class="form-field full-width flex flex-col gap-[7px] [grid-column:1_/_-1]">
+
+            <label class="text-[#1e293b]">
+              Vacancy Title
+              <span class="text-[#ef4444]">*</span>
+            </label>
+
+            <input
+              type="text"
+              [(ngModel)]="vacancy.title"
+              placeholder="Enter vacancy title"
+             class="text-[#0f172a]"/>
+
+          </div>
+
+
+          <!-- Department -->
+          <div class="form-field flex flex-col gap-[7px]">
+
+            <label class="text-[#1e293b]">Department & Team</label>
+
+            <select [(ngModel)]="vacancy.department" class="text-[#0f172a]">
+
+              <option value="">
+                Select department
+              </option>
+
+              <option value="Engineering & Platform">
+                Engineering & Platform
+              </option>
+
+              <option value="Product Design & UX">
+                Product Design & UX
+              </option>
+
+              <option value="Data & AI Intelligence">
+                Data & AI Intelligence
+              </option>
+
+              <option value="Cloud Infrastructure">
+                Cloud Infrastructure
+              </option>
+
+              <option value="Human Resources">
+                Human Resources
+              </option>
+
+              <option value="Finance">
+                Finance
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- Employment Type -->
+          <div class="form-field flex flex-col gap-[7px]">
+
+            <label class="text-[#1e293b]">Employment Commitment</label>
+
+            <select [(ngModel)]="vacancy.employmentType" class="text-[#0f172a]">
+
+              <option value="">
+                Select employment type
+              </option>
+
+              <option value="Full-time">
+                Full-time
+              </option>
+
+              <option value="Contract">
+                Contract / C2C
+              </option>
+
+              <option value="Part-time">
+                Part-time
+              </option>
+
+              <option value="Internship">
+                Internship
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- Description -->
+          <div class="form-field full-width flex flex-col gap-[7px] [grid-column:1_/_-1]">
+
+            <div class="label-row flex items-center justify-between gap-[12px]">
+
+              <label class="text-[#1e293b]">
+                Job Specification & Context
+              </label>
+
+              <span class="smart-format inline-flex items-center gap-[4px] text-[#f97316]">
+                <span class="material-symbols-outlined">
+                  auto_awesome
+                </span>
+                Smart-Format Active
+              </span>
+
+            </div>
+
+
+            <div class="editor overflow-hidden rounded-[13px] [background:#f1f5f9]">
+
+              <div class="editor-toolbar flex items-center flex-wrap gap-[3px] [padding:7px] [background:#e2e8f0]">
+
+                <button type="button" class="w-[32px] h-[30px] [background:transparent] cursor-pointer">
+                  <span class="material-symbols-outlined">
+                    format_bold
+                  </span>
+                </button>
+
+                <button type="button" class="w-[32px] h-[30px] [background:transparent] cursor-pointer">
+                  <span class="material-symbols-outlined">
+                    format_italic
+                  </span>
+                </button>
+
+                <button type="button" class="w-[32px] h-[30px] [background:transparent] cursor-pointer">
+                  <span class="material-symbols-outlined">
+                    format_h2
+                  </span>
+                </button>
+
+                <span class="toolbar-divider w-[1px] h-[19px] [margin:0_4px] [background:#cbd5e1]"></span>
+
+                <button type="button" class="w-[32px] h-[30px] [background:transparent] cursor-pointer">
+                  <span class="material-symbols-outlined">
+                    format_list_bulleted
+                  </span>
+                </button>
+
+                <button type="button" class="w-[32px] h-[30px] [background:transparent] cursor-pointer">
+                  <span class="material-symbols-outlined">
+                    format_list_numbered
+                  </span>
+                </button>
+
+                <button type="button" class="w-[32px] h-[30px] [background:transparent] cursor-pointer">
+                  <span class="material-symbols-outlined">
+                    code
+                  </span>
+                </button>
+
+                <span class="toolbar-divider w-[1px] h-[19px] [margin:0_4px] [background:#cbd5e1]"></span>
+
+                <button type="button" class="w-[32px] h-[30px] [background:transparent] cursor-pointer">
+                  <span class="material-symbols-outlined">
+                    link
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  class="ai-button w-[32px] h-[30px] [background:transparent] cursor-pointer ml-[auto]">
+
+                  <span class="material-symbols-outlined">
+                    drive_file_rename
+                  </span>
+
+                </button>
+
+              </div>
+
+
+              <textarea
+                [(ngModel)]="vacancy.description" maxlength="2000"
+                placeholder="Enter the job specification, responsibilities, expectations and other relevant context..."
+                rows="8" class="text-[#0f172a] [padding:14px] resize-y leading-[21px] min-h-[180px]">
+              </textarea>
+
+
+              <div class="editor-footer flex items-center justify-between gap-[12px] [padding:8px_14px] text-[#64748b] text-[10px] [background:#f1f5f9]">
+
+                <span>
+                  {{ vacancy.description.length }} / 2000 characters
+                </span>
+
+                <span class="fidelity text-[#f97316] font-bold">
+                  Matching fidelity will be calculated after analysis
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- Requirements -->
+      <section class="form-card [background:white] [box-shadow:0_4px_16px_rgba(15,_23,_42,_0.035)]">
+
+        <div class="section-heading flex items-center justify-between gap-[20px] mb-[24px]">
+
+          <div class="section-title flex items-center gap-[12px]">
+
+            <div class="section-icon w-[34px] h-[34px] rounded-[10px] flex items-center justify-center text-[#64748b] [background:#eef2f7]">
+              <span class="material-symbols-outlined">
+                psychology
+              </span>
+            </div>
+
+            <div>
+              <h2 class="[margin:0]">Job Requirements & Competencies</h2>
+              <p class="[margin:3px_0_0] text-[#64748b] text-[12px]">
+                Skills and experience used for candidate matching
+              </p>
+            </div>
+
+          </div>
+
+          <span class="section-tag orange [padding:6px_10px] rounded-[999px] whitespace-nowrap">
+            Engine Weighted
+          </span>
+
+        </div>
+
+
+        <!-- Skills -->
+        <div class="form-field full-width flex flex-col gap-[7px] [grid-column:1_/_-1]">
+
+          <label class="text-[#1e293b]">
+            Required & Preferred Skill Tags
+          </label>
+
+          <div class="skills-box [padding:16px] rounded-[16px] [background:#f1f5f9]">
+
+            <div class="skill-list flex flex-wrap gap-[8px] min-h-[38px] items-center">
+
+              <div
+                class="skill-chip inline-flex items-center gap-[7px] [padding:7px_9px_7px_11px] rounded-[11px] [background:white] text-[#0f172a] [box-shadow:0_2px_7px_rgba(15,_23,_42,_0.05)] text-[12px]"
+                *ngFor="let skill of skills; let i = index">
+
+                <span class="skill-dot w-[7px] h-[7px] rounded-[50%] [background:#f97316]"></span>
+
+                <strong>
+                  {{ skill }}
+                </strong>
+
+                <button
+                  type="button"
+                  (click)="removeSkill(i)" class="flex [border:0] [background:transparent] text-[#94a3b8] [padding:0] cursor-pointer">
+
+                  <span class="material-symbols-outlined">
+                    close
+                  </span>
+
+                </button>
+
+              </div>
+
+              <span
+                class="no-skills text-[#94a3b8] text-[12px]"
+                *ngIf="skills.length === 0">
+
+                No skills added yet
+
+              </span>
+
+            </div>
+
+
+            <div class="skill-input-row flex gap-[8px] mt-[12px]">
+
+              <div class="skill-input relative [flex:1]">
+
+                <span class="material-symbols-outlined absolute left-[12px] top-[50%] text-[#94a3b8]">
+                  add_circle
+                </span>
+
+                <input
+                  type="text"
+                  [(ngModel)]="skillInput"
+                  (keydown)="onSkillKeydown($event)"
+                  placeholder="Type to add another skill..."
+                 class="text-[#0f172a]"/>
+
+              </div>
+
+              <button
+                type="button"
+                class="add-skill-button h-[40px] [padding:0_14px] [background:#e2e8f0] text-[#0f172a] inline-flex items-center gap-[5px] cursor-pointer"
+                (click)="addSkill()">
+
+                <span class="material-symbols-outlined">
+                  add
+                </span>
+
+                Add Skill
+
+              </button>
+
+            </div>
+
+
+            <div class="suggestions flex items-center flex-wrap gap-[7px] mt-[12px]">
+
+              <span class="text-[#64748b]">Recommended additions:</span>
+
+              <button
+                type="button"
+                (click)="addRecommendedSkill('Node.js')" class="[padding:5px_9px] [background:white] text-[#334155] cursor-pointer [box-shadow:0_2px_5px_rgba(15,_23,_42,_0.04)]">
+
+                + Node.js
+              </button>
+
+              <button
+                type="button"
+                (click)="addRecommendedSkill('Jest')" class="[padding:5px_9px] [background:white] text-[#334155] cursor-pointer [box-shadow:0_2px_5px_rgba(15,_23,_42,_0.04)]">
+
+                + Jest
+              </button>
+
+              <button
+                type="button"
+                (click)="addRecommendedSkill('Cypress')" class="[padding:5px_9px] [background:white] text-[#334155] cursor-pointer [box-shadow:0_2px_5px_rgba(15,_23,_42,_0.04)]">
+
+                + Cypress
+              </button>
+
+              <button
+                type="button"
+                (click)="addRecommendedSkill('State Management')" class="[padding:5px_9px] [background:white] text-[#334155] cursor-pointer [box-shadow:0_2px_5px_rgba(15,_23,_42,_0.04)]">
+
+                + State Management
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- Experience -->
+        <div class="form-grid grid grid-cols-[repeat(2,_minmax(0,_1fr))] gap-[18px]">
+
+          <div class="form-field flex flex-col gap-[7px]">
+
+            <label class="text-[#1e293b]">
+              Minimum Production Experience
+            </label>
+
+            <select [(ngModel)]="vacancy.experience" class="text-[#0f172a]">
+
+              <option value="">
+                Select experience
+              </option>
+
+              <option value="1-3">
+                1-3 years
+              </option>
+
+              <option value="3-5">
+                3-5 years
+              </option>
+
+              <option value="5+">
+                5+ years
+              </option>
+
+              <option value="8+">
+                8+ years
+              </option>
+
+              <option value="10+">
+                10+ years
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-field flex flex-col gap-[7px]">
+
+            <label class="text-[#1e293b]">
+              Seniority Calibration Level
+            </label>
+
+            <select [(ngModel)]="vacancy.seniority" class="text-[#0f172a]">
+
+              <option value="">
+                Select seniority
+              </option>
+
+              <option value="IC4">
+                IC4 · Senior Engineer
+              </option>
+
+              <option value="IC5">
+                IC5 · Senior Staff Engineer
+              </option>
+
+              <option value="IC6">
+                Lead / Staff Engineer
+              </option>
+
+              <option value="IC7">
+                IC7 · Principal Architect
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- Workplace -->
+      <section class="form-card [background:white] [box-shadow:0_4px_16px_rgba(15,_23,_42,_0.035)]">
+
+        <div class="section-heading flex items-center justify-between gap-[20px] mb-[24px]">
+
+          <div class="section-title flex items-center gap-[12px]">
+
+            <div class="section-icon w-[34px] h-[34px] rounded-[10px] flex items-center justify-center text-[#64748b] [background:#eef2f7]">
+              <span class="material-symbols-outlined">
+                location_on
+              </span>
+            </div>
+
+            <div>
+              <h2 class="[margin:0]">Location & Workplace Model</h2>
+              <p class="[margin:3px_0_0] text-[#64748b] text-[12px]">
+                Physical and geographic presence expected from candidates
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="workplace-options grid grid-cols-[repeat(3,_minmax(0,_1fr))] gap-[10px] mb-[20px]">
+
+          <button
+            type="button"
+            [class.selected]="vacancy.workplace === 'remote'"
+            (click)="vacancy.workplace = 'remote'" class="min-h-[120px] [padding:15px] [background:#f1f5f9] text-left text-[#0f172a] cursor-pointer">
+
+            <span class="workplace-radio block w-[15px] h-[15px] mb-[12px]"></span>
+
+            <strong class="block mb-[5px] text-[13px]">Fully Remote</strong>
+
+            <small class="block text-[#64748b] text-[10px] leading-[16px]">
+              Anywhere within permitted operational timezones.
+            </small>
+
+          </button>
+
+
+          <button
+            type="button"
+            [class.selected]="vacancy.workplace === 'hybrid'"
+            (click)="vacancy.workplace = 'hybrid'" class="min-h-[120px] [padding:15px] [background:#f1f5f9] text-left text-[#0f172a] cursor-pointer">
+
+            <span class="workplace-radio block w-[15px] h-[15px] mb-[12px]"></span>
+
+            <strong class="block mb-[5px] text-[13px]">Hybrid Policy</strong>
+
+            <small class="block text-[#64748b] text-[10px] leading-[16px]">
+              Combination of office and remote work.
+            </small>
+
+          </button>
+
+
+          <button
+            type="button"
+            [class.selected]="vacancy.workplace === 'onsite'"
+            (click)="vacancy.workplace = 'onsite'" class="min-h-[120px] [padding:15px] [background:#f1f5f9] text-left text-[#0f172a] cursor-pointer">
+
+            <span class="workplace-radio block w-[15px] h-[15px] mb-[12px]"></span>
+
+            <strong class="block mb-[5px] text-[13px]">On-site Hub</strong>
+
+            <small class="block text-[#64748b] text-[10px] leading-[16px]">
+              Full-time in-office collaborative presence.
+            </small>
+
+          </button>
+
+        </div>
+
+
+        <div class="form-field full-width location-field flex flex-col gap-[7px] [grid-column:1_/_-1]">
+
+          <label class="text-[#1e293b]">
+            Designated Office / Geographic Scope
+          </label>
+
+          <div class="input-icon relative">
+
+            <span class="material-symbols-outlined absolute left-[12px] top-[50%] text-[#94a3b8]">
+              domain
+            </span>
+
+            <input
+              type="text"
+              [(ngModel)]="vacancy.location"
+              placeholder="Enter office location or geographic scope"
+             class="text-[#0f172a]"/>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+
+    <!-- RIGHT COLUMN -->
+    <aside class="side-column flex flex-col gap-[24px] sticky top-[20px]">
+
+
+      <!-- Matching Impact -->
+      <section class="side-card [background:white] [box-shadow:0_4px_16px_rgba(15,_23,_42,_0.035)]">
+
+        <div class="side-card-title justify-between">
+
+          <div>
+            <span class="material-symbols-outlined text-[#f97316]">
+              insights
+            </span>
+
+            <h3 class="[margin:0]">Matching Impact</h3>
+          </div>
+
+          <span class="live-label inline-flex items-center gap-[5px] text-[#f97316]">
+            LIVE RADAR
+          </span>
+
+        </div>
+
+
+        <div class="impact-box flex flex-col gap-[3px] mt-[18px] [padding:16px] rounded-[13px] [background:#f1f5f9]">
+
+          <span class="impact-label text-[#64748b] uppercase tracking-[0.04em]">
+            Candidate Pipeline Scope
+          </span>
+
+          <strong class="mt-[5px] text-[30px] leading-[36px]">—</strong>
+
+          <span>
+            Active Applicants
+          </span>
+
+          <div class="impact-status w-[fit-content] mt-[7px] [padding:5px_8px] rounded-[7px] [background:#e2e8f0] text-[#64748b]">
+            Waiting for live vacancy data
+          </div>
+
+        </div>
+
+
+        <p class="side-description [margin:15px_0] text-[#64748b] text-[11px] leading-[18px]">
+          Changes to vacancy requirements can affect candidate sorting
+          and matching scores once the matching engine is connected.
+        </p>
+
+
+        <div class="weight-section pt-[5px]">
+
+          <div class="weight-heading mb-[10px] text-[#1e293b]">
+            Active Weight Vectors
+          </div>
+
+          <div class="empty-weight [padding:12px] rounded-[10px] [background:#f8fafc] text-[#94a3b8] text-[10px] leading-[16px]">
+            Matching weights will appear here after vacancy data
+            and matching configuration are available.
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- Audit -->
+      <section class="side-card [background:white] [box-shadow:0_4px_16px_rgba(15,_23,_42,_0.035)]">
+
+        <div class="side-heading justify-between">
+
+          <span class="material-symbols-outlined text-[#f97316]">
+            history
+          </span>
+
+          <h3 class="[margin:0]">Requisition Audit Log</h3>
+
+        </div>
+
+
+        <div class="audit-list flex flex-col mt-[14px]">
+
+          <div class="audit-item flex items-start justify-between gap-[15px] [padding:11px_0] [border-bottom:1px_solid_#edf0f5]">
+
+            <span class="text-[#64748b] text-[10px]">Vacancy ID</span>
+
+            <strong class="max-w-[150px] text-right text-[#0f172a] text-[10px]">
+              {{ vacancyId || 'Not available' }}
+            </strong>
+
+          </div>
+
+
+          <div class="audit-item flex items-start justify-between gap-[15px] [padding:11px_0] [border-bottom:1px_solid_#edf0f5]">
+
+            <span class="text-[#64748b] text-[10px]">Created By</span>
+
+            <strong class="max-w-[150px] text-right text-[#0f172a] text-[10px]">
+              Not available
+            </strong>
+
+          </div>
+
+
+          <div class="audit-item flex items-start justify-between gap-[15px] [padding:11px_0] [border-bottom:1px_solid_#edf0f5]">
+
+            <span class="text-[#64748b] text-[10px]">Public Impressions</span>
+
+            <strong class="max-w-[150px] text-right text-[#0f172a] text-[10px]">—</strong>
+
+          </div>
+
+
+          <div class="audit-item flex items-start justify-between gap-[15px] [padding:11px_0] [border-bottom:1px_solid_#edf0f5]">
+
+            <span class="text-[#64748b] text-[10px]">Total Submissions</span>
+
+            <strong class="max-w-[150px] text-right text-[#0f172a] text-[10px]">—</strong>
+
+          </div>
+
+
+          <div class="audit-item flex items-start justify-between gap-[15px] [padding:11px_0] [border-bottom:1px_solid_#edf0f5]">
+
+            <span class="text-[#64748b] text-[10px]">Last Modified</span>
+
+            <strong class="max-w-[150px] text-right text-[#0f172a] text-[10px]">Not available</strong>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- Danger Zone -->
+      <section class="danger-card [padding:21px] [background:#fff1f2]">
+
+        <div class="danger-title flex items-center gap-[8px] text-[#dc2626]">
+
+          <span class="material-symbols-outlined">
+            warning
+          </span>
+
+          <h3 class="[margin:0] text-[14px]">Requisition Controls</h3>
+
+        </div>
+
+        <p class="[margin:10px_0_14px] text-[#64748b] text-[11px] leading-[18px]">
+          Temporarily pause matching or permanently close this vacancy
+          once the hiring requirement has been completed.
+        </p>
+
+        <button
+          type="button"
+          (click)="openCloseModal()" [disabled]="isLoading || isSaving || isClosing || !loadedVacancy || loadedVacancy.status === 'Closed'" class="w-[100%] h-[42px] [background:white] text-[#dc2626] flex items-center justify-center gap-[7px] cursor-pointer">
+
+          <span class="material-symbols-outlined">
+            block
+          </span>
+
+          Close Vacancy...
+
+        </button>
+
+      </section>
+
+    </aside>
+
+  </div>
+
+
+  <!-- Sticky Footer -->
+  <div class="command-bar sticky bottom-[0] z-[20] flex items-center justify-between gap-[15px] [margin:28px_-32px_-32px] [padding:15px_32px] [background:rgba(248,_249,_255,_0.95)] [border-top:1px_solid_#e2e8f0]">
+
+    <div class="command-left flex items-center gap-[10px]">
+
+      <button
+        type="button"
+        class="cancel-button h-[42px] inline-flex items-center justify-center gap-[7px] cursor-pointer [background:white] text-[#64748b]"
+        (click)="cancelChanges()" [disabled]="isSaving || isClosing">
+
+        Cancel Changes
+
+      </button>
+
+      <span class="autosave inline-flex items-center gap-[5px] text-[#64748b] text-[9px]">
+
+        <span class="material-symbols-outlined text-[#f97316]">
+          cloud_done
+        </span>
+
+        {{ isSaving ? 'Saving vacancy...' : (isClosing ? 'Closing vacancy...' : 'Changes remain in this form until saved') }}
+
+      </span>
+
+    </div>
+
+
+    <div class="command-right flex items-center gap-[10px]">
+
+      <button
+        type="button"
+        class="close-button h-[42px] inline-flex items-center justify-center gap-[7px] cursor-pointer [background:#f1f5f9] text-[#dc2626]"
+        (click)="openCloseModal()" [disabled]="isLoading || isSaving || isClosing || !loadedVacancy || loadedVacancy.status === 'Closed'">
+
+        <span class="material-symbols-outlined">
+          lock_clock
+        </span>
+
+        <span>Close Vacancy</span>
+
+      </button>
+
+
+      <button
+        type="button"
+        class="update-button h-[42px] inline-flex items-center justify-center gap-[7px] cursor-pointer [background:#f97316] text-[white] [box-shadow:0_7px_15px_rgba(249,_115,_22,_0.18)]"
+        (click)="saveChanges()" [disabled]="isLoading || isSaving || isClosing || !loadedVacancy">
+
+        <span class="material-symbols-outlined">
+          published_with_changes
+        </span>
+
+        Update Vacancy
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- Save Toast -->
+<div
+  class="toast fixed right-[24px] bottom-[24px] z-[100] flex items-center gap-[9px] max-w-[420px] [padding:13px_17px] rounded-[12px] [background:#213145] text-[white] text-[12px] [box-shadow:0_12px_30px_rgba(15,_23,_42,_0.2)] [opacity:0] pointer-events-none"
+  [class.show]="showSaveMessage">
+
+  <span class="material-symbols-outlined">
+    check_circle
+  </span>
+
+  <span>
+    {{ successMessage }}
+  </span>
+
+</div>
+
+
+<!-- Close Vacancy Modal -->
+<div
+  class="modal-backdrop fixed [inset:0] z-[200] flex items-center justify-center [padding:20px] [background:rgba(15,_23,_42,_0.48)]"
+  *ngIf="showCloseModal"
+  (click)="closeCloseModal()">
+
+  <div
+    class="close-modal w-[100%] max-w-[440px] [padding:28px] rounded-[18px] [background:white] [box-shadow:0_25px_60px_rgba(15,_23,_42,_0.2)] text-center"
+    (click)="$event.stopPropagation()">
+
+    <div class="modal-icon w-[48px] h-[48px] [margin:0_auto_14px] rounded-[14px] flex items-center justify-center text-[#dc2626] [background:#fee2e2]">
+
+      <span class="material-symbols-outlined">
+        warning
+      </span>
+
+    </div>
+
+    <h2 class="[margin:0] text-[20px]">Close Vacancy?</h2>
+
+    <p class="[margin:10px_0_22px] text-[#64748b] text-[12px] leading-[19px]">
+      Closing a vacancy will stop the position from receiving new
+      candidates.
+    </p>
+
+    <p role="alert" *ngIf="errorMessage">{{ errorMessage }}</p>
+    <p role="status" *ngIf="isClosing">Closing vacancy...</p>
+    <div class="modal-actions flex justify-end gap-[9px]">
+
+      <button
+        type="button"
+        class="modal-cancel h-[40px] [padding:0_15px] cursor-pointer [background:#f1f5f9] text-[#475569]"
+        (click)="closeCloseModal()" [disabled]="isClosing">
+
+        Cancel
+
+      </button>
+
+      <button
+        type="button"
+        class="modal-confirm h-[40px] [padding:0_15px] cursor-pointer [background:#dc2626] text-[white]"
+        (click)="confirmCloseVacancy()" [disabled]="isClosing || isSaving">
+
+        Close Vacancy
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

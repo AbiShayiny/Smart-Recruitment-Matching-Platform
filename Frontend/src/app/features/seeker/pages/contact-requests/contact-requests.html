@@ -1,0 +1,101 @@
+<app-navbar></app-navbar>
+
+<main class="contact-page">
+
+  @if (loading) { <p role="status">Loading...</p> }
+  @if (error) { <p role="alert">{{ error }}</p> }
+
+  <section class="contact-header">
+    <div>
+      <h1>Contact Requests</h1>
+      <p>
+        Review contact requests received from employers.
+      </p>
+    </div>
+  </section>
+
+
+  <section class="requests-card">
+
+    <div class="requests-heading">
+      <h2>Employer Requests</h2>
+
+      <p>
+        {{ contactRequests.length }} pending requests
+      </p>
+    </div>
+
+
+    @if (contactRequests.length > 0) {
+
+      <div class="requests-list">
+
+        @for (
+          request of contactRequests;
+          track request.id
+        ) {
+
+          <article class="request-item">
+
+            <div class="request-info">
+
+              <h3>
+                {{ request.jobTitle }}
+              </h3>
+
+              <p>
+                {{ request.message }}
+              </p>
+
+            </div>
+
+
+            <div class="request-actions">
+
+              <button
+                type="button"
+                class="decline-btn"
+                (click)="declineRequest(request.id)"
+                [disabled]="pending.has(request.id)"
+              >
+                Decline
+              </button>
+
+              <button
+                type="button"
+                class="accept-btn"
+                (click)="acceptRequest(request.id)"
+                [disabled]="pending.has(request.id)"
+              >
+                Accept
+              </button>
+
+            </div>
+
+          </article>
+
+        }
+
+      </div>
+
+    } @else if (!loading && !error) {
+
+      <div class="empty-requests">
+
+        <div class="empty-icon">
+          ✓
+        </div>
+
+        <h3>No Contact Requests</h3>
+
+        <p>
+          You currently have no pending employer contact requests.
+        </p>
+
+      </div>
+
+    }
+
+  </section>
+
+</main>

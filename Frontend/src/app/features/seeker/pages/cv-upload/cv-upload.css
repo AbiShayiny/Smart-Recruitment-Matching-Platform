@@ -1,0 +1,436 @@
+/* =====================================================
+   PAGE
+===================================================== */
+
+.cv-page {
+  min-height: 100vh;
+  margin-left: 220px;
+  padding: 95px 34px 45px;
+  background: #f7f9fd;
+}
+
+
+/* =====================================================
+   PAGE HEADER
+===================================================== */
+
+.cv-header {
+  margin-bottom: 22px;
+}
+
+.cv-header h1 {
+  margin: 0;
+  color: #1f2937;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.cv-header p {
+  margin: 6px 0 0;
+  color: #6b7280;
+  font-size: 12px;
+}
+
+
+/* =====================================================
+   MAIN LAYOUT
+===================================================== */
+
+.cv-card {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr);
+  gap: 20px;
+}
+
+
+/* =====================================================
+   COMMON CARDS
+===================================================== */
+
+.upload-section,
+.current-cv-section {
+  background: #ffffff;
+  border: 1px solid #e8ebf0;
+  border-radius: 12px;
+
+  box-shadow:
+    0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+
+/* =====================================================
+   UPLOAD SECTION
+===================================================== */
+
+.upload-section {
+  min-height: 360px;
+  padding: 32px 24px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+}
+
+.upload-icon {
+  width: 58px;
+  height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #fff0e6;
+  color: #f97316;
+
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.upload-section h2 {
+  margin: 18px 0 0;
+  color: #1f2937;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.upload-section > p {
+  margin: 7px 0 0;
+  color: #6b7280;
+  font-size: 11px;
+}
+
+
+/* =====================================================
+   CHOOSE FILE BUTTON
+===================================================== */
+
+.choose-file-btn {
+  min-width: 130px;
+  height: 38px;
+
+  margin-top: 22px;
+  padding: 0 18px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  background: #f97316;
+  color: #ffffff;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+}
+
+.choose-file-btn:hover {
+  background: #ea580c;
+}
+
+.file-input {
+  display: none;
+}
+
+
+/* =====================================================
+   SELECTED FILE
+===================================================== */
+
+.selected-file {
+  width: 100%;
+  max-width: 420px;
+
+  box-sizing: border-box;
+
+  margin-top: 20px;
+  padding: 12px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  text-align: left;
+
+  border: 1px solid #fed7aa;
+  border-radius: 9px;
+
+  background: #fff7ed;
+}
+
+.file-icon {
+  width: 42px;
+  height: 42px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  background: #ffedd5;
+  color: #ea580c;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.file-details {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+.file-details strong {
+  overflow: hidden;
+
+  color: #374151;
+  font-size: 11px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-details span {
+  color: #7b8494;
+  font-size: 9px;
+}
+
+
+/* =====================================================
+   UPLOAD BUTTON
+===================================================== */
+
+.upload-btn {
+  min-width: 130px;
+  height: 38px;
+
+  margin-top: 14px;
+  padding: 0 18px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #f97316;
+  color: #ffffff;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+}
+
+.upload-btn:hover {
+  background: #ea580c;
+}
+
+
+/* =====================================================
+   CURRENT CV SECTION
+===================================================== */
+
+.current-cv-section {
+  min-height: 360px;
+  padding: 24px;
+}
+
+.section-heading h2 {
+  margin: 0;
+  color: #1f2937;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.section-heading p {
+  margin: 6px 0 0;
+  color: #6b7280;
+  font-size: 10px;
+}
+
+
+/* =====================================================
+   CURRENT CV CARD
+===================================================== */
+
+.current-cv-card {
+  margin-top: 22px;
+  padding: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  border: 1px solid #e8ebf0;
+  border-radius: 9px;
+
+  background: #fbfcfe;
+}
+
+.current-cv-left {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+}
+
+.document-icon {
+  width: 44px;
+  height: 44px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  background: #fff0e6;
+  color: #ea580c;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.current-cv-info {
+  min-width: 0;
+}
+
+.current-cv-info strong {
+  display: block;
+
+  overflow: hidden;
+
+  color: #374151;
+  font-size: 11px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cv-meta {
+  margin-top: 5px;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 6px 12px;
+
+  color: #8a94a4;
+  font-size: 9px;
+}
+
+.cv-status {
+  flex-shrink: 0;
+
+  padding: 6px 10px;
+
+  border-radius: 999px;
+
+  background: #f0fdf4;
+  color: #15803d;
+
+  font-size: 9px;
+  font-weight: 600;
+}
+
+
+/* =====================================================
+   EMPTY CV
+===================================================== */
+
+.empty-cv {
+  min-height: 260px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+}
+
+.empty-icon {
+  width: 54px;
+  height: 54px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background: #f3f4f6;
+  color: #6b7280;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.empty-cv h3 {
+  margin: 15px 0 0;
+
+  color: #374151;
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.empty-cv p {
+  max-width: 260px;
+
+  margin: 7px 0 0;
+
+  color: #8a94a4;
+
+  font-size: 10px;
+  line-height: 16px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 950px) {
+
+  .cv-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 650px) {
+
+  .cv-page {
+    margin-left: 75px;
+    padding: 95px 20px 35px;
+  }
+
+  .current-cv-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

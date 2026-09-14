@@ -1,0 +1,446 @@
+:host {
+  display: block;
+  font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+  color: #0f172a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.brand-icon {
+
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.brand h2 {
+
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.nav-item {
+
+  color: #64748b;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.nav-item:hover {
+  background: #fff7ed;
+  color: #f97316;
+}
+
+.nav-item.active {
+  background: #fff1e8;
+  color: #ea580c;
+}
+
+.avatar,
+.header-avatar {
+
+  font-weight: 800;
+}
+
+.avatar {
+
+  font-size: 13px;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+/* =========================
+   HEADER
+========================= */
+
+.back-button {
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 8px;
+}
+
+.back-button:hover {
+  border-color: #f97316;
+  color: #f97316;
+}
+
+.header-title h1 {
+
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.icon-button,
+.notification-button {
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 9px;
+}
+
+.header-avatar {
+
+  font-size: 13px;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+/* =========================
+   HERO
+========================= */
+
+.vacancy-hero {
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 13px;
+}
+
+.job-icon {
+
+  font-size: 23px;
+  font-weight: 800;
+}
+
+.vacancy-code {
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.vacancy-hero h2 {
+
+  font-size: 24px;
+  font-weight: 800;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.primary-button,
+.secondary-button,
+.outline-button {
+
+  border-radius: 8px;
+
+  font-family: inherit;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.primary-button {
+  border: 1px solid #f97316;
+}
+
+.primary-button:hover {
+  background: #ea580c;
+}
+
+.secondary-button {
+  border: 1px solid #e2e8f0;
+}
+
+.secondary-button:hover {
+  border-color: #f97316;
+
+  color: #f97316;
+}
+
+.outline-button {
+  border: 1px solid #fed7aa;
+}
+
+.outline-button:hover {
+  background: #fff7ed;
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.status-badge {
+
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.status-badge.active {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.status-badge.draft {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.status-badge.closed {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.status-badge.archived {
+  background: #fff1f2;
+  color: #be123c;
+}
+
+/* =========================
+   DETAILS GRID
+========================= */
+
+/* =========================
+   CARD
+========================= */
+
+.card {
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 12px;
+}
+
+.card-header h3,
+.card h3 {
+  margin: 0;
+
+  font-size: 14px;
+  font-weight: 800;
+}
+
+/* =========================
+   OVERVIEW
+========================= */
+
+.info-label {
+
+  font-size: 9px;
+
+  font-weight: 800;
+}
+
+/* =========================
+   DESCRIPTION
+========================= */
+
+/* =========================
+   SKILLS
+========================= */
+
+.skill-chip {
+
+  border-radius: 7px;
+
+  border: 1px solid #fed7aa;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* =========================
+   APPLICANTS CARD
+========================= */
+
+.side-label {
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* =========================
+   MATCHING
+========================= */
+
+.matching-card {
+  background: #fff7ed;
+
+  border-color: #fed7aa;
+}
+
+.matching-top {
+
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.matching-card h3 {
+  margin-top: 13px;
+
+  font-size: 13px;
+}
+
+.matching-status {
+
+  font-size: 9px;
+  font-weight: 800;
+}
+
+/* =========================
+   SIDE INFO
+========================= */
+
+.side-heading {
+  margin-bottom: 18px !important;
+}
+
+/* =========================
+   BOTTOM ACTION
+========================= */
+
+.bottom-action {
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 12px;
+}
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.empty-state {
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 13px;
+}
+
+.empty-state h2 {
+
+  font-size: 17px;
+  font-weight: 800;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1100px) {
+
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .right-column {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .overview-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+@media (max-width: 850px) {
+
+  .sidebar {
+    width: 220px;
+  }
+
+  .main-content {
+    margin-left: 220px;
+  }
+
+  .content {
+    padding: 28px 24px 50px;
+  }
+
+  .top-header {
+    padding: 0 24px;
+  }
+
+  .vacancy-hero {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .hero-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+}
+
+@media (max-width: 650px) {
+
+  .sidebar {
+    display: none;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .top-header {
+    height: 72px;
+
+    padding: 0 16px;
+  }
+
+  .content {
+    padding: 20px 16px 40px;
+  }
+
+  .header-actions .icon-button,
+  .header-actions .notification-button {
+    display: none;
+  }
+
+  .vacancy-hero {
+    padding: 18px;
+  }
+
+  .hero-left {
+    align-items: flex-start;
+  }
+
+  .vacancy-hero h2 {
+    font-size: 20px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .hero-actions button {
+    width: 100%;
+  }
+
+  .overview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .right-column {
+    display: flex;
+  }
+
+  .bottom-action {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .bottom-buttons {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .bottom-buttons button {
+    width: 100%;
+  }
+
+}

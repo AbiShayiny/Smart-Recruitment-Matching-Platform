@@ -1,0 +1,367 @@
+/* =====================================================
+   PAGE
+===================================================== */
+
+.applications-page {
+  min-height: 100vh;
+  margin-left: 220px;
+  padding: 95px 34px 45px;
+  background: #f7f9fd;
+}
+
+
+/* =====================================================
+   PAGE HEADER
+===================================================== */
+
+.page-header {
+  margin-bottom: 22px;
+}
+
+.page-header h1 {
+  margin: 0;
+
+  color: #1f2937;
+
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.page-header p {
+  margin: 6px 0 0;
+
+  color: #6b7280;
+
+  font-size: 12px;
+}
+
+
+/* =====================================================
+   APPLICATIONS CARD
+===================================================== */
+
+.applications-card {
+  background: #ffffff;
+
+  border: 1px solid #e8ebf0;
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 2px 8px rgba(15, 23, 42, 0.04);
+
+  overflow: hidden;
+}
+
+
+/* =====================================================
+   APPLICATION HEADER
+===================================================== */
+
+.applications-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 20px 22px;
+
+  border-bottom: 1px solid #edf0f4;
+}
+
+.applications-header h2 {
+  margin: 0;
+
+  color: #1f2937;
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.applications-header p {
+  margin: 4px 0 0;
+
+  color: #8a94a4;
+
+  font-size: 10px;
+}
+
+
+/* =====================================================
+   APPLICATION LIST
+===================================================== */
+
+.applications-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.application-item {
+  padding: 20px 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 24px;
+
+  border-bottom: 1px solid #edf0f4;
+}
+
+.application-item:last-child {
+  border-bottom: none;
+}
+
+
+/* =====================================================
+   LEFT SECTION
+===================================================== */
+
+.application-main {
+  min-width: 0;
+
+  display: flex;
+  align-items: flex-start;
+
+  gap: 14px;
+}
+
+.company-logo {
+  width: 46px;
+  height: 46px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: #fff0e6;
+
+  color: #ea580c;
+
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.application-info {
+  min-width: 0;
+}
+
+.application-info h3 {
+  margin: 0;
+
+  color: #1f2937;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  line-height: 20px;
+}
+
+.company-name {
+  margin: 4px 0 0;
+
+  color: #6b7280;
+
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.application-meta {
+  margin-top: 9px;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 8px 16px;
+
+  color: #7b8494;
+
+  font-size: 10px;
+}
+
+
+/* =====================================================
+   RIGHT SECTION
+===================================================== */
+
+.application-right {
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+
+  gap: 18px;
+}
+
+
+/* =====================================================
+   MATCH SCORE
+===================================================== */
+
+.match-score {
+  min-width: 60px;
+
+  text-align: center;
+}
+
+.match-score strong {
+  display: block;
+
+  color: #f97316;
+
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.match-score span {
+  display: block;
+
+  margin-top: 2px;
+
+  color: #8a94a4;
+
+  font-size: 9px;
+  font-weight: 500;
+}
+
+
+/* =====================================================
+   STATUS BADGE
+===================================================== */
+
+.status-badge {
+  min-width: 95px;
+
+  padding: 7px 10px;
+
+  text-align: center;
+
+  border-radius: 999px;
+
+  font-size: 9px;
+  font-weight: 600;
+}
+
+
+/* Under Review */
+
+.status-review {
+  background: #fff7ed;
+
+  color: #ea580c;
+}
+
+
+/* Shortlisted */
+
+.status-shortlisted {
+  background: #f0fdf4;
+
+  color: #15803d;
+}
+
+
+/* Submitted */
+
+.status-submitted {
+  background: #eff6ff;
+
+  color: #2563eb;
+}
+
+
+/* =====================================================
+   VIEW DETAILS BUTTON
+===================================================== */
+
+.view-details-btn {
+  min-width: 92px;
+  height: 34px;
+
+  padding: 0 14px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #f97316;
+
+  border-radius: 7px;
+
+  background: #ffffff;
+
+  color: #f97316;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.view-details-btn:hover {
+  background: #f97316;
+
+  color: #ffffff;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 900px) {
+
+  .application-item {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .application-right {
+    width: 100%;
+
+    justify-content: space-between;
+  }
+}
+
+
+@media (max-width: 650px) {
+
+  .applications-page {
+    margin-left: 75px;
+
+    padding:
+      95px
+      20px
+      35px;
+  }
+
+  .application-main {
+    flex-direction: column;
+  }
+
+  .application-right {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .match-score {
+    text-align: left;
+  }
+
+  .view-details-btn {
+    width: 100%;
+  }
+
+  .status-badge {
+    min-width: unset;
+  }
+}

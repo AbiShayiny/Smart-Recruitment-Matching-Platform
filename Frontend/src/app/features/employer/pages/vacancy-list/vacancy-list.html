@@ -1,0 +1,552 @@
+<div class="page-shell min-h-[100vh] [background:#f8fafc]">
+  <app-employer-sidebar />
+
+  <!-- Sidebar -->
+  <aside hidden class="sidebar fixed left-[0] top-[0] bottom-[0] w-[280px] [background:#ffffff] [border-right:1px_solid_#e2e8f0] flex flex-col z-[20]">
+
+    <div class="brand h-[88px] flex items-center [padding:0_28px] gap-[12px] [border-bottom:1px_solid_#f1f5f9]">
+      <div class="brand-icon w-[38px] h-[38px] flex items-center justify-center rounded-[10px] [background:#f97316] text-[white]">
+        S
+      </div>
+
+      <div>
+        <h2 class="[margin:0]">SmartMatch</h2>
+        <span class="block mt-[2px] text-[11px] text-[#94a3b8]">Employer Portal</span>
+      </div>
+    </div>
+
+    <nav class="navigation [padding:24px_16px]">
+
+      <a routerLink="/employer/dashboard" class="nav-item flex items-center h-[46px] [padding:0_14px] mb-[6px] rounded-[9px] no-underline">
+        <span class="nav-icon w-[28px] text-[17px]">⌂</span>
+        Dashboard
+      </a>
+
+      <a
+        routerLink="/employer/vacancy-list"
+        class="nav-item active flex items-center h-[46px] [padding:0_14px] mb-[6px] rounded-[9px] no-underline"
+      >
+        <span class="nav-icon w-[28px] text-[17px]">▤</span>
+        Vacancies
+      </a>
+
+      <a
+        routerLink="/employer/company-profile"
+        class="nav-item flex items-center h-[46px] [padding:0_14px] mb-[6px] rounded-[9px] no-underline"
+      >
+        <span class="nav-icon w-[28px] text-[17px]">▣</span>
+        Company Profile
+      </a>
+
+    </nav>
+
+    <div class="sidebar-bottom mt-[auto] [padding:18px] [border-top:1px_solid_#f1f5f9]">
+
+      <div class="profile-mini flex items-center gap-[10px]">
+        <div class="avatar flex items-center justify-center rounded-[50%] [background:#ffedd5] text-[#ea580c] w-[36px] h-[36px]">
+          E
+        </div>
+
+        <div class="profile-info flex flex-col min-w-[0]">
+          <strong class="text-[12px]">Employer</strong>
+          <span class="mt-[2px] text-[#94a3b8] text-[10px]">Employer Account</span>
+        </div>
+
+        <span class="more ml-[auto] text-[#94a3b8]">•••</span>
+      </div>
+
+    </div>
+
+  </aside>
+
+
+  <!-- Main -->
+  <main class="main-content ml-[280px] min-h-[100vh]">
+
+    <!-- Header -->
+    <header class="top-header h-[88px] [background:#ffffff] [border-bottom:1px_solid_#e2e8f0] [padding:0_42px] flex items-center justify-between">
+
+      <div class="header-title">
+        <span class="breadcrumb text-[#94a3b8] text-[11px]">Employer /</span>
+        <h1 class="[margin:4px_0_0]">Job Vacancies</h1>
+      </div>
+
+      <div class="header-actions flex items-center gap-[16px]">
+
+        <button class="icon-button w-[36px] h-[36px] [background:#ffffff] cursor-pointer text-[#64748b]">
+          ?
+        </button>
+
+        <button class="notification-button w-[36px] h-[36px] [background:#ffffff] cursor-pointer text-[#64748b] relative" routerLink="/notifications/notification-list">
+          <span>♧</span>
+          <span class="notification-dot absolute top-[7px] right-[7px] w-[6px] h-[6px] rounded-[50%] [background:#f97316]"></span>
+        </button>
+
+        <div class="header-avatar flex items-center justify-center rounded-[50%] [background:#ffedd5] text-[#ea580c] w-[38px] h-[38px]">
+          E
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- Content -->
+    <section class="content max-w-[1600px] [margin:0_auto] [padding:38px_42px_60px]">
+
+      <!-- Intro -->
+      <div class="page-intro flex items-end justify-between gap-[30px] mb-[30px]">
+
+        <div>
+          <h2 class="[margin:0] tracking-[-0.5px]">My Vacancies</h2>
+
+          <p class="max-w-[650px] [margin:8px_0_0] text-[#64748b] text-[13px] leading-[1.7]">
+            Manage your open positions, track candidate pipelines,
+            and find the right talent for every role.
+          </p>
+        </div>
+
+        <div class="intro-actions flex gap-[10px]">
+
+          <button class="secondary-button h-[42px] [padding:0_18px] cursor-pointer inline-flex items-center justify-center gap-[8px] [background:#ffffff] text-[#334155]">
+            <span>▦</span>
+            Requisition Matrix
+          </button>
+
+          <button
+            class="primary-button h-[42px] [padding:0_18px] cursor-pointer inline-flex items-center justify-center gap-[8px] [background:#f97316] text-[white] [box-shadow:0_5px_15px_rgba(249,_115,_22,_0.18)]"
+            (click)="createVacancy()"
+          >
+            <span>+</span>
+            Post New Vacancy
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- Metrics -->
+      <div class="metrics-grid grid grid-cols-[repeat(4,_1fr)] gap-[16px] mb-[24px]">
+
+        <div class="metric-card min-h-[112px] [padding:20px] [background:#ffffff] flex items-center gap-[16px] [box-shadow:0_2px_8px_rgba(15,_23,_42,_0.025)]">
+
+          <div class="metric-icon orange w-[44px] h-[44px] rounded-[10px] flex items-center justify-center">
+            ▤
+          </div>
+
+          <div class="metric-content flex flex-col">
+            <span class="metric-label text-[#64748b]">
+              Total Vacancies
+            </span>
+
+            <strong class="metric-value mt-[5px] text-[25px] leading-[1]">
+              {{ totalVacancies }}
+            </strong>
+          </div>
+
+        </div>
+
+
+        <div class="metric-card min-h-[112px] [padding:20px] [background:#ffffff] flex items-center gap-[16px] [box-shadow:0_2px_8px_rgba(15,_23,_42,_0.025)]">
+
+          <div class="metric-icon green w-[44px] h-[44px] rounded-[10px] flex items-center justify-center">
+            ↗
+          </div>
+
+          <div class="metric-content flex flex-col">
+            <span class="metric-label text-[#64748b]">
+              Active Pipelines
+            </span>
+
+            <strong class="metric-value mt-[5px] text-[25px] leading-[1]">
+              {{ activePipelines }}
+            </strong>
+          </div>
+
+        </div>
+
+
+        <div class="metric-card min-h-[112px] [padding:20px] [background:#ffffff] flex items-center gap-[16px] [box-shadow:0_2px_8px_rgba(15,_23,_42,_0.025)]">
+
+          <div class="metric-icon gray w-[44px] h-[44px] rounded-[10px] flex items-center justify-center">
+            ✓
+          </div>
+
+          <div class="metric-content flex flex-col">
+            <span class="metric-label text-[#64748b]">
+              Archived / Closed
+            </span>
+
+            <strong class="metric-value mt-[5px] text-[25px] leading-[1]">
+              {{ archivedVacancies }}
+            </strong>
+          </div>
+
+        </div>
+
+
+        <div class="metric-card min-h-[112px] [padding:20px] [background:#ffffff] flex items-center gap-[16px] [box-shadow:0_2px_8px_rgba(15,_23,_42,_0.025)]">
+
+          <div class="metric-icon purple w-[44px] h-[44px] rounded-[10px] flex items-center justify-center">
+            ♙
+          </div>
+
+          <div class="metric-content flex flex-col">
+            <span class="metric-label text-[#64748b]">
+              Total Candidates
+            </span>
+
+            <strong class="metric-value mt-[5px] text-[25px] leading-[1]">
+              {{ totalCandidates }}
+            </strong>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- Search & Filters -->
+      <div class="filter-card [background:#ffffff] [padding:16px] mb-[18px] flex items-center gap-[16px]">
+
+        <div class="search-box [flex:1] h-[42px] flex items-center [padding:0_13px] [background:#ffffff]">
+
+          <span class="search-icon text-[#94a3b8] text-[19px] mr-[8px]">
+            ⌕
+          </span>
+
+          <input
+            type="text"
+            [(ngModel)]="searchText"
+            placeholder="Search by job title or vacancy code..."
+           class="w-[100%] [border:none] [outline:none] text-[#334155]"/>
+
+        </div>
+
+
+        <div class="filters flex items-center gap-[9px]">
+
+          <select [(ngModel)]="selectedStatus" class="h-[42px] min-w-[120px] [padding:0_11px] [background:#ffffff] text-[#475569] [outline:none] cursor-pointer">
+
+            <option value="">
+              Status
+            </option>
+
+            <option value="Open">
+              Active
+            </option>
+
+            <option value="Draft">
+              Draft
+            </option>
+
+            <option value="Closed">
+              Closed
+            </option>
+
+            <option value="Archived">
+              Archived
+            </option>
+
+          </select>
+
+
+          <select [(ngModel)]="selectedLocation" class="h-[42px] min-w-[120px] [padding:0_11px] [background:#ffffff] text-[#475569] [outline:none] cursor-pointer">
+
+            <option value="">
+              Location
+            </option>
+
+            <option *ngFor="let location of locations" [value]="location">{{ location }}</option>
+
+          </select>
+
+
+          <select [disabled]="true" title="Department is not available in the vacancy API" [(ngModel)]="selectedDepartment" class="h-[42px] min-w-[120px] [padding:0_11px] [background:#ffffff] text-[#475569] [outline:none] cursor-pointer">
+
+            <option value="">
+              Department
+            </option>
+
+            <option value="Engineering">
+              Engineering
+            </option>
+
+            <option value="Human Resources">
+              Human Resources
+            </option>
+
+            <option value="Marketing">
+              Marketing
+            </option>
+
+            <option value="Finance">
+              Finance
+            </option>
+
+          </select>
+
+
+          <button
+            class="clear-button h-[42px] [border:none] [background:transparent] text-[#f97316] cursor-pointer [padding:0_7px]"
+            (click)="clearFilters()"
+          >
+            Clear filters
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- Vacancy Table -->
+      <div class="table-card [background:#ffffff] overflow-hidden">
+
+        <div class="table-header [padding:20px_22px] [border-bottom:1px_solid_#e2e8f0]">
+
+          <div>
+            <h3 class="[margin:0]">Vacancy Pipeline</h3>
+
+            <span class="block mt-[4px] text-[#94a3b8] text-[10px]">
+              {{ filteredVacancies.length }} vacancies
+            </span>
+          </div>
+
+        </div>
+
+
+        <div
+          class="table-wrapper w-[100%] overflow-x-auto"
+          *ngIf="filteredVacancies.length > 0"
+        >
+
+          <table class="w-[100%] border-collapse min-w-[900px]">
+
+            <thead class="[background:#f8fafc]">
+
+              <tr>
+
+                <th class="[padding:13px_20px] text-left text-[#64748b] uppercase tracking-[0.4px] whitespace-nowrap">
+                  Job Title & Code
+                </th>
+
+                <th class="[padding:13px_20px] text-left text-[#64748b] uppercase tracking-[0.4px] whitespace-nowrap">
+                  Location & Mode
+                </th>
+
+                <th class="[padding:13px_20px] text-left text-[#64748b] uppercase tracking-[0.4px] whitespace-nowrap">
+                  Experience
+                </th>
+
+                <th class="[padding:13px_20px] text-left text-[#64748b] uppercase tracking-[0.4px] whitespace-nowrap">
+                  Applicants
+                </th>
+
+                <th class="[padding:13px_20px] text-left text-[#64748b] uppercase tracking-[0.4px] whitespace-nowrap">
+                  Status
+                </th>
+
+                <th class="[padding:13px_20px] text-left text-[#64748b] uppercase tracking-[0.4px] whitespace-nowrap">
+                  Posted
+                </th>
+
+                <th class="[padding:13px_20px] text-left text-[#64748b] uppercase tracking-[0.4px] whitespace-nowrap">
+                  Actions
+                </th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+
+              <tr
+                *ngFor="let vacancy of filteredVacancies"
+              >
+
+                <td class="[padding:17px_20px] [border-top:1px_solid_#f1f5f9] text-[#475569] text-[11px] whitespace-nowrap">
+
+                  <div class="job-cell flex flex-col">
+
+                    <strong class="text-[#0f172a] text-[12px]">
+                      {{ vacancy.jobTitle }}
+                    </strong>
+
+                    <span class="mt-[4px] text-[#94a3b8] text-[10px]">
+                      {{ vacancy.vacancyId }}
+                    </span>
+
+                  </div>
+
+                </td>
+
+
+                <td class="[padding:17px_20px] [border-top:1px_solid_#f1f5f9] text-[#475569] text-[11px] whitespace-nowrap">
+
+                  <div class="location-cell flex flex-col">
+
+                    <strong class="text-[#334155] text-[11px]">
+                      {{ vacancy.location || 'Not provided' }}
+                    </strong>
+
+                    <span class="mt-[4px] text-[#94a3b8] text-[10px]">
+                      Workplace model unavailable
+                    </span>
+
+                  </div>
+
+                </td>
+
+
+                <td class="[padding:17px_20px] [border-top:1px_solid_#f1f5f9] text-[#475569] text-[11px] whitespace-nowrap">
+                  {{ vacancy.requiredExperience || 'Not provided' }}
+                </td>
+
+
+                <td class="[padding:17px_20px] [border-top:1px_solid_#f1f5f9] text-[#475569] text-[11px] whitespace-nowrap">
+
+                  <strong class="applicant-count text-[#0f172a]">
+                    Not available
+                  </strong>
+
+                </td>
+
+
+                <td class="[padding:17px_20px] [border-top:1px_solid_#f1f5f9] text-[#475569] text-[11px] whitespace-nowrap">
+
+                  <span
+                    class="status-badge inline-flex items-center min-h-[25px] [padding:0_9px] rounded-[999px]"
+                    [ngClass]="{
+                      'active': vacancy.status === 'Open',
+                      'draft': vacancy.status === 'Draft',
+                      'closed': vacancy.status === 'Closed',
+                      'archived': vacancy.status === 'Archived',
+                      '!bg-red-50 !text-red-700 border border-red-200': (vacancy.status || '').toLowerCase() === 'closed'
+                    }"
+                  >
+                    {{ vacancy.status }}
+                  </span>
+
+                </td>
+
+
+                <td class="[padding:17px_20px] [border-top:1px_solid_#f1f5f9] text-[#475569] text-[11px] whitespace-nowrap">
+                  {{ vacancy.createdAt | date:'mediumDate' }}
+                </td>
+
+
+                <td class="[padding:17px_20px] [border-top:1px_solid_#f1f5f9] text-[#475569] text-[11px] whitespace-nowrap">
+
+                  <div class="action-buttons flex gap-[6px]">
+
+                    <button
+                      title="View"
+                      (click)="viewVacancy(vacancy)"
+                     class="[background:#ffffff] [padding:6px_9px] text-[#475569] cursor-pointer">
+                      View
+                    </button>
+
+                    <button
+                      title="Edit"
+                      (click)="editVacancy(vacancy)"
+                     class="[background:#ffffff] [padding:6px_9px] text-[#475569] cursor-pointer">
+                      Edit
+                    </button>
+
+                    <button
+                      *ngIf="(vacancy.status || '').toLowerCase() === 'open'"
+                      type="button"
+                      title="Close"
+                      (click)="closeVacancy(vacancy)"
+                      [disabled]="closingVacancyId !== null"
+                      class="[background:#ffffff] [padding:6px_9px] text-red-600 cursor-pointer disabled:opacity-50">
+                      Close
+                    </button>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+
+        <!-- Empty State -->
+        <div
+          class="empty-state [padding:70px_30px] text-center"
+          *ngIf="filteredVacancies.length === 0"
+        >
+
+          <div class="empty-icon w-[58px] h-[58px] [margin:0_auto_18px] rounded-[14px] [background:#fff7ed] text-[#f97316] flex items-center justify-center text-[25px]">
+            ▤
+          </div>
+
+          <h3 class="[margin:0]">{{ isLoading ? 'Loading vacancies...' : 'No vacancies found' }}</h3>
+
+          <p class="max-w-[480px] [margin:9px_auto_20px] text-[#94a3b8] text-[11px] leading-[1.7]">
+            {{ errorMessage || (isLoading ? 'Please wait while your vacancies load.' : 'There are no vacancies matching your filters. Create a vacancy or clear the filters.') }}
+          </p>
+
+          <button
+            class="primary-button h-[42px] [padding:0_18px] cursor-pointer inline-flex items-center justify-center gap-[8px] [background:#f97316] text-[white] [box-shadow:0_5px_15px_rgba(249,_115,_22,_0.18)]"
+            (click)="createVacancy()"
+          >
+            <span>+</span>
+            Create Vacancy
+          </button>
+
+        </div>
+
+
+        <!-- Footer -->
+        <div class="table-footer [padding:15px_20px] [border-top:1px_solid_#f1f5f9] text-[#94a3b8] text-[10px]">
+
+          <span>
+            Showing {{ filteredVacancies.length }} of
+            {{ totalVacancies }} vacancies
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- Matching Info -->
+      <div class="matching-banner mt-[20px] [padding:18px_20px] [background:#fff7ed] flex items-center gap-[14px]">
+
+        <div class="matching-icon w-[40px] h-[40px] rounded-[10px] flex items-center justify-center [background:#ffffff] text-[#f97316] text-[18px]">
+          ✦
+        </div>
+
+        <div class="matching-content [flex:1]">
+
+          <strong class="block text-[12px]">
+            Automated Candidate Matching Active
+          </strong>
+
+          <p class="[margin:4px_0_0] text-[#9a3412] text-[10px] leading-[1.6]">
+            New candidates are automatically evaluated
+            against your vacancy requirements and ranked
+            according to their match.
+          </p>
+
+        </div>
+
+        <span class="matching-status [padding:6px_10px] rounded-[999px] [background:#ecfdf5] text-[#047857]">
+          Active
+        </span>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>

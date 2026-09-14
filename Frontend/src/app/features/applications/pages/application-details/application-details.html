@@ -1,0 +1,992 @@
+<div class="application-page min-h-[100vh] [background:#f8f9ff] text-[#0b1c30]">
+
+  <!-- Top Header -->
+  <header class="top-header fixed left-[280px] right-[0] top-[0] h-[64px] z-[40] [padding:0_24px] flex items-center justify-between gap-[20px] [background:rgba(248,_249,_255,_0.92)] [border-bottom:1px_solid_#edf0f5]">
+
+    <div class="header-left flex items-center gap-[25px]">
+
+      <div class="brand items-center gap-[10px] [padding:0_8px_24px]">
+        <div class="brand-icon w-[34px] h-[34px] flex items-center justify-center rounded-[10px] [background:#f97316] text-[white]">
+          <span class="material-symbols-outlined">
+            hub
+          </span>
+        </div>
+
+        <div>
+          <div class="brand-name leading-[20px]">SmartRecruit</div>
+          <div class="brand-subtitle mt-[2px] text-[#64748b] tracking-[0.13em]">WORKSPACE</div>
+        </div>
+      </div>
+
+      <div class="breadcrumb flex items-center gap-[7px] text-[#64748b] text-[12px]">
+
+        <button type="button" (click)="goBack()" class="[border:0] [background:transparent] text-[#64748b] cursor-pointer">
+          Applicants
+        </button>
+
+        <span class="material-symbols-outlined">
+          chevron_right
+        </span>
+
+        <strong class="text-[#f97316]">Candidate Details</strong>
+
+      </div>
+
+    </div>
+
+    <div class="header-right flex items-center gap-[13px]">
+
+      <div class="search-box w-[310px] h-[38px] [padding:0_9px] [background:white] flex items-center gap-[7px]">
+
+        <span class="material-symbols-outlined text-[#64748b]">
+          search
+        </span>
+
+        <input
+          type="text"
+          placeholder="Search candidates, skills, criteria..."
+         class="min-w-[0] [flex:1] [border:0] [outline:0] [background:transparent] text-[#0f172a]"/>
+
+        <kbd class="[padding:3px_5px] rounded-[5px] [background:#eff4ff] text-[#64748b] text-[9px]">⌘K</kbd>
+
+      </div>
+
+      <button class="icon-button relative w-[38px] h-[38px] [background:transparent] text-[#64748b] cursor-pointer" type="button" routerLink="/notifications/notification-list">
+
+        <span class="material-symbols-outlined">
+          notifications
+        </span>
+
+        <span class="notification-dot absolute right-[8px] top-[8px] w-[7px] h-[7px] [background:#f97316]"></span>
+
+      </button>
+
+      <div class="profile-divider w-[1px] h-[28px] [background:#e2e8f0]"></div>
+
+      <div class="profile flex items-center gap-[8px]">
+
+        <div class="profile-avatar w-[32px] h-[32px] rounded-[50%] [background:#e5eeff] text-[#64748b] flex items-center justify-center">
+          <span class="material-symbols-outlined">
+            person
+          </span>
+        </div>
+
+        <div class="profile-info flex flex-col gap-[1px]">
+          <strong class="text-[11px]">Employer</strong>
+          <span class="text-[#64748b] text-[9px]">Talent Workspace</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- Sidebar -->
+  <aside class="sidebar fixed left-[0] top-[0] bottom-[0] w-[280px] z-[50] flex flex-col justify-between [padding:22px_16px] [background:#ffffff] [border-right:1px_solid_#edf0f5]">
+
+    <nav class="flex flex-col gap-[5px]">
+
+      <button type="button" class="w-[100%] min-h-[40px] [padding:0_12px] flex items-center justify-between text-left cursor-pointer" routerLink="/employer/dashboard">
+        <span>Dashboard</span>
+      </button>
+
+      <button type="button" class="w-[100%] min-h-[40px] [padding:0_12px] flex items-center justify-between text-left cursor-pointer" routerLink="/employer/company-profile">
+        <span>Company Profile</span>
+      </button>
+
+      <button type="button" class="w-[100%] min-h-[40px] [padding:0_12px] flex items-center justify-between text-left cursor-pointer" routerLink="/employer/vacancy-list">
+        <span>Vacancies</span>
+      </button>
+
+      <button
+        type="button"
+        class="active w-[100%] min-h-[40px] [padding:0_12px] flex items-center justify-between text-left cursor-pointer [box-shadow:0_3px_10px_rgba(249,_115,_22,_0.2)]" routerLink="/applications/applicants-list">
+
+        <span>Applicants</span>
+
+        <span class="nav-badge [padding:3px_7px] rounded-[999px] [background:#ffffff] text-[#f97316]">
+          Active
+        </span>
+
+      </button>
+
+      <button type="button" class="w-[100%] min-h-[40px] [padding:0_12px] flex items-center justify-between text-left cursor-pointer" routerLink="/contact/contact-requests">
+        <span>Contact Requests</span>
+      </button>
+
+      <button type="button" class="w-[100%] min-h-[40px] [padding:0_12px] flex items-center justify-between text-left cursor-pointer" routerLink="/notifications/notification-list">
+        <span>Notifications</span>
+
+        <span class="notification-badge [padding:3px_7px] rounded-[999px] [background:#f97316] text-[white]">
+          0
+        </span>
+
+      </button>
+
+    </nav>
+
+
+    <div class="sidebar-bottom flex flex-col gap-[10px] pt-[15px] [border-top:1px_solid_#e2e8f0]">
+
+      <div class="environment min-h-[38px] [padding:0_9px] rounded-[9px] [background:#eff4ff] flex items-center gap-[7px] text-[#64748b]">
+
+        <span class="environment-dot w-[7px] h-[7px] rounded-[50%] [background:#f97316]"></span>
+
+        <span>Application Environment</span>
+
+        <small class="ml-[auto] [padding:3px_5px] rounded-[5px] [background:#dce9ff] text-[#475569] text-[8px]">v1.0</small>
+
+      </div>
+
+      <button type="button" class="sign-out min-h-[40px] [padding:0_12px] [background:transparent] text-[#64748b] flex items-center justify-between cursor-pointer">
+
+        <span>Sign Out</span>
+
+        <span class="material-symbols-outlined">
+          logout
+        </span>
+
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- Main -->
+  <main class="main-content min-h-[100vh] ml-[280px] [padding:88px_24px_40px]">
+
+    <!-- Back row -->
+    <div class="back-row flex items-center justify-between gap-[15px] mb-[18px]">
+
+      <button
+        type="button"
+        class="back-button inline-flex items-center gap-[7px] [padding:0] [border:0] [background:transparent] text-[#64748b] cursor-pointer"
+        (click)="goBack()">
+
+        <span class="material-symbols-outlined">
+          arrow_back
+        </span>
+
+        Back to Ranked Applicants
+
+      </button>
+
+      <div class="audit-indicator flex items-center gap-[7px] text-[#64748b]">
+
+        <span class="w-[7px] h-[7px] rounded-[50%] [background:#f97316]"></span>
+
+        Deterministic Pipeline Review · Internal Audit Enabled
+
+      </div>
+
+    </div>
+
+
+    @if (loading) {
+      <section class="content-card [background:white] [padding:24px]">Loading application details...</section>
+    } @else if (loadError) {
+      <section class="content-card [background:white] [padding:24px] text-red-700">{{ loadError }}</section>
+    } @else if (applicant) {
+
+    @if (actionMessage) {
+      <p class="[padding:10px_14px] [background:#ecfdf5] text-green-700">{{ actionMessage }}</p>
+    }
+
+    <!-- Candidate Hero -->
+    <section class="candidate-hero relative overflow-hidden min-h-[190px] [padding:25px] mb-[20px] [background:white] flex items-center justify-between gap-[25px] [box-shadow:0_3px_12px_rgba(15,_23,_42,_0.035)]">
+
+      <div class="hero-glow absolute right-[-90px] top-[-110px] w-[290px] h-[290px] rounded-[50%] [background:rgba(249,_115,_22,_0.08)] pointer-events-none"></div>
+
+      <div class="candidate-identity relative z-[1] flex items-center gap-[20px] min-w-[0]">
+
+        <div class="candidate-avatar relative w-[105px] h-[105px] shrink-0 rounded-[18px] [background:#eff4ff] text-[#94a3b8] flex items-center justify-center">
+
+          <span class="material-symbols-outlined">
+            person
+          </span>
+
+          <div class="verified-icon absolute right-[-5px] bottom-[-5px] w-[27px] h-[27px] rounded-[50%] [background:white] flex items-center justify-center">
+            <span class="material-symbols-outlined text-[#f97316]">
+              verified
+            </span>
+          </div>
+
+        </div>
+
+        <div class="candidate-info min-w-[0]">
+
+          <div class="candidate-title-row flex items-center flex-wrap gap-[7px] mb-[5px]">
+
+            <h1 class="[margin:0] text-[26px] leading-[34px] tracking-[-0.02em]">{{ candidateName || 'Candidate' }}</h1>
+
+            <span class="id-pill [padding:4px_8px] rounded-[6px] [background:#eff4ff] text-[#64748b]">
+              Application #{{ applicant.applicationId }}
+            </span>
+
+            <span class="status-pill [padding:4px_8px] rounded-[6px] [background:#dae2fd] text-[#475569]">
+              {{ applicant.status }}
+            </span>
+
+          </div>
+
+          <p class="candidate-role [margin:0_0_9px] text-[#565e74]">
+            {{ applicant.professionalTitle || applicant.jobTitle }}
+          </p>
+
+          <div class="candidate-meta flex items-center flex-wrap gap-[9px] text-[#64748b] text-[10px]">
+
+            <span class="items-center gap-[4px]">
+              <span class="material-symbols-outlined items-center gap-[4px] text-[#9d4300]">
+                schedule
+              </span>
+              Applied {{ applicant.appliedAt | date:'mediumDate' }}
+            </span>
+
+            <span class="separator items-center gap-[4px] text-[#cbd5e1]">•</span>
+
+            <span class="items-center gap-[4px]">
+              <span class="material-symbols-outlined items-center gap-[4px] text-[#9d4300]">
+                location_on
+              </span>
+              {{ applicant.location || 'Location not provided' }}
+            </span>
+
+            <span class="separator items-center gap-[4px] text-[#cbd5e1]">•</span>
+
+            <span class="items-center gap-[4px]">
+              <span class="material-symbols-outlined items-center gap-[4px] text-[#9d4300]">
+                work_history
+              </span>
+              {{ applicant.experience || 'Experience not provided' }}
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- Hero Actions -->
+      <div class="hero-actions relative z-[1] flex flex-col items-end gap-[15px]">
+
+        <div class="match-score flex items-center gap-[11px]">
+
+          <div class="score-ring relative w-[74px] h-[74px]">
+
+            <svg viewBox="0 0 72 72" class="w-[74px] h-[74px]">
+
+              <circle
+                cx="36"
+                cy="36"
+                r="30"
+                class="score-background">
+              </circle>
+
+              <circle
+                cx="36"
+                cy="36"
+                r="30"
+                class="score-progress">
+              </circle>
+
+            </svg>
+
+            <div class="score-value absolute [inset:0] flex flex-col items-center justify-center">
+
+              <strong class="text-[21px] leading-[23px]">{{ applicant.matchScore ?? '—' }}{{ applicant.matchScore !== null ? '%' : '' }}</strong>
+
+              <span class="text-[#64748b]">FIT</span>
+
+            </div>
+
+          </div>
+
+          <div class="score-info flex flex-col gap-[2px]">
+
+            <strong class="text-[12px]">{{ applicant.matchScore !== null ? 'Candidate match score' : 'Match score unavailable' }}</strong>
+
+            <span class="text-[#64748b] text-[9px]">Deterministic Rule Fit</span>
+
+            <b class="text-[#f97316] text-[9px]">Based on saved profile data</b>
+
+          </div>
+
+        </div>
+
+
+        <div class="hero-buttons flex gap-[8px]">
+
+          <button
+            type="button"
+            class="secondary-action min-h-[39px] [padding:0_13px] inline-flex items-center justify-center gap-[6px] cursor-pointer [background:#e5eeff] text-[#0b1c30]"
+            (click)="openCvModal()" [disabled]="cvLoading">
+
+            <span class="material-symbols-outlined">
+              visibility
+            </span>
+
+            {{ cvLoading ? 'Loading CV...' : 'View CV' }}
+
+          </button>
+
+          <button
+            type="button"
+            class="primary-action min-h-[39px] [padding:0_13px] inline-flex items-center justify-center gap-[6px] cursor-pointer [background:#f97316] text-[white] [box-shadow:0_3px_10px_rgba(249,_115,_22,_0.2)]"
+            (click)="openContactModal()">
+
+            <span class="material-symbols-outlined">
+              send
+            </span>
+
+            Contact Candidate
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- Main Grid -->
+    <div class="content-grid grid grid-cols-[minmax(0,_2fr)_minmax(310px,_1fr)] gap-[20px] [align-items:start]">
+
+
+      <!-- LEFT -->
+      <div class="left-column flex flex-col gap-[20px]">
+
+
+        <!-- Match Analysis -->
+        <section class="content-card [background:white] [box-shadow:0_3px_12px_rgba(15,_23,_42,_0.035)] [padding:21px]">
+
+          <div class="card-header flex items-center justify-between gap-[15px] pb-[15px] [border-bottom:1px_solid_#dce9ff]">
+
+            <div class="card-title flex items-center gap-[9px]">
+
+              <div class="card-icon shrink-0 rounded-[9px] [background:#e5eeff] text-[#f97316] flex items-center justify-center">
+                <span class="material-symbols-outlined">
+                  rule
+                </span>
+              </div>
+
+              <div>
+                <h2 class="[margin:0]">Algorithmic Match Analysis</h2>
+                <p class="[margin:2px_0_0] text-[#64748b] text-[9px]">
+                  Calculated against the selected vacancy requirements
+                </p>
+              </div>
+
+            </div>
+
+            <span class="header-tag [padding:5px_8px] rounded-[6px] [background:#e5eeff] text-[#475569]">
+              {{ applicant.matchScore !== null ? 'Profile Match' : 'No match score' }}
+            </span>
+
+          </div>
+
+
+          <div class="analysis-grid grid grid-cols-[repeat(2,_minmax(0,_1fr))] gap-[20px] pt-[17px]">
+
+            <div class="analysis-section flex flex-col gap-[9px]">
+
+              <div class="analysis-heading flex justify-between">
+
+                <span class="matched-title flex items-center gap-[4px] uppercase tracking-[0.04em] text-[#f97316]">
+                  <span class="material-symbols-outlined">
+                    check_circle
+                  </span>
+
+                  Matched Competencies
+                </span>
+
+              </div>
+
+              <div class="skills-list min-h-[125px] [padding:20px] rounded-[12px] [background:#eff4ff]">
+                @for (skill of applicant.matchedSkills; track skill) { <span class="header-tag">{{ skill }}</span> }
+                @if (applicant.matchedSkills.length === 0) { <p>No matched skills.</p> }
+              </div>
+
+            </div>
+
+
+            <div class="analysis-section flex flex-col gap-[9px]">
+
+              <div class="analysis-heading flex justify-between">
+
+                <span class="missing-title flex items-center gap-[4px] uppercase tracking-[0.04em] text-[#64748b]">
+                  <span class="material-symbols-outlined">
+                    cancel
+                  </span>
+
+                  Deficit / Missing Criteria
+                </span>
+
+              </div>
+
+              <div class="skills-list min-h-[125px] [padding:20px] rounded-[12px] [background:#eff4ff]">
+                @for (skill of applicant.missingSkills; track skill) { <span class="header-tag">{{ skill }}</span> }
+                @if (applicant.missingSkills.length === 0) { <p>No missing skills.</p> }
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="algorithm-note flex items-start gap-[8px] mt-[17px] [padding:11px] rounded-[11px] [background:#eff4ff]">
+
+            <span class="material-symbols-outlined text-[#f97316]">
+              info
+            </span>
+
+            <p class="[margin:0] text-[#64748b] text-[10px] leading-[17px]">
+              <strong class="text-[#0b1c30]">Deterministic Rule Evaluation:</strong>
+              This result uses the candidate's saved profile and the vacancy requirements.
+            </p>
+
+          </div>
+
+        </section>
+
+
+        <!-- Candidate Profile -->
+        <section class="content-card [background:white] [box-shadow:0_3px_12px_rgba(15,_23,_42,_0.035)] [padding:21px]">
+
+          <div class="card-header flex items-center justify-between gap-[15px] pb-[15px] [border-bottom:1px_solid_#dce9ff]">
+
+            <div class="card-title flex items-center gap-[9px]">
+
+              <div class="card-icon shrink-0 rounded-[9px] [background:#e5eeff] text-[#f97316] flex items-center justify-center">
+                <span class="material-symbols-outlined">
+                  person
+                </span>
+              </div>
+
+              <div>
+                <h2 class="[margin:0]">Candidate Profile & Bio</h2>
+                <p class="[margin:2px_0_0] text-[#64748b] text-[9px]">
+                  Verified candidate information
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="min-h-[175px] [padding:24px]">
+            <h3>{{ applicant.professionalTitle || 'Professional profile' }}</h3>
+            <p>{{ applicant.professionalSummary || 'No professional summary provided.' }}</p>
+            <p><strong>Email:</strong> {{ applicant.email || 'Not provided' }}</p>
+            <p><strong>Phone:</strong> {{ applicant.phoneNumber || 'Not provided' }}</p>
+            <p><strong>Location:</strong> {{ applicant.location || 'Not provided' }}</p>
+          </div>
+
+        </section>
+
+
+        <!-- Career History -->
+        <section class="content-card [background:white] [box-shadow:0_3px_12px_rgba(15,_23,_42,_0.035)] [padding:21px]">
+
+          <div class="card-header flex items-center justify-between gap-[15px] pb-[15px] [border-bottom:1px_solid_#dce9ff]">
+
+            <div class="card-title flex items-center gap-[9px]">
+
+              <div class="card-icon shrink-0 rounded-[9px] [background:#e5eeff] text-[#f97316] flex items-center justify-center">
+                <span class="material-symbols-outlined">
+                  timeline
+                </span>
+              </div>
+
+              <div>
+                <h2 class="[margin:0]">Verified Career History</h2>
+                <p class="[margin:2px_0_0] text-[#64748b] text-[9px]">
+                  Candidate employment history
+                </p>
+              </div>
+
+            </div>
+
+            <span class="header-tag [padding:5px_8px] rounded-[6px] [background:#e5eeff] text-[#475569]">
+              Candidate profile
+            </span>
+
+          </div>
+
+
+          <div class="empty-profile min-h-[175px] [padding:24px] flex flex-col items-center justify-center text-center">
+
+            <div class="empty-icon w-[46px] h-[46px] mb-[10px] rounded-[13px] [background:#eff4ff] text-[#94a3b8] flex items-center justify-center">
+              <span class="material-symbols-outlined">
+                work_history
+              </span>
+            </div>
+
+            <h3 class="[margin:0] text-[13px]">Experience</h3>
+
+            <p class="max-w-[390px] [margin:6px_0_0] text-[#64748b] text-[10px] leading-[17px]">
+              {{ applicant.experience || 'No experience information provided.' }}
+              <br><strong>Education:</strong> {{ applicant.education || 'Not provided' }}
+            </p>
+
+          </div>
+
+        </section>
+
+
+        <!-- Skills -->
+        <section class="content-card [background:white] [box-shadow:0_3px_12px_rgba(15,_23,_42,_0.035)] [padding:21px]">
+
+          <div class="card-header flex items-center justify-between gap-[15px] pb-[15px] [border-bottom:1px_solid_#dce9ff]">
+
+            <div class="card-title flex items-center gap-[9px]">
+
+              <div class="card-icon shrink-0 rounded-[9px] [background:#e5eeff] text-[#f97316] flex items-center justify-center">
+                <span class="material-symbols-outlined">
+                  category
+                </span>
+              </div>
+
+              <div>
+                <h2 class="[margin:0]">Extracted & Verified Skills</h2>
+                <p class="[margin:2px_0_0] text-[#64748b] text-[9px]">
+                  Skills parsed from candidate documents
+                </p>
+              </div>
+
+            </div>
+
+            <span class="header-tag [padding:5px_8px] rounded-[6px] [background:#e5eeff] text-[#475569]">
+              CV & Portfolio
+            </span>
+
+          </div>
+
+
+          <div class="skills-list min-h-[115px] [padding:20px]">
+            @for (skill of skills; track skill) { <span class="header-tag">{{ skill }}</span> }
+            @if (skills.length === 0) { <p>No skills provided.</p> }
+          </div>
+
+        </section>
+
+      </div>
+
+
+      <!-- RIGHT -->
+      <div class="right-column flex flex-col gap-[20px] sticky top-[84px]">
+
+
+        <!-- Application Control -->
+        <section class="side-card [background:white] [box-shadow:0_3px_12px_rgba(15,_23,_42,_0.035)] [padding:19px]">
+
+          <div class="side-card-header flex items-center gap-[8px] pb-[14px] [border-bottom:1px_solid_#dce9ff]">
+
+            <div class="card-icon shrink-0 rounded-[9px] [background:#e5eeff] text-[#f97316] flex items-center justify-center">
+              <span class="material-symbols-outlined">
+                manage_accounts
+              </span>
+            </div>
+
+            <h2 class="[margin:0]">Application Control</h2>
+
+          </div>
+
+
+          <div class="side-card-body pt-[15px]">
+
+            <div class="requisition-box flex flex-col gap-[4px] [padding:12px] rounded-[11px] [background:#eff4ff]">
+
+              <span class="text-[#64748b] tracking-[0.08em]">ACTIVE REQUISITION</span>
+
+              <strong class="text-[12px] leading-[17px]">
+                {{ applicant.jobTitle }}
+              </strong>
+
+              <small class="text-[#64748b] text-[9px]">
+                Vacancy #{{ applicant.vacancyId }}
+              </small>
+
+            </div>
+
+
+            <div class="metadata mt-[12px]">
+
+              <div class="flex items-center justify-between gap-[10px] [padding:8px_0] [border-bottom:1px_solid_#eff4ff]">
+                <span class="text-[#64748b] text-[9px]">Applied Date</span>
+                <strong class="text-[#0b1c30] text-[9px] text-right">{{ applicant.appliedAt | date:'medium' }}</strong>
+              </div>
+
+              <div class="flex items-center justify-between gap-[10px] [padding:8px_0] [border-bottom:1px_solid_#eff4ff]">
+                <span class="text-[#64748b] text-[9px]">Candidate Source</span>
+                <strong class="text-[#0b1c30] text-[9px] text-right">Not available</strong>
+              </div>
+
+              <div class="flex items-center justify-between gap-[10px] [padding:8px_0] [border-bottom:1px_solid_#eff4ff]">
+                <span class="text-[#64748b] text-[9px]">Hiring Manager</span>
+                <strong class="text-[#0b1c30] text-[9px] text-right">Not available</strong>
+              </div>
+
+            </div>
+
+
+            <div class="status-control mt-[14px]">
+
+              <label for="pipeline-status" class="block mb-[6px]">
+                Stage Pipeline Status
+              </label>
+
+              <div class="select-wrapper relative">
+
+                <select
+                  id="pipeline-status"
+                  [(ngModel)]="pipelineStatus" class="w-[100%] h-[40px] [padding:0_34px_0_11px] [outline:0] [appearance:none] [background:#eff4ff] text-[#0b1c30] cursor-pointer">
+
+                  <option value="">
+                    Select pipeline status
+                  </option>
+
+                  <option value="Pending">
+                    Pending
+                  </option>
+
+                  <option value="Reviewed">
+                    Reviewed
+                  </option>
+
+                  <option value="Shortlisted">
+                    Shortlisted
+                  </option>
+
+                  <option value="Accepted">
+                    Accepted
+                  </option>
+
+                  <option value="Rejected">
+                    Rejected
+                  </option>
+
+                </select>
+
+                <span class="material-symbols-outlined absolute right-[9px] top-[11px] text-[#64748b] pointer-events-none">
+                  expand_more
+                </span>
+
+              </div>
+
+              <p class="[margin:6px_0_0] text-[#64748b] text-[9px] leading-[15px]">
+                Select the new application status.
+              </p>
+
+            </div>
+
+
+            <button
+              type="button"
+              class="full-primary w-[100%] h-[40px] mt-[13px] [background:#f97316] text-[white] cursor-pointer"
+              (click)="updateStatus()" [disabled]="!pipelineStatus || statusUpdating">
+
+              Update Status
+
+            </button>
+
+          </div>
+
+        </section>
+
+
+        <!-- Resume -->
+        <section class="side-card [background:white] [box-shadow:0_3px_12px_rgba(15,_23,_42,_0.035)] [padding:19px]">
+
+          <div class="side-card-header flex items-center gap-[8px] pb-[14px] [border-bottom:1px_solid_#dce9ff]">
+
+            <div class="card-icon shrink-0 rounded-[9px] [background:#e5eeff] text-[#f97316] flex items-center justify-center">
+              <span class="material-symbols-outlined">
+                description
+              </span>
+            </div>
+
+            <h2 class="[margin:0]">Candidate Resume</h2>
+
+            <span class="lock-icon material-symbols-outlined ml-[auto] text-[#f97316]">
+              lock
+            </span>
+
+          </div>
+
+
+          <div class="side-card-body pt-[15px]">
+
+            <div class="resume-box flex items-start gap-[10px] [padding:12px] rounded-[11px] [background:#eff4ff]">
+
+              <div class="pdf-icon w-[42px] h-[50px] rounded-[8px] [background:#dce9ff] text-[#f97316] flex items-center justify-center">
+
+                <span class="material-symbols-outlined">
+                  picture_as_pdf
+                </span>
+
+                <small class="mt-[-3px]">PDF</small>
+
+              </div>
+
+              <div class="resume-info min-w-[0] flex flex-col gap-[4px]">
+
+                <strong class="text-[11px]">Secure candidate CV</strong>
+
+                <span class="text-[#64748b] text-[9px] leading-[14px]">
+                  Access is verified against this application and your company.
+                </span>
+
+                <small class="text-[#f97316]">
+                  Recruiter access logging enabled
+                </small>
+
+              </div>
+
+            </div>
+
+
+            <button
+              type="button"
+              class="resume-preview w-[100%] h-[40px] mt-[11px] [background:#e5eeff] text-[#0b1c30] flex items-center justify-center gap-[6px] cursor-pointer"
+              (click)="openCvModal()" [disabled]="cvLoading">
+
+              <span class="material-symbols-outlined">
+                open_in_new
+              </span>
+
+              {{ cvLoading ? 'Loading CV...' : 'View CV' }}
+
+            </button>
+
+
+            @if (cvError) { <p class="text-red-700">{{ cvError }}</p> }
+
+          </div>
+
+        </section>
+
+
+        <!-- Criteria -->
+        <section class="side-card [background:white] [box-shadow:0_3px_12px_rgba(15,_23,_42,_0.035)] [padding:19px]">
+
+          <div class="side-card-header flex items-center gap-[8px] pb-[14px] [border-bottom:1px_solid_#dce9ff]">
+
+            <div class="card-icon shrink-0 rounded-[9px] [background:#e5eeff] text-[#f97316] flex items-center justify-center">
+              <span class="material-symbols-outlined">
+                compare_arrows
+              </span>
+            </div>
+
+            <h2 class="[margin:0]">Criteria Breakdown</h2>
+
+          </div>
+
+
+          <div class="criteria-empty min-h-[170px] [padding:20px_10px] flex flex-col items-center justify-center text-center">
+
+            <span class="material-symbols-outlined text-[#94a3b8]">
+              analytics
+            </span>
+
+            <h3 class="[margin:8px_0_4px] text-[12px]">Candidate criteria</h3>
+
+            <p class="max-w-[230px] [margin:0] text-[#64748b] text-[9px] leading-[15px]">
+              Experience: {{ applicant.experience || 'Not provided' }}<br>
+              Education: {{ applicant.education || 'Not provided' }}<br>
+              Location: {{ applicant.location || 'Not provided' }}
+            </p>
+
+          </div>
+
+        </section>
+
+      </div>
+
+    </div>
+
+    }
+  </main>
+
+
+  <!-- Contact Modal -->
+  <div
+    class="modal-backdrop fixed [inset:0] z-[100] flex items-center justify-center [background:rgba(33,_49,_69,_0.48)]"
+    *ngIf="contactModalOpen"
+    (click)="closeContactModal()">
+
+    <div
+      class="modal w-[100%] max-w-[560px] overflow-hidden rounded-[17px] [background:white] [box-shadow:0_25px_70px_rgba(15,_23,_42,_0.25)]"
+      (click)="$event.stopPropagation()">
+
+      <div class="modal-header [padding:17px_19px] flex items-center justify-between [border-bottom:1px_solid_#dce9ff]">
+
+        <div class="modal-heading flex items-center gap-[10px]">
+
+          <div class="modal-icon w-[35px] h-[35px] rounded-[10px] [background:#f97316] text-[white] flex items-center justify-center">
+            <span class="material-symbols-outlined">
+              outgoing_mail
+            </span>
+          </div>
+
+          <div>
+            <h2 class="[margin:0] text-[15px]">Send Contact Request</h2>
+            <p class="[margin:2px_0_0] text-[#64748b] text-[9px]">
+              Candidate contact workflow
+            </p>
+          </div>
+
+        </div>
+
+        <button
+          type="button"
+          (click)="closeContactModal()" class="w-[31px] h-[31px] [background:transparent] text-[#64748b] cursor-pointer">
+
+          <span class="material-symbols-outlined">
+            close
+          </span>
+
+        </button>
+
+      </div>
+
+
+      <div class="modal-body [padding:18px_19px]">
+
+        <div class="modal-candidate flex items-center gap-[9px] [padding:10px] rounded-[11px] [background:#eff4ff] mb-[16px]">
+
+          <div class="small-avatar w-[37px] h-[37px] rounded-[50%] [background:#dce9ff] text-[#94a3b8] flex items-center justify-center">
+            <span class="material-symbols-outlined text-[#64748b]">
+              person
+            </span>
+          </div>
+
+          <div>
+            <strong class="text-[11px]">{{ candidateName || 'Candidate' }}</strong>
+            <span class="text-[#64748b]">
+              Application ID:
+              {{ applicant?.applicationId }}
+            </span>
+          </div>
+
+        </div>
+
+
+        <label class="block mb-[6px]">
+          Official Invitation Note
+        </label>
+
+        <textarea
+          [(ngModel)]="contactMessage"
+          rows="5"
+          placeholder="Enter your official invitation message..." class="w-[100%] [padding:11px] [outline:0] [background:#eff4ff] text-[#0b1c30] resize-y leading-[16px]">
+        </textarea>
+
+        <p class="modal-hint [margin:6px_0_0] text-[#64748b] text-[8px] leading-[14px]">
+          The candidate can accept or decline this contact request.
+        </p>
+
+      </div>
+
+
+      <div class="modal-footer [padding:13px_19px] flex justify-end gap-[7px] [border-top:1px_solid_#dce9ff]">
+
+        <button
+          type="button"
+          class="modal-cancel h-[38px] [padding:0_14px] cursor-pointer [background:#e5eeff] text-[#475569]"
+          (click)="closeContactModal()">
+
+          Cancel
+
+        </button>
+
+        <button
+          type="button"
+          class="modal-send h-[38px] [padding:0_14px] cursor-pointer [background:#f97316] text-[white] inline-flex items-center gap-[5px]"
+          (click)="sendContactRequest()" [disabled]="!contactMessage.trim() || contactSending">
+
+          <span class="material-symbols-outlined">
+            send
+          </span>
+
+          Send Contact Request
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- CV Modal -->
+  <div
+    class="modal-backdrop cv-backdrop fixed [inset:0] z-[100] flex items-center justify-center [background:rgba(33,_49,_69,_0.48)]"
+    *ngIf="cvModalOpen"
+    (click)="closeCvModal()">
+
+    <div
+      class="cv-modal w-[100%] max-w-[900px] max-h-[90vh] overflow-hidden rounded-[17px] [background:white] flex flex-col [box-shadow:0_25px_70px_rgba(15,_23,_42,_0.3)]"
+      (click)="$event.stopPropagation()">
+
+      <div class="cv-header min-h-[62px] [padding:0_18px] flex items-center justify-between [border-bottom:1px_solid_#dce9ff]">
+
+        <div class="cv-title flex items-center gap-[8px]">
+
+          <span class="material-symbols-outlined text-[#f97316]">
+            picture_as_pdf
+          </span>
+
+          <div>
+            <h2 class="[margin:0] text-[14px]">Candidate Resume</h2>
+            <span class="text-[#64748b] text-[8px]">
+              Secure recruiter viewer
+            </span>
+          </div>
+
+        </div>
+
+        <button
+          type="button"
+          (click)="closeCvModal()" class="w-[31px] h-[31px] [background:transparent] text-[#64748b] cursor-pointer">
+
+          <span class="material-symbols-outlined">
+            close
+          </span>
+
+        </button>
+
+      </div>
+
+
+      <div class="cv-body min-h-[500px] overflow-y-auto [padding:30px] [background:#eff4ff] flex items-center justify-center">
+
+        <div class="cv-empty max-w-[390px] text-center">
+
+          <div class="cv-empty-icon w-[60px] h-[60px] [margin:0_auto_13px] rounded-[15px] [background:white] text-[#94a3b8] flex items-center justify-center">
+            <span class="material-symbols-outlined">
+              description
+            </span>
+          </div>
+
+          <h2 class="[margin:0] text-[17px]">{{ cvLoading ? 'Loading secure CV...' : 'CV could not be opened' }}</h2>
+
+          <p class="[margin:7px_0_0] text-[#64748b] text-[10px] leading-[17px]">
+            {{ cvError || 'Verifying Employer access and retrieving the candidate document.' }}
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

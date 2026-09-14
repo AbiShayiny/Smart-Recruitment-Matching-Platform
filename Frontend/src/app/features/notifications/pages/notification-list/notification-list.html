@@ -1,0 +1,329 @@
+<div class="page-shell min-h-[100vh] [background:#f6f8fc]">
+  <app-employer-sidebar />
+
+  <!-- Sidebar -->
+  <aside hidden class="sidebar fixed top-[0] left-[0] w-[280px] h-[100vh] [background:#ffffff] [border-right:1px_solid_#e8edf4] flex flex-col z-[20]">
+
+    <div class="brand h-[88px] [padding:0_28px] flex items-center gap-[13px] [border-bottom:1px_solid_#edf1f6]">
+      <div class="brand-icon w-[42px] h-[42px] rounded-[12px] [background:#f97316] text-[#ffffff] flex items-center justify-center [box-shadow:0_8px_18px_rgba(249,_115,_22,_0.2)]">
+        <span>SN</span>
+      </div>
+
+      <div>
+        <h2 class="[margin:0] text-[#111827]">Sharp Nexus</h2>
+        <p class="[margin:3px_0_0] text-[11px] text-[#94a3b8]">Employer Portal</p>
+      </div>
+    </div>
+
+    <nav class="navigation [padding:24px_16px] flex flex-col gap-[6px]">
+
+      <a
+        class="nav-item min-h-[46px] [padding:0_14px] rounded-[10px] flex items-center gap-[13px] no-underline"
+        routerLink="/employer/dashboard">
+        <span class="nav-icon w-[20px] text-center text-[17px]">⌂</span>
+        <span>Dashboard</span>
+      </a>
+
+      <a
+        class="nav-item min-h-[46px] [padding:0_14px] rounded-[10px] flex items-center gap-[13px] no-underline"
+        routerLink="/employer/company-profile">
+        <span class="nav-icon w-[20px] text-center text-[17px]">▣</span>
+        <span>Company Profile</span>
+      </a>
+
+      <a
+        class="nav-item min-h-[46px] [padding:0_14px] rounded-[10px] flex items-center gap-[13px] no-underline"
+        routerLink="/employer/vacancy-list">
+        <span class="nav-icon w-[20px] text-center text-[17px]">▤</span>
+        <span>Job Vacancies</span>
+      </a>
+
+      <a
+        class="nav-item min-h-[46px] [padding:0_14px] rounded-[10px] flex items-center gap-[13px] no-underline"
+        routerLink="/applications/applicants-list">
+        <span class="nav-icon w-[20px] text-center text-[17px]">♙</span>
+        <span>Applicants</span>
+      </a>
+
+      <a
+        class="nav-item min-h-[46px] [padding:0_14px] rounded-[10px] flex items-center gap-[13px] no-underline"
+        routerLink="/contact/contact-requests">
+        <span class="nav-icon w-[20px] text-center text-[17px]">✉</span>
+        <span>Contact Requests</span>
+      </a>
+
+      <a class="nav-item active min-h-[46px] [padding:0_14px] rounded-[10px] flex items-center gap-[13px] no-underline" routerLink="/notifications/notification-list">
+        <span class="nav-icon w-[20px] text-center text-[17px]">🔔</span>
+        <span>Notifications</span>
+      </a>
+
+    </nav>
+
+    <div class="sidebar-bottom mt-[auto] [padding:18px_16px] [border-top:1px_solid_#edf1f6]">
+
+      <div class="profile-mini min-h-[58px] [padding:8px_9px] rounded-[12px] [background:#f8fafc] flex items-center gap-[10px]">
+
+        <div class="avatar w-[36px] h-[36px] shrink-0 rounded-[50%] [background:#fed7aa] text-[#c2410c] flex items-center justify-center">E</div>
+
+        <div class="profile-info min-w-[0] flex">
+          <strong class="text-[12px] text-[#334155]">Employer</strong>
+          <span class="mt-[2px] text-[10px] text-[#94a3b8]">Account</span>
+        </div>
+
+        <button
+          type="button"
+          class="more-button [border:0] [background:transparent] text-[#94a3b8] cursor-pointer text-[18px]">
+          ⋮
+        </button>
+
+      </div>
+
+    </div>
+
+  </aside>
+
+
+  <!-- Main Content -->
+  <main class="main-content min-h-[100vh] ml-[280px] [padding:0_42px_50px]">
+
+    <!-- Header -->
+    <header class="top-header min-h-[120px] [padding:28px_0] flex items-center justify-between gap-[24px]">
+
+      <div>
+
+        <div class="breadcrumb flex items-center gap-[8px] mb-[9px] text-[#94a3b8]">
+          Employer
+          <span class="text-[#cbd5e1]">/</span>
+          Notifications
+        </div>
+
+        <h1 class="[margin:0] text-[#111827] leading-[1.2] tracking-[-0.7px]">Notifications</h1>
+
+        <p class="[margin:8px_0_0] text-[#64748b] text-[13px]">
+          Stay updated with your recruitment activities and account events.
+        </p>
+
+      </div>
+
+      <div class="header-actions flex items-center">
+
+        <button
+          type="button"
+          class="back-button min-h-[40px] [padding:0_15px] [background:#ffffff] text-[#475569] cursor-pointer"
+          (click)="goBack()">
+          ← Dashboard
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <!-- Summary -->
+    <section class="summary-card min-h-[125px] mb-[20px] [padding:22px_24px] [background:linear-gradient(_135deg,_#fff7ed_0%,_#ffffff_72%_)] flex items-center gap-[18px]">
+
+      <div class="summary-icon w-[52px] h-[52px] shrink-0 [background:#ffffff] flex items-center justify-center text-[21px]">
+        🔔
+      </div>
+
+      <div class="summary-content min-w-[0] [flex:1]">
+
+        <span class="summary-label text-[#f97316] tracking-[1px]">
+          NOTIFICATION CENTER
+        </span>
+
+        <h2 class="[margin:5px_0_5px] text-[#1e293b]">
+          Your latest updates
+        </h2>
+
+        <p class="[margin:0] text-[#64748b] text-[11px] leading-[1.6]">
+          Recruitment notifications, application updates and other
+          important events will appear here.
+        </p>
+
+      </div>
+
+      <div class="summary-action flex flex-col items-end gap-[9px]">
+
+        <span class="unread-badge [padding:5px_9px] [background:#ffffff] text-[#64748b]">
+          {{ unreadCount }} unread
+        </span>
+
+        <button
+          type="button"
+          class="mark-all-button [border:0] [background:transparent] text-[#ea580c] cursor-pointer"
+          [disabled]="unreadCount === 0"
+          (click)="markAllAsRead()">
+          Mark all as read
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- Notification Content -->
+    <section class="content-card [background:#ffffff] overflow-hidden [box-shadow:0_4px_15px_rgba(15,_23,_42,_0.025)]">
+
+      <!-- Toolbar -->
+      <div class="toolbar min-h-[76px] [padding:16px_20px] [border-bottom:1px_solid_#edf1f6] flex items-center justify-between gap-[20px]">
+
+        <div class="search-box w-[360px] h-[42px] [padding:0_13px] [background:#ffffff] flex items-center gap-[9px]">
+
+          <span class="search-icon text-[#94a3b8] text-[20px] leading-[1]">⌕</span>
+
+          <input
+            type="text"
+            [(ngModel)]="searchTerm"
+            (input)="onSearch()"
+            placeholder="Search notifications..."  class="w-[100%] [border:0] [outline:none] [background:transparent] text-[#334155]"/>
+
+        </div>
+
+
+        <div class="filter-tabs flex items-center gap-[4px] [padding:4px] rounded-[9px] [background:#f8fafc]">
+
+          <button
+            type="button"
+            [class.active]="activeFilter === 'all'"
+            (click)="setFilter('all')" class="min-h-[32px] [padding:0_14px] [background:transparent] text-[#64748b] cursor-pointer">
+            All
+          </button>
+
+          <button
+            type="button"
+            [class.active]="activeFilter === 'unread'"
+            (click)="setFilter('unread')" class="min-h-[32px] [padding:0_14px] [background:transparent] text-[#64748b] cursor-pointer">
+            Unread
+          </button>
+
+          <button
+            type="button"
+            [class.active]="activeFilter === 'read'"
+            (click)="setFilter('read')" class="min-h-[32px] [padding:0_14px] [background:transparent] text-[#64748b] cursor-pointer">
+            Read
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- Empty State -->
+      <div
+        class="empty-state min-h-[365px] [padding:65px_30px] flex flex-col items-center justify-center text-center"
+        *ngIf="notifications.length === 0">
+
+        <div class="empty-icon w-[68px] h-[68px] mb-[18px] rounded-[18px] [background:#fff7ed] text-[#f97316] flex items-center justify-center text-[26px]">
+          🔔
+        </div>
+
+        <h2 class="[margin:0] text-[#1e293b]">
+          No notifications yet
+        </h2>
+
+        <p class="max-w-[470px] [margin:9px_auto_22px] text-[#94a3b8] text-[12px] leading-[1.7]">
+          When there are new recruitment activities or important
+          account updates, they will appear here.
+        </p>
+
+        <button
+          type="button"
+          class="primary-button min-h-[40px] [padding:0_17px] [background:#f97316] text-[#ffffff] cursor-pointer"
+          (click)="goBack()">
+          Return to Dashboard
+        </button>
+
+      </div>
+
+
+      <!-- Notifications -->
+      <div
+        class="notification-list flex flex-col"
+        *ngIf="notifications.length > 0">
+
+        <div
+          class="notification-item min-h-[100px] [padding:18px_20px] [border-bottom:1px_solid_#edf1f6] flex items-center gap-[14px]"
+          *ngFor="let notification of notifications">
+
+          <div class="notification-icon w-[42px] h-[42px] shrink-0 rounded-[11px] [background:#fff7ed] text-[#f97316] flex items-center justify-center">
+            🔔
+          </div>
+
+          <div class="notification-content min-w-[0] [flex:1]">
+
+            <h3 class="[margin:0_0_5px] text-[#334155]">
+              Notification
+            </h3>
+
+            <p class="[margin:0] text-[#64748b] text-[11px] leading-[1.55]">
+              Notification details will be loaded from the backend.
+            </p>
+
+            <span class="notification-time block mt-[6px] text-[#a1adbc] text-[9px]">
+              —
+            </span>
+
+          </div>
+
+          <div class="notification-actions shrink-0">
+
+            <button
+              type="button"
+              class="small-button min-h-[34px] [padding:0_12px] [background:#ffffff] text-[#64748b] cursor-pointer"
+              (click)="openNotification()">
+              View
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- Information Cards -->
+    <section class="info-grid mt-[20px] grid grid-cols-[repeat(2,_1fr)] gap-[16px]">
+
+      <div class="info-card min-h-[112px] [padding:20px] [background:#ffffff] flex items-start gap-[14px]">
+
+        <div class="info-icon orange w-[38px] h-[38px] shrink-0 rounded-[10px] flex items-center justify-center">
+          🔔
+        </div>
+
+        <div>
+          <h3 class="[margin:1px_0_6px] text-[#334155]">Stay informed</h3>
+
+          <p class="[margin:0] text-[#94a3b8] text-[11px] leading-[1.65]">
+            Important recruitment events and platform updates
+            will be shown in your notification center.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="info-card min-h-[112px] [padding:20px] [background:#ffffff] flex items-start gap-[14px]">
+
+        <div class="info-icon green w-[38px] h-[38px] shrink-0 rounded-[10px] flex items-center justify-center">
+          ✓
+        </div>
+
+        <div>
+          <h3 class="[margin:1px_0_6px] text-[#334155]">Unread notifications</h3>
+
+          <p class="[margin:0] text-[#94a3b8] text-[11px] leading-[1.65]">
+            Unread notifications will be highlighted so you can
+            quickly identify new activity.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>

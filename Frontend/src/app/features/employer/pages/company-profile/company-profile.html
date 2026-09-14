@@ -1,0 +1,778 @@
+<div class="profile-shell min-h-[100vh] [background:#f8f9ff] text-[#0b1c30]">
+  <app-employer-sidebar />
+
+  <!-- Sidebar -->
+  <aside hidden class="sidebar fixed [inset:0_auto_0_0] w-[280px] h-[100vh] [padding:18px_14px] [background:#ffffff] [border-right:1px_solid_#e5eaf2] flex flex-col justify-between z-[50]">
+
+    <div>
+
+      <div class="brand flex items-center gap-[11px] [padding:4px_10px_26px]">
+        <div class="brand-logo w-[38px] h-[38px] rounded-[10px] [background:#f97316] text-[#ffffff] flex items-center justify-center">SR</div>
+
+        <div>
+          <div class="brand-name">SmartRecruit</div>
+          <div class="brand-subtitle mt-[3px] text-[#68768a] uppercase tracking-[.1em]">Talent Workspace</div>
+        </div>
+      </div>
+
+      <nav class="navigation flex flex-col gap-[4px]">
+
+        <a class="nav-item min-h-[43px] [padding:0_12px] rounded-[8px] flex items-center gap-[11px] no-underline cursor-pointer" routerLink="/employer/dashboard">
+          <span class="w-5 text-center" aria-hidden="true">●</span>
+          <span>Dashboard</span>
+        </a>
+
+        <a class="nav-item active min-h-[43px] [padding:0_12px] rounded-[8px] flex items-center gap-[11px] no-underline cursor-pointer" routerLink="/employer/company-profile">
+          <span class="w-5 text-center" aria-hidden="true">●</span>
+          <span>Company Profile</span>
+        </a>
+
+        <a class="nav-item min-h-[43px] [padding:0_12px] rounded-[8px] flex items-center gap-[11px] no-underline cursor-pointer" routerLink="/employer/vacancy-list">
+          <span class="w-5 text-center" aria-hidden="true">●</span>
+          <span>Vacancies</span>
+        </a>
+
+        <a class="nav-item min-h-[43px] [padding:0_12px] rounded-[8px] flex items-center gap-[11px] no-underline cursor-pointer" routerLink="/applications/applicants-list">
+          <span class="w-5 text-center" aria-hidden="true">●</span>
+          <span>Applicants</span>
+        </a>
+
+        <a class="nav-item min-h-[43px] [padding:0_12px] rounded-[8px] flex items-center gap-[11px] no-underline cursor-pointer" routerLink="/contact/contact-requests">
+          <span class="w-5 text-center" aria-hidden="true">●</span>
+          <span>Contact Requests</span>
+        </a>
+
+        <a class="nav-item min-h-[43px] [padding:0_12px] rounded-[8px] flex items-center gap-[11px] no-underline cursor-pointer" routerLink="/notifications/notification-list">
+          <span class="w-5 text-center" aria-hidden="true">●</span>
+          <span>Notifications</span>
+        </a>
+
+      </nav>
+
+    </div>
+
+    <div class="sidebar-bottom flex flex-col gap-[11px]">
+
+        <button type="button" (click)="logout()" class="sign-out [background:transparent] text-[#58677a] [padding:10px_12px] flex items-center gap-[10px] cursor-pointer text-left">
+        <span class="w-5 text-center" aria-hidden="true">↪</span>
+        <span>Sign Out</span>
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- Main -->
+  <div class="main-area ml-[280px] min-h-[100vh]">
+
+    <!-- Header -->
+    <header class="top-header sticky top-[0] h-[64px] [padding:0_32px] [background:rgba(248,_249,_255,_.94)] [border-bottom:1px_solid_#e8edf5] flex items-center justify-between z-[40]">
+
+      <div class="header-title flex items-center gap-[28px] [flex:1]">
+        <h1 class="[margin:0] whitespace-nowrap">Company Profile</h1>
+
+        <div class="search-box relative w-[min(450px,_100%)]">
+          <span class="material-symbols-outlined absolute left-[12px] top-[50%] text-[#718096]">search</span>
+
+          <input
+            type="text"
+            placeholder="Search candidates, vacancies, or skills..."  class="w-[100%] h-[38px] [padding:0_13px_0_40px] [background:#ffffff] [outline:none]"/>
+        </div>
+      </div>
+
+      <div class="header-actions flex items-center gap-[18px]">
+
+        <button class="icon-button [background:transparent] text-[#68768a] [padding:7px] cursor-pointer" routerLink="/notifications/notification-list">
+          <span class="material-symbols-outlined">
+            notifications
+          </span>
+        </button>
+
+        <div class="user-profile flex items-center gap-[9px]">
+
+          <div class="user-avatar w-[34px] h-[34px] rounded-[50%] [background:#ffdbca] text-[#783200] flex items-center justify-center">E</div>
+
+          <div class="user-details">
+            <strong class="block text-[11px]">Employer</strong>
+            <span class="block mt-[2px] text-[#718096] text-[9px]">Talent Manager</span>
+          </div>
+
+          <span class="material-symbols-outlined">
+            expand_more
+          </span>
+
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- Page Content -->
+    <main class="content max-w-[1500px] [margin:auto] [padding:32px]">
+
+      <section class="mb-6 flex items-end justify-between gap-6">
+        <div><p class="mb-2 text-xs font-bold uppercase tracking-widest text-orange-500">Employer Profile</p><h2 class="text-3xl font-bold text-slate-900">Company Profile</h2><p class="mt-2 text-sm text-slate-500">Manage the company information shown to candidates.</p></div>
+        <button *ngIf="loadedCompany && !isEditing" type="button" (click)="editProfile()" class="rounded-lg bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white">Edit Profile</button>
+      </section>
+
+      <p role="status" *ngIf="isLoading">Loading company profile...</p>
+      <p role="alert" *ngIf="errorMessage">{{ errorMessage }}</p>
+      <p role="status" *ngIf="saved" class="mb-4 rounded-lg bg-emerald-50 p-3 text-sm text-emerald-700">Company information saved successfully.</p>
+
+      <form *ngIf="!isLoading" (ngSubmit)="saveProfile()" class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+        <fieldset [disabled]="isSaving || (!!loadedCompany && !isEditing)" class="grid grid-cols-1 gap-5 md:grid-cols-2">
+          <label class="text-sm font-semibold text-slate-700">Company Name<input name="companyName" [(ngModel)]="companyName" required maxlength="150" class="mt-2 h-11 w-full rounded-lg border border-slate-200 px-3 font-normal disabled:bg-slate-50"></label>
+          <label class="text-sm font-semibold text-slate-700">Industry<input name="industry" [(ngModel)]="industry" maxlength="100" class="mt-2 h-11 w-full rounded-lg border border-slate-200 px-3 font-normal disabled:bg-slate-50"></label>
+          <label class="text-sm font-semibold text-slate-700">Location<input name="location" [(ngModel)]="location" maxlength="200" class="mt-2 h-11 w-full rounded-lg border border-slate-200 px-3 font-normal disabled:bg-slate-50"></label>
+          <label class="text-sm font-semibold text-slate-700">Website<input name="website" [(ngModel)]="website" type="url" maxlength="250" class="mt-2 h-11 w-full rounded-lg border border-slate-200 px-3 font-normal disabled:bg-slate-50"></label>
+          <label class="text-sm font-semibold text-slate-700">Contact Email<input name="contactEmail" [(ngModel)]="contactEmail" type="email" maxlength="150" class="mt-2 h-11 w-full rounded-lg border border-slate-200 px-3 font-normal disabled:bg-slate-50"></label>
+          <label class="text-sm font-semibold text-slate-700">Contact Phone<input name="contactPhone" [(ngModel)]="contactPhone" maxlength="30" class="mt-2 h-11 w-full rounded-lg border border-slate-200 px-3 font-normal disabled:bg-slate-50"></label>
+          <label class="text-sm font-semibold text-slate-700 md:col-span-2">Description<textarea name="description" [(ngModel)]="description" maxlength="1000" rows="6" class="mt-2 w-full rounded-lg border border-slate-200 p-3 font-normal disabled:bg-slate-50"></textarea></label>
+        </fieldset>
+        <div *ngIf="!loadedCompany || isEditing" class="mt-6 flex justify-end gap-3">
+          <button *ngIf="loadedCompany" type="button" (click)="cancel()" [disabled]="isSaving" class="rounded-lg border border-slate-200 px-5 py-2.5 text-sm font-semibold text-slate-600">Cancel</button>
+          <button type="submit" [disabled]="isSaving || (!loadedCompany && !canCreateCompany)" class="rounded-lg bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-50">{{ loadedCompany ? 'Save Changes' : 'Save Company Profile' }}</button>
+        </div>
+      </form>
+
+      <section class="mt-5 rounded-xl border border-slate-200 bg-white p-5"><div class="flex justify-between text-sm"><span class="font-semibold text-slate-700">Profile Strength</span><span class="font-bold text-orange-600">{{ profileCompletion }}%</span></div><div class="mt-3 h-2 overflow-hidden rounded-full bg-slate-100"><div class="h-full bg-orange-500" [style.width.%]="profileCompletion"></div></div></section>
+
+      <div hidden>
+
+      <!-- Page Heading -->
+      <section class="page-heading flex justify-between items-end gap-[25px] mb-[24px]">
+
+        <div>
+          <div class="eyebrow [margin:0_0_7px] text-[#f97316] tracking-[.12em]">EMPLOYER PROFILE</div>
+
+          <h2 class="[margin:0] text-[28px] leading-[1.25] tracking-[-.02em]">Build your company profile</h2>
+
+          <p class="max-w-[680px] [margin:8px_0_0] text-[#718096] text-[13px] leading-[1.65]">
+            Complete your company information to help candidates
+            understand your organization and improve matching quality.
+          </p>
+        </div>
+
+        <div class="heading-actions flex gap-[9px]">
+
+          <button
+            class="cancel-button min-h-[40px] [padding:0_15px] cursor-pointer inline-flex items-center justify-center gap-[7px] [background:#ffffff] text-[#526176]"
+            type="button"
+            (click)="cancel()">
+            Cancel
+          </button>
+
+          <button
+            class="save-button min-h-[40px] [padding:0_15px] cursor-pointer inline-flex items-center justify-center gap-[7px] [background:#f97316] text-[#ffffff] [box-shadow:0_4px_12px_rgba(249,_115,_22,_.16)]"
+            type="button"
+            (click)="saveProfile()" [disabled]="isLoading || isSaving || (!loadedCompany && !canCreateCompany)">
+
+            <span class="material-symbols-outlined">
+              save
+            </span>
+
+            Save Profile
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <p role="status" *ngIf="isLoading">Loading company profile...</p>
+      <p role="alert" *ngIf="errorMessage">{{ errorMessage }}</p>
+      <p>Legal name, company size, founded year, headquarters, address, city, country and contact name are not saved by the current API. The saved company location is preserved.</p>
+      <p *ngIf="loadedCompany">Saved location: {{ loadedCompany.location || 'Not provided' }}</p>
+
+      <!-- Success Message -->
+      <div
+        *ngIf="saved"
+        class="success-message mb-[18px] [padding:12px_15px] [background:#ecfaf3] text-[#16734a] flex items-center gap-[8px]">
+
+        <span class="material-symbols-outlined">
+          check_circle
+        </span>
+
+        <span>
+          Supported company information saved successfully. Additional profile fields were not saved.
+        </span>
+
+      </div>
+
+
+      <!-- Profile Strength -->
+      <section class="strength-card mb-[22px] [padding:20px] [background:#ffffff] [box-shadow:0_2px_8px_rgba(17,_24,_39,_.025)]">
+
+        <div class="strength-top flex items-center justify-between gap-[20px]">
+
+          <div class="strength-left flex items-center gap-[16px]">
+
+            <div class="progress-ring relative w-[65px] h-[65px] shrink-0">
+
+              <svg viewBox="0 0 52 52" class="w-[100%] h-[100%]">
+
+                <circle
+                  class="ring-background"
+                  cx="26"
+                  cy="26"
+                  r="21">
+                </circle>
+
+                <circle
+                  class="ring-progress"
+                  cx="26"
+                  cy="26"
+                  r="21"
+                  [style.stroke-dashoffset]="132 - (132 * profileCompletion / 100)">
+                </circle>
+
+              </svg>
+
+              <div class="percentage absolute [inset:0] flex items-center justify-center">
+                {{ profileCompletion }}%
+              </div>
+
+            </div>
+
+            <div>
+
+              <div class="strength-title">
+                Profile Strength
+              </div>
+
+              <p class="[margin:4px_0_0] text-[#718096] text-[11px]">
+                Complete more sections to improve your
+                candidate matching quality.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="completion-label [padding:7px_10px] rounded-[7px] [background:#ffdbca] text-[#783200] flex items-center gap-[5px]">
+
+            <span class="material-symbols-outlined">
+              trending_up
+            </span>
+
+            {{ profileCompletion }}% Complete
+
+          </div>
+
+        </div>
+
+
+        <div class="checklist grid grid-cols-[repeat(5,_1fr)] gap-[7px] mt-[19px]">
+
+          <div
+            class="check-item min-h-[39px] [padding:0_10px] rounded-[7px] flex items-center gap-[7px] text-[#26364b]"
+            [class.completed]="companyName.trim() !== ''">
+
+            <span class="material-symbols-outlined text-[#7a8799]">
+              {{ companyName.trim() !== '' ? 'check_circle' : 'radio_button_unchecked' }}
+            </span>
+
+            <span>Basic Info</span>
+
+          </div>
+
+          <div
+            class="check-item min-h-[39px] [padding:0_10px] rounded-[7px] flex items-center gap-[7px] text-[#26364b]"
+            [class.completed]="headquarters.trim() !== ''">
+
+            <span class="material-symbols-outlined text-[#7a8799]">
+              {{ headquarters.trim() !== '' ? 'check_circle' : 'radio_button_unchecked' }}
+            </span>
+
+            <span>Location & HQ</span>
+
+          </div>
+
+          <div
+            class="check-item min-h-[39px] [padding:0_10px] rounded-[7px] flex items-center gap-[7px] text-[#26364b]"
+            [class.completed]="contactEmail.trim() !== ''">
+
+            <span class="material-symbols-outlined text-[#7a8799]">
+              {{ contactEmail.trim() !== '' ? 'check_circle' : 'radio_button_unchecked' }}
+            </span>
+
+            <span>Contact Rep</span>
+
+          </div>
+
+          <div
+            class="check-item min-h-[39px] [padding:0_10px] rounded-[7px] flex items-center gap-[7px] text-[#26364b]"
+            [class.completed]="description.trim() !== ''">
+
+            <span class="material-symbols-outlined text-[#7a8799]">
+              {{ description.trim() !== '' ? 'check_circle' : 'radio_button_unchecked' }}
+            </span>
+
+            <span>Company Bio</span>
+
+          </div>
+
+          <div class="check-item pending min-h-[39px] [padding:0_10px] rounded-[7px] flex items-center gap-[7px] text-[#26364b]">
+
+            <span class="material-symbols-outlined text-[#7a8799]">
+              radio_button_unchecked
+            </span>
+
+            <span>Culture & Perks</span>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <p role="status" *ngIf="isSaving">Saving company profile...</p>
+
+      <!-- Company Form -->
+      <form
+        class="profile-form flex flex-col gap-[18px]"
+        (ngSubmit)="saveProfile()">
+
+
+        <!-- Basic Information -->
+        <section class="form-card [padding:22px] [background:#ffffff] [box-shadow:0_2px_8px_rgba(17,_24,_39,_.025)]">
+
+          <div class="section-header flex items-start gap-[11px] mb-[20px]">
+
+            <div class="section-icon w-[34px] h-[34px] rounded-[8px] [background:#eff4ff] text-[#f97316] flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined">
+                corporate_fare
+              </span>
+            </div>
+
+            <div>
+
+              <h3 class="[margin:1px_0_3px]">Basic Company Information</h3>
+
+              <p class="[margin:0] text-[#718096] text-[11px] leading-[1.5]">
+                Public branding details displayed across job posts
+                and candidate feeds.
+              </p>
+
+            </div>
+
+            <span class="section-number ml-[auto] text-[#f97316] tracking-[.1em] whitespace-nowrap">
+              SECTION 01
+            </span>
+
+          </div>
+
+
+          <div class="form-grid grid grid-cols-[repeat(2,_minmax(0,_1fr))] gap-[17px]">
+
+            <div class="field flex flex-col gap-[6px]">
+
+              <label class="text-[#26364b]">
+                Company Name
+                <span class="text-[#f97316]">*</span>
+              </label>
+
+              <input
+                type="text"
+                name="companyName"
+                [(ngModel)]="companyName"
+                placeholder="Enter company name"
+                required  class="w-[100%] [background:#eff4ff] text-[#26364b] [outline:none] h-[40px]"/>
+
+              <small class="text-[#7a8799] text-[9px] leading-[1.4]">
+                Primary trading name recognized by candidates.
+              </small>
+
+            </div>
+
+
+            <div class="field flex flex-col gap-[6px]">
+
+              <label class="text-[#26364b]">
+                Legal Entity / Registered Name
+              </label>
+
+              <input
+                type="text"
+                name="legalName"
+                [(ngModel)]="legalName"
+                placeholder="Enter registered company name"  class="w-[100%] [background:#eff4ff] text-[#26364b] [outline:none] h-[40px]"/>
+
+              <small class="text-[#7a8799] text-[9px] leading-[1.4]">
+                Used for offer letters and contract validation.
+              </small>
+
+            </div>
+
+
+            <div class="field flex flex-col gap-[6px]">
+
+              <label class="text-[#26364b]">Company Website</label>
+
+              <div class="input-with-icon relative">
+
+                <span class="material-symbols-outlined absolute left-[11px] top-[50%] text-[#7a8799]">
+                  language
+                </span>
+
+                <input
+                  type="url"
+                  name="website"
+                  [(ngModel)]="website"
+                  placeholder="https://example.com"  class="w-[100%] [background:#eff4ff] text-[#26364b] [outline:none] h-[40px]"/>
+
+              </div>
+
+            </div>
+
+
+            <div class="field flex flex-col gap-[6px]">
+
+              <label class="text-[#26364b]">Industry</label>
+
+              <select
+                name="industry"
+                [(ngModel)]="industry" class="w-[100%] [background:#eff4ff] text-[#26364b] [outline:none] h-[40px]">
+
+                <option value="">
+                  Select industry
+                </option>
+
+                <option value="Technology">
+                  Technology
+                </option>
+
+                <option value="Finance">
+                  Finance
+                </option>
+
+                <option value="Healthcare">
+                  Healthcare
+                </option>
+
+                <option value="Education">
+                  Education
+                </option>
+
+                <option value="Retail">
+                  Retail
+                </option>
+
+                <option value="Manufacturing">
+                  Manufacturing
+                </option>
+
+                <option value="Other">
+                  Other
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="field flex flex-col gap-[6px]">
+
+              <label class="text-[#26364b]">Company Size</label>
+
+              <select
+                name="companySize"
+                [(ngModel)]="companySize" class="w-[100%] [background:#eff4ff] text-[#26364b] [outline:none] h-[40px]">
+
+                <option value="">
+                  Select company size
+                </option>
+
+                <option value="1-10">
+                  1 - 10 employees
+                </option>
+
+                <option value="11-50">
+                  11 - 50 employees
+                </option>
+
+                <option value="51-200">
+                  51 - 200 employees
+                </option>
+
+                <option value="201-500">
+                  201 - 500 employees
+                </option>
+
+                <option value="501-1000">
+                  501 - 1000 employees
+                </option>
+
+                <option value="1000+">
+                  1000+ employees
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="field flex flex-col gap-[6px]">
+
+              <label class="text-[#26364b]">Founded Year</label>
+
+              <input
+                type="number"
+                name="foundedYear"
+                [(ngModel)]="foundedYear"
+                placeholder="e.g. 2015"  class="w-[100%] [background:#eff4ff] text-[#26364b] [outline:none] h-[40px]"/>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- Location -->
+        <section class="form-card [padding:22px] [background:#ffffff] [box-shadow:0_2px_8px_rgba(17,_24,_39,_.025)]">
+
+          <div class="section-header flex items-start gap-[11px] mb-[20px]">
+
+            <div class="section-icon w-[34px] h-[34px] rounded-[8px] [background:#eff4ff] text-[#f97316] flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined">
+                location_on
+              </span>
+            </div>
+
+            <div>
+
+              <h3 class="[margin:1px_0_3px]">Location & Headquarters</h3>
+
+              <p class="[margin:0] text-[#718096] text-[11px] leading-[1.5]">
+                Help candidates understand where your organization
+                operates.
+              </p>
+
+            </div>
+
+            <span class="section-number ml-[auto] text-[#f97316] tracking-[.1em] whitespace-nowrap">
+              SECTION 02
+            </span>
+
+          </div>
+
+
+          <div class="form-grid grid grid-cols-[repeat(2,_minmax(0,_1fr))] gap-[17px]">
+
+            <div class="field flex flex-col gap-[6px]">
+
+              <label class="text-[#26364b]">Headquarters</label>
+
+              <input
+                type="text"
+                name="headquarters"
+                [(ngModel)]="headquarters"
+                placeholder="Headquarters location"  class="w-[100%] [background:#eff4ff] text-[#26364b] [outline:none] h-[40px]"/>
+
+            </div>
+
+
+            <div class="field flex flex-col gap-[6px]">
+
+              <label class="text-[#26364b]">City</label>
+
+              <input
+                type="text"
+                name="city"
+                [(ngModel)]="city"
+                placeholder="City"  class="w-[100%] [background:#eff4ff] text-[#26364b] [outline:none] h-[40px]"/>
+
+            </div>
+
+
+            <div class="field flex flex-col gap-[6px]">
+
+              <label class="text-[#26364b]">Country</label>
+
+              <input
+                type="text"
+                name="country"
+                [(ngModel)]="country"
+                placeholder="Country"  class="w-[100%] [background:#eff4ff] text-[#26364b] [outline:none] h-[40px]"/>
+
+            </div>
+
+
+            <div class="field full-width flex flex-col gap-[6px]">
+
+              <label class="text-[#26364b]">Office Address</label>
+
+              <textarea
+                name="address"
+                [(ngModel)]="address"
+                rows="3"
+                placeholder="Enter complete office address" class="w-[100%] [background:#eff4ff] text-[#26364b] [outline:none] resize-y min-h-[105px] leading-[1.55]">
+              </textarea>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- Contact -->
+        <section class="form-card [padding:22px] [background:#ffffff] [box-shadow:0_2px_8px_rgba(17,_24,_39,_.025)]">
+
+          <div class="section-header flex items-start gap-[11px] mb-[20px]">
+
+            <div class="section-icon w-[34px] h-[34px] rounded-[8px] [background:#eff4ff] text-[#f97316] flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined">
+                person
+              </span>
+            </div>
+
+            <div>
+
+              <h3 class="[margin:1px_0_3px]">Recruitment Contact</h3>
+
+              <p class="[margin:0] text-[#718096] text-[11px] leading-[1.5]">
+                Primary representative candidates can contact
+                regarding recruitment.
+              </p>
+
+            </div>
+
+            <span class="section-number ml-[auto] text-[#f97316] tracking-[.1em] whitespace-nowrap">
+              SECTION 03
+            </span>
+
+          </div>
+
+
+          <div class="form-grid grid grid-cols-[repeat(2,_minmax(0,_1fr))] gap-[17px]">
+
+            <div class="field flex flex-col gap-[6px]">
+
+              <label class="text-[#26364b]">Contact Name</label>
+
+              <input
+                type="text"
+                name="contactName"
+                [(ngModel)]="contactName"
+                placeholder="Recruiter or HR representative"  class="w-[100%] [background:#eff4ff] text-[#26364b] [outline:none] h-[40px]"/>
+
+            </div>
+
+
+            <div class="field flex flex-col gap-[6px]">
+
+              <label class="text-[#26364b]">Email Address</label>
+
+              <input
+                type="email"
+                name="contactEmail"
+                [(ngModel)]="contactEmail"
+                placeholder="recruitment@example.com"  class="w-[100%] [background:#eff4ff] text-[#26364b] [outline:none] h-[40px]"/>
+
+            </div>
+
+
+            <div class="field flex flex-col gap-[6px]">
+
+              <label class="text-[#26364b]">Phone Number</label>
+
+              <input
+                type="tel"
+                name="contactPhone"
+                [(ngModel)]="contactPhone"
+                placeholder="+94 XX XXX XXXX"  class="w-[100%] [background:#eff4ff] text-[#26364b] [outline:none] h-[40px]"/>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- Company Bio -->
+        <section class="form-card [padding:22px] [background:#ffffff] [box-shadow:0_2px_8px_rgba(17,_24,_39,_.025)]">
+
+          <div class="section-header flex items-start gap-[11px] mb-[20px]">
+
+            <div class="section-icon w-[34px] h-[34px] rounded-[8px] [background:#eff4ff] text-[#f97316] flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined">
+                description
+              </span>
+            </div>
+
+            <div>
+
+              <h3 class="[margin:1px_0_3px]">Company Bio</h3>
+
+              <p class="[margin:0] text-[#718096] text-[11px] leading-[1.5]">
+                Tell candidates what makes your organization unique.
+              </p>
+
+            </div>
+
+            <span class="section-number ml-[auto] text-[#f97316] tracking-[.1em] whitespace-nowrap">
+              SECTION 04
+            </span>
+
+          </div>
+
+
+          <div class="field flex flex-col gap-[6px]">
+
+            <label class="text-[#26364b]">Company Description</label>
+
+            <textarea
+              name="description"
+              [(ngModel)]="description"
+              rows="7"
+              maxlength="1000"
+              placeholder="Describe your company, mission, products, culture and what makes your organization a great place to work..." class="w-[100%] [background:#eff4ff] text-[#26364b] [outline:none] resize-y min-h-[105px] leading-[1.55]">
+            </textarea>
+
+            <small class="text-[#7a8799] text-[9px] leading-[1.4]">
+              A clear company description helps candidates understand
+              your organization before applying.
+            </small>
+
+          </div>
+
+        </section>
+
+
+        <!-- Bottom Actions -->
+        <div class="bottom-actions sticky bottom-[0] [padding:14px_0] [background:rgba(248,_249,_255,_.94)] [border-top:1px_solid_#e5eaf2] flex justify-end gap-[9px]">
+
+          <button
+            type="button"
+            class="cancel-button min-h-[40px] [padding:0_15px] cursor-pointer inline-flex items-center justify-center gap-[7px] [background:#ffffff] text-[#526176]"
+            (click)="cancel()">
+            Cancel
+          </button>
+
+          <button
+            type="submit" [disabled]="isLoading || isSaving || (!loadedCompany && !canCreateCompany)"
+            class="save-button min-h-[40px] [padding:0_15px] cursor-pointer inline-flex items-center justify-center gap-[7px] [background:#f97316] text-[#ffffff] [box-shadow:0_4px_12px_rgba(249,_115,_22,_.16)]">
+
+            <span class="material-symbols-outlined">
+              save
+            </span>
+
+            Save Company Profile
+
+          </button>
+
+        </div>
+
+      </form>
+
+      </div>
+    </main>
+
+  </div>
+
+</div>

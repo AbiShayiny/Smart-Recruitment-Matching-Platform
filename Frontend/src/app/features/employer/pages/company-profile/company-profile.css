@@ -1,0 +1,423 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:host {
+  display: block;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* SIDEBAR */
+
+.brand-logo {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.brand-name {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.brand-subtitle {
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.nav-item {
+  color: #58677a;
+  font-size: 13px;
+  font-weight: 500;
+  transition: .2s;
+}
+
+.nav-item:hover {
+  background: #eff4ff;
+  color: #0b1c30;
+}
+
+.nav-item.active {
+  background: #ffdbca;
+  color: #783200;
+  font-weight: 600;
+  box-shadow: 0 0 0 1px rgba(249, 115, 22, .25);
+}
+
+.nav-item .material-symbols-outlined {
+  font-size: 20px;
+}
+
+.prototype-card > .material-symbols-outlined {
+  font-size: 19px;
+}
+
+.sign-out {
+  border: 0;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 13px;
+}
+
+.sign-out:hover {
+  background: #eff4ff;
+}
+
+/* MAIN */
+
+.top-header {
+  backdrop-filter: blur(16px);
+}
+
+.header-title h1 {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.search-box .material-symbols-outlined {
+  transform: translateY(-50%);
+  font-size: 19px;
+}
+
+.search-box input {
+  border: 1px solid #e4e9f1;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 12px;
+}
+
+.search-box input:focus {
+  border-color: #f97316;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, .08);
+}
+
+.icon-button {
+  border: 0;
+  border-radius: 8px;
+}
+
+.icon-button:hover {
+  background: #e8edf5;
+}
+
+.user-avatar {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* CONTENT */
+
+.eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* BUTTONS */
+
+.cancel-button,
+.save-button {
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.cancel-button {
+  border: 1px solid #dce3ee;
+}
+
+.cancel-button:hover {
+  background: #eff4ff;
+}
+
+.save-button {
+  border: 0;
+}
+
+.save-button:hover {
+  background: #ea680d;
+}
+
+.save-button .material-symbols-outlined {
+  font-size: 17px;
+}
+
+/* SUCCESS */
+
+.success-message {
+  border-radius: 9px;
+  border: 1px solid #b7e6cf;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* PROFILE STRENGTH */
+
+.strength-card {
+  border: 1px solid #e5eaf2;
+  border-radius: 15px;
+}
+
+.progress-ring svg {
+  transform: rotate(-90deg);
+}
+
+.ring-background,
+.ring-progress {
+  fill: transparent;
+  stroke-width: 4;
+}
+
+.ring-background {
+  stroke: #e8edf5;
+}
+
+.ring-progress {
+  stroke: #f97316;
+  stroke-linecap: round;
+  stroke-dasharray: 132;
+  transition: stroke-dashoffset .3s ease;
+}
+
+.percentage {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.strength-title {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.completion-label {
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.completion-label .material-symbols-outlined {
+  font-size: 15px;
+}
+
+.check-item {
+  background: #eff4ff;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.check-item .material-symbols-outlined {
+  font-size: 17px;
+}
+
+.check-item.completed .material-symbols-outlined {
+  color: #f97316;
+}
+
+.check-item.pending {
+  background: #e5eeff;
+}
+
+/* FORM */
+
+.form-card {
+  border: 1px solid #e5eaf2;
+  border-radius: 15px;
+}
+
+.section-icon .material-symbols-outlined {
+  font-size: 19px;
+}
+
+.section-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.section-number {
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.field.full-width {
+  grid-column: 1 / -1;
+}
+
+.field label {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.field input,
+.field select,
+.field textarea {
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-family: inherit;
+  font-size: 12px;
+  transition: .2s;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: #91a0b3;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: rgba(249, 115, 22, .45);
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, .07);
+}
+
+.input-with-icon .material-symbols-outlined {
+  transform: translateY(-50%);
+  font-size: 18px;
+}
+
+.input-with-icon input {
+  padding-left: 37px;
+}
+
+/* BOTTOM ACTIONS */
+
+.bottom-actions {
+  backdrop-filter: blur(12px);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1100px) {
+
+  .sidebar {
+    width: 230px;
+  }
+
+  .main-area {
+    margin-left: 230px;
+  }
+
+  .content {
+    padding: 26px 22px;
+  }
+
+  .checklist {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .top-header {
+    padding: 0 22px;
+  }
+}
+
+@media (max-width: 800px) {
+
+  .sidebar {
+    width: 70px;
+    padding: 18px 8px;
+  }
+
+  .brand {
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .brand > div:last-child,
+  .nav-item span:not(.material-symbols-outlined),
+  .prototype-card > div,
+  .sign-out span:last-child {
+    display: none;
+  }
+
+  .nav-item {
+    justify-content: center;
+    padding: 0;
+  }
+
+  .prototype-card {
+    justify-content: center;
+  }
+
+  .sign-out {
+    justify-content: center;
+  }
+
+  .main-area {
+    margin-left: 70px;
+  }
+
+  .header-title h1 {
+    display: none;
+  }
+
+  .page-heading {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .heading-actions {
+    width: 100%;
+  }
+
+  .heading-actions button {
+    flex: 1;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .field.full-width {
+    grid-column: auto;
+  }
+
+  .checklist {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .strength-top {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 500px) {
+
+  .content {
+    padding: 20px 14px 30px;
+  }
+
+  .top-header {
+    padding: 0 12px;
+  }
+
+  .user-details,
+  .user-profile > .material-symbols-outlined {
+    display: none;
+  }
+
+  .page-heading h2 {
+    font-size: 24px;
+  }
+
+  .checklist {
+    grid-template-columns: 1fr;
+  }
+
+  .section-number {
+    display: none;
+  }
+
+  .form-card {
+    padding: 17px;
+  }
+
+  .bottom-actions {
+    flex-direction: column-reverse;
+  }
+
+  .bottom-actions button {
+    width: 100%;
+  }
+}

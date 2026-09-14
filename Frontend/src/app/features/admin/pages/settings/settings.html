@@ -1,0 +1,28 @@
+<div class="min-h-screen bg-slate-50 text-slate-800">
+  <aside class="fixed left-0 top-0 hidden lg:flex h-screen w-72 bg-slate-900 text-white flex-col justify-between p-5 z-40">
+    <div>
+      <div class="flex items-center gap-3 px-3 pb-8"><div class="w-10 h-10 rounded-lg bg-orange-500 flex items-center justify-center text-xl font-bold">✦</div><div><h1 class="text-base font-bold">Smart Match</h1><p class="text-[10px] text-slate-400 uppercase tracking-wider mt-1">Recruitment AI</p></div></div>
+      <p class="px-3 mb-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Core Navigation</p>
+      <nav class="space-y-1">
+        <a routerLink="/admin/dashboard" class="block px-3 py-3 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white text-sm">Dashboard</a>
+        <a routerLink="/admin/users" class="block px-3 py-3 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white text-sm">User Management</a>
+        <a routerLink="/admin/settings" aria-current="page" class="block px-3 py-3 rounded-lg bg-orange-500 text-white font-semibold text-sm shadow-sm">Settings</a>
+      </nav>
+    </div>
+    <a routerLink="/auth/login" class="flex items-center gap-3 px-3 py-3 rounded-lg text-red-300 hover:bg-red-500/10 hover:text-red-200 text-sm">↪ <span>Logout</span></a>
+  </aside>
+  <div class="lg:ml-72 min-h-screen">
+    <header class="sticky top-0 z-30 h-16 bg-white/90 backdrop-blur-xl border-b border-slate-200 flex items-center px-4 sm:px-6 lg:px-8"><span class="font-bold lg:hidden">Smart Match</span><p class="hidden lg:block text-xs text-slate-400">Administrator Portal</p><div class="ml-auto flex items-center gap-3"><div class="text-right hidden sm:block"><p class="text-xs font-bold text-slate-900">Administrator</p><p class="text-[10px] text-slate-400">System Admin</p></div><div class="w-9 h-9 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center font-bold text-sm">A</div></div></header>
+    <main class="p-4 sm:p-6 lg:p-8 max-w-[1400px] mx-auto">
+      <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Admin Settings</h2>
+      <p class="mt-2 mb-8 text-sm text-slate-500">Review the platform configuration used by Smart Recruitment Matching Platform.</p>
+      <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        <section class="bg-white rounded-xl border border-slate-200 shadow-sm p-6"><h3 class="font-bold mb-4">Platform Information</h3><dl class="space-y-3 text-sm"><div><dt class="font-semibold">Platform:</dt><dd>Smart Recruitment Matching Platform</dd></div><div><dt class="font-semibold">Supported account roles:</dt><dd>Job Seeker, Employer, Administrator</dd></div><div><dt class="font-semibold">Purpose:</dt><dd>Connect job seekers with employers through vacancy and skill matching.</dd></div></dl></section>
+        <section class="bg-white rounded-xl border border-slate-200 shadow-sm p-6"><h3 class="font-bold mb-4">Security</h3><dl class="space-y-3 text-sm"><div><dt class="font-semibold">Authentication:</dt><dd>JWT-based authentication</dd></div><div><dt class="font-semibold">Password Security:</dt><dd>Secure password hashing</dd></div><div><dt class="font-semibold">Access Control:</dt><dd>Role-based access protection</dd></div></dl></section>
+        <section class="bg-white rounded-xl border border-slate-200 shadow-sm p-6"><h3 class="font-bold mb-4">Matching Engine</h3><dl class="space-y-3 text-sm"><div><dt class="font-semibold">Matching Type:</dt><dd>Rule-based weighted scoring</dd></div><div><dt class="font-semibold">Matching Inputs:</dt><dd>Skills, Experience, Education, Location</dd></div><div><dt class="font-semibold">Matching Behaviour:</dt><dd>Deterministic for the same unchanged profile and vacancy</dd></div></dl></section>
+        <section class="bg-white rounded-xl border border-slate-200 shadow-sm p-6"><h3 class="font-bold mb-4">CV Storage</h3><dl class="space-y-3 text-sm"><div><dt class="font-semibold">CV Storage:</dt><dd>Protected server-side storage</dd></div><div><dt class="font-semibold">Public Access:</dt><dd>Not publicly exposed</dd></div></dl></section>
+        <section class="xl:col-span-2 bg-white rounded-xl border border-slate-200 shadow-sm p-6"><h3 class="font-bold mb-3">Account Management</h3><p class="text-sm text-slate-600 mb-4">JobSeeker and Employer accounts can be managed from User Management.</p><a routerLink="/admin/users" class="inline-flex px-4 py-2.5 rounded-lg bg-orange-500 text-white text-sm font-semibold hover:bg-orange-600">Manage Users</a></section>
+      </div>
+    </main>
+  </div>
+</div>

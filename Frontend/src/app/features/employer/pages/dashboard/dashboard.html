@@ -1,0 +1,395 @@
+<div class="dashboard-shell min-h-[100vh] [background:#f8f9ff] text-[#0b1c30]">
+  <app-employer-sidebar />
+
+  <!-- Sidebar -->
+  <aside hidden class="sidebar fixed left-[0] top-[0] w-[280px] h-[100vh] [background:#ffffff] [border-right:1px_solid_#edf0f6] flex flex-col justify-between [padding:24px_14px] z-[20]">
+
+    <div class="brand-section flex items-center gap-[12px] [padding:0_10px_28px]">
+      <div class="brand-logo w-[38px] h-[38px] rounded-[11px] [background:#f97316] text-[#ffffff] flex items-center justify-center">SR</div>
+
+      <div>
+        <div class="brand-name tracking-[-0.02em]">SmartRecruit</div>
+        <div class="brand-subtitle mt-[3px] text-[#6b7280] uppercase tracking-[0.12em]">Talent Workspace</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav flex flex-col gap-[5px]">
+
+      <a class="nav-item active min-h-[44px] [padding:0_13px] rounded-[9px] flex items-center gap-[11px] no-underline cursor-pointer" routerLink="/employer/dashboard">
+        <span class="w-5 text-center" aria-hidden="true">●</span>
+        <span>Dashboard</span>
+      </a>
+
+      <a
+        class="nav-item min-h-[44px] [padding:0_13px] rounded-[9px] flex items-center gap-[11px] no-underline cursor-pointer" routerLink="/employer/company-profile">
+        <span class="w-5 text-center" aria-hidden="true">●</span>
+        <span>Company Profile</span>
+      </a>
+
+      <a
+        class="nav-item min-h-[44px] [padding:0_13px] rounded-[9px] flex items-center gap-[11px] no-underline cursor-pointer" routerLink="/employer/vacancy-list">
+        <span class="w-5 text-center" aria-hidden="true">●</span>
+        <span>Vacancies</span>
+      </a>
+
+      <a
+        class="nav-item min-h-[44px] [padding:0_13px] rounded-[9px] flex items-center gap-[11px] no-underline cursor-pointer" routerLink="/applications/applicants-list">
+        <span class="w-5 text-center" aria-hidden="true">●</span>
+        <span>Applicants</span>
+      </a>
+
+      <a
+        class="nav-item min-h-[44px] [padding:0_13px] rounded-[9px] flex items-center gap-[11px] no-underline cursor-pointer" routerLink="/contact/contact-requests">
+        <span class="w-5 text-center" aria-hidden="true">●</span>
+        <span>Contact Requests</span>
+
+        <span
+          *ngIf="pendingContactRequests > 0"
+          class="notification-count ml-[auto] min-w-[21px] h-[21px] rounded-[50%] [background:#f97316] text-[#ffffff] flex items-center justify-center">
+          {{ pendingContactRequests }}
+        </span>
+      </a>
+
+    </nav>
+
+    <div class="sidebar-bottom flex flex-col gap-[12px]">
+
+        <button type="button" (click)="logout()" class="sign-out [background:transparent] text-[#58677a] flex items-center gap-[11px] [padding:10px_13px] cursor-pointer text-left">
+        <span class="w-5 text-center" aria-hidden="true">↪</span>
+        <span>Sign Out</span>
+      </button>
+
+    </div>
+
+  </aside>
+
+  <!-- Main Area -->
+  <div class="main-area ml-[280px] min-h-[100vh]">
+
+    <!-- Header -->
+    <header class="top-header sticky top-[0] h-[64px] [background:rgba(248,_249,_255,_0.94)] [border-bottom:1px_solid_#edf0f6] flex items-center justify-between [padding:0_32px] z-[10]">
+
+      <div class="header-left flex items-center gap-[28px] [flex:1]">
+
+        <h1 class="[margin:0] whitespace-nowrap">Employer Dashboard</h1>
+
+        <div class="search-box relative w-[min(460px,_100%)]">
+          <span class="material-symbols-outlined absolute left-[13px] top-[50%] text-[#718096]">
+            search
+          </span>
+
+          <input
+            type="text"
+            placeholder="Search candidates, vacancies, or skills..."  class="w-[100%] h-[38px] [background:#ffffff] [padding:0_14px_0_42px] [outline:none] text-[#0b1c30]"/>
+        </div>
+
+      </div>
+
+      <div class="header-right flex items-center gap-[20px]">
+
+        <button class="notification-button relative [background:transparent] cursor-pointer text-[#58677a] [padding:7px]" routerLink="/notifications/notification-list">
+          <span class="material-symbols-outlined">
+            notifications
+          </span>
+
+          <span
+            *ngIf="pendingContactRequests > 0"
+            class="notification-dot absolute top-[5px] right-[5px] w-[7px] h-[7px] [background:#f97316]">
+          </span>
+        </button>
+
+        <div class="profile-menu flex items-center gap-[9px]">
+          <div class="profile-avatar w-[36px] h-[36px] rounded-[50%] [background:#ffdbca] text-[#783200] flex items-center justify-center font-bold">E</div>
+
+          <div class="profile-info">
+            <strong class="block text-[12px]">Employer</strong>
+            <span class="block mt-[2px] text-[10px] text-[#718096]">Talent Manager</span>
+          </div>
+
+          <span class="material-symbols-outlined">
+            expand_more
+          </span>
+        </div>
+
+      </div>
+
+    </header>
+
+    <!-- Content -->
+    <main class="dashboard-content max-w-[1600px] [margin:0_auto] [padding:34px_32px_50px]">
+
+      <!-- Welcome -->
+      <section class="welcome-section flex justify-between items-end gap-[24px] mb-[30px]">
+
+        <div>
+          <p class="eyebrow [margin:0_0_8px] text-[#f97316] tracking-[0.12em]">EMPLOYER WORKSPACE</p>
+
+          <h2 class="[margin:0] text-[30px] leading-[1.2] tracking-[-0.025em]">Welcome back!</h2>
+
+          <p class="welcome-text max-w-[680px] [margin:9px_0_0] text-[#66758a] text-[14px] leading-[1.7]">
+            Manage your vacancies, review applicants and discover
+            the best talent for your organization.
+          </p>
+        </div>
+
+      </section>
+
+      <!-- Metrics -->
+      <section class="metrics-grid grid grid-cols-[repeat(3,_minmax(0,_1fr))] gap-[16px] mb-[38px]">
+
+        <article class="metric-card [background:#ffffff] [padding:20px] min-h-[158px] [box-shadow:0_2px_8px_rgba(17,_24,_39,_0.025)]">
+
+          <div class="metric-top flex items-center justify-between gap-[10px]">
+            <span class="text-[#718096] uppercase tracking-[0.08em]">Active Vacancies</span>
+
+            <div class="metric-icon orange w-[39px] h-[39px] rounded-[11px] flex items-center justify-center">
+              <span class="material-symbols-outlined">
+                work
+              </span>
+            </div>
+          </div>
+
+          <div class="metric-number mt-[19px] leading-[1] tracking-[-0.02em]">
+            {{ activeVacancies }}
+          </div>
+
+          <p class="[margin:8px_0_0]">
+            Currently accepting applications
+          </p>
+
+        </article>
+
+        <article class="metric-card [background:#ffffff] [padding:20px] min-h-[158px] [box-shadow:0_2px_8px_rgba(17,_24,_39,_0.025)]">
+
+          <div class="metric-top flex items-center justify-between gap-[10px]">
+            <span class="text-[#718096] uppercase tracking-[0.08em]">Total Vacancies</span>
+
+            <div class="metric-icon blue w-[39px] h-[39px] rounded-[11px] flex items-center justify-center">
+              <span class="material-symbols-outlined">
+                business_center
+              </span>
+            </div>
+          </div>
+
+          <div class="metric-number mt-[19px] leading-[1] tracking-[-0.02em]">
+            {{ totalVacancies }}
+          </div>
+
+          <p class="[margin:8px_0_0]">
+            All vacancy records
+          </p>
+
+        </article>
+
+        <article class="metric-card [background:#ffffff] [padding:20px] min-h-[158px] [box-shadow:0_2px_8px_rgba(17,_24,_39,_0.025)]">
+
+          <div class="metric-top flex items-center justify-between gap-[10px]">
+            <span class="text-[#718096] uppercase tracking-[0.08em]">Total Applicants</span>
+
+            <div class="metric-icon purple w-[39px] h-[39px] rounded-[11px] flex items-center justify-center">
+              <span class="material-symbols-outlined">
+                groups
+              </span>
+            </div>
+          </div>
+
+          <div class="metric-number mt-[19px] leading-[1] tracking-[-0.02em]">
+            {{ totalApplicants }}
+          </div>
+
+          <p class="[margin:8px_0_0]">
+            Candidates in your pipeline
+          </p>
+
+        </article>
+
+      </section>
+
+      <!-- Recent Applications -->
+      <section class="content-section mt-[34px]">
+
+        <div class="section-header flex items-end justify-between gap-[20px] mb-[14px]">
+
+          <div>
+            <h3 class="[margin:0] tracking-[-0.01em]">Recent Applications</h3>
+
+            <p class="[margin:5px_0_0] text-[#718096] text-[12px]">
+              Candidates matched through our intelligent matching algorithm.
+            </p>
+          </div>
+
+          <button
+            class="text-button cursor-pointer [border:0] [background:transparent] text-[#f97316] inline-flex items-center gap-[5px]"
+            (click)="goToApplicants()">
+
+            View All Applicants
+
+            <span class="material-symbols-outlined">
+              arrow_forward
+            </span>
+
+          </button>
+
+        </div>
+
+        <div class="table-card overflow-hidden [background:#ffffff] [box-shadow:0_2px_8px_rgba(17,_24,_39,_0.025)]">
+
+          <!-- Empty State -->
+          <div
+            *ngIf="!hasRecentApplications"
+            class="empty-state [padding:42px_25px] flex flex-col items-center justify-center text-center">
+
+            <div class="empty-icon w-[54px] h-[54px] rounded-[15px] [background:#eff4ff] text-[#6c7d94] flex items-center justify-center mb-[14px]">
+              <span class="material-symbols-outlined">
+                person_search
+              </span>
+            </div>
+
+            <h4 class="[margin:0]">No recent applications</h4>
+
+            <p class="max-w-[460px] [margin:7px_0_18px] text-[#718096] text-[12px] leading-[1.6]">
+              Applications will appear here when candidates apply
+              to your vacancies.
+            </p>
+
+            <button
+              class="secondary-button cursor-pointer [background:#ffffff] text-[#26364b] min-h-[38px] [padding:0_14px] inline-flex items-center gap-[7px]"
+              (click)="goToApplicants()">
+
+              Go to Applicants
+
+              <span class="material-symbols-outlined">
+                arrow_forward
+              </span>
+
+            </button>
+
+          </div>
+
+          <!-- Applications Table -->
+          <div
+            *ngIf="hasRecentApplications"
+            class="table-wrapper w-[100%] overflow-x-auto">
+
+            <table class="w-[100%] min-w-[850px] border-collapse">
+
+              <thead class="[background:#eff4ff]">
+                <tr>
+                  <th class="h-[44px] [padding:0_16px] text-[#718096] text-left uppercase tracking-[0.07em]">Candidate</th>
+                  <th class="h-[44px] [padding:0_16px] text-[#718096] text-left uppercase tracking-[0.07em]">Vacancy</th>
+                  <th class="h-[44px] [padding:0_16px] text-[#718096] text-left uppercase tracking-[0.07em]">Match Score</th>
+                  <th class="h-[44px] [padding:0_16px] text-[#718096] text-left uppercase tracking-[0.07em]">Status</th>
+                  <th class="h-[44px] [padding:0_16px] text-[#718096] text-left uppercase tracking-[0.07em]">Applied Date</th>
+                  <th class="h-[44px] [padding:0_16px] text-[#718096] text-left uppercase tracking-[0.07em]"></th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                <tr *ngFor="let applicant of recentApplications">
+
+                  <td class="[padding:14px_16px] [border-top:1px_solid_#edf0f6] text-[12px] text-[#26364b]">
+                    {{ applicant.name }}
+                  </td>
+
+                  <td class="[padding:14px_16px] [border-top:1px_solid_#edf0f6] text-[12px] text-[#26364b]">
+                    {{ applicant.vacancy }}
+                  </td>
+
+                  <td class="[padding:14px_16px] [border-top:1px_solid_#edf0f6] text-[12px] text-[#26364b]">
+                    {{ applicant.matchScore }}%
+                  </td>
+
+                  <td class="[padding:14px_16px] [border-top:1px_solid_#edf0f6] text-[12px] text-[#26364b]">
+                    {{ applicant.status }}
+                  </td>
+
+                  <td class="[padding:14px_16px] [border-top:1px_solid_#edf0f6] text-[12px] text-[#26364b]">
+                    {{ applicant.appliedDate }}
+                  </td>
+
+                  <td class="[padding:14px_16px] [border-top:1px_solid_#edf0f6] text-[12px] text-[#26364b]">
+                    <button class="row-button cursor-pointer [background:#eff4ff] text-[#26364b] min-h-[31px] [padding:0_9px] inline-flex items-center gap-[4px]">
+                      View
+                      <span class="material-symbols-outlined">
+                        chevron_right
+                      </span>
+                    </button>
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- Active Vacancies -->
+      <section class="content-section mt-[34px]">
+
+        <div class="section-header flex items-end justify-between gap-[20px] mb-[14px]">
+
+          <div>
+            <h3 class="[margin:0] tracking-[-0.01em]">Active Vacancies</h3>
+
+            <p class="[margin:5px_0_0] text-[#718096] text-[12px]">
+              Keep track of your currently open opportunities.
+            </p>
+          </div>
+
+          <button
+            class="text-button cursor-pointer [border:0] [background:transparent] text-[#f97316] inline-flex items-center gap-[5px]"
+            (click)="goToVacancies()">
+
+            View All Vacancies
+
+            <span class="material-symbols-outlined">
+              arrow_forward
+            </span>
+
+          </button>
+
+        </div>
+
+        <div class="vacancy-empty-card [padding:42px_25px] flex flex-col items-center justify-center text-center [background:#ffffff] [box-shadow:0_2px_8px_rgba(17,_24,_39,_0.025)]">
+
+          <div class="empty-icon w-[54px] h-[54px] rounded-[15px] [background:#eff4ff] text-[#6c7d94] flex items-center justify-center mb-[14px]">
+            <span class="material-symbols-outlined">
+              work_outline
+            </span>
+          </div>
+
+          <h4 *ngIf="!hasActiveVacancies" class="[margin:0]">
+            No active vacancies
+          </h4>
+
+          <p *ngIf="!hasActiveVacancies" class="max-w-[460px] [margin:7px_0_18px] text-[#718096] text-[12px] leading-[1.6]">
+            Create your first vacancy to start attracting qualified candidates.
+          </p>
+
+          <button
+            class="primary-button small cursor-pointer [background:#f97316] text-[#ffffff] [padding:0_17px] inline-flex items-center justify-center gap-[8px] whitespace-nowrap [box-shadow:0_4px_12px_rgba(249,_115,_22,_0.18)]"
+            (click)="createVacancy()">
+
+            <span class="material-symbols-outlined">
+              add
+            </span>
+
+            Create Vacancy
+
+          </button>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+</div>
